@@ -1,12 +1,10 @@
-import { Box, Center, VStack } from "@chakra-ui/react";
-import { NavbarComp } from "../components/NavbarComp";
+import { Box, Center, VStack } from "@chakra-ui/react"
 
 export const NotificationPage = () => {
-  
-  return (
-    <div>
-      <Center>
-      <Box>
+    return (
+        <div>
+            <Center>
+        <Box w={"390px"} h={"844px"} bgColor="white">
           <Box
             className="header"
             w={"390px"}

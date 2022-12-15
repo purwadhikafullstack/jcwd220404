@@ -1,11 +1,11 @@
 import { Box, Center, VStack } from "@chakra-ui/react"
-import {NavbarComp} from "../components/NavbarComp"
+import { NavbarComp } from "../components/NavbarComp"
 
 export const TransactionPage = () => {
-  return (
-    <div>
-      <Center>
-        <Box>
+    return (
+        <div>
+            <Center>
+        <Box w={"390px"} h={"844px"} bgColor="white">
           <Box
             className="header"
             w={"390px"}
