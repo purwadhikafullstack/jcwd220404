@@ -1,25 +1,22 @@
-import axios from "axios";
-import logo from "./logo.svg";
-import "./App.css";
-import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom"
+import { LandingPage } from "./pages/LandingPage";
+import { AccountPage } from "./pages/AccountPage";
+import { NotificationPage } from "./pages/NotificationPage";
+import { TransactionPage } from "./pages/TransactionPage";
+import { CategoryPage } from "./pages/CategoryPage";
+import { CartPage } from "./pages/CartPage";
 
 function App() {
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/greetings`
-      );
-      setMessage(data?.message || "");
-    })();
-  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {message}
-      </header>
+      <Routes>
+        <Route path="/" element={<LandingPage/>}></Route>
+        <Route path="/notification" element={<NotificationPage/>}></Route>
+        <Route path="/account" element={<AccountPage/>}></Route>
+        <Route path="/transaction" element={<TransactionPage/>}></Route>
+        <Route path="/category" element={<CategoryPage/>}></Route>
+        <Route path="/cart" element={<CartPage/>}></Route>
+      </Routes>
     </div>
   );
 }
