@@ -58,6 +58,8 @@ function App() {
         ></Route>
         <Route path="/account/profile" element={<ProfilePage />}></Route>
         <Route path="/account/address" element={<AddressPage />}></Route>
+        
+        {/* <Route path="/resetpassword/:token" element={<ResetPassPage />} /> */}
       </Routes>
     </div>
   );

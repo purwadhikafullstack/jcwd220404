@@ -9,5 +9,8 @@ router.post("/login", userController.login);
 router.get("/keepLogin", userController.keepLogin);
 router.post("/verification", verifyToken, userController.verification);
 router.post("/changeotp", userController.changeOtp);
+router.post("/updatePass", verifyToken, userController.updatePassword)
+router.post("/forgotpassword", userController.sendEmailForgotPass);
+
 
 module.exports = router;
