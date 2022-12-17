@@ -9,6 +9,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.14",
     "@chakra-ui/react": "^2.4.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -26,6 +27,7 @@
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
+    "sweetalert2": "^11.6.15",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
