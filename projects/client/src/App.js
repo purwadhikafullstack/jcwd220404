@@ -60,6 +60,8 @@ function App() {
         <Route path="/account/address" element={<AddressPage />}></Route>
         
         {/* <Route path="/resetpassword/:token" element={<ResetPassPage />} /> */}
+        
+        
       </Routes>
     </div>
   );
