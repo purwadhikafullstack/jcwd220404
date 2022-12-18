@@ -1,10 +1,10 @@
 import { Box, Center, VStack } from "@chakra-ui/react";
-import { LogoComp } from "../HomeComponent/LogoComp";
-import { NotificationComp } from "../HomeComponent/NotificationComp";
-import { SearchComp } from "../HomeComponent/SearchComp";
-import { NavbarComp } from "../HomeComponent/NavbarComp";
-import { CarouselComp } from "../HomeComponent/CarouselComp";
-import { Menu } from "../HomeComponent/MenuComp";
+import { LogoComp } from "../components/HomeComponent/LogoComp";
+import { NotificationComp } from "../components/HomeComponent/NotificationComp";
+import { SearchComp } from "../components/HomeComponent/SearchComp";
+import { NavbarComp } from "../components/HomeComponent/NavbarComp";
+import { CarouselComp } from "../components/HomeComponent/CarouselComp";
+import { Menu } from "../components/HomeComponent/MenuComp";
 
 export const LandingPage = () => {
   return (

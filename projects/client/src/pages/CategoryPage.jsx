@@ -1,5 +1,5 @@
 import { Box, Center } from "@chakra-ui/react";
-import { NavbarComp } from "../HomeComponent/NavbarComp";
+import { NavbarComp } from "../components/HomeComponent/NavbarComp";
 
 export const CategoryPage = () => {
   return (

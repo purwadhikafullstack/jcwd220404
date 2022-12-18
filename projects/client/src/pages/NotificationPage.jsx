@@ -1,5 +1,5 @@
 import { Box, Center, VStack } from "@chakra-ui/react";
-import { NavbarComp } from "../HomeComponent/NavbarComp";
+import { NavbarComp } from "../components/HomeComponent/NavbarComp";
 
 export const NotificationPage = () => {
   
