@@ -56,7 +56,7 @@ export const Menu = () => {
         >
           {cards.map((item, index) => {
             return (
-              <>
+              <div>
                 <Box key={index} align="center" _hover={{ cursor: "pointer" }}>
                   <Avatar
                     border="1px"
@@ -73,7 +73,7 @@ export const Menu = () => {
                     {item[1]}
                   </Text>
                 </Box>
-              </>
+              </div>
             );
           })}
         </Flex>
