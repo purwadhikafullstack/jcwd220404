@@ -6,7 +6,7 @@ export const CategoryPage = () => {
   return (
     <div>
       <Center>
-        <Box w={"390px"} h={"844px"} bgColor="white">
+        <Box>
           <Box
             className="header"
             w={"390px"}

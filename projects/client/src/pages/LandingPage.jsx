@@ -21,27 +21,19 @@ export const LandingPage = () => {
             pt={"10px"}
             pl={"1px"}
             position="fixed"
-            zIndex="1"
+            zIndex="2"
           >
             <LogoComp />
             <SearchComp />
             <NotificationComp />
           </Box>
-          <Box className="body" bgColor="white" h={"800px"} w={"390px"}>
+          <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
             <VStack>
               <CarouselComp />
               <Menu />
             </VStack>
           </Box>
-          <Box
-            className="footer"
-            w={"390px"}
-            h={"80px"}
-            pos="fixed"
-            bottom={"0"}
-            mt={"702px"}
-            bgColor="#E5D9B6"
-          >
+          <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>
         </Box>
