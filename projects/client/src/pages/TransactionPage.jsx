@@ -5,7 +5,7 @@ export const TransactionPage = () => {
   return (
     <div>
       <Center>
-      <Box>
+        <Box>
           <Box
             className="header"
             w={"390px"}

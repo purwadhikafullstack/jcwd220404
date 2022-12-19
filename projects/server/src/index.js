@@ -3,10 +3,12 @@ const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
 const db = require("../models");
+const bearerToken = require("express-bearer-token")
+const app = express();
 
 const PORT = process.env.PORT || 8000;
-const app = express();
-app.use(cors());
+app.use(express.json());
+app.use(cors())
 // app.use(
 //   cors({
 //     origin: [
@@ -16,15 +18,16 @@ app.use(cors());
 //   })
 // );
 
-app.use(express.json());
 app.use(express.static("../Public"));
-const { userRouter } = require("../routers");
-app.use("/user", userRouter);
+app.use(bearerToken())
+
 
 //#region API ROUTES
+const { userRouter } = require("../routers");
 
 // ===========================
 // NOTE : Add your routes here
+app.use("/user", userRouter);
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);
