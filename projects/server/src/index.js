@@ -24,7 +24,6 @@ app.use(bearerToken())
 
 app.use(cors());
 app.use(express.static("../Public"));
-
 const { userRouter } = require("../routers");
 app.use("/user", userRouter);
 
