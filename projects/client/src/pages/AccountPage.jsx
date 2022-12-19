@@ -1,14 +1,14 @@
-import { Box, Center, VStack, StackDivider, Button } from "@chakra-ui/react";
+import { Box, Button, Center, StackDivider, VStack } from "@chakra-ui/react";
+import { AccountComp } from "../components/AccountComp";
+// import { EnterComp } from "../components/EnterComp";
 import { NavbarComp } from "../components/NavbarComp";
-import { AccountComp } from "../components/HomeComponent/AccountComp";
-import { EnterComp } from "../components/HomeComponent/EnterComp";
 
 export const AccountPage = () => {
   return (
     <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
-          <EnterComp />
+          {/* <EnterComp /> */}
           <AccountComp />
 
           <Box

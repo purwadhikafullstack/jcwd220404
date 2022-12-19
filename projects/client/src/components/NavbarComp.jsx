@@ -17,7 +17,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 export const NavbarComp = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const menuBar = [
     {
       icon1: IoHomeOutline,
@@ -50,7 +50,7 @@ export const NavbarComp = () => {
       url: "/account",
     },
   ];
-  
+
   const toPage = (url) => {
     navigate(url);
   };
@@ -64,7 +64,7 @@ export const NavbarComp = () => {
           bgColor="#E5D9B6"
           color="gray.800"
           dropShadow="2xl"
-          position="fixed" 
+          position="fixed"
         >
           <Flex
             justifyContent="space-evenly"
@@ -81,13 +81,15 @@ export const NavbarComp = () => {
                   borderTop={location.pathname === item.url ? "4px" : ""}
                   onClick={() => toPage(item.url, index)}
                   key={index}
-                  className={location.pathname === item.url  ? "active" : ""}
+                  className={location.pathname === item.url ? "active" : ""}
                 >
                   <Icon
                     className="icon"
                     w={7}
                     h={7}
-                    as={location.pathname === item.url ? item.icon2 : item.icon1}
+                    as={
+                      location.pathname === item.url ? item.icon2 : item.icon1
+                    }
                   />
 
                   {location.pathname === item.url ? (
