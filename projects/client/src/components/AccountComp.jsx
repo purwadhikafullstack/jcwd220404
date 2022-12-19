@@ -57,7 +57,7 @@ export const AccountComp = () => {
         </Box>
       </Box>
 
-      <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
+      <Box mt={"100px"} className="body" bgColor="white" h={"1750px"} w={"390px"}>
         <Grid
           h="120px"
           templateRows="repeat(2, 1fr)"
@@ -77,6 +77,9 @@ export const AccountComp = () => {
           <GridItem rowSpan={7} colSpan={4}>
             <Tag as={"button"} ml={"10px"} onClick={onProfile}>
               Edit Profile
+            </Tag>
+            <Tag as={"button"} ml={"10px"} onClick={onProfile}>
+              Change Password
             </Tag>
           </GridItem>
         </Grid>
@@ -129,20 +132,18 @@ export const AccountComp = () => {
             Account Settings
           </Button>
           <Collapse in={isOpen} animateOpacity>
-            <Box
-              p="5px"
-              color="black"
-              mt="10px"
-              bgColor={"salmon"}
-              rounded="md"
-              shadow="md"
-              textAlign={"center"}
-              as="button"
-              onClick={onLogout}
-              alignItems="stretch"
-            >
-              Logout
-            </Box>
+            <Stack>
+              <Button
+                color="black"
+                bgColor={"salmon"}
+                rounded="lg"
+                shadow="md"
+                textAlign={"center"}
+                onClick={onLogout}
+              >
+                Logout
+              </Button>
+            </Stack>
           </Collapse>
           <Box margin={"auto"} alignItems={"center"} bgColor={"ButtonShadow"}>
             Versi Aplikasi - 2.5.0

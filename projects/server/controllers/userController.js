@@ -1,6 +1,7 @@
 const db = require("../models");
 const user = db.User;
 const profile = db.Profile;
+const address = db.Address;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
@@ -32,9 +33,13 @@ module.exports = {
         code_otp: hashOtp,
       });
 
-      // await db.Profile.create({
-      //     UserId: data.id
-      // })
+      await profile.create({
+        UserId: data.id,
+      });
+
+      await address.create({
+        UserId: data.id,
+      });
 
       const token = jwt.sign(
         { phoneNumber: phoneNumber },
@@ -100,67 +105,6 @@ module.exports = {
     }
   },
 
-  login: async (req, res) => {
-    try {
-      const { data, password } = req.body;
-
-      const isAccountExist = await user.findOne({
-        where: {
-          [Op.or]: {
-            email: data ? data : "",
-            phoneNumber: data ? data : "",
-          },
-        },
-        raw: true,
-      });
-      // console.log(isAccountExist);
-      if (isAccountExist === null) throw "Account not found";
-      if (isAccountExist.status === false) throw "Your Account is blocked";
-
-      const payload = { phoneNumber: isAccountExist.phoneNumber };
-      const token = jwt.sign(payload, "jcwd2204");
-
-      const isProflieExist = await profile.findOne({
-        where: {
-          userId: isAccountExist.phoneNumber,
-        },
-        raw: true,
-      });
-      isAccountExist.profilePic = isProflieExist.profilePic;
-
-      const isValid = await bcrypt.compare(password, isAccountExist.password);
-
-      if (!isValid) throw `Password incorrect...`;
-
-      res.status(200).send({
-        message: "Login Succes",
-        isAccountExist,
-        token,
-      });
-    } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
-    }
-  },
-
-  keepLogin: async (req, res) => {
-    try {
-      const verify = jwt.verify(req.token, "jcwd220404");
-      const result = await user.findOne({
-        where: {
-          // [Op.or]: {
-          phoneNumber: verify.phoneNumber,
-          // name: verify.name,
-          // },
-        },
-        raw: true,
-      });
-      res.status(200).send(result);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
-
   changeOtp: async (req, res) => {
     try {
       const { phoneNumber } = req.body;
@@ -210,36 +154,77 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-};
 
-// login: async (req, res) => {
-//   try {
-//     console.log(req.body);
-//     const { phoneEmail, password } = req.body;
-//     const isUserExist = await user.findOne({
-//       where: {
-//         [Op.or]: {
-//           phoneNumber: phoneEmail ? phoneEmail : "",
-//           email: phoneEmail ? phoneEmail : "",
-//         },
-//       },
-//       raw: true,
-//     });
-//     console.log(isUserExist);
-//     if (!isUserExist) throw `User not found`;
-//     const payload = { phoneNumber: isUserExist.phoneNumber };
-//     const token = jwt.sign(payload, "jcwd220404");
-//     const isValid = await bcrypt.compare(password, isUserExist.password);
-//     if (!isValid) throw `Wrong password`;
-//     res.status(200).send({
-//       message: "Login success",
-//       isUserExist,
-//       token,
-//     });
-//   } catch (err) {
-//     res.status(400).send(err);
-//   }
-// },
+  login: async (req, res) => {
+    try {
+      const { phoneEmail, password } = req.body;
+
+      const isAccountExist = await user.findOne({
+        where: {
+          [Op.or]: {
+            phoneNumber: phoneEmail ? phoneEmail : "",
+            email: phoneEmail ? phoneEmail : "",
+          },
+        },
+        raw: true,
+      });
+
+      if (isAccountExist === null) throw "Account not found";
+      if (isAccountExist.status === false) throw "Your Account is blocked";
+
+      const payload = { phoneNumber: isAccountExist.phoneNumber };
+      const token = jwt.sign(payload, "jcwd2204");
+
+      const isProfileExist = await profile.findOne({
+        where: {
+          UserId: isAccountExist.phoneNumber,
+        },
+        raw: true,
+      });
+
+      isAccountExist.profilePic = isProfileExist.profilePic;
+      isAccountExist.gender = isProfileExist.gender;
+      isAccountExist.birthDate = isProfileExist.birthDate;
+
+      const isAddressExist = await address.findOne({
+        where: {
+          UserId: isAccountExist.phoneNumber,
+        },
+        raw: true,
+      });
+
+      isAccountExist.addressLine = isAddressExist.addressLine;
+
+      const isValid = await bcrypt.compare(password, isAccountExist.password);
+
+      if (!isValid) throw `Password incorrect`;
+
+      res.status(200).send({
+        message: "Login Succes",
+        isAccountExist,
+        token,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  keepLogin: async (req, res) => {
+    try {
+      const verify = jwt.verify(req.token, "jcwd2204");
+      const result = await user.findOne({
+        where: {
+          phoneNumber: verify.phoneNumber,
+        },
+        raw: true,
+      });
+      res.status(200).send(result);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+};
 
 //   gender: async (req, res) => {
 //     try {
