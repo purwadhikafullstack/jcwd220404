@@ -4,18 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 export const NotificationComp = () => {
   const navigate = useNavigate();
+
   const toNotification = () => {
     navigate("/notification");
   };
   return (
     <div>
-      <Box
-        pr={"23px"}
-        pt="5px"
-        as="button"
-        onClick={toNotification}
-        mt="4"
-      >
+      <Box pr={"23px"} pt="5px" as="button" onClick={toNotification} mt="4">
         <Badge
           ml="1"
           mt="-1"
