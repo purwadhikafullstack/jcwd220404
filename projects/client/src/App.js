@@ -5,8 +5,11 @@ import { NotificationPage } from "./pages/NotificationPage";
 import { TransactionPage } from "./pages/TransactionPage";
 import { CategoryPage } from "./pages/CategoryPage";
 import { CartPage } from "./pages/CartPage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { VerificationPage } from "./pages/VerificationPage"
 
 function App() {
+
   return (
     <div className="App">
       <Routes>
@@ -16,6 +19,9 @@ function App() {
         <Route path="/transaction" element={<TransactionPage/>}></Route>
         <Route path="/category" element={<CategoryPage/>}></Route>
         <Route path="/cart" element={<CartPage/>}></Route>
+        <Route path="/register" element={<RegisterPage/>}></Route>
+        <Route path="/verification/:token" element={<VerificationPage />}></Route>
+        
       </Routes>
     </div>
   );

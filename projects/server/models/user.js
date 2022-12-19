@@ -18,12 +18,44 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      name: DataTypes.STRING,
-      phoneNumber: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      isVerified: DataTypes.BOOLEAN,
-      loginAttempt: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: "name",
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: "email",
+    },
+    phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: "phoneNumber",
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+        len: [8],
+        },
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    },
+    code_otp: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    isVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
+    attempt: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
     },
     {
       sequelize,
