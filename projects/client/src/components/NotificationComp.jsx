@@ -26,6 +26,7 @@ export const NotificationComp = () => {
           position="absolute"
           fontWeight="bold"
           color={"black"}
+          borderRadius="2xl"
         >
           0
         </Badge>
