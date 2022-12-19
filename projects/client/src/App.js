@@ -7,12 +7,12 @@ import { CategoryPage } from "./pages/CategoryPage";
 import { CartPage } from "./pages/CartPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { VerificationPage } from "./pages/VerificationPage";
+import Axios from "axios";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { loginUser } from "./redux/userSlice";
 import { ProfilePage } from "./pages/ProfilePage";
 import { AddressPage } from "./pages/AddressPage";
-import Axios from "axios";
 const url2 = `http://localhost:8000/user/keepLogin`;
 
 function App() {

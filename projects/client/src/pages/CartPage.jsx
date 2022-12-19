@@ -1,5 +1,5 @@
-import { Box, Center } from "@chakra-ui/react";
-import { NavbarComp } from "../components/NavbarComp";
+import { Box, Center, VStack } from "@chakra-ui/react"
+import { NavbarComp } from "../components/HomeComponent/NavbarComp"
 
 export const CartPage = () => {
   return (
