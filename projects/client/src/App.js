@@ -11,11 +11,11 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<LandingPage/>}></Route>
-        <Route path="notification" element={<NotificationPage/>}></Route>
-        <Route path="account" element={<AccountPage/>}></Route>
-        <Route path="transaction" element={<TransactionPage/>}></Route>
-        <Route path="category" element={<CategoryPage/>}></Route>
-        <Route path="cart" element={<CartPage/>}></Route>
+        <Route path="/notification" element={<NotificationPage/>}></Route>
+        <Route path="/account" element={<AccountPage/>}></Route>
+        <Route path="/transaction" element={<TransactionPage/>}></Route>
+        <Route path="/category" element={<CategoryPage/>}></Route>
+        <Route path="/cart" element={<CartPage/>}></Route>
       </Routes>
     </div>
   );
