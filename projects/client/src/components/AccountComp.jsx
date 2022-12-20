@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/userSlice";
 
 export const AccountComp = () => {
-  const { name, phoneNumber } = useSelector((state) => state.userSlice.value);
+  const { name } = useSelector((state) => state.userSlice.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isOpen, onToggle } = useDisclosure();

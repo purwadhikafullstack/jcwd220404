@@ -110,7 +110,7 @@ export const RegisterPage = () => {
               </Flex>
               <Stack spacing={8} mx={"auto"} maxW={"lg"} py={10} px={6}>
                 <Stack align={"center"}>
-                  <Heading fontSize={"2xl"}>Create your account</Heading>
+                  <Heading textColor={"black"} fontSize={"2xl"}>Create your account</Heading>
                   <Text fontSize={"lg"} color={"gray.600"}>
                     to start your freshness{" "}
                   </Text>
@@ -140,12 +140,17 @@ export const RegisterPage = () => {
                           <Form>
                             <VStack spacing={4} align="flex-start">
                               <FormControl isRequired>
-                                <FormLabel htmlFor="name">Name</FormLabel>
+                                <FormLabel htmlFor="name" textColor={"black"}>Name</FormLabel>
                                 <Field
                                   as={Input}
                                   type="text"
                                   name="name"
                                   variant="filled"
+                                  bgColor={"white"}
+          w={"230px"}
+          textColor="black"
+          borderColor={"#285430"}
+                                  
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -154,7 +159,7 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="name">
+                                <FormLabel htmlFor="phoneNumber" textColor={"black"}>
                                   Phone Number
                                 </FormLabel>
                                 <Field
@@ -162,6 +167,10 @@ export const RegisterPage = () => {
                                   type="text"
                                   name="phoneNumber"
                                   variant="filled"
+                                  bgColor={"white"}
+          w={"230px"}
+          textColor="black"
+          borderColor={"#285430"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -170,12 +179,16 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="email">Email</FormLabel>
+                                <FormLabel htmlFor="email" textColor={"black"}>Email</FormLabel>
                                 <Field
                                   as={Input}
                                   type="email"
                                   name="email"
                                   variant="filled"
+                                  bgColor={"white"}
+          w={"230px"}
+          textColor="black"
+          borderColor={"#285430"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -184,7 +197,7 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="password">
+                                <FormLabel htmlFor="password" textColor={"black"}>
                                   Password
                                 </FormLabel>
                                 <InputGroup>
@@ -193,6 +206,10 @@ export const RegisterPage = () => {
                                     type={showPassword ? "text" : "password"}
                                     name="password"
                                     variant="filled"
+                                    bgColor={"white"}
+          w={"230px"}
+          textColor="black"
+          borderColor={"#285430"}
                                   />
 
                                   <InputRightElement h={"full"}>
@@ -219,7 +236,7 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="password_confirmation">
+                                <FormLabel htmlFor="password_confirmation" textColor={"black"} >
                                   Confirm Password
                                 </FormLabel>
                                 <InputGroup>
@@ -230,6 +247,10 @@ export const RegisterPage = () => {
                                     }
                                     name="password_confirmation"
                                     variant="filled"
+                                    bgColor={"white"}
+          w={"230px"}
+          textColor="black"
+          borderColor={"#285430"}
                                   />
                                   <InputRightElement h={"full"}>
                                     <Button
