@@ -21,41 +21,39 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: "name",
-    },
-    email: {
+      },
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: "email",
-    },
-    phoneNumber: {
+      },
+      phoneNumber: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: "phoneNumber",
-    },
-    password: {
+      },
+      password: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-        len: [8],
+          len: [8],
         },
-    },
-    status: {
+      },
+      status: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-    },
-    code_otp: {
+      },
+      code_otp: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    isVerified: {
+      },
+      isVerified: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-    },
-    attempt: {
+      },
+      attempt: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
-    },
+      },
     },
     {
       sequelize,
