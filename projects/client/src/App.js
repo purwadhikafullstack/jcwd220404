@@ -13,13 +13,13 @@ import { useEffect } from "react";
 import { loginUser } from "./redux/userSlice";
 import { ProfilePage } from "./pages/ProfilePage";
 import { AddressPage } from "./pages/AddressPage";
-import { useLocation } from "react-router-dom";
+import { ForgotPasswordPage } from "./pages/ForgotPassPage";
+import { ResetPassPage } from "./pages/ResetPassPage";
 const url2 = `http://localhost:8000/user/keepLogin`;
 
 function App() {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const tokenUser = localStorage.getItem("token");
+  const tokenUser = localStorage.getItem("tokenUser");
   const keepLoginUser = async () => {
     try {
       const user = await Axios.get(url2, {
@@ -58,6 +58,8 @@ function App() {
         ></Route>
         <Route path="/account/profile" element={<ProfilePage />}></Route>
         <Route path="/account/address" element={<AddressPage />}></Route>
+        <Route path="/forgotPassword" element={<ForgotPasswordPage />}></Route>
+        <Route path="/resetPassword/:token" element={<ResetPassPage />}></Route>
       </Routes>
     </div>
   );

@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/userSlice";
 
 export const AccountComp = () => {
-  const { name, phoneNumber } = useSelector((state) => state.userSlice.value);
+  const { name } = useSelector((state) => state.userSlice.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isOpen, onToggle } = useDisclosure();
@@ -51,13 +51,21 @@ export const AccountComp = () => {
         pl={"1px"}
         pos="fixed"
         top={"0"}
+        zIndex={"2"}
       >
         <Box margin={"auto"} alignItems={"center"} textColor="black">
           Account
         </Box>
       </Box>
 
-      <Box mt={"100px"} className="body" bgColor="white" h={"1750px"} w={"390px"}>
+      <Box
+        mt={"100px"}
+        className="body"
+        bgColor="white"
+        h={"1750px"}
+        w={"390px"}
+        pos="fixed"
+      >
         <Grid
           h="120px"
           templateRows="repeat(2, 1fr)"

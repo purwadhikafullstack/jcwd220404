@@ -175,25 +175,25 @@ module.exports = {
       const payload = { phoneNumber: isAccountExist.phoneNumber };
       const token = jwt.sign(payload, "jcwd2204");
 
-      const isProfileExist = await profile.findOne({
-        where: {
-          UserId: isAccountExist.phoneNumber,
-        },
-        raw: true,
-      });
+      // const isProfileExist = await profile.findOne({
+      //   where: {
+      //     UserId: isAccountExist.phoneNumber,
+      //   },
+      //   raw: true,
+      // });
 
-      isAccountExist.profilePic = isProfileExist.profilePic;
-      isAccountExist.gender = isProfileExist.gender;
-      isAccountExist.birthDate = isProfileExist.birthDate;
+      // isAccountExist.profilePic = isProfileExist.profilePic;
+      // isAccountExist.gender = isProfileExist.gender;
+      // isAccountExist.birthDate = isProfileExist.birthDate;
 
-      const isAddressExist = await address.findOne({
-        where: {
-          UserId: isAccountExist.phoneNumber,
-        },
-        raw: true,
-      });
+      // const isAddressExist = await address.findOne({
+      //   where: {
+      //     UserId: isAccountExist.phoneNumber,
+      //   },
+      //   raw: true,
+      // });
 
-      isAccountExist.addressLine = isAddressExist.addressLine;
+      // isAccountExist.addressLine = isAddressExist.addressLine;
 
       const isValid = await bcrypt.compare(password, isAccountExist.password);
 
@@ -221,6 +221,70 @@ module.exports = {
       });
       res.status(200).send(result);
     } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  updatePassword: async (req, res) => {
+    try {
+      const { password, password_confirmation } = req.body;
+
+      if (password.length < 8)
+        throw "Password only valid if length is more than 8";
+      if (password !== password_confirmation)
+        throw "Password doesnt match with confirm password";
+      const salt = await bcrypt.genSalt(10);
+      const hashPass = await bcrypt.hash(password, salt);
+      await user.update(
+        { password: hashPass },
+        {
+          where: {
+            email: req.user.email,
+          },
+        }
+      );
+      res.status(200).send("Update Password Success");
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  sendEmailForgotPass: async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const isAccountExist = await user.findOne({
+        where: { email },
+        raw: true,
+      });
+
+      if (isAccountExist === null) throw "Account not found";
+      else if (isAccountExist.status === false) throw "Your Account is blocked";
+
+      const token = jwt.sign({ email: isAccountExist.email }, "jcwd2204", {
+        expiresIn: "1h",
+      });
+
+      const tempEmail = fs.readFileSync("./template/email.html", "utf-8");
+      const tempCompile = handlebars.compile(tempEmail);
+      const tempResult = tempCompile({
+        email: isAccountExist.email,
+        link: `http://localhost:3000/resetPassword/${token}`,
+      });
+
+      await transporter.sendMail({
+        from: "Admin",
+        to: email,
+        subject: "Reset Password",
+        html: tempResult,
+      });
+
+      res
+        .status(200)
+        .send("Send email request reset password succes, open your email");
+    } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },

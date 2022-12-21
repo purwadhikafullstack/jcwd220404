@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Container,
   Heading,
   Input,
   Link,
@@ -12,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { loginUser } from "../redux/userSlice";
+import { ForgotPasswordPage } from "../pages/ForgotPassPage";
 
 export const EnterComp = () => {
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ export const EnterComp = () => {
         loginUser({
           phoneNumber: result.data.isAccountExist.phoneNumber,
           name: result.data.isAccountExist.name,
+          email: result.data.isAccountExist.email,
         })
       );
       localStorage.setItem("tokenUser", result.data.token);
@@ -46,7 +49,7 @@ export const EnterComp = () => {
 
   return (
     <div>
-      <Box className="body" h={"1750px"} w={"390px"}>
+      <Box className="body" h={"1750px"} w={"390px"} pos="fixed">
         <Heading mt={"100px"} size={"lg"} textAlign={"center"}>
           Sign in to your Account
         </Heading>
@@ -63,9 +66,11 @@ export const EnterComp = () => {
             ref={inputPass}
           ></Input>
           <Button onClick={onLogin}>Sign In</Button>
-          <Text textAlign={"center"}>
-            Forgot Password <Link color={"blue"}>Click here</Link>
-          </Text>
+          <Box display={"flex"} justifyContent="center">
+            <Text mr={"5px"}> Forgot Password? </Text>
+            <ForgotPasswordPage />
+          </Box>
+
           <Text textAlign={"center"}>Don't have an account?</Text>
           <Link href="/register" textAlign={"center"} color={"blue"}>
             Register here

@@ -1,6 +1,5 @@
 import { Box, Center } from "@chakra-ui/react";
 import { NavbarComp } from "../components/NavbarComp";
-import { CategoryComp } from "../components/CategoryComp";
 
 export const CategoryPage = () => {
   return (
@@ -25,7 +24,7 @@ export const CategoryPage = () => {
             </Box>
           </Box>
           <Box className="body" bgColor={"white"} h={"1750px"} w={"390px"}>
-            <CategoryComp />
+            
           </Box>
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
