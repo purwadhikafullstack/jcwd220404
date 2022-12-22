@@ -361,8 +361,11 @@ module.exports = {
   updatePass: async (req, res) => {
     try {
       const { password } = req.body;
+      console.log(password)
       const salt = await bcrypt.genSalt(10);
+      console.log(salt);
       const hashPass = await bcrypt.hash(password, salt);
+      console.log(hashPass);
       const data = await user.update(
         {
           password: hashPass,
@@ -370,6 +373,7 @@ module.exports = {
         {
           where: { id: req.params.id },
         }
+        
       );
       // const token = jwt.sign({ email: isAccountExist.email }, "jcwd2204", {
       //   expiresIn: "1h",

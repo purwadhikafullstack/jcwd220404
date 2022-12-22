@@ -21,8 +21,10 @@ import { getUser, updateUser } from "../redux/userSlice";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import React from "react";
+import ReactSelect from "react-select";
 
-export const ProfilePage = () => {
+export const ProfilePage = (user) => {
   const [data, setData] = useState([]);
   const inputGender = useRef("");
   const inputBirthDate = useRef("");
@@ -32,7 +34,7 @@ export const ProfilePage = () => {
   const dispatch = useDispatch();
   const params = useParams();
 
-  const updateName = async (data) => {
+  const updateName = async () => {
     try {
       const user = {
         name: inputName.current.value,
@@ -51,15 +53,17 @@ export const ProfilePage = () => {
   const updateData = async () => {
     try {
       const user = {
+        name: inputName.current.value,
         gender: inputGender.current.value,
         birthDate: inputBirthDate.current.value,
         // profilePic: inputProfilePic.current.value,
       };
       const result = await Axios.patch(
-        `${process.env.REACT_APP_API_BASE_URL}/user/update/:id`,
+        `${process.env.REACT_APP_API_BASE_URL}/user/update/6`,
         user
       );
       console.log(result);
+      navigate("/account");
     } catch (err) {
       console.log(err);
     }
@@ -104,8 +108,11 @@ export const ProfilePage = () => {
               <FormControl>
                 <FormLabel>Name</FormLabel>
                 <Flex>
-                  <Input placeholder="Name" defaultValue={data.name}></Input>
-                  <Button onClick={() => updateName(data.id)}>Edit</Button>
+                  <Input
+                    ref={inputName}
+                    placeholder="Name"
+                    defaultValue={data.name}
+                  ></Input>
                 </Flex>
               </FormControl>
               <FormControl>
@@ -119,14 +126,14 @@ export const ProfilePage = () => {
               </FormControl>
               <FormControl>
                 <FormLabel>Gender</FormLabel>
-                <Select
+
+                <ReactSelect
                   placeholder="Select gender"
                   defaultValue={data.Profile?.gender}
-                >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </Select>
+                  ref={inputGender}
+                ></ReactSelect>
               </FormControl>
+              <Button onClick={() => updateData(data.id)}>Save</Button>
             </Stack>
             <Heading mt={"20px"} mb={"20px"} size={"md"}>
               Account Information
@@ -149,7 +156,6 @@ export const ProfilePage = () => {
                   <EditIcon />
                 </Box>
               </Box>
-              <Button onClick={() => updateData()}>Save</Button>
             </Stack>
           </Box>
         </Box>

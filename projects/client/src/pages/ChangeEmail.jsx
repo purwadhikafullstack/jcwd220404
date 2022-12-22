@@ -27,6 +27,7 @@ export const ChangeEmail = (data) => {
         user
       );
       console.log(result);
+      navigate("/account/profile")
     } catch (err) {
       console.log(err);
     }
@@ -46,10 +47,10 @@ export const ChangeEmail = (data) => {
           >
             <Heading textAlign={"center"}>Edit your Email</Heading>
             <Stack spacing={"20px"} mt={"20px"}>
-              {/* <FormControl isRequired>
+              <FormControl isRequired>
                 <FormLabel>Input Email Existing</FormLabel>
                 <Input isRequired placeholder="Current Email" />
-              </FormControl> */}
+              </FormControl>
               <FormControl isRequired>
                 <FormLabel>Create New Email</FormLabel>
                 <Input ref={inputEmail} isRequired placeholder="New Email" />

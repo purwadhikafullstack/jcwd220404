@@ -24,6 +24,10 @@ export const ChangePassword = (data) => {
       const res = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/user/updatePassword/6`,
         user
+        // {
+        //   password: document.getElementById("password").value,
+        // },
+
         // { headers: { Authorization: `Bearer ${params.token}` } }
       );
       console.log(res);
@@ -45,13 +49,22 @@ export const ChangePassword = (data) => {
           >
             <Heading textAlign={"center"}>Edit your Password</Heading>
             <Stack spacing={"20px"} mt={"20px"}>
-              {/* <FormControl isRequired>
+              <FormControl isRequired>
                 <FormLabel>Input Password Existing</FormLabel>
-                <Input isRequired placeholder="Current Password" />
-              </FormControl> */}
+                <Input
+                  type={"password"}
+                  isRequired
+                  placeholder="Current Password"
+                />
+              </FormControl>
               <FormControl isRequired>
                 <FormLabel>Create New Password</FormLabel>
-                <Input isRequired placeholder="New Password" />
+                <Input
+                  type={"password"}
+                  ref={inputPass}
+                  isRequired
+                  placeholder="New Password"
+                />
               </FormControl>
               <Button onClick={() => updatePass(data.id)}>Save</Button>
             </Stack>
