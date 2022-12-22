@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import Swal from "sweetalert2";
 
-const url = "http://localhost:8000/user/verification";
+const url = `${process.env.REACT_APP_API_BASE_URL}/user/verification`;
 
 export const VerificationPage = () => {
   const params = useParams();
@@ -69,23 +69,30 @@ export const VerificationPage = () => {
           my={10}
         >
           <Center>
-            <Heading lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }}>
+            <Heading color={"black"} lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }}>
               Verify your Email
             </Heading>
           </Center>
-          <Center fontSize={{ base: "sm", sm: "md" }}>
+          <Center textColor={"black"} fontSize={{ base: "sm", sm: "md" }}>
             We have sent code to your email
           </Center>
           <FormControl>
             <Center>
               <HStack>
                 <PinInput>
-                  <PinInputField ref={otp1} />
-                  <PinInputField ref={otp2} />
-                  <PinInputField ref={otp3} />
-                  <PinInputField ref={otp4} />
-                  <PinInputField ref={otp5} />
-                  <PinInputField ref={otp6} />
+                  <PinInputField 
+          textColor="black"
+          borderColor={"#285430"} ref={otp1} />
+                  <PinInputField textColor="black"
+          borderColor={"#285430"} ref={otp2} />
+                  <PinInputField textColor="black"
+          borderColor={"#285430"} ref={otp3} />
+                  <PinInputField textColor="black"
+          borderColor={"#285430"} ref={otp4} />
+                  <PinInputField textColor="black"
+          borderColor={"#285430"} ref={otp5} />
+                  <PinInputField textColor="black"
+          borderColor={"#285430"} ref={otp6} />
                 </PinInput>
               </HStack>
             </Center>

@@ -22,10 +22,6 @@ app.use(cors())
 app.use(express.static("../Public"));
 app.use(bearerToken())
 
-app.use(cors());
-app.use(express.static("../Public"));
-const { userRouter } = require("../routers");
-app.use("/user", userRouter);
 
 //#region API ROUTES
 const { userRouter } = require("../routers");
@@ -82,7 +78,7 @@ app.listen(PORT, (err) => {
   if (err) {
     console.log(`ERROR: ${err}`);
   } else {
-    // db.sequelize.sync({alter: true})
+    db.sequelize.sync({alter: true})
     console.log(`APP RUNNING at ${PORT} ✅`);
   }
 });

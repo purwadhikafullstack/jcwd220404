@@ -1,7 +1,6 @@
-import { Box, Button, Center, StackDivider, VStack } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Center } from "@chakra-ui/react";
 import { AccountComp } from "../components/AccountComp";
-import { EnterComp } from "../components/EnterComp";
+import { WindowComp } from "../components/WindowComp";
 import { NavbarComp } from "../components/NavbarComp";
 
 export const AccountPage = () => {
@@ -11,10 +10,7 @@ export const AccountPage = () => {
     <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
-          {tokenLocalStorage ? <AccountComp /> : <EnterComp />}
-          {/* <EnterComp />
-          <AccountComp /> */}
-
+          {tokenLocalStorage ? <AccountComp /> : <WindowComp />}
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>
@@ -23,4 +19,3 @@ export const AccountPage = () => {
     </div>
   );
 };
-            

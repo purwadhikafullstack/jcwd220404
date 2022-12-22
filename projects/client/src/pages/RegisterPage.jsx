@@ -24,7 +24,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { Field, ErrorMessage, Formik, Form } from "formik";
 import Swal from "sweetalert2";
-const url = "http://localhost:8000/user/register";
+const url = `${process.env.REACT_APP_API_BASE_URL}/user/register`;
 
 export const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -140,12 +140,16 @@ export const RegisterPage = () => {
                           <Form>
                             <VStack spacing={4} align="flex-start">
                               <FormControl isRequired>
-                                <FormLabel htmlFor="name">Name</FormLabel>
+                                <FormLabel htmlFor="name" textColor={"black"}>Name</FormLabel>
                                 <Field
                                   as={Input}
                                   type="text"
                                   name="name"
                                   variant="filled"
+                                  bgColor={"white"}
+          
+          borderColor={"#285430"}
+                                  
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -154,7 +158,7 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="name">
+                                <FormLabel htmlFor="phoneNumber" textColor={"black"}>
                                   Phone Number
                                 </FormLabel>
                                 <Field
@@ -162,6 +166,9 @@ export const RegisterPage = () => {
                                   type="text"
                                   name="phoneNumber"
                                   variant="filled"
+                                  bgColor={"white"}
+          
+          borderColor={"#285430"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -170,12 +177,15 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="email">Email</FormLabel>
+                                <FormLabel htmlFor="email" textColor={"black"}>Email</FormLabel>
                                 <Field
                                   as={Input}
                                   type="email"
                                   name="email"
                                   variant="filled"
+                                  bgColor={"white"}
+        
+          borderColor={"#285430"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -184,7 +194,7 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="password">
+                                <FormLabel htmlFor="password" textColor={"black"}>
                                   Password
                                 </FormLabel>
                                 <InputGroup>
@@ -193,6 +203,9 @@ export const RegisterPage = () => {
                                     type={showPassword ? "text" : "password"}
                                     name="password"
                                     variant="filled"
+                                    bgColor={"white"}
+        
+          borderColor={"#285430"}
                                   />
 
                                   <InputRightElement h={"full"}>
@@ -219,7 +232,7 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="password_confirmation">
+                                <FormLabel htmlFor="password_confirmation" textColor={"black"} >
                                   Confirm Password
                                 </FormLabel>
                                 <InputGroup>
@@ -230,6 +243,9 @@ export const RegisterPage = () => {
                                     }
                                     name="password_confirmation"
                                     variant="filled"
+                                    bgColor={"white"}
+          
+          borderColor={"#285430"}
                                   />
                                   <InputRightElement h={"full"}>
                                     <Button

@@ -1,12 +1,11 @@
 import { Box, Center } from "@chakra-ui/react";
 import { NavbarComp } from "../components/NavbarComp";
 
-
 export const CategoryPage = () => {
   return (
     <div>
       <Center>
-        <Box w={"390px"} h={"844px"} bgColor="white">
+        <Box>
           <Box
             className="header"
             w={"390px"}
@@ -24,12 +23,9 @@ export const CategoryPage = () => {
               CATEGORIES
             </Box>
           </Box>
-          <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
-            
+          <Box className="body" bgColor={"white"} h={"1750px"} w={"390px"}>
           </Box>
-          <Box
-            className="footer" w={"390px"} pos="fixed" bottom={"35px"}
-          >
+          <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>
         </Box>

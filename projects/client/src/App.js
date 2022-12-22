@@ -7,19 +7,23 @@ import { CategoryPage } from "./pages/CategoryPage";
 import { CartPage } from "./pages/CartPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { VerificationPage } from "./pages/VerificationPage";
-import Axios from "axios";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { loginUser } from "./redux/userSlice";
 import { ProfilePage } from "./pages/ProfilePage";
 import { AddressPage } from "./pages/AddressPage";
-import { useLocation } from "react-router-dom";
+import { NotFoundPage } from "./pages/404ResultPage";
+import Axios from "axios";
+import { ForgotPasswordPage } from "./pages/ForgotPassPage";
+import { ResetPassPage } from "./pages/ResetPassPage";
+import { EnterComp } from "./components/EnterComp";
+
 const url2 = `http://localhost:8000/user/keepLogin`;
 
 function App() {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const tokenUser = localStorage.getItem("token");
+  
+  const tokenUser = localStorage.getItem("tokenUser");
   const keepLoginUser = async () => {
     try {
       const user = await Axios.get(url2, {
@@ -52,16 +56,13 @@ function App() {
         <Route path="/category" element={<CategoryPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
-        <Route
-          path="/verification/:token"
-          element={<VerificationPage />}
-        ></Route>
+        <Route path="/login" element={<EnterComp />}></Route>
+        <Route path="/notfound" element={<NotFoundPage />}></Route>
+        <Route path="/verification/:token" element={<VerificationPage />}></Route>
         <Route path="/account/profile" element={<ProfilePage />}></Route>
         <Route path="/account/address" element={<AddressPage />}></Route>
-        
-        {/* <Route path="/resetpassword/:token" element={<ResetPassPage />} /> */}
-        
-        
+        <Route path="/forgotPassword" element={<ForgotPasswordPage/>}></Route>
+        <Route path="/resetPassword/:token" element={<ResetPassPage/>}></Route>
       </Routes>
     </div>
   );

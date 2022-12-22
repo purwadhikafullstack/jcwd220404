@@ -5,4 +5,3 @@ export const AddressPage = () => {
     <div>AddressPage</div>
   )
 }
-

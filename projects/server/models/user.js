@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(models.Profile);
-      User.hasMany(models.Address);
-      User.hasMany(models.Transaction);
-      User.hasOne(models.Cart);
-      User.hasMany(models.Voucher);
+      // User.hasOne(models.Profile);
+      // User.hasMany(models.Address);
+      // User.hasMany(models.Transaction);
+      // User.hasOne(models.Cart);
+      // User.hasMany(models.Voucher);
     }
   }
   User.init(
@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: "name",
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: "email",
       },
       phoneNumber: {
         type: DataTypes.STRING,

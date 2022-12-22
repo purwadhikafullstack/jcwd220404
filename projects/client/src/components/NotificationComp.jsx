@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export const NotificationComp = () => {
   const navigate = useNavigate();
+
   const toNotification = () => {
     navigate("/notification");
   };
