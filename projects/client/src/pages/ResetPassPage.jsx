@@ -12,8 +12,6 @@ import Axios from "axios";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
-const url = "http://localhost:8000/user/updatePass";
-
 export const ResetPassPage = () => {
   const params = useParams();
   const [move, setMove] = useState(false);
@@ -21,7 +19,7 @@ export const ResetPassPage = () => {
   const onReset = async () => {
     try {
       const res = await Axios.post(
-        url,
+        `${process.env.REACT_APP_API_BASE_URL}/user/updatePass`,
         {
           password: document.getElementById("password").value,
           password_confirmation: document.getElementById(

@@ -233,6 +233,8 @@ module.exports = {
         throw "Password only valid if length is more than 8";
       if (password !== password_confirmation)
         throw "Password doesnt match with confirm password";
+      // const passwordUsed = await bcrypt.compareSync(password);
+
       const salt = await bcrypt.genSalt(10);
       const hashPass = await bcrypt.hash(password, salt);
       await user.update(
@@ -288,17 +290,196 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-};
 
-//   gender: async (req, res) => {
-//     try {
-//     } catch (err) {
-//       res.status(400).send(err);
-//     }
-//   },
-//   address: async (req, res) => {
-//     try {
-//     } catch (err) {
-//       res.status(400).send(err);
-//     }
-//   },
+  // add: async (req, res) => {
+  //   try {
+  //     const { gender, birthDate } = req.body;
+
+  // if (!name || !gender || !birthDate) throw "required field";
+
+  //     await profile.create(
+  //       {
+  //         gender,
+  //         birthDate,
+  //       },
+  //       {
+  //         where: { id: req.user.id },
+  //       }
+  //       // {
+  //       //   Images: fileUploaded.filename,
+  //       // }
+  //     );
+  //     const findUserById = await user.findByPk(req.user.id);
+  //     res.status(200).send({
+  //       data: findUserById,
+  //       message: "Successfully Added",
+  //     });
+  //   } catch (err) {
+  //     res.status(400).send(err);
+  //   }
+  // },
+
+  update: async (req, res) => {
+    try {
+      const { name, birthDate, gender } = req.body;
+
+      // if (password)
+
+      const data = await user.update(
+        {
+          name,
+        },
+        {
+          where: { id: req.params.id },
+        }
+      );
+      const data2 = await profile.update(
+        {
+          gender,
+          birthDate,
+        },
+        {
+          where: { UserId: req.params.id },
+        }
+      );
+      // let fileUploaded = req.file;
+      // {
+      //   Images: fileUploaded.filename,
+      // },
+      // );
+      res.status(200).send({
+        message: "success",
+        data,
+        data2,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  updatePass: async (req, res) => {
+    try {
+      const { password } = req.body;
+      const salt = await bcrypt.genSalt(10);
+      const hashPass = await bcrypt.hash(password, salt);
+      const data = await user.update(
+        {
+          password: hashPass,
+        },
+        {
+          where: { id: req.params.id },
+        }
+      );
+      // const token = jwt.sign({ email: isAccountExist.email }, "jcwd2204", {
+      //   expiresIn: "1h",
+      // });
+
+      res.status(200).send({ data });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  updateEmail: async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const data = await user.update(
+        {
+          email,
+        },
+        {
+          where: { id: req.params.id },
+        }
+      );
+      res.status(200).send(data);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  updateName: async (req, res) => {
+    try {
+      const { name } = req.body;
+
+      const data = await user.update(
+        {
+          name,
+        },
+        {
+          where: { id: req.params.id },
+        }
+      );
+      res.status(200).send(data);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  getAll: async (req, res) => {
+    try {
+      const users = await profile.findAll({
+        attributes: ["id", "gender", "birthDate"],
+        include: user,
+      });
+      res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  // getBy: async (req, res) => {
+  //   try {
+  //     const { name, gender, birthDate, email, password } = req.query;
+  //     const profile = await profile.findAll({
+  //       where: {
+  //         [Op.or]: {
+  //           gender: gender ? gender : "",
+  //           birthDate: birthDate ? birthDate : "",
+  //         },
+  //       },
+  //       raw: true,
+  //     });
+  //     const user = await user.findAll({
+  //       where: {
+  //         [Op.or]: {
+  //           name: name ? name : "",
+  //           email: email ? email : "",
+  //           password: password ? password : "",
+  //         },
+  //       },
+  //     });
+  //     res.status(200).send({
+  //       message: "success",
+  //       profile,
+  //       user,
+  //     });
+  //   } catch (err) {
+  //     res.status(400).send(err);
+  //   }
+  // },
+
+  getById: async (req, res) => {
+    try {
+      const users = await user.findOne({
+        where: { id: req.params.id },
+        include: [{ model: profile }],
+      });
+      console.log(req.body);
+      res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  // address: async (req, res) => {
+  //   try {
+  //   } catch (err) {
+  //     res.status(400).send(err);
+  //   }
+  // },
+};

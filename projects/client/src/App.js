@@ -15,22 +15,29 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { AddressPage } from "./pages/AddressPage";
 import { ForgotPasswordPage } from "./pages/ForgotPassPage";
 import { ResetPassPage } from "./pages/ResetPassPage";
-const url2 = `http://localhost:8000/user/keepLogin`;
+import { ChangePassword } from "./pages/ChangePassword";
+import { ChangeEmail } from "./pages/ChangeEmail";
 
 function App() {
   const dispatch = useDispatch();
   const tokenUser = localStorage.getItem("tokenUser");
   const keepLoginUser = async () => {
     try {
-      const user = await Axios.get(url2, {
-        headers: {
-          Authorization: `Bearer ${tokenUser} `,
-        },
-      });
+      const user = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/user/keepLogin`,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenUser} `,
+          },
+        }
+      );
       dispatch(
         loginUser({
           phoneNumber: user.data.phoneNumber,
           name: user.data.name,
+          email: user.data.email,
+          gender: user.data.gender,
+          birthDate: user.data.birthDate,
         })
       );
     } catch (err) {
@@ -58,6 +65,8 @@ function App() {
         ></Route>
         <Route path="/account/profile" element={<ProfilePage />}></Route>
         <Route path="/account/address" element={<AddressPage />}></Route>
+        <Route path="/account/password" element={<ChangePassword />}></Route>
+        <Route path="/account/email" element={<ChangeEmail />}></Route>
         <Route path="/forgotPassword" element={<ForgotPasswordPage />}></Route>
         <Route path="/resetPassword/:token" element={<ResetPassPage />}></Route>
       </Routes>

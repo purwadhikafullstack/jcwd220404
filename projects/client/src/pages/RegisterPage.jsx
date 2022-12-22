@@ -62,7 +62,10 @@ export const RegisterPage = () => {
           },
         });
       }
-      const result = await Axios.post(url, data);
+      const result = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/user/register`,
+        data
+      );
       Swal.fire({
         icon: "success",
         title: "Good Job",

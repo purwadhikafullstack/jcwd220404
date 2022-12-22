@@ -1,4 +1,4 @@
-import { Box, Center } from "@chakra-ui/react";
+import { Box, Center, Flex } from "@chakra-ui/react";
 import { AccountComp } from "../components/AccountComp";
 import { EnterComp } from "../components/EnterComp";
 import { NavbarComp } from "../components/NavbarComp";

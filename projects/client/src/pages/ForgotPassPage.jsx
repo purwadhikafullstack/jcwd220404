@@ -18,23 +18,23 @@ import {
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 
-const url = "http://localhost:8000/user/forgotPassword";
-
 export const ForgotPasswordPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onSendEmail = async () => {
     try {
       const email = document.getElementById("email").value;
-      const result = await Axios.post(url, { email: email });
-      // alert(result.data);
+      const result = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/user/forgotPassword`,
+        { email: email }
+      );
+
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: `${result.data}`,
       });
     } catch (err) {
-      // alert(err.response.data);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -43,7 +43,6 @@ export const ForgotPasswordPage = () => {
           container: "my-swal",
         },
       });
-      // console.log(err);
     }
   };
 

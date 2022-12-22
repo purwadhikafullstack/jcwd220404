@@ -1,3 +1,4 @@
+import { EditIcon } from "@chakra-ui/icons";
 import {
   Stack,
   Flex,
@@ -13,7 +14,6 @@ import {
   Badge,
   Grid,
   GridItem,
-  HStack,
   Tag,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,7 +64,7 @@ export const AccountComp = () => {
         bgColor="white"
         h={"1750px"}
         w={"390px"}
-        pos="fixed"
+        // pos="fixed"
       >
         <Grid
           h="120px"
@@ -84,17 +84,24 @@ export const AccountComp = () => {
           </GridItem>
           <GridItem rowSpan={7} colSpan={4}>
             <Tag as={"button"} ml={"10px"} onClick={onProfile}>
-              Edit Profile
-            </Tag>
-            <Tag as={"button"} ml={"10px"} onClick={onProfile}>
-              Change Password
+              <EditIcon mr={"5px"} /> Edit Profile
             </Tag>
           </GridItem>
         </Grid>
-        <HStack divider={<StackDivider borderColor="teal" />} align="stretch">
-          <Badge alignContent={"center"}>Voucher</Badge>
-          <Badge alignContent={"center"}>jumlah</Badge>
-        </HStack>
+        <Box
+          borderColor={"black"}
+          display="flex"
+          justifyContent={"center"}
+          // divider={<StackDivider borderColor="teal" />}
+          align="center"
+        >
+          <Badge alignContent={"center"} mr="10px">
+            Potongan Belanja
+          </Badge>
+          <Badge alignContent={"center"} ml="10px">
+            Gratis Ongkir
+          </Badge>
+        </Box>
         <Stack
           mt={"30px"}
           divider={<StackDivider borderColor="transparent" />}

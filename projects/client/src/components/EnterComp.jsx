@@ -1,7 +1,7 @@
 import {
   Box,
   Button,
-  Container,
+  Flex,
   Heading,
   Input,
   Link,
@@ -49,34 +49,47 @@ export const EnterComp = () => {
 
   return (
     <div>
-      <Box className="body" h={"1750px"} w={"390px"} pos="fixed">
-        <Heading mt={"100px"} size={"lg"} textAlign={"center"}>
-          Sign in to your Account
-        </Heading>
-        <Stack mt={"20px"} spacing={"10px"}>
-          <Text>Phone Number or Email</Text>
-          <Input
-            placeholder="08xxx or yourname@example.com"
-            ref={inputPhoneEmail}
-          ></Input>
-          <Text>Password</Text>
-          <Input
-            type={"password"}
-            placeholder="Your Password"
-            ref={inputPass}
-          ></Input>
-          <Button onClick={onLogin}>Sign In</Button>
-          <Box display={"flex"} justifyContent="center">
-            <Text mr={"5px"}> Forgot Password? </Text>
-            <ForgotPasswordPage />
-          </Box>
+      <Flex
+        w={"full"}
+        h={"100vh"}
+        backgroundImage={
+          "url(https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/healthiest-vegetables-1645751214.jpg)"
+        }
+        backgroundSize={"cover"}
+        backgroundPosition={"center center"}
+        pos="sticky"
+      >
+        <Box className="body" h={"1750px"} w={"390px"} pos="fixed" mt="100px">
+          <Heading size={"lg"} textAlign={"center"}>
+            Sign in to your Account
+          </Heading>
+          <Stack mt={"20px"} spacing={"10px"}>
+            <Text>Phone Number or Email</Text>
+            <Input
+              placeholder="08xxx or yourname@example.com"
+              ref={inputPhoneEmail}
+              variant="solid"
+            ></Input>
+            <Text>Password</Text>
+            <Input
+              type={"password"}
+              placeholder="Your Password"
+              ref={inputPass}
+              variant="solid"
+            ></Input>
+            <Button onClick={onLogin}>Sign In</Button>
+            <Box display={"flex"} justifyContent="center">
+              <Text mr={"5px"}> Forgot Password? </Text>
+              <ForgotPasswordPage />
+            </Box>
 
-          <Text textAlign={"center"}>Don't have an account?</Text>
-          <Link href="/register" textAlign={"center"} color={"blue"}>
-            Register here
-          </Link>
-        </Stack>
-      </Box>
+            <Text textAlign={"center"}>Don't have an account?</Text>
+            <Link href="/register" textAlign={"center"} color={"blue"}>
+              Register here
+            </Link>
+          </Stack>
+        </Box>
+      </Flex>
     </div>
   );
 };
