@@ -24,6 +24,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { Field, ErrorMessage, Formik, Form } from "formik";
 import Swal from "sweetalert2";
+
 const url = `${process.env.REACT_APP_API_BASE_URL}/user/register`;
 
 export const RegisterPage = () => {
