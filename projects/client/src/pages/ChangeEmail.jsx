@@ -12,6 +12,7 @@ import Axios from "axios";
 import React from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export const ChangeEmail = (data) => {
   const inputEmail = useRef("");
@@ -28,6 +29,12 @@ export const ChangeEmail = (data) => {
       );
       console.log(result);
       navigate("/account/profile")
+      Swal.fire({
+        icon: "success",
+        text: "Success edit data",
+        // text: `${result.data}`,
+      });
+      navigate("/account/profile");
     } catch (err) {
       console.log(err);
     }

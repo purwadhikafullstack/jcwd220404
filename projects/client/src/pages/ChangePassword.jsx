@@ -16,6 +16,7 @@ import Axios from "axios";
 export const ChangePassword = (data) => {
   const inputPass = useRef("");
   const params = useParams();
+  const navigate = useNavigate();
   const updatePass = async () => {
     try {
       const user = {
@@ -31,6 +32,13 @@ export const ChangePassword = (data) => {
         // { headers: { Authorization: `Bearer ${params.token}` } }
       );
       console.log(res);
+      Swal.fire({
+        icon: "success",
+        text: "Success edit data",
+        // text: `${result.data}`,
+        
+      });
+      navigate("/account/profile");
     } catch (err) {
       console.log(err);
     }

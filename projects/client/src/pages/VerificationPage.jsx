@@ -80,7 +80,7 @@ export const VerificationPage = () => {
             <Center>
               <HStack>
                 <PinInput>
-                  <PinInputField ref={otp1} />
+                  <PinInputField type={"password"} ref={otp1} />
                   <PinInputField ref={otp2} />
                   <PinInputField ref={otp3} />
                   <PinInputField ref={otp4} />

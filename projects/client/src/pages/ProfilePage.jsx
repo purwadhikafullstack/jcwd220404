@@ -10,9 +10,9 @@ import {
   Heading,
   Input,
   InputRightElement,
-  Select,
   Stack,
   Text,
+  Select,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import Axios from "axios";
@@ -22,10 +22,13 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
-import ReactSelect from "react-select";
+// import Select from "react-select";
+import Swal from "sweetalert2";
 
 export const ProfilePage = (user) => {
   const [data, setData] = useState([]);
+  const [gender, setGender] = useState("");
+  const { id } = useSelector((state) => state.userSlice.value);
   const inputGender = useRef("");
   const inputBirthDate = useRef("");
   const inputProfilePic = useRef("");
@@ -33,22 +36,6 @@ export const ProfilePage = (user) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-
-  const updateName = async () => {
-    try {
-      const user = {
-        name: inputName.current.value,
-        // profilePic: inputProfilePic.current.value,
-      };
-      const result = await Axios.patch(
-        `${process.env.REACT_APP_API_BASE_URL}/user/updateName/6`,
-        user
-      );
-      console.log(result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const updateData = async () => {
     try {
@@ -63,6 +50,11 @@ export const ProfilePage = (user) => {
         user
       );
       console.log(result);
+      Swal.fire({
+        icon: "success",
+        text: "Success edit data",
+        // text: `${result.data}`,
+      });
       navigate("/account");
     } catch (err) {
       console.log(err);
@@ -73,7 +65,6 @@ export const ProfilePage = (user) => {
     try {
       const result = await Axios.get(`http://localhost:8000/user/getById/6`);
       setData(result.data);
-      console.log(result.data.Profile.gender);
     } catch (err) {
       console.log(err);
     }
@@ -118,20 +109,28 @@ export const ProfilePage = (user) => {
               <FormControl>
                 <FormLabel>Birthdate</FormLabel>
                 <Input
+                  placeholder="Birth Date"
+                  type={"text"}
+                  defaultValue={data.Profile?.birthDate}
+                ></Input>
+                {/* <Input
                   placeholder="Select Date and Time"
                   size="md"
                   type="date"
                   defaultValue={data.Profile?.birthDate}
-                />
+                /> */}
               </FormControl>
               <FormControl>
                 <FormLabel>Gender</FormLabel>
-
-                <ReactSelect
-                  placeholder="Select gender"
-                  defaultValue={data.Profile?.gender}
+                <Input
+                  placeholder="Gender"
                   ref={inputGender}
-                ></ReactSelect>
+                  defaultValue={data.Profile?.gender}
+                ></Input>
+                {/* <Select placeholder="Select gender" ref={inputGender}>
+                  <option value={"male"}>Male</option>
+                  <option value={"female"}>Female</option>
+                </Select> */}
               </FormControl>
               <Button onClick={() => updateData(data.id)}>Save</Button>
             </Stack>
