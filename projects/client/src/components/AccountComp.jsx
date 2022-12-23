@@ -19,6 +19,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/userSlice";
+import { NavbarComp } from "./NavbarComp";
 
 export const AccountComp = () => {
   const { name } = useSelector((state) => state.userSlice.value);
@@ -145,8 +146,9 @@ export const AccountComp = () => {
               </Button>
             </Stack>
           </Collapse>
-          <Box margin={"auto"} alignItems={"center"} bgColor={"ButtonShadow"}>
+          <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             Versi Aplikasi - 2.5.0
+            <NavbarComp/>
           </Box>
         </Stack>
       </Box>

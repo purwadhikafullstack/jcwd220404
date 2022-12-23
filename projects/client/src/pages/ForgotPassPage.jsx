@@ -1,90 +1,117 @@
 import Axios from "axios";
 import React from "react";
-import { Input, Button, FormLabel, FormControl, useDisclosure,
-        Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, Stack, Text, Heading, useColorModeValue} from "@chakra-ui/react";
+import {
+  Input,
+  Button,
+  FormControl,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+  Stack,
+  Text,
+  Heading,
+} from "@chakra-ui/react";
 import Swal from "sweetalert2";
 
-const url = "http://localhost:8000/user/forgotPassword"
+const url = "http://localhost:8000/user/forgotPassword";
 
 export const ForgotPasswordPage = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const onSendEmail = async () => {
-        
-        try {
-            const email = document.getElementById("email").value
-            const result = await Axios.post(url, {email: email});
-            // alert(result.data);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: `${result.data}`
-            })
+  const onSendEmail = async () => {
+    try {
+      const email = document.getElementById("email").value;
+      const result = await Axios.post(url, { email: email });
 
-        } catch (err) {
-            // alert(err.response.data);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: `${err.response.data}`,
-                customClass: {
-                    container: 'my-swal'
-                }
-            })
-            // console.log(err);
-        }
-    };
+      Swal.fire({
+        icon: "success",
+        width: "370px",
+        text: "Please Check Your Email",
+        title: `${result.data}`,
+      });
+      onClose();
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        width: "370px",
+        text: "Oops...",
+        title: `${err.response.data}`,
+        customClass: {
+          container: "my-swal",
+        },
+      });
+      onClose();
+    }
+  };
 
-    return (
-        <>
-        <FormLabel onClick={onOpen} as="Button" fontSize="smaller" color='green.400'>Forgot Password?</FormLabel>
-        <Modal
-            isOpen={isOpen}
-            onClose={onClose}
-        >
-            <ModalOverlay />
-            <ModalContent>
-            <ModalCloseButton />
-            <ModalBody pb={6}>                
-                <Stack
-                    spacing={4}
-                    w={'full'}
-                    maxW={'md'}
-                    bg={useColorModeValue('white', 'gray.700')}
-                    rounded={'xl'}
-                    boxShadow={'lg'}
-                    p={6}
-                    my={12}>
-                    <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
-                        Forgot your password?
-                    </Heading>
-                    <Text
-                        fontSize={{ base: 'sm', sm: 'md' }}
-                        color={useColorModeValue('gray.800', 'gray.400')}>
-                        You&apos;ll get an email with a reset link
-                    </Text>
-                    <FormControl id="email">
-                    <Input
-                        placeholder="your-email@example.com"
-                        _placeholder={{ color: 'gray.500' }}
-                        type="email"
-                    />
-                    </FormControl>
-                    <Stack spacing={6}>
-                    <Button
-                        onClick={onSendEmail}
-                        bg={'green.400'}
-                        color={'white'}
-                        _hover={{
-                        bg: 'green.500',
-                        }}>
-                        Request Reset
-                    </Button>
-                    </Stack>
-                </Stack>           
-            </ModalBody>
-            </ModalContent>
-        </Modal>
+  return (
+    <>
+      <Button onClick={onOpen} as="u" variant={"unstyled"} color="#5F8D4E">
+        Click Here
+      </Button>
+      <Modal
+        colorScheme={"#5F8D4E"}
+        isOpen={isOpen}
+        onClose={onClose}
+        size={"xs"}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <Stack
+              spacing={4}
+              w={"full"}
+              maxW={"md"}
+              bgColor={"#E5D9B6"}
+              rounded={"xl"}
+              boxShadow={"dark-lg"}
+              p={6}
+              my={12}
+            >
+              <Heading
+                textColor={"#5F8D4E"}
+                fontSize={{ base: "xl", md: "xl" }}
+              >
+                Forgot your password?
+              </Heading>
+              <Text fontSize={{ base: "sm", sm: "md" }} textColor={"#285430"}>
+                You&apos;ll get an email with a reset link
+              </Text>
+              <FormControl id="email">
+                <Input
+                  placeholder="your-email@example.com"
+                  _placeholder={{ color: "#5F8D4E" }}
+                  bgColor={"white"}
+                  textColor="#285430"
+                  borderColor={"#285430"}
+                  type="email"
+                />
+              </FormControl>
+              <Stack spacing={6}>
+                <Button
+                  onClick={onSendEmail}
+                  _hover={{
+                    bg: "#E5D9B6",
+                  }}
+                  bgColor={"#A4BE7B"}
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="18px"
+                  color="gray.800"
+                  w={"150px"}
+                  margin="auto"
+                >
+                  Request Reset
+                </Button>
+              </Stack>
+            </Stack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </>
-    )
-}
+  );
+};

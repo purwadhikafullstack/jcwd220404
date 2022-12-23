@@ -4,20 +4,23 @@ import {
   Center,
   Heading,
   Input,
-
   Stack,
   Text,
+  Flex,
+  Image,
+  InputGroup,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Axios from "axios";
 import { loginUser } from "../redux/userSlice";
 import { ForgotPasswordPage } from "../pages/ForgotPassPage";
-
-
+import OnlyFreshLogo from "../OnlyFreshLogo.png";
 
 export const EnterComp = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const inputPhoneEmail = useRef("");
   const inputPass = useRef("");
@@ -51,42 +54,86 @@ export const EnterComp = () => {
   return (
     <div>
       <Center>
+        <Box py={10} px={6} bgColor="#E5D9B6" w={"390px"} h={"850px"}>
+          
+            <Image src={OnlyFreshLogo} height="150px" w={"auto"}   ml={"70px"}/>
+    
 
-      <Box className="body" h={"1750px"} w={"390px"}>
-        <Heading mt={"100px"} size={"lg"} textAlign={"center"} textColor="black">
-          Sign in to your Account
-        </Heading>
-        <Stack mt={"20px"} spacing={"10px"}>
-          <Text textColor={"black"} justifyContent="space-between">Phone Number or Email</Text>
-          <Input
-            placeholder="08xxx or yourname@example.com"
-            w={"230px"}
-          textColor="black"
-          borderColor={"#285430"}
-            ref={inputPhoneEmail}
-            
-          ></Input>
-          <Text textColor={"black"}>Password</Text>
-          <Input
-            type={"password"}
-            placeholder="Your Password"
-            ref={inputPass}
-            w={"230px"}
-          textColor="black"
-          borderColor={"#285430"}
-            
-          ></Input>
-          <Button color={"teal"} onClick={onLogin} bgColor={"#285430"}>Sign In</Button>
-          <Text textAlign={"center"} textColor="black">
-            Forgot Password 
-          </Text>
-          <ForgotPasswordPage/>
-          <Text textAlign={"center"} textColor="black">Don't have an account?</Text>
-          <Text as={Link} to="/register" textAlign={"center"} color={"blue"}>
-            Register here
-          </Text>
-        </Stack>
-      </Box>
+          <Heading mt={"10px"} size={"lg"} textColor="#285430">
+            Sign in to your Account
+          </Heading>
+          <Stack mt={"20px"} spacing={"8px"}>
+            <Text textColor={"#285430"} justifyContent="space-between">
+              Phone Number or Email
+            </Text>
+            <Input
+              placeholder="08xxx or yourname@example.com"
+              _placeholder={{ color: "#5F8D4E" }}
+              bgColor={"white"}
+              textColor="black"
+              borderColor={"#285430"}
+              border={"2px"}
+              w={"230px"}
+              ref={inputPhoneEmail}
+            ></Input>
+            <Text textColor={"#285430"}>Password</Text>
+            <InputGroup>
+              <Flex justifyContent={"end"}>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Your Password"
+                  ref={inputPass}
+                  _placeholder={{ color: "#5F8D4E" }}
+                  bgColor={"white"}
+                  textColor="black"
+                  borderColor={"#285430"}
+                  border={"2px"}
+                  w={"230px"}
+                  position="absolute"
+                ></Input>
+                <Button
+                  color={"black"}
+                  onClick={() =>
+                    setShowPassword((showPassword) => !showPassword)
+                  }
+                  pos="relative"
+                  ml={"181px"}
+                  zIndex="1"
+                >
+                  {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                </Button>
+              </Flex>
+            </InputGroup>
+            <Button
+              onClick={onLogin}
+              _hover={{
+                bg: "#E5D9B6",
+              }}
+              bgColor={"#A4BE7B"}
+              borderColor="#285430"
+              border="2px"
+              fontSize="18px"
+              color="gray.800"
+              w={"90px"}
+              alignItems="center"
+            >
+              Sign In
+            </Button>
+            <Box display={"flex"} justifyContent="center">
+              <Text mr={"8px"} textColor="gray.800">
+                Forgot Password
+              </Text>
+              <ForgotPasswordPage />
+            </Box>
+            <Text textAlign={"center"} textColor="gray.800">
+              Don't have an account?
+            </Text>
+            <Text as={Link} to="/register" textAlign={"center"} color="#5F8D4E">
+              Register here
+            </Text>
+          </Stack>
+        </Box>
       </Center>
     </div>
   );

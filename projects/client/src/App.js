@@ -21,7 +21,7 @@ const url2 = `http://localhost:8000/user/keepLogin`;
 function App() {
   const dispatch = useDispatch();
   
-  const tokenUser = localStorage.getItem("token");
+  const tokenUser = localStorage.getItem("tokenUser");
   const keepLoginUser = async () => {
     try {
       const user = await Axios.get(url2, {
@@ -54,7 +54,7 @@ function App() {
         <Route path="/category" element={<CategoryPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
-        <Route path="/notfound" element={<NotFoundPage />}></Route>
+        <Route path="/*" element={<NotFoundPage />}></Route>
         <Route path="/verification/:token" element={<VerificationPage />}></Route>
         <Route path="/account/profile" element={<ProfilePage />}></Route>
         <Route path="/account/address" element={<AddressPage />}></Route>

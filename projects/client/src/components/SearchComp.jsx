@@ -8,9 +8,10 @@ export const SearchComp = () => {
           placeholder="Only Fresh Here..."
           _placeholder={{ color: "#5F8D4E" }}
           bgColor={"white"}
-          w={"230px"}
           textColor="black"
           borderColor={"#285430"}
+          border={"2px"}
+          w={"230px"}
         />
       </Box>
     </div>

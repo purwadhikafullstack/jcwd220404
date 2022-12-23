@@ -35,6 +35,7 @@ export const VerificationPage = () => {
 
       Swal.fire({
         icon: "success",
+        width: "370px",
         title: "Success...",
         text: `${res.data.message}`,
       });
@@ -43,6 +44,7 @@ export const VerificationPage = () => {
       alert(err.response.data);
       Swal.fire({
         icon: "error",
+        width: "370px",
         title: "Oops...",
         text: `${err.response.data}`,
         customClass: {
@@ -55,63 +57,86 @@ export const VerificationPage = () => {
     <Navigate to="/" />
   ) : (
     <Center>
-
-    <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
-      <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"white"}>
-        <Stack
-          spacing={4}
-          w={"full"}
-          maxW={"sm"}
-          bg={"white"}
-          rounded={"xl"}
-          boxShadow={"lg"}
-          p={6}
-          my={10}
-        >
-          <Center>
-            <Heading color={"black"} lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }}>
-              Verify your Email
-            </Heading>
-          </Center>
-          <Center textColor={"black"} fontSize={{ base: "sm", sm: "md" }}>
-            We have sent code to your email
-          </Center>
-          <FormControl>
+      <Box>
+        <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"#E5D9B6"} h={"844px"} w={"390px"}>
+          <Stack
+            spacing={4}
+            w={"full"}
+            maxW={"sm"}
+            bg={"#E5D9B6"}   
+            p={6}
+            my={10}
+          >
             <Center>
-              <HStack>
-                <PinInput>
-                  <PinInputField 
-          textColor="black"
-          borderColor={"#285430"} ref={otp1} />
-                  <PinInputField textColor="black"
-          borderColor={"#285430"} ref={otp2} />
-                  <PinInputField textColor="black"
-          borderColor={"#285430"} ref={otp3} />
-                  <PinInputField textColor="black"
-          borderColor={"#285430"} ref={otp4} />
-                  <PinInputField textColor="black"
-          borderColor={"#285430"} ref={otp5} />
-                  <PinInputField textColor="black"
-          borderColor={"#285430"} ref={otp6} />
-                </PinInput>
-              </HStack>
+              <Heading
+                color={"#285430"}
+                fontSize={{ base: "2xl", md: "3xl" }}
+              >
+                Verify your Email
+              </Heading>
             </Center>
-          </FormControl>
-          <Stack spacing={6}>
-            <Button
-              onClick={onVerification}
-              bg={"teal.400"}
-              color={"white"}
-              _hover={{
-                bg: "teal.500",
-              }}
-            >
-              Verify
-            </Button>
+            <Center textColor={"#285430"} fontSize={{ base: "sm", sm: "md" }}>
+              We have sent code to your email
+            </Center>
+            <FormControl>
+              <Center>
+                <HStack>
+                  <PinInput>
+                    <PinInputField
+                       textColor="gray.800"
+                       border="2px"
+                      borderColor={"#285430"}
+                      ref={otp1}
+                    />
+                    <PinInputField
+                       textColor="gray.800"
+                       border="2px"
+                      borderColor={"#285430"}
+                      ref={otp2}
+                    />
+                    <PinInputField
+                       textColor="gray.800"
+                       border="2px"
+                      borderColor={"#285430"}
+                      ref={otp3}
+                    />
+                    <PinInputField
+                       textColor="gray.800"
+                       border="2px"
+                      borderColor={"#285430"}
+                      ref={otp4}
+                    />
+                    <PinInputField
+                       textColor="gray.800"
+                       border="2px"
+                      borderColor={"#285430"}
+                      ref={otp5}
+                    />
+                    <PinInputField
+                      textColor="gray.800"
+                      border="2px"
+                      borderColor={"#285430"}
+                      ref={otp6}
+                    />
+                  </PinInput>
+                </HStack>
+              </Center>
+            </FormControl>
+            <Stack spacing={6}>
+              <Button
+                onClick={onVerification}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                fontSize="18px"
+                color="gray.800"
+                border="2px"
+              >
+                Verify
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
-      </Flex>
-    </Box>
+        </Flex>
+      </Box>
     </Center>
   );
 };

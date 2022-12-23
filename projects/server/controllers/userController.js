@@ -278,9 +278,7 @@ module.exports = {
         html: tempResult,
       });
 
-      res
-        .status(200)
-        .send("Send email request reset password succes, open your email");
+      res.status(200).send();
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
