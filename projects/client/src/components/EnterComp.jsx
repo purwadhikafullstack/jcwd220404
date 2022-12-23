@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { loginUser } from "../redux/userSlice";
 import { ForgotPasswordPage } from "../pages/ForgotPassPage";
+import Swal from "sweetalert2";
 
 export const EnterComp = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ export const EnterComp = () => {
         phoneEmail: inputPhoneEmail.current.value,
         password: inputPass.current.value,
       };
+
 
       const result = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/user/login`,
@@ -43,13 +45,22 @@ export const EnterComp = () => {
       localStorage.setItem("tokenUser", result.data.token);
       navigate("/");
     } catch (err) {
+      Swal.fire({
+        icon: "error",
+        // title: "Oops...",
+        text: "User Not Found or Password Incorrect",
+        // text: `${err.response.data}`,
+        customClass: {
+          container: "my-swal",
+        },
+      });
       console.log(err);
     }
   };
 
   return (
     <div>
-      <Flex
+      {/* <Flex
         w={"full"}
         h={"100vh"}
         backgroundImage={
@@ -58,38 +69,40 @@ export const EnterComp = () => {
         backgroundSize={"cover"}
         backgroundPosition={"center center"}
         pos="sticky"
-      >
-        <Box className="body" h={"1750px"} w={"390px"} pos="fixed" mt="100px">
-          <Heading size={"lg"} textAlign={"center"}>
-            Sign in to your Account
-          </Heading>
-          <Stack mt={"20px"} spacing={"10px"}>
-            <Text>Phone Number or Email</Text>
-            <Input
-              placeholder="08xxx or yourname@example.com"
-              ref={inputPhoneEmail}
-              variant="solid"
-            ></Input>
-            <Text>Password</Text>
-            <Input
-              type={"password"}
-              placeholder="Your Password"
-              ref={inputPass}
-              variant="solid"
-            ></Input>
-            <Button onClick={onLogin}>Sign In</Button>
-            <Box display={"flex"} justifyContent="center">
-              <Text mr={"5px"}> Forgot Password? </Text>
-              <ForgotPasswordPage />
-            </Box>
+      > */}
+      <Box className="body" h={"1750px"} w={"390px"} pos="fixed" mt="100px">
+        <Heading size={"lg"} textAlign={"center"}>
+          Sign in to your Account
+        </Heading>
+        <Stack mt={"20px"} spacing={"10px"}>
+          <Text>Phone Number or Email</Text>
+          <Input
+            isRequired
+            placeholder="08xxx or yourname@example.com"
+            ref={inputPhoneEmail}
+            variant="solid"
+          ></Input>
+          <Text>Password</Text>
+          <Input
+            isRequired
+            type={"password"}
+            placeholder="Your Password"
+            ref={inputPass}
+            variant="solid"
+          ></Input>
+          <Button onClick={onLogin}>Sign In</Button>
+          <Box display={"flex"} justifyContent="center">
+            <Text mr={"5px"}> Forgot Password? </Text>
+            <ForgotPasswordPage />
+          </Box>
 
-            <Text textAlign={"center"}>Don't have an account?</Text>
-            <Link href="/register" textAlign={"center"} color={"blue"}>
-              Register here
-            </Link>
-          </Stack>
-        </Box>
-      </Flex>
+          <Text textAlign={"center"}>Don't have an account?</Text>
+          <Link href="/register" textAlign={"center"} color={"blue"}>
+            Register here
+          </Link>
+        </Stack>
+      </Box>
+      {/* </Flex> */}
     </div>
   );
 };

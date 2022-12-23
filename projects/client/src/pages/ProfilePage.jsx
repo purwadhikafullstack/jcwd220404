@@ -1,4 +1,9 @@
-import { EditIcon } from "@chakra-ui/icons";
+import {
+  ArrowBackIcon,
+  ArrowLeftIcon,
+  ArrowUpIcon,
+  EditIcon,
+} from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
@@ -13,6 +18,7 @@ import {
   Stack,
   Text,
   Select,
+  Tag,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import Axios from "axios";
@@ -20,7 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, updateUser } from "../redux/userSlice";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useHistory } from "react-router-dom";
 import React from "react";
 // import Select from "react-select";
 import Swal from "sweetalert2";
@@ -28,6 +34,7 @@ import Swal from "sweetalert2";
 export const ProfilePage = (user) => {
   const [data, setData] = useState([]);
   const [gender, setGender] = useState("");
+  const [date, setDate] = useState("");
   const { id } = useSelector((state) => state.userSlice.value);
   const inputGender = useRef("");
   const inputBirthDate = useRef("");
@@ -39,12 +46,14 @@ export const ProfilePage = (user) => {
 
   const updateData = async () => {
     try {
+      console.log(inputBirthDate);
       const user = {
         name: inputName.current.value,
         gender: inputGender.current.value,
-        birthDate: inputBirthDate.current.value,
+        birthDate: date,
         // profilePic: inputProfilePic.current.value,
       };
+      console.log(user);
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/user/update/6`,
         user
@@ -52,10 +61,13 @@ export const ProfilePage = (user) => {
       console.log(result);
       Swal.fire({
         icon: "success",
-        text: "Success edit data",
+        text: "Data Updated",
         // text: `${result.data}`,
       });
-      navigate("/account");
+      // navigate("/account");
+      // window.location.replace("/account");
+      // setTimeout(() => window.location.replace("/account"), 2000);
+      // history.replace("/account");
     } catch (err) {
       console.log(err);
     }
@@ -65,6 +77,7 @@ export const ProfilePage = (user) => {
     try {
       const result = await Axios.get(`http://localhost:8000/user/getById/6`);
       setData(result.data);
+      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -86,15 +99,28 @@ export const ProfilePage = (user) => {
     <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
+          <Box as={Link} to={"/account"}>
+            <ArrowBackIcon mt={"20px"} pos={"fixed"} />
+          </Box>
           <Box
-            mt={"100px"}
+            mt={"60px"}
             className="body"
             bgColor="white"
             h={"1750px"}
             w={"390px"}
+            zIndex={2}
           >
-            <Avatar size={"sm"} bg="teal.500" alignContent={"center"} />
-            <Heading size={"md"}>Personal Data</Heading>
+            <Center>
+              <Box>
+                <Avatar size={"lg"} bg="teal.500" />
+                <Tag mt={"20px"} as={"button"} ml={"10px"}>
+                  <ArrowUpIcon mr={"5px"} /> Upload Picture
+                </Tag>
+              </Box>
+            </Center>
+            <Heading mt={"20px"} size={"md"}>
+              Personal Data
+            </Heading>
             <Stack spacing={"20px"} mt={"20px"}>
               <FormControl>
                 <FormLabel>Name</FormLabel>
@@ -108,29 +134,40 @@ export const ProfilePage = (user) => {
               </FormControl>
               <FormControl>
                 <FormLabel>Birthdate</FormLabel>
-                <Input
-                  placeholder="Birth Date"
+                {/* <Input
+                  placeholder="YYYY/MM/DD"
                   type={"text"}
                   defaultValue={data.Profile?.birthDate}
-                ></Input>
-                {/* <Input
+                  ref={inputBirthDate}
+                ></Input> */}
+                <Input
                   placeholder="Select Date and Time"
                   size="md"
                   type="date"
                   defaultValue={data.Profile?.birthDate}
-                /> */}
+                  onChange={(event) => setDate(event.target.value)}
+                />
               </FormControl>
               <FormControl>
                 <FormLabel>Gender</FormLabel>
-                <Input
-                  placeholder="Gender"
-                  ref={inputGender}
-                  defaultValue={data.Profile?.gender}
-                ></Input>
-                {/* <Select placeholder="Select gender" ref={inputGender}>
-                  <option value={"male"}>Male</option>
-                  <option value={"female"}>Female</option>
-                </Select> */}
+
+                <Select ref={inputGender}>
+                  <option selected={data.Profile?.gender === ""} value="">
+                    Select Gender
+                  </option>
+                  <option
+                    selected={data.Profile?.gender === "male"}
+                    value="male"
+                  >
+                    Male
+                  </option>
+                  <option
+                    selected={data.Profile?.gender === "female"}
+                    value="female"
+                  >
+                    Female
+                  </option>
+                </Select>
               </FormControl>
               <Button onClick={() => updateData(data.id)}>Save</Button>
             </Stack>

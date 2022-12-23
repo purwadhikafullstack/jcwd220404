@@ -10,10 +10,13 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import Swal from "sweetalert2";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
+import { useState } from "react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const ChangePassword = (data) => {
+  const [move, setMove] = useState(false);
   const inputPass = useRef("");
   const params = useParams();
   const navigate = useNavigate();
@@ -31,12 +34,12 @@ export const ChangePassword = (data) => {
 
         // { headers: { Authorization: `Bearer ${params.token}` } }
       );
-      console.log(res);
+
+      console.log();
       Swal.fire({
         icon: "success",
-        text: "Success edit data",
+        text: "Password has changed",
         // text: `${result.data}`,
-        
       });
       navigate("/account/profile");
     } catch (err) {
@@ -47,6 +50,9 @@ export const ChangePassword = (data) => {
     <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
+          <Box as={Link} to={"/account/profile"}>
+            <ArrowBackIcon mt={"20px"} pos={"fixed"} />
+          </Box>
           <Box
             mt={"100px"}
             className="body"

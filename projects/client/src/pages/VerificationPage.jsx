@@ -55,56 +55,55 @@ export const VerificationPage = () => {
     <Navigate to="/" />
   ) : (
     <Center>
-
-    <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
-      <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"white"}>
-        <Stack
-          spacing={4}
-          w={"full"}
-          maxW={"sm"}
-          bg={"white"}
-          rounded={"xl"}
-          boxShadow={"lg"}
-          p={6}
-          my={10}
-        >
-          <Center>
-            <Heading lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }}>
-              Verify your Email
-            </Heading>
-          </Center>
-          <Center fontSize={{ base: "sm", sm: "md" }}>
-            We have sent code to your email
-          </Center>
-          <FormControl>
+      <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
+        <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"white"}>
+          <Stack
+            spacing={4}
+            w={"full"}
+            maxW={"sm"}
+            bg={"white"}
+            rounded={"xl"}
+            boxShadow={"lg"}
+            p={6}
+            my={10}
+          >
             <Center>
-              <HStack>
-                <PinInput>
-                  <PinInputField type={"password"} ref={otp1} />
-                  <PinInputField ref={otp2} />
-                  <PinInputField ref={otp3} />
-                  <PinInputField ref={otp4} />
-                  <PinInputField ref={otp5} />
-                  <PinInputField ref={otp6} />
-                </PinInput>
-              </HStack>
+              <Heading lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }}>
+                Verify your Email
+              </Heading>
             </Center>
-          </FormControl>
-          <Stack spacing={6}>
-            <Button
-              onClick={onVerification}
-              bg={"teal.400"}
-              color={"white"}
-              _hover={{
-                bg: "teal.500",
-              }}
-            >
-              Verify
-            </Button>
+            <Center fontSize={{ base: "sm", sm: "md" }}>
+              We have sent code to your email
+            </Center>
+            <FormControl>
+              <Center>
+                <HStack>
+                  <PinInput>
+                    <PinInputField type={"password"} ref={otp1} />
+                    <PinInputField type={"password"} ref={otp2} />
+                    <PinInputField type={"password"} ref={otp3} />
+                    <PinInputField type={"password"} ref={otp4} />
+                    <PinInputField type={"password"} ref={otp5} />
+                    <PinInputField type={"password"} ref={otp6} />
+                  </PinInput>
+                </HStack>
+              </Center>
+            </FormControl>
+            <Stack spacing={6}>
+              <Button
+                onClick={onVerification}
+                bg={"teal.400"}
+                color={"white"}
+                _hover={{
+                  bg: "teal.500",
+                }}
+              >
+                Verify
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
-      </Flex>
-    </Box>
+        </Flex>
+      </Box>
     </Center>
   );
 };

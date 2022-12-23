@@ -1,3 +1,4 @@
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -11,30 +12,30 @@ import {
 import Axios from "axios";
 import React from "react";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export const ChangeEmail = (data) => {
   const inputEmail = useRef("");
   const navigate = useNavigate();
+
   const updateEmail = async () => {
     try {
       const user = {
         email: inputEmail.current.value,
-        // profilePic: inputProfilePic.current.value,
       };
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/user/updateEmail/6`,
         user
       );
+      // setTimeout(() => navigate(`/verification/${result.data.token} `), 2000);
       console.log(result);
-      navigate("/account/profile")
+      // navigate("/account/profile");
       Swal.fire({
         icon: "success",
-        text: "Success edit data",
+        text: "Email has changed",
         // text: `${result.data}`,
       });
-      navigate("/account/profile");
     } catch (err) {
       console.log(err);
     }
@@ -44,6 +45,9 @@ export const ChangeEmail = (data) => {
     <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
+          <Box as={Link} to={"/account/profile"}>
+            <ArrowBackIcon mt={"20px"} pos={"fixed"} />
+          </Box>
           <Box
             mt={"100px"}
             className="body"

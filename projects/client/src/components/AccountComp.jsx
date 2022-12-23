@@ -1,4 +1,4 @@
-import { EditIcon } from "@chakra-ui/icons";
+import { AddIcon, ArrowUpIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Stack,
   Flex,
@@ -15,10 +15,14 @@ import {
   Grid,
   GridItem,
   Tag,
+  TagLeftIcon,
+  TagLabel,
+  HStack,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/userSlice";
+import { LogoComp } from "./LogoComp";
 
 export const AccountComp = () => {
   const { name } = useSelector((state) => state.userSlice.value);
@@ -64,20 +68,16 @@ export const AccountComp = () => {
         bgColor="white"
         h={"1750px"}
         w={"390px"}
-        // pos="fixed"
+        pos="fixed"
       >
         <Grid
-          h="120px"
+          h="100px"
           templateRows="repeat(2, 1fr)"
           templateColumns="repeat(5, 1fr)"
           gap={"10px"}
         >
-          <GridItem rowSpan={2} colSpan={1}>
-            <Avatar
-              name={name}
-              src="https://bit.ly/tioluwani-kolawole"
-              size={"xl"}
-            ></Avatar>
+          <GridItem m={"auto"} rowSpan={2} colSpan={1}>
+            <Avatar display={"flex"} size={"lg"}></Avatar>
           </GridItem>
           <GridItem colSpan={2}>
             <Badge ml={"10px"}>{name}</Badge>
@@ -88,20 +88,21 @@ export const AccountComp = () => {
             </Tag>
           </GridItem>
         </Grid>
-        <Box
+        <HStack
           borderColor={"black"}
           display="flex"
           justifyContent={"center"}
-          // divider={<StackDivider borderColor="teal" />}
+          divider={<StackDivider borderColor="teal" />}
           align="center"
         >
           <Badge alignContent={"center"} mr="10px">
-            Potongan Belanja
+            Potongan Belanja<Text textAlign={"center"}>0</Text>
           </Badge>
           <Badge alignContent={"center"} ml="10px">
-            Gratis Ongkir
+            Gratis Ongkir<Text textAlign={"center"}>0</Text>
           </Badge>
-        </Box>
+        </HStack>
+
         <Stack
           mt={"30px"}
           divider={<StackDivider borderColor="transparent" />}
@@ -118,15 +119,7 @@ export const AccountComp = () => {
           >
             My Address
           </Button>
-          <Button
-            textAlign={"left"}
-            variant={"unstyled"}
-            ml={"10px"}
-            textColor={"black"}
-            h="40px"
-          >
-            Privacy and Policy
-          </Button>
+
           <Button
             textAlign={"left"}
             variant={"unstyled"}
@@ -138,30 +131,17 @@ export const AccountComp = () => {
           </Button>
           <Button
             textAlign={"left"}
-            onClick={onToggle}
+            onClick={onLogout}
             variant={"unstyled"}
             ml={"10px"}
             textColor={"black"}
             h="40px"
           >
-            Account Settings
+            Logout Account
           </Button>
-          <Collapse in={isOpen} animateOpacity>
-            <Stack>
-              <Button
-                color="black"
-                bgColor={"salmon"}
-                rounded="lg"
-                shadow="md"
-                textAlign={"center"}
-                onClick={onLogout}
-              >
-                Logout
-              </Button>
-            </Stack>
-          </Collapse>
-          <Box margin={"auto"} alignItems={"center"} bgColor={"ButtonShadow"}>
-            Versi Aplikasi - 2.5.0
+
+          <Box opacity={"initial"} margin={"auto"} w="50px">
+            <LogoComp />
           </Box>
         </Stack>
       </Box>

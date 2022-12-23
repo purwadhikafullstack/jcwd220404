@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
       lattitude: DataTypes.STRING,
       detail: DataTypes.STRING,
       defaultAddress: DataTypes.BOOLEAN,
+      receiverName: DataTypes.STRING,
+      receiverPhone: DataTypes.STRING,
+      receiverEmail: DataTypes.STRING,
     },
     {
       sequelize,

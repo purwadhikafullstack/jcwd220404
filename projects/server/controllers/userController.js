@@ -79,6 +79,8 @@ module.exports = {
       const isAccountExist = await user.findOne({
         where: {
           phoneNumber: req.user.phoneNumber,
+          email: req.user.email,
+          id: req.user.id,
         },
         raw: true,
       });
@@ -92,6 +94,8 @@ module.exports = {
         {
           where: {
             phoneNumber: req.user.phoneNumber,
+            email: req.user.email,
+            id: req.user.id,
           },
         }
       );
@@ -107,7 +111,7 @@ module.exports = {
 
   changeOtp: async (req, res) => {
     try {
-      const { phoneNumber } = req.body;
+      const { phoneNumber, email } = req.body;
 
       const code_otp = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -119,16 +123,19 @@ module.exports = {
         {
           where: {
             phoneNumber,
+            email,
           },
         }
       );
 
       const isAccountExist = await user.findOne({
-        where: { phoneNumber },
+        where: { phoneNumber, email },
         raw: true,
       });
 
-      const token = jwt.sign({ phoneNumber }, "jcwd2204", { expiresIn: "1h" });
+      const token = jwt.sign({ phoneNumber, email }, "jcwd2204", {
+        expiresIn: "1h",
+      });
 
       const tempEmail = fs.readFileSync("./template/codeotp.html", "utf-8");
       const tempCompile = handlebars.compile(tempEmail);
@@ -254,10 +261,10 @@ module.exports = {
 
   sendEmailForgotPass: async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email, password } = req.body;
 
       const isAccountExist = await user.findOne({
-        where: { email },
+        where: { email, password },
         raw: true,
       });
 
@@ -291,40 +298,10 @@ module.exports = {
     }
   },
 
-  // add: async (req, res) => {
-  //   try {
-  //     const { gender, birthDate } = req.body;
-
-  // if (!name || !gender || !birthDate) throw "required field";
-
-  //     await profile.create(
-  //       {
-  //         gender,
-  //         birthDate,
-  //       },
-  //       {
-  //         where: { id: req.user.id },
-  //       }
-  //       // {
-  //       //   Images: fileUploaded.filename,
-  //       // }
-  //     );
-  //     const findUserById = await user.findByPk(req.user.id);
-  //     res.status(200).send({
-  //       data: findUserById,
-  //       message: "Successfully Added",
-  //     });
-  //   } catch (err) {
-  //     res.status(400).send(err);
-  //   }
-  // },
-
   update: async (req, res) => {
     try {
       const { name, birthDate, gender } = req.body;
-
-      // if (password)
-
+      console.log(req.body);
       const data = await user.update(
         {
           name,
@@ -361,7 +338,7 @@ module.exports = {
   updatePass: async (req, res) => {
     try {
       const { password } = req.body;
-      console.log(password)
+      console.log(password);
       const salt = await bcrypt.genSalt(10);
       console.log(salt);
       const hashPass = await bcrypt.hash(password, salt);
@@ -373,7 +350,6 @@ module.exports = {
         {
           where: { id: req.params.id },
         }
-        
       );
       // const token = jwt.sign({ email: isAccountExist.email }, "jcwd2204", {
       //   expiresIn: "1h",
@@ -390,34 +366,38 @@ module.exports = {
     try {
       const { email } = req.body;
 
+      // const code_otp = Math.floor(100000 + Math.random() * 900000).toString();
+      // const salt = await bcrypt.genSalt(10);
+      // const hashOtp = await bcrypt.hash(code_otp, salt);
       const data = await user.update(
         {
           email,
+          // code_otp: hashOtp,
         },
         {
           where: { id: req.params.id },
         }
       );
-      res.status(200).send(data);
-    } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
-    }
-  },
 
-  updateName: async (req, res) => {
-    try {
-      const { name } = req.body;
+      // const token = jwt.sign(
+      //   { email: email },
+      //   "jcwd2204"
+      //   // { expiresIn: "1h" }
+      // );
 
-      const data = await user.update(
-        {
-          name,
-        },
-        {
-          where: { id: req.params.id },
-        }
-      );
-      res.status(200).send(data);
+      // const tempEmail = fs.readFileSync("./template/codeotp.html", "utf-8");
+      // const tempCompile = handlebars.compile(tempEmail);
+      // const tempResult = tempCompile({
+      //   email,
+      //   code_otp,
+      // });
+      // await transporter.sendMail({
+      //   from: "Admin",
+      //   to: email,
+      //   subject: "Verifikasi akun",
+      //   html: tempResult,
+      // });
+      res.status(200).send({ data });
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

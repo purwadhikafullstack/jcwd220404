@@ -24,7 +24,6 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { Field, ErrorMessage, Formik, Form } from "formik";
 import Swal from "sweetalert2";
-const url = "http://localhost:8000/user/register";
 
 export const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);

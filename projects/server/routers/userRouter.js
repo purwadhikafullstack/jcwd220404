@@ -12,7 +12,6 @@ router.post("/forgotPassword", userController.sendEmailForgotPass);
 router.post("/updatePass", verifyToken, userController.updatePassword);
 router.patch("/update/:id", userController.update);
 router.patch("/updatePassword/:id", userController.updatePass);
-router.patch("/updateName/:id", userController.updateName);
 router.patch("/updateEmail/:id", userController.updateEmail);
 router.get("/getAll", userController.getAll);
 router.get("/getById/:id", userController.getById);
