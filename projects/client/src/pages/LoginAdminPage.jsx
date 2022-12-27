@@ -28,7 +28,7 @@ import {
 
   export const LoginAdminPage = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const inputUsername = useRef("");
+    const inputUsernameEmail = useRef("");
     const inputPass     = useRef("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -38,7 +38,7 @@ import {
         try {
             const admin = {
                 password: inputPass.current.value,
-                username: inputUsername.current.value,
+                usernameEmail: inputUsernameEmail.current.value,
             };
 
             const result = await Axios.post(url, admin);
@@ -107,7 +107,7 @@ import {
         <Stack spacing={4}>
         <FormControl>
         <FormLabel htmlFor="username">Username or Email</FormLabel>
-        <Input type="text" name="username" variant="filled" ref={inputUsername} />
+        <Input type="text" name="username" variant="filled" ref={inputUsernameEmail} />
         </FormControl>
           <FormControl id="password" isRequired>
             <FormLabel>Password</FormLabel>

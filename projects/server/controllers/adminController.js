@@ -36,7 +36,7 @@ module.exports = {
     
       loginAdmin: async (req, res) => {
         try {
-          const { usernameEmail, password } = req.body;
+          const {  usernameEmail, password } = req.body;
     
           const isUserExist = await admin.findOne({
             where: {
@@ -48,7 +48,7 @@ module.exports = {
             raw: true,
           });
     
-          if (isUserExist === null) throw "Account not found";
+          if (!isUserExist) throw "Account not found";
          
           const payload = { username: isUserExist.username };
           const token = jwt.sign(payload, "jcwd2204");
