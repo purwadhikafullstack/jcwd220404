@@ -17,9 +17,27 @@ module.exports = (sequelize, DataTypes) => {
   }
   Admin.init(
     {
-      username: DataTypes.STRING,
-      password: DataTypes.STRING,
-      isSuper: DataTypes.BOOLEAN,
+      username: {
+        type  : DataTypes.STRING,
+        unique: "username",
+        allowNull: false, 
+      },
+      email   : {
+        type : DataTypes.STRING,
+        unique : "email",
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [8],
+        },
+      },
+      isSuper : {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
     },
     {
       sequelize,
