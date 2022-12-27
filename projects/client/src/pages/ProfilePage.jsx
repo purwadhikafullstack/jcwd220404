@@ -55,7 +55,7 @@ export const ProfilePage = () => {
       };
 
       const result = await Axios.patch(
-        `${process.env.REACT_APP_API_BASE_URL}/user/update/6`,
+        `${process.env.REACT_APP_API_BASE_URL}/user/update/${id}`,
         user
       );
       console.log(result);
