@@ -45,7 +45,7 @@ export const ProfilePage = () => {
   const [data, setData] = useState([]);
   const [date, setDate] = useState("");
   const [image, setImage] = useState("");
-  const [profile, setProfile] = useState("/Public");
+  const [profile, setProfile] = useState("upload");
   const { isOpen, onToggle, onClose } = useDisclosure();
   const { id } = useSelector((state) => state.userSlice.value);
   const inputGender = useRef("");
@@ -106,7 +106,7 @@ export const ProfilePage = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `http://localhost:8000/user/single-uploaded/6`,
+      `http://localhost:8000/user/single-uploaded/${id}`,
       data,
       {
         headers: {
@@ -146,19 +146,12 @@ export const ProfilePage = () => {
           >
             <Center>
               <Box>
-                <Avatar size={"lg"} bg="teal.500" />
-                <Box>
-                  <Box>
-                    <Box
-                      style={{
-                        height: "100px",
-                        width: "100px",
-                        // backgroundImage: `url(http://localhost:8000/${profile})`,
-                        backgroundRepeat: "no-repeat",
-                      }}
-                    ><Image src="url(http://localhost:8000/${profile})"></Image></Box>
-                  </Box>
-                </Box>
+                <Avatar
+                  backgroundImage={`url(http://localhost:8000/upload/PIMG-167211610534185819.png)`}
+                  size={"lg"}
+                  bg="teal.500"
+                />
+
                 <Tag mt={"20px"} as={"button"} ml={"10px"} onClick={onToggle}>
                   <ArrowUpIcon mr={"5px"} /> Add Picture
                 </Tag>
@@ -170,7 +163,7 @@ export const ProfilePage = () => {
                   placement="auto-end"
                   closeOnBlur={false}
                 >
-                  <PopoverContent>
+                  <PopoverContent w={"400px"}>
                     <PopoverBody>
                       <PopoverArrow />
                       <PopoverCloseButton />

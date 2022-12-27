@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      City.hasMany(models.Address);
+      // City.hasMany(models.Address);
       City.hasMany(models.Branch);
     }
   }

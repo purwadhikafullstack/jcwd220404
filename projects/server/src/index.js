@@ -4,7 +4,8 @@ const cors = require("cors");
 const { join } = require("path");
 const db = require("../models");
 const bearerToken = require("express-bearer-token");
-
+const multer = require("multer")
+const { diskStorage } = require("multer");
 const app = express();
 
 const PORT = process.env.PORT || 8000;
@@ -13,19 +14,22 @@ app.use(cors());
 app.use(express.static("../upload"));
 app.use(bearerToken());
 
-// const { diskStorage } = require("multer");
 
+// // menerapkan middleware multer hanya pada rute berikut
 // app.put(
 //   "/upload",
 //   multer({ storage: diskStorage }).single("photo"),
 //   (req, res) => {
 //     const file = req.file.path;
+//     console.log(file);
 //     if (!file) {
 //       res.status(400).send({
 //         status: false,
-//         data: "No file is selected",
+//         data: "No File is selected.",
 //       });
 //     }
+//     // menyimpan lokasi upload data contacts pada index yang diinginkan
+//     contacts[req.query.index].photo = req.file.path;
 //     res.send(file);
 //   }
 // );

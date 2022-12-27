@@ -12,8 +12,7 @@ const handlebars = require("handlebars");
 module.exports = {
   register: async (req, res) => {
     try {
-      const { name, phoneNumber, email, password, password_confirmation } =
-        req.body;
+      const { username, password, isSuper } = req.body;
       if (password !== password_confirmation)
         throw "Password doesnt match with confirm password";
       if (password.length < 8)
@@ -26,11 +25,9 @@ module.exports = {
       const hashOtp = await bcrypt.hash(code_otp, salt);
 
       const data = await user.create({
-        name,
-        phoneNumber,
-        email,
+        username,
+        isSuper,
         password: hashPass,
-        code_otp: hashOtp,
       });
 
       await profile.create({
