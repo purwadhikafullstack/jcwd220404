@@ -164,13 +164,14 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const { phoneEmail, password } = req.body;
+      const { phoneEmail, password, id } = req.body;
 
       const isAccountExist = await user.findOne({
         where: {
           [Op.or]: {
             phoneNumber: phoneEmail ? phoneEmail : "",
             email: phoneEmail ? phoneEmail : "",
+            id: id ? id : 0,
           },
         },
         raw: true,
@@ -179,7 +180,10 @@ module.exports = {
       if (isAccountExist === null) throw "Account not found";
       if (isAccountExist.status === false) throw "Your Account is blocked";
 
-      const payload = { phoneNumber: isAccountExist.phoneNumber };
+      const payload = {
+        phoneNumber: isAccountExist.phoneNumber,
+        id: isAccountExist.id,
+      };
       const token = jwt.sign(payload, "jcwd2204");
 
       // const isProfileExist = await profile.findOne({
@@ -220,12 +224,15 @@ module.exports = {
   keepLogin: async (req, res) => {
     try {
       const verify = jwt.verify(req.token, "jcwd2204");
+      console.log(verify);
       const result = await user.findOne({
         where: {
           phoneNumber: verify.phoneNumber,
+          id: verify.id,
         },
         raw: true,
       });
+      console.log(result);
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send(err);
@@ -301,7 +308,7 @@ module.exports = {
   update: async (req, res) => {
     try {
       const { name, birthDate, gender } = req.body;
-      console.log(req.body);
+
       const data = await user.update(
         {
           name,
@@ -319,11 +326,7 @@ module.exports = {
           where: { UserId: req.params.id },
         }
       );
-      // let fileUploaded = req.file;
-      // {
-      //   Images: fileUploaded.filename,
-      // },
-      // );
+
       res.status(200).send({
         message: "success",
         data,
@@ -415,37 +418,6 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-
-  // getBy: async (req, res) => {
-  //   try {
-  //     const { name, gender, birthDate, email, password } = req.query;
-  //     const profile = await profile.findAll({
-  //       where: {
-  //         [Op.or]: {
-  //           gender: gender ? gender : "",
-  //           birthDate: birthDate ? birthDate : "",
-  //         },
-  //       },
-  //       raw: true,
-  //     });
-  //     const user = await user.findAll({
-  //       where: {
-  //         [Op.or]: {
-  //           name: name ? name : "",
-  //           email: email ? email : "",
-  //           password: password ? password : "",
-  //         },
-  //       },
-  //     });
-  //     res.status(200).send({
-  //       message: "success",
-  //       profile,
-  //       user,
-  //     });
-  //   } catch (err) {
-  //     res.status(400).send(err);
-  //   }
-  // },
 
   getById: async (req, res) => {
     try {

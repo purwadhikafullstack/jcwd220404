@@ -48,9 +48,22 @@ export const AddressComp = () => {
         </FormControl>
         <FormControl>
           <FormLabel>Detail Alamat</FormLabel>
-          <Textarea></Textarea>
+          <Textarea placeholder="e.g. Blok/Lantai"></Textarea>
+          <FormControl>
+            <FormLabel>Nama Penerima</FormLabel>
+            <Flex>
+              <Input placeholder="Name"></Input>
+            </Flex>
+          </FormControl>
+          <FormControl>
+            <FormLabel>No. Telepon Penerima</FormLabel>
+            <Input placeholder="08xxx" type={"text"}></Input>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Email Penerima</FormLabel>
+            <Input placeholder="yourname@example.com"></Input>
+          </FormControl>
         </FormControl>
-
         <Button>Add Address</Button>
       </Stack>
     </div>

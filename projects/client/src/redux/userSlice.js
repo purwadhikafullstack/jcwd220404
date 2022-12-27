@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
-    id: "",
+    id: 0,
     phoneNumber: "",
     email: "",
     password: "",
@@ -33,8 +33,16 @@ export const userSlice = createSlice({
       state.value.gender = action.payload.gender;
       state.value.birthDate = action.payload.birthDate;
     },
+    syncData: (state, action) => {
+      state.value = action.payload;
+    },
   },
 });
 
-export const { loginUser, logoutUser, updateUser } = userSlice.actions;
+export const {
+  loginUser,
+  logoutUser,
+  updateUser,
+  syncData
+} = userSlice.actions;
 export default userSlice.reducer;

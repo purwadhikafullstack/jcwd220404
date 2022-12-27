@@ -31,8 +31,10 @@ function App() {
           },
         }
       );
+      console.log(user.data)
       dispatch(
         loginUser({
+          id: user.data.id,
           phoneNumber: user.data.phoneNumber,
           name: user.data.name,
           email: user.data.email,

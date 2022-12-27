@@ -21,7 +21,6 @@ export const AddressPage = () => {
             w={"390px"}
           >
             <AddressComp />
-            <DetailAddressComp />
           </Box>
         </Box>
       </Center>

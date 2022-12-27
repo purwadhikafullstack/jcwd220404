@@ -19,6 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       postalCode: DataTypes.INTEGER,
       longitude: DataTypes.STRING,
       lattitude: DataTypes.STRING,
+      kabupatenKota: DataTypes.STRING,
+      province: DataTypes.STRING,
       detail: DataTypes.STRING,
       defaultAddress: DataTypes.BOOLEAN,
       receiverName: DataTypes.STRING,

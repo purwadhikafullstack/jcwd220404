@@ -29,7 +29,6 @@ export const EnterComp = () => {
         password: inputPass.current.value,
       };
 
-
       const result = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/user/login`,
         user
@@ -40,6 +39,7 @@ export const EnterComp = () => {
           phoneNumber: result.data.isAccountExist.phoneNumber,
           name: result.data.isAccountExist.name,
           email: result.data.isAccountExist.email,
+          id: result.data.isAccountExist.id,
         })
       );
       localStorage.setItem("tokenUser", result.data.token);

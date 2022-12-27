@@ -30,7 +30,7 @@ export const ChangeEmail = (data) => {
       );
       // setTimeout(() => navigate(`/verification/${result.data.token} `), 2000);
       console.log(result);
-      // navigate("/account/profile");
+      navigate("/account/profile");
       Swal.fire({
         icon: "success",
         text: "Email has changed",

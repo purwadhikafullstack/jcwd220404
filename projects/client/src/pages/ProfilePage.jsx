@@ -23,18 +23,20 @@ import {
 import { useRef } from "react";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, updateUser } from "../redux/userSlice";
+import { getUser, syncData, updateUser } from "../redux/userSlice";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link, useNavigate, useParams, useHistory } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import React from "react";
 // import Select from "react-select";
 import Swal from "sweetalert2";
 
-export const ProfilePage = (user) => {
+export const ProfilePage = () => {
   const [data, setData] = useState([]);
-  const [gender, setGender] = useState("");
   const [date, setDate] = useState("");
+  const [image, setImage] = useState("");
+  const [profile, setProfile] = useState("/Public");
+
   const { id } = useSelector((state) => state.userSlice.value);
   const inputGender = useRef("");
   const inputBirthDate = useRef("");
@@ -46,14 +48,12 @@ export const ProfilePage = (user) => {
 
   const updateData = async () => {
     try {
-      console.log(inputBirthDate);
       const user = {
         name: inputName.current.value,
         gender: inputGender.current.value,
-        birthDate: date,
-        // profilePic: inputProfilePic.current.value,
+        birthDate: inputBirthDate.current.value,
       };
-      console.log(user);
+
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/user/update/6`,
         user
@@ -62,12 +62,9 @@ export const ProfilePage = (user) => {
       Swal.fire({
         icon: "success",
         text: "Data Updated",
-        // text: `${result.data}`,
       });
-      // navigate("/account");
-      // window.location.replace("/account");
-      // setTimeout(() => window.location.replace("/account"), 2000);
-      // history.replace("/account");
+
+      setTimeout(() => window.location.replace("/account"), 2000);
     } catch (err) {
       console.log(err);
     }
@@ -75,7 +72,7 @@ export const ProfilePage = (user) => {
 
   const getData = async () => {
     try {
-      const result = await Axios.get(`http://localhost:8000/user/getById/6`);
+      const result = await Axios.get(`http://localhost:8000/user/ById/6`);
       setData(result.data);
       console.log(result.data);
     } catch (err) {
@@ -86,6 +83,33 @@ export const ProfilePage = (user) => {
   useEffect(() => {
     getData();
   }, []);
+
+  // const handleChoose = (e) => {
+  //   console.log("e.target.files", e.target.files);
+  //   setImage(e.target.files[0]);
+  // };
+
+  // const handleUpload = async () => {
+  //   const data = new FormData();
+  //   console.log(data);
+  //   data.append("file", image);
+  //   console.log(data.get("file"));
+
+  //   const resultImage = await Axios.post(
+  //     `http://localhost:2000/book/uploaded/${id}`,
+  //     data,
+  //     {
+  //       headers: {
+  //         "Content-type": "multipart/form-data",
+  //       },
+  //     }
+  //   );
+  //   console.log(resultImage.data);
+  //   setProfile(resultImage.data.Images);
+  //   setImage({ images: "" });
+  // };
+  // console.log(image);
+  // console.log(profile);
 
   const toEmail = () => {
     navigate("/account/email");
@@ -121,6 +145,7 @@ export const ProfilePage = (user) => {
             <Heading mt={"20px"} size={"md"}>
               Personal Data
             </Heading>
+
             <Stack spacing={"20px"} mt={"20px"}>
               <FormControl>
                 <FormLabel>Name</FormLabel>
@@ -134,18 +159,13 @@ export const ProfilePage = (user) => {
               </FormControl>
               <FormControl>
                 <FormLabel>Birthdate</FormLabel>
-                {/* <Input
-                  placeholder="YYYY/MM/DD"
-                  type={"text"}
-                  defaultValue={data.Profile?.birthDate}
-                  ref={inputBirthDate}
-                ></Input> */}
                 <Input
                   placeholder="Select Date and Time"
                   size="md"
                   type="date"
                   defaultValue={data.Profile?.birthDate}
                   onChange={(event) => setDate(event.target.value)}
+                  ref={inputBirthDate}
                 />
               </FormControl>
               <FormControl>
