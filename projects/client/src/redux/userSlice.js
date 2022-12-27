@@ -8,6 +8,7 @@ const initialState = {
     password: "",
     gender: "",
     birthDate: " ",
+    profilePic: "",
   },
 };
 
@@ -22,6 +23,7 @@ export const userSlice = createSlice({
       state.value.name = action.payload.name;
       state.value.gender = action.payload.gender;
       state.value.birthDate = action.payload.birthDate;
+      state.value.profilePic = action.payload.profilePic;
     },
     logoutUser: (state, action) => {
       state.value.phoneNumber = "";
@@ -39,10 +41,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const {
-  loginUser,
-  logoutUser,
-  updateUser,
-  syncData
-} = userSlice.actions;
+export const { loginUser, logoutUser, updateUser, syncData } =
+  userSlice.actions;
 export default userSlice.reducer;

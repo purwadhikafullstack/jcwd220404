@@ -4,12 +4,31 @@ const cors = require("cors");
 const { join } = require("path");
 const db = require("../models");
 const bearerToken = require("express-bearer-token");
+
 const app = express();
 
 const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cors());
+app.use(express.static("../upload"));
+app.use(bearerToken());
 
+// const { diskStorage } = require("multer");
+
+// app.put(
+//   "/upload",
+//   multer({ storage: diskStorage }).single("photo"),
+//   (req, res) => {
+//     const file = req.file.path;
+//     if (!file) {
+//       res.status(400).send({
+//         status: false,
+//         data: "No file is selected",
+//       });
+//     }
+//     res.send(file);
+//   }
+// );
 
 // app.use(
 //   cors({
@@ -20,13 +39,8 @@ app.use(cors());
 //   })
 // );
 
-app.use(express.static("../Public"));
-app.use(bearerToken());
-
 //#region API ROUTES
 const { userRouter } = require("../routers");
-const multer = require("multer");
-const { diskStorage } = require("multer");
 
 // ===========================
 // NOTE : Add your routes here

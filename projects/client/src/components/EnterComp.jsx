@@ -44,6 +44,8 @@ export const EnterComp = () => {
       );
       localStorage.setItem("tokenUser", result.data.token);
       navigate("/");
+      localStorage.setItem("tokenAdmin", result.data.token)
+      navigate("/adminPage")
     } catch (err) {
       Swal.fire({
         icon: "error",

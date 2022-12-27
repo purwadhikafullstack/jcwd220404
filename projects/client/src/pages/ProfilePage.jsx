@@ -19,6 +19,16 @@ import {
   Text,
   Select,
   Tag,
+  useDisclosure,
+  Popover,
+  PopoverContent,
+  PopoverHeader,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverBody,
+  PopoverFooter,
+  ButtonGroup,
+  Image,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import Axios from "axios";
@@ -36,7 +46,7 @@ export const ProfilePage = () => {
   const [date, setDate] = useState("");
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("/Public");
-
+  const { isOpen, onToggle, onClose } = useDisclosure();
   const { id } = useSelector((state) => state.userSlice.value);
   const inputGender = useRef("");
   const inputBirthDate = useRef("");
@@ -44,7 +54,6 @@ export const ProfilePage = () => {
   const inputName = useRef("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const params = useParams();
 
   const updateData = async () => {
     try {
@@ -52,6 +61,7 @@ export const ProfilePage = () => {
         name: inputName.current.value,
         gender: inputGender.current.value,
         birthDate: inputBirthDate.current.value,
+        profilePic: inputProfilePic.current.value,
       };
 
       const result = await Axios.patch(
@@ -84,32 +94,32 @@ export const ProfilePage = () => {
     getData();
   }, []);
 
-  // const handleChoose = (e) => {
-  //   console.log("e.target.files", e.target.files);
-  //   setImage(e.target.files[0]);
-  // };
+  const handleChoose = (e) => {
+    console.log("e.target.files", e.target.files);
+    setImage(e.target.files[0]);
+  };
 
-  // const handleUpload = async () => {
-  //   const data = new FormData();
-  //   console.log(data);
-  //   data.append("file", image);
-  //   console.log(data.get("file"));
+  const handleUpload = async () => {
+    const data = new FormData();
+    console.log(data);
+    data.append("file", image);
+    console.log(data.get("file"));
 
-  //   const resultImage = await Axios.post(
-  //     `http://localhost:2000/book/uploaded/${id}`,
-  //     data,
-  //     {
-  //       headers: {
-  //         "Content-type": "multipart/form-data",
-  //       },
-  //     }
-  //   );
-  //   console.log(resultImage.data);
-  //   setProfile(resultImage.data.Images);
-  //   setImage({ images: "" });
-  // };
-  // console.log(image);
-  // console.log(profile);
+    const resultImage = await Axios.post(
+      `http://localhost:8000/user/single-uploaded/6`,
+      data,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(resultImage.data);
+    setProfile(resultImage.data.profilePic);
+    setImage({ images: "" });
+  };
+  console.log(image);
+  console.log(profile);
 
   const toEmail = () => {
     navigate("/account/email");
@@ -137,9 +147,49 @@ export const ProfilePage = () => {
             <Center>
               <Box>
                 <Avatar size={"lg"} bg="teal.500" />
-                <Tag mt={"20px"} as={"button"} ml={"10px"}>
-                  <ArrowUpIcon mr={"5px"} /> Upload Picture
+                <Box>
+                  <Box>
+                    <Box
+                      style={{
+                        height: "100px",
+                        width: "100px",
+                        // backgroundImage: `url(http://localhost:8000/${profile})`,
+                        backgroundRepeat: "no-repeat",
+                      }}
+                    ><Image src="url(http://localhost:8000/${profile})"></Image></Box>
+                  </Box>
+                </Box>
+                <Tag mt={"20px"} as={"button"} ml={"10px"} onClick={onToggle}>
+                  <ArrowUpIcon mr={"5px"} /> Add Picture
                 </Tag>
+
+                <Popover
+                  returnFocusOnClose={false}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  placement="auto-end"
+                  closeOnBlur={false}
+                >
+                  <PopoverContent>
+                    <PopoverBody>
+                      <PopoverArrow />
+                      <PopoverCloseButton />
+                      <ButtonGroup size="sm">
+                        <form encType="multipart/form-data">
+                          <input
+                            type={"file"}
+                            accept="image/*"
+                            name="file"
+                            onChange={(e) => handleChoose(e)}
+                          ></input>
+                        </form>
+                        <Button colorScheme="blue" onClick={handleUpload}>
+                          Upload
+                        </Button>
+                      </ButtonGroup>
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
               </Box>
             </Center>
             <Heading mt={"20px"} size={"md"}>

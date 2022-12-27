@@ -432,6 +432,36 @@ module.exports = {
     }
   },
 
+  uploadFile: async (req, res) => {
+    try {
+      let fileUploaded = req.file;
+      console.log("controller", fileUploaded);
+      await profile.update(
+        {
+          profilePic: fileUploaded.filename,
+        },
+        {
+          where: {
+            UserId: req.params.id,
+          },
+        }
+      );
+      const getProfile = await profile.findOne({
+        where: {
+          UserId: req.params.id,
+        },
+        raw: true,
+      });
+      res.status(200).send({
+        UserId: getProfile.id,
+        phoneNumber: getProfile.phoneNumber,
+        profilePic: getProfile.profilePic,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
   // address: async (req, res) => {
   //   try {
   //   } catch (err) {

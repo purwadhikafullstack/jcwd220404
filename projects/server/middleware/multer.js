@@ -1,29 +1,23 @@
 const multer = require("multer");
 const path = require("path");
 
-const diskStorage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "/upload"));
+    cb(null, "upload");
   },
   filename: (req, file, cb) => {
     cb(
       null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+      "PIMG" +
+        "-" +
+        Date.now() +
+        Math.round(Math.random() * 100000) +
+        "." +
+        file.mimetype.split("/")[1]
     );
+    console.log(file);
   },
 });
 
-app.put(
-  "/upload",
-  multer({ storage: diskStorage }).single("photo"),
-  (req, res) => {
-    const file = req.file.path;
-    if (!file) {
-      res.status(400).send({
-        status: false,
-        data: "No file is selected",
-      });
-    }
-    res.send(file);
-  }
-);
+exports.multerUpload = multer({ storage });
+
