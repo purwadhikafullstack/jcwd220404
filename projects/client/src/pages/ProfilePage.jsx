@@ -29,7 +29,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React from "react";
-// import Select from "react-select";
 import Swal from "sweetalert2";
 
 export const ProfilePage = () => {
@@ -64,7 +63,6 @@ export const ProfilePage = () => {
         icon: "success",
         text: "Data Updated",
       });
-
       setTimeout(() => window.location.replace("/account"), 2000);
     } catch (err) {
       console.log(err);
@@ -73,7 +71,7 @@ export const ProfilePage = () => {
 
   const getData = async () => {
     try {
-      const result = await Axios.get(`http://localhost:8000/user/ById/6`);
+      const result = await Axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/ById/6`);
       setData(result.data);
       console.log(result.data);
     } catch (err) {
@@ -97,7 +95,7 @@ export const ProfilePage = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `http://localhost:8000/user/single-uploaded/${id}`,
+      `${process.env.REACT_APP_API_BASE_URL}/user/single-uploaded/${id}`,
       data,
       {
         headers: {
@@ -113,11 +111,11 @@ export const ProfilePage = () => {
   console.log(profile);
 
   const toEmail = () => {
-    navigate("/account/email");
+    navigate("/account/profile/email");
   };
 
   const toPass = () => {
-    navigate("/account/password");
+    navigate("/account/profile/password");
   };
 
   return (
@@ -142,11 +140,9 @@ export const ProfilePage = () => {
                   size={"lg"}
                   bg="teal.500"
                 />
-
                 <Tag mt={"20px"} as={"button"} ml={"10px"} onClick={onToggle}>
                   <ArrowUpIcon mr={"5px"} /> Add Picture
                 </Tag>
-
                 <Popover
                   returnFocusOnClose={false}
                   isOpen={isOpen}

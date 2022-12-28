@@ -187,7 +187,7 @@ module.exports = {
       const { id } = req.params;
       await address.destroy({
         where: {
-          id: id
+          id: id,
         },
       });
       res.status(200).send({

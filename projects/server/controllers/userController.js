@@ -12,7 +12,8 @@ const handlebars = require("handlebars");
 module.exports = {
   register: async (req, res) => {
     try {
-      const { username, password, isSuper } = req.body;
+      const { name, phoneNumber, email, password, password_confirmation } =
+        req.body;
       if (password !== password_confirmation)
         throw "Password doesnt match with confirm password";
       if (password.length < 8)
@@ -25,9 +26,11 @@ module.exports = {
       const hashOtp = await bcrypt.hash(code_otp, salt);
 
       const data = await user.create({
-        username,
-        isSuper,
+        name,
+        phoneNumber,
+        email,
         password: hashPass,
+        code_otp: hashOtp,
       });
 
       await profile.create({
@@ -76,8 +79,8 @@ module.exports = {
       const isAccountExist = await user.findOne({
         where: {
           phoneNumber: req.user.phoneNumber,
-          email: req.user.email,
-          id: req.user.id,
+          // email: req.user.email,
+          // id: req.user.id,
         },
         raw: true,
       });
@@ -91,8 +94,8 @@ module.exports = {
         {
           where: {
             phoneNumber: req.user.phoneNumber,
-            email: req.user.email,
-            id: req.user.id,
+            // email: req.user.email,
+            // id: req.user.id,
           },
         }
       );
@@ -120,13 +123,16 @@ module.exports = {
         {
           where: {
             phoneNumber,
-            email,
+            // email,
           },
         }
       );
 
       const isAccountExist = await user.findOne({
-        where: { phoneNumber, email },
+        where: {
+          phoneNumber,
+          // email
+        },
         raw: true,
       });
 

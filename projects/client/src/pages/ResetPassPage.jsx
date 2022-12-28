@@ -82,7 +82,7 @@ export const ResetPassPage = () => {
           />
         </FormControl>
         <FormControl id="password_confirmation" isRequired>
-          <FormLabel textColor={"black"}>Password Confrimation</FormLabel>
+          <FormLabel textColor={"black"}>Password Confirmation</FormLabel>
           <Input
             type="password"
             w={"230px"}

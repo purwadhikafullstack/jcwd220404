@@ -1,13 +1,9 @@
-import { AddIcon, ArrowUpIcon, EditIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 import {
   Stack,
-  Flex,
   Button,
   Text,
-  VStack,
-  useBreakpointValue,
   Box,
-  Collapse,
   StackDivider,
   useDisclosure,
   Avatar,
@@ -15,8 +11,6 @@ import {
   Grid,
   GridItem,
   Tag,
-  TagLeftIcon,
-  TagLabel,
   HStack,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";

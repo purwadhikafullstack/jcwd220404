@@ -18,11 +18,12 @@ import { ResetPassPage } from "./pages/ResetPassPage";
 import { ChangePassword } from "./pages/ChangePassword";
 import { ChangeEmail } from "./pages/ChangeEmail";
 import { ListAddressPage } from "./pages/ListAddressPage";
+import { RestrictedPage } from "./pages/403ResultPage";
 
 function App() {
   const dispatch = useDispatch();
   const tokenUser = localStorage.getItem("tokenUser");
-  
+
   const keepLoginUser = async () => {
     try {
       const user = await Axios.get(
@@ -58,7 +59,6 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/notification" element={<NotificationPage />}></Route>
-        <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/transaction" element={<TransactionPage />}></Route>
         <Route path="/category" element={<CategoryPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
@@ -67,13 +67,21 @@ function App() {
           path="/verification/:token"
           element={<VerificationPage />}
         ></Route>
+        <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/account/profile" element={<ProfilePage />}></Route>
-        <Route path="/account/address" element={<AddressPage />}></Route>
-        <Route path="/account/password" element={<ChangePassword />}></Route>
-        <Route path="/account/email" element={<ChangeEmail />}></Route>
+        <Route
+          path="/account/profile/password"
+          element={<ChangePassword />}
+        ></Route>
+        <Route path="/account/profile/email" element={<ChangeEmail />}></Route>
+        <Route path="/account/address" element={<ListAddressPage />}></Route>
+        <Route
+          path="/account/address/addAddress"
+          element={<AddressPage />}
+        ></Route>
         <Route path="/forgotPassword" element={<ForgotPasswordPage />}></Route>
         <Route path="/resetPassword/:token" element={<ResetPassPage />}></Route>
-        <Route path="/account/listAddress" element={<ListAddressPage />}></Route>
+        <Route path="/restricted" element={<RestrictedPage />}></Route>
       </Routes>
     </div>
   );

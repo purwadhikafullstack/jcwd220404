@@ -7,7 +7,6 @@ import { useState } from "react";
 import { useRef } from "react";
 import Swal from "sweetalert2";
 
-const url = "http://localhost:8000/user/verification";
 
 export const VerificationPage = () => {
   const params = useParams();
@@ -24,7 +23,7 @@ export const VerificationPage = () => {
       const otp = `${otp1.current.value}${otp2.current.value}${otp3.current.value}${otp4.current.value}${otp5.current.value}${otp6.current.value}`;
 
       const res = await Axios.post(
-        url,
+        `${process.env.REACT_APP_API_BASE_URL}/user/verification`,
         { code_otp: otp },
         {
           headers: {
@@ -40,7 +39,7 @@ export const VerificationPage = () => {
       });
       setMove(true);
     } catch (err) {
-      alert(err.response.data);
+      // alert(err.response.data);
       Swal.fire({
         icon: "error",
         title: "Oops...",
