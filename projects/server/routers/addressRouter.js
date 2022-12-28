@@ -3,11 +3,11 @@ const axios = require("axios");
 const { addressController } = require("../controllers/index");
 require("dotenv/config");
 
-router.post("/address/:id", addressController.newAddress);
-router.get("/address/:id", addressController.addressById);
+router.post("/create", addressController.newAddress);
+router.get("/allAddress", addressController.addressById);
 router.patch("/updateAddress/:id", addressController.updateAddress);
 router.patch("/setDefault/:id", addressController.setDefault);
-router.delete("/address", addressController.deleteAddress);
+router.delete("/remove/:id", addressController.deleteAddress);
 
 axios.defaults.baseURL = process.env.BASE_URL_RAJAONGKIR;
 axios.defaults.headers.common["key"] = process.env.RAJA_KEY;

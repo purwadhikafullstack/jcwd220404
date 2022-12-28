@@ -138,7 +138,7 @@ export const ProfilePage = () => {
             <Center>
               <Box>
                 <Avatar
-                  src={`http://localhost:8000/upload/PIMG-167211610534185819.png`}
+                  src={`http://localhost:8000/upload/PIMG-167222530022518785.jpeg`}
                   size={"lg"}
                   bg="teal.500"
                 />

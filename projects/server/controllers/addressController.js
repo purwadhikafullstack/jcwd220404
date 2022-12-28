@@ -1,4 +1,3 @@
-const { json } = require("body-parser");
 const { Op } = require("sequelize");
 const axios = require("axios");
 const db = require("../models");
@@ -14,7 +13,7 @@ module.exports = {
       if (receiverName || addressLine) {
         const res = await address.findAll({
           where: {
-            UserId: req.user.id,
+            // UserId: req.user.id,
             [Op.or]: {
               receiverName: {
                 [Op.like]: `%${receiverName}%`,
@@ -26,23 +25,21 @@ module.exports = {
           },
           order: [["defaultAddress", "DESC"]],
         });
-        res.status(200).json({
-          message: "Get user Address by name and full Address",
-          data: res,
-        });
+        // res.status(200).send({
+        //   message: "Get user Address by name and full Address",
+        //   data: res,
+        // });
       }
       const response = await address.findAll({
         where: {
-          UserId: req.user.id,
+          // UserId: req.user.id,
         },
         order: [["defaultAddress", "DESC"]],
       });
-      res.status(200).send(
-        json({
-          message: "Get User Address",
-          data: response,
-        })
-      );
+      return res.status(200).send({
+        message: "Get User Address",
+        data: response,
+      });
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
@@ -74,41 +71,41 @@ module.exports = {
       const lattitude = location.data.results[0].geometry.lat;
       const longitude = location.data.results[0].geometry.lng;
 
-      const findAddress = await address.findOne({
-        where: {
-          UserId: req.user.id,
-        },
-      });
+      // const findAddress = await address.findOne({
+      //   where: {
+      //     UserId: req.user.id,
+      //   },
+      // });
 
-      if (!findAddress) {
-        const response = await address.create({
-          receiverName,
-          receiverPhone,
-          addressLine,
-          provinceId: province,
-          province: provinceName,
-          cityID: city,
-          city: cityNameAndType,
-          postalCode,
-          detail,
-          district,
-          lattitude,
-          longitude,
-          defaultAddress: true,
-          UserId: req.user.id,
-        });
-        res.status(200).json({
-          message: "New address",
-          data: response,
-        });
-      }
+      // if (!findAddress) {
+      //   const response = await address.create({
+      //     receiverName,
+      //     receiverPhone,
+      //     addressLine,
+      //     provinceId: province,
+      //     province: provinceName,
+      //     cityId: city,
+      //     city: cityNameAndType,
+      //     postalCode,
+      //     detail,
+      //     district,
+      //     lattitude,
+      //     longitude,
+      //     defaultAddress: true,
+      //     // UserId: req.user.id,
+      //   });
+      //   res.status(200).json({
+      //     message: "New address",
+      //     data: response,
+      //   });
+      // }
       const response = await address.create({
         receiverName,
         receiverPhone,
         addressLine,
         provinceId: province,
         province: provinceName,
-        cityID: city,
+        cityId: city,
         city: cityNameAndType,
         postalCode,
         detail,
@@ -116,7 +113,7 @@ module.exports = {
         lattitude,
         longitude,
         defaultAddress: true,
-        UserId: req.user.id,
+        // UserId: req.user.id,
       });
       res.status(200).json({
         message: "New address",
@@ -149,7 +146,7 @@ module.exports = {
       const cityType = provinceAndCity.data.rajaongkir.results.type;
       const cityNameAndType = `${cityType} ${cityName}`;
       const location = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?key=${OpenCageKey}&q=${districts},${cityNameAndType},${provinceName}`
+        `https://api.opencagedata.com/geocode/v1/json?key=${openCageKey}&q=${district},${cityNameAndType},${provinceName}`
       );
       const lattitude = location.data.results[0].geometry.lat;
       const longitude = location.data.results[0].geometry.lng;
@@ -160,7 +157,7 @@ module.exports = {
           addressLine,
           provinceId: province,
           province: provinceName,
-          cityID: city,
+          cityId: city,
           city: cityNameAndType,
           postalCode,
           detail,
@@ -190,10 +187,10 @@ module.exports = {
       const { id } = req.params;
       await address.destroy({
         where: {
-          id: id,
+          id: id
         },
       });
-      res.status(200).json({
+      res.status(200).send({
         message: "Address deleted",
       });
     } catch (err) {
@@ -201,7 +198,7 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-  
+
   setDefault: async (req, res) => {
     try {
       const { id } = req.params;

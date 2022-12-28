@@ -435,7 +435,7 @@ module.exports = {
       console.log("controller", fileUploaded);
       await profile.update(
         {
-          profilePic: fileUploaded.filename,
+          profilePic: `upload/${fileUploaded.filename}`,
         },
         {
           where: {

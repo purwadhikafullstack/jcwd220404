@@ -4,6 +4,7 @@ const cors = require("cors");
 const { join } = require("path");
 const db = require("../models");
 const bearerToken = require("express-bearer-token");
+const path = require("path");
 // const multer = require("multer");
 // const { diskStorage } = require("multer");
 const app = express();
@@ -11,10 +12,9 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cors());
-app.use(express.static("../upload"));
+app.use("/upload", express.static(path.join(__dirname, "../upload")));
 app.use(bearerToken());
 
-// // menerapkan middleware multer hanya pada rute berikut
 // app.put(
 //   "/upload",
 //   multer({ storage: diskStorage }).single("photo"),
@@ -27,7 +27,6 @@ app.use(bearerToken());
 //         data: "No File is selected.",
 //       });
 //     }
-//     // menyimpan lokasi upload data contacts pada index yang diinginkan
 //     contacts[req.query.index].photo = req.file.path;
 //     res.send(file);
 //   }
@@ -43,13 +42,12 @@ app.use(bearerToken());
 // );
 
 //#region API ROUTES
-const { userRouter } = require("../routers");
-const { addressRouter } = require("../routers");
+const { userRouter, addressRouter } = require("../routers");
 
 // ===========================
 // NOTE : Add your routes here
 app.use("/user", userRouter);
-app.use("/admin", addressRouter);
+app.use("/address", addressRouter);
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);
@@ -86,11 +84,11 @@ app.use((err, req, res, next) => {
 
 //#region CLIENT
 const clientPath = "../../client/build";
-app.use(express.static(join(__dirname, clientPath)));
+// app.use(express.static(join(__dirname, clientPath)));
 
 // Serve the HTML page
 app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, clientPath, "index.html"));
+  // res.sendFile(join(__dirname, clientPath, "index.html"));
 });
 
 //#endregion

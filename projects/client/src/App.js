@@ -17,10 +17,12 @@ import { ForgotPasswordPage } from "./pages/ForgotPassPage";
 import { ResetPassPage } from "./pages/ResetPassPage";
 import { ChangePassword } from "./pages/ChangePassword";
 import { ChangeEmail } from "./pages/ChangeEmail";
+import { ListAddressPage } from "./pages/ListAddressPage";
 
 function App() {
   const dispatch = useDispatch();
   const tokenUser = localStorage.getItem("tokenUser");
+  
   const keepLoginUser = async () => {
     try {
       const user = await Axios.get(
@@ -31,7 +33,7 @@ function App() {
           },
         }
       );
-      console.log(user.data)
+      console.log(user.data);
       dispatch(
         loginUser({
           id: user.data.id,
@@ -71,6 +73,7 @@ function App() {
         <Route path="/account/email" element={<ChangeEmail />}></Route>
         <Route path="/forgotPassword" element={<ForgotPasswordPage />}></Route>
         <Route path="/resetPassword/:token" element={<ResetPassPage />}></Route>
+        <Route path="/account/listAddress" element={<ListAddressPage />}></Route>
       </Routes>
     </div>
   );
