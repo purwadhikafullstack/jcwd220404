@@ -4,8 +4,8 @@ const cors = require("cors");
 const { join } = require("path");
 const db = require("../models");
 const bearerToken = require("express-bearer-token");
-const multer = require("multer")
-const { diskStorage } = require("multer");
+// const multer = require("multer");
+// const { diskStorage } = require("multer");
 const app = express();
 
 const PORT = process.env.PORT || 8000;
@@ -13,7 +13,6 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static("../upload"));
 app.use(bearerToken());
-
 
 // // menerapkan middleware multer hanya pada rute berikut
 // app.put(
@@ -45,10 +44,12 @@ app.use(bearerToken());
 
 //#region API ROUTES
 const { userRouter } = require("../routers");
+const { addressRouter } = require("../routers");
 
 // ===========================
 // NOTE : Add your routes here
 app.use("/user", userRouter);
+app.use("/admin", addressRouter);
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);

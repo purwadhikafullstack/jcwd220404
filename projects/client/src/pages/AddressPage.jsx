@@ -3,7 +3,6 @@ import { Box, Center } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { AddressComp } from "../components/AddressComp";
-import { DetailAddressComp } from "../components/DetailAddressComp";
 
 export const AddressPage = () => {
   return (

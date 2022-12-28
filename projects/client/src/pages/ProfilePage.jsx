@@ -1,9 +1,4 @@
-import {
-  ArrowBackIcon,
-  ArrowLeftIcon,
-  ArrowUpIcon,
-  EditIcon,
-} from "@chakra-ui/icons";
+import { ArrowBackIcon, ArrowUpIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
@@ -14,7 +9,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  InputRightElement,
   Stack,
   Text,
   Select,
@@ -22,13 +16,10 @@ import {
   useDisclosure,
   Popover,
   PopoverContent,
-  PopoverHeader,
   PopoverArrow,
   PopoverCloseButton,
   PopoverBody,
-  PopoverFooter,
   ButtonGroup,
-  Image,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import Axios from "axios";
@@ -147,7 +138,7 @@ export const ProfilePage = () => {
             <Center>
               <Box>
                 <Avatar
-                  backgroundImage={`url(http://localhost:8000/upload/PIMG-167211610534185819.png)`}
+                  src={`http://localhost:8000/upload/PIMG-167211610534185819.png`}
                   size={"lg"}
                   bg="teal.500"
                 />
