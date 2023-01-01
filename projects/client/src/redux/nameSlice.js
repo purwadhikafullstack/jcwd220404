@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  name: "address",
+  name: "admin",
   value: [],
 };
 
-export const addressSlice = createSlice({
-  name: "address",
+export const nameSlice = createSlice({
+  name: "admin",
   initialState,
   reducers: {
     syncData: (state, action) => {
@@ -16,6 +16,6 @@ export const addressSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { syncData } = addressSlice.actions;
+export const { syncData } = nameSlice.actions;
 
-export default addressSlice.reducer;
+export default nameSlice.reducer;

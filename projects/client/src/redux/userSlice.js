@@ -9,6 +9,12 @@ const initialState = {
     gender: "",
     birthDate: " ",
     profilePic: "",
+    addressLine: "",
+    city: "",
+    province: "",
+    receiverName: "",
+    detail: "",
+    district: "",
   },
 };
 
@@ -24,6 +30,12 @@ export const userSlice = createSlice({
       state.value.gender = action.payload.gender;
       state.value.birthDate = action.payload.birthDate;
       state.value.profilePic = action.payload.profilePic;
+      state.value.addressLine = action.payload.addressLine;
+      state.value.city = action.payload.city;
+      state.value.province = action.payload.province;
+      state.value.receiverName = action.payload.receiverName;
+      state.value.detail = action.payload.detail;
+      state.value.district = action.payload.district
     },
     logoutUser: (state, action) => {
       state.value.phoneNumber = "";
@@ -35,12 +47,8 @@ export const userSlice = createSlice({
       state.value.gender = action.payload.gender;
       state.value.birthDate = action.payload.birthDate;
     },
-    syncData: (state, action) => {
-      state.value = action.payload;
-    },
   },
 });
 
-export const { loginUser, logoutUser, updateUser, syncData } =
-  userSlice.actions;
+export const { loginUser, logoutUser, updateUser } = userSlice.actions;
 export default userSlice.reducer;

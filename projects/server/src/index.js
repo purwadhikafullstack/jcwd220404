@@ -5,8 +5,6 @@ const { join } = require("path");
 const db = require("../models");
 const bearerToken = require("express-bearer-token");
 const path = require("path");
-// const multer = require("multer");
-// const { diskStorage } = require("multer");
 const app = express();
 
 const PORT = process.env.PORT || 8000;
@@ -14,23 +12,6 @@ app.use(express.json());
 app.use(cors());
 app.use("/upload", express.static(path.join(__dirname, "../upload")));
 app.use(bearerToken());
-
-// app.put(
-//   "/upload",
-//   multer({ storage: diskStorage }).single("photo"),
-//   (req, res) => {
-//     const file = req.file.path;
-//     console.log(file);
-//     if (!file) {
-//       res.status(400).send({
-//         status: false,
-//         data: "No File is selected.",
-//       });
-//     }
-//     contacts[req.query.index].photo = req.file.path;
-//     res.send(file);
-//   }
-// );
 
 // app.use(
 //   cors({
@@ -42,12 +23,13 @@ app.use(bearerToken());
 // );
 
 //#region API ROUTES
-const { userRouter, addressRouter } = require("../routers");
+const { userRouter, addressRouter, adminRouter } = require("../routers");
 
 // ===========================
 // NOTE : Add your routes here
 app.use("/user", userRouter);
 app.use("/address", addressRouter);
+app.use("/admin", adminRouter);
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);

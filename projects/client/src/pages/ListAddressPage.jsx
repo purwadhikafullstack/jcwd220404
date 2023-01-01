@@ -10,20 +10,23 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Axios from "axios";
 import {
   ArrowBackIcon,
   DeleteIcon,
   EditIcon,
   HamburgerIcon,
 } from "@chakra-ui/icons";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { syncData } from "../redux/addressSlice";
 
 export const ListAddressPage = () => {
-  const [data, setData] = useState("");
+  // const [data, setData] = useState("");
+  const { data } = useSelector((state) => state.addressSlice.value);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onAddress = () => {
     navigate("/account/address/addAddress");
   };
@@ -31,10 +34,10 @@ export const ListAddressPage = () => {
   const getData = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/address/addressById/6`
+        `${process.env.REACT_APP_API_BASE_URL}/address/addressById`
       );
-      setData(result.data);
       console.log(result.data);
+      dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
     }
@@ -43,6 +46,18 @@ export const ListAddressPage = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  const onDelete = async (id) => {
+    try {
+      const res = await Axios.delete(
+        `http://localhost:8000/address/remove/${id}`
+      );
+      console.log(res);
+      getData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
@@ -75,36 +90,42 @@ export const ListAddressPage = () => {
             h={"1750px"}
             w={"390px"}
           >
-            {/* {data.map((item) => {
-              return ( */}
-            <Box border={"2px"} borderColor={"black"}>
-              <Flex justifyContent={"space-between"}>
-                <Text>{data.receiverName}</Text>
-                <Text>{data.receiverPhone}</Text>
-                <Menu>
-                  <MenuButton
-                    as={IconButton}
-                    aria-label="Options"
-                    icon={<HamburgerIcon />}
-                    variant="ghost"
-                  />
-                  <MenuList>
-                    <MenuItem icon={<EditIcon />}>Edit Address</MenuItem>
-                    <MenuItem icon={<DeleteIcon />}>Delete Address</MenuItem>
-                  </MenuList>
-                </Menu>
-              </Flex>
-              <Text>{data.addressLine}</Text>
-              <Flex>
-                <Text>{data.district}</Text>
-                <Text>{data.city}</Text>
-                <Text>{data.province}</Text>
-              </Flex>
-              <Text>{data.detail}</Text>
-              <Text>Alamat Utama?</Text>
-            </Box>
-            {/* );
-            })} */}
+            {data?.map((item) => {
+              return (
+                <Box border={"2px"} borderColor={"black"}>
+                  <Flex justifyContent={"space-between"}>
+                    <Text>{item.receiverName}</Text>
+                    <Text>{item.receiverPhone}</Text>
+                    <Menu>
+                      <MenuButton
+                        as={IconButton}
+                        aria-label="Options"
+                        icon={<HamburgerIcon />}
+                        variant="ghost"
+                      />
+                      <MenuList>
+                        <MenuItem icon={<EditIcon />}>Edit Address</MenuItem>
+                        <MenuItem
+                          as={"button"}
+                          onClick={() => onDelete(item.id)}
+                          icon={<DeleteIcon />}
+                        >
+                          Delete Address
+                        </MenuItem>
+                      </MenuList>
+                    </Menu>
+                  </Flex>
+                  <Text>{item.addressLine}</Text>
+                  <Flex>
+                    <Text>{item.district}</Text>
+                    <Text>{item.city}</Text>
+                    <Text>{item.province}</Text>
+                  </Flex>
+                  <Text>{item.detail}</Text>
+                  <Text>Alamat Utama?</Text>
+                </Box>
+              );
+            })}
             <Button onClick={onAddress} mt={"20px"} w={"100%"}>
               Tambah Alamat
             </Button>

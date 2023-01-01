@@ -18,8 +18,8 @@ import Swal from "sweetalert2";
 
 export const AddressComp = () => {
   const inputAddressLine = useRef("");
-  const inputCityId = useRef("");
-  const inputProvinceId = useRef("");
+  const inputCity = useRef("");
+  const inputProvince = useRef("");
   const inputDetail = useRef("");
   const inputDistrict = useRef("");
   const inputPostalCode = useRef("");
@@ -29,18 +29,70 @@ export const AddressComp = () => {
   const inputReceiverEmail = useRef("");
   const navigate = useNavigate();
 
+  // const registerSchema = Yup.object().shape({
+  //   username: Yup.string()
+  //     .required("Name is a required field")
+  //     .min(5, "Name min. 5 characters"),
+  //   email: Yup.string().email().required("Email is a required field"),
+  //   password: Yup.string()
+  //     .required("Password is a required field")
+  //     .min(8, "Password min. 8 characters"),
+  //   password_confirmation: Yup.string().oneOf(
+  //     [Yup.ref("password"), null],
+  //     "Password not matched"
+  //   ),
+  // });
+
+  // const onRegister = async (data) => {
+  //   try {
+  //     if (data.password !== data.password_confirmation) {
+  //       return Swal.fire({
+  //         icon: "error",
+  //         title: "Oooops ...",
+  //         text: "make sure password and confirm password match",
+  //         timer: 2000,
+  //         customClass: {
+  //           container: "my-swal",
+  //         },
+  //       });
+  //     }
+  //     const result = await Axios.post(
+  //       `${process.env.REACT_APP_API_BASE_URL}/admin/register`,
+  //       data
+  //     );
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Good Job",
+  //       text: `${result.data.massage}`,
+  //       timer: 2000,
+  //       customClass: {
+  //         container: "my-swal",
+  //       },
+  //     });
+  //   } catch (err) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: `${err.response.data}`,
+  //       customClass: {
+  //         container: "my-swal",
+  //       },
+  //     });
+  //   }
+  // };
+
   const onCreate = async () => {
     try {
       const addAddress = {
         addressLine: inputAddressLine.current.value,
         district: inputDistrict.current.value,
-        cityId: inputCityId.current.value,
-        provinceId: inputProvinceId.current.value,
+        city: inputCity.current.value,
+        province: inputProvince.current.value,
         postalCode: inputPostalCode.current.value,
         detail: inputDetail.current.value,
         receiverName: inputReceiverName.current.value,
         receiverPhone: inputReceiverPhone.current.value,
-        // receiverEmail: inputReceiverEmail.current.value,
+        receiverEmail: inputReceiverEmail.current.value,
       };
 
       const res = await Axios.post(
@@ -49,7 +101,7 @@ export const AddressComp = () => {
       );
       Swal.fire({
         icon: "success",
-        text: "Email has changed",
+        text: "Success",
         // text: `${result.data}`,
       });
       navigate("/account/address");
@@ -78,7 +130,8 @@ export const AddressComp = () => {
         <Input ref={inputAddressLine} mb={"20px"}></Input>
         <FormControl>
           <FormLabel>Kota/Kabupaten</FormLabel>
-          <Select ref={inputCityId}>
+          <Input ref={inputCity}></Input>
+          {/* <Select ref={inputCityId}>
             <option
               // selected={data.Profile?.gender === ""}
               value=""
@@ -89,23 +142,30 @@ export const AddressComp = () => {
               // selected={data.Profile?.gender === "male"}
               value="154"
             >
-              Kota Jakarta Timur
+              154
             </option>
             <option
               // selected={data.Profile?.gender === "female"}
               value="55"
             >
-              Kota Bekasi
+              55
             </option>
             <option
               // selected={data.Profile?.gender === "female"}
               value="457"
             >
-              Kota Tangerang Selatan
+              457
             </option>
-          </Select>
+            <option
+              // selected={data.Profile?.gender === "female"}
+              value="115"
+            >
+              115
+            </option>
+          </Select> */}
           <FormLabel>Provinsi</FormLabel>
-          <Select ref={inputProvinceId}>
+          <Input ref={inputProvince}></Input>
+          {/* <Select ref={inputProvinceId}>
             <option
               // selected={data.Profile?.gender === ""}
               value=""
@@ -116,21 +176,21 @@ export const AddressComp = () => {
               // selected={data.Profile?.gender === "male"}
               value="6"
             >
-              DKI Jakarta
+              6
             </option>
             <option
               // selected={data.Profile?.gender === "female"}
               value="9"
             >
-              Jawa Barat
+              9
             </option>
             <option
               // selected={data.Profile?.gender === "female"}
               value="3"
             >
-              Banten
+              3
             </option>
-          </Select>
+          </Select> */}
         </FormControl>
         <FormControl>
           <FormLabel>Kode Pos</FormLabel>
@@ -157,7 +217,7 @@ export const AddressComp = () => {
           <FormControl>
             <FormLabel>Email Penerima</FormLabel>
             <Input
-              // ref={inputReceiverEmail}
+              ref={inputReceiverEmail}
               placeholder="yourname@example.com"
             ></Input>
           </FormControl>
