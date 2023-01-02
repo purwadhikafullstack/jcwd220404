@@ -90,6 +90,9 @@ module.exports = {
   findAll: async (req, res) => {
     try {
       const admins = await admin.findAll({
+        where: {
+          isSuper: 1,
+        },
         attributes: ["username", "email", "isSuper"],
         raw: true,
       });

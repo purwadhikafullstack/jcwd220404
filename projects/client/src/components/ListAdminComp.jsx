@@ -8,12 +8,14 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import Axios from "axios";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { syncData } from "../redux/nameSlice";
 
 export const ListAdminComp = () => {
-  const { data } = useSelector((state) => state.nameSlice.value);
+  const [data, setData] = useState([]);
+  // const { data } = useSelector((state) => state.nameSlice.value);
   const dispatch = useDispatch();
   const getData = async () => {
     try {
@@ -21,7 +23,8 @@ export const ListAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/admin/findAll`
       );
       console.log(res.data);
-      dispatch(syncData(res.data));
+      setData(res.data);
+      // dispatch(syncData(res.data));
     } catch (err) {
       console.log(err);
     }
@@ -48,7 +51,7 @@ export const ListAdminComp = () => {
                 <Tr>
                   <Td>{item.username}</Td>
                   <Td>{item.email}</Td>
-                  <Td>{item.isSuper}</Td>
+                  <Td>{item.isSuper === 2 ? "Super Admin" : "Branch Admin"}</Td>
                 </Tr>
               );
             })}

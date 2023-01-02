@@ -257,4 +257,17 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  findById: async (req, res) => {
+    try {
+      const response = await address.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+      res.status(200).send(response);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
 };

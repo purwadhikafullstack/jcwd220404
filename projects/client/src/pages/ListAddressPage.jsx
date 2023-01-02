@@ -23,11 +23,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../redux/addressSlice";
 
 export const ListAddressPage = () => {
-  // const [data, setData] = useState("");
+  // const [data, setData] = useState([]);
   const { data } = useSelector((state) => state.addressSlice.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const onAddress = () => {
+
+  const toAddAddress = () => {
     navigate("/account/address/addAddress");
   };
 
@@ -37,6 +38,7 @@ export const ListAddressPage = () => {
         `${process.env.REACT_APP_API_BASE_URL}/address/addressById`
       );
       console.log(result.data);
+      // setData(result.data);
       dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
@@ -57,6 +59,10 @@ export const ListAddressPage = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const toUpdate = (id) => {
+    navigate(`/account/address/updateAddress/${id}`);
   };
 
   return (
@@ -104,7 +110,13 @@ export const ListAddressPage = () => {
                         variant="ghost"
                       />
                       <MenuList>
-                        <MenuItem icon={<EditIcon />}>Edit Address</MenuItem>
+                        <MenuItem
+                          as={"button"}
+                          onClick={() => toUpdate(item.id)}
+                          icon={<EditIcon />}
+                        >
+                          Edit Address
+                        </MenuItem>
                         <MenuItem
                           as={"button"}
                           onClick={() => onDelete(item.id)}
@@ -126,7 +138,7 @@ export const ListAddressPage = () => {
                 </Box>
               );
             })}
-            <Button onClick={onAddress} mt={"20px"} w={"100%"}>
+            <Button onClick={toAddAddress} mt={"20px"} w={"100%"}>
               Tambah Alamat
             </Button>
           </Box>

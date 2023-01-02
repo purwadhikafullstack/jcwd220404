@@ -74,70 +74,38 @@ export const AddressComp = () => {
           </AspectRatio>
         </FormControl>
         <FormLabel>Kecamatan</FormLabel>
-        <Input ref={inputAddressLine} mb={"20px"}></Input>
+        <Input ref={inputDistrict} mb={"20px"}></Input>
         <FormControl>
           <FormLabel>Kota/Kabupaten</FormLabel>
-          <Input ref={inputCity}></Input>
-          {/* <Select ref={inputCityId}>
+          <Select ref={inputCity}>
             <option
               // selected={data.Profile?.gender === ""}
               value=""
             >
               Pilih Kota/Kabupaten
             </option>
-            <option
-              // selected={data.Profile?.gender === "male"}
-              value="154"
-            >
-              154
-            </option>
-            <option
-              // selected={data.Profile?.gender === "female"}
-              value="55"
-            >
-              55
-            </option>
-            <option
-              // selected={data.Profile?.gender === "female"}
-              value="457"
-            >
-              457
-            </option>
-            <option
-              // selected={data.Profile?.gender === "female"}
-              value="115"
-            >
-              115
-            </option>
-          </Select> */}
+            <option value="154">Jakarta Timur</option>
+            <option value="55">Kota Bekasi</option>
+            <option value="457">Kota Tangerang Selatan</option>
+            <option value="153">Kota Jakarta Selatan</option>
+            <option value="151">Kota Jakarta Barat</option>
+            <option value="152">Kota Jakarta Pusat</option>
+            <option value="79">Kota Bogor</option>
+            <option value="155">Kota Jakarta Utara</option>
+          </Select>
           <FormLabel>Provinsi</FormLabel>
-          <Input ref={inputProvince}></Input>
-          {/* <Select ref={inputProvinceId}>
+          {/* <Input ref={inputProvince}></Input> */}
+          <Select ref={inputProvince}>
             <option
               // selected={data.Profile?.gender === ""}
               value=""
             >
               Pilih Provinsi
             </option>
-            <option
-              // selected={data.Profile?.gender === "male"}
-              value="6"
-            >
-              6
-            </option>
-            <option
-              // selected={data.Profile?.gender === "female"}
-              value="9"
-            >
-              9
-            </option>
-            <option
-              // selected={data.Profile?.gender === "female"}
-              value="3"
-            >
-              3
-            </option>
-          </Select> */}
+            <option value="6">DKI Jakarta</option>
+            <option value="9">Jawa Barat</option>
+            <option value="3">Banten</option>
+          </Select>
         </FormControl>
         <FormControl>
           <FormLabel>Kode Pos</FormLabel>

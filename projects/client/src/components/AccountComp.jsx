@@ -29,8 +29,8 @@ export const AccountComp = () => {
     navigate("/");
   };
 
-  const onProfile = () => {
-    navigate("/account/profile");
+  const onProfile = (id) => {
+    navigate(`/account/profile`);
   };
   const onAddress = () => {
     navigate("/account/address");

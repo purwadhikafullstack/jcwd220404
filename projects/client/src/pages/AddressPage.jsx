@@ -2,7 +2,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Box, Center } from "@chakra-ui/react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AddressComp } from "../components/AddressComp";
+import { AddressComp } from "../components/AddAddressComp";
 
 export const AddressPage = () => {
   return (

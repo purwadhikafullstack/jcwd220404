@@ -22,6 +22,7 @@ import { ListAddressPage } from "./pages/ListAddressPage";
 import { RestrictedPage } from "./pages/403ResultPage";
 import { LoginAdminPage } from "./pages/LoginAdminPage";
 import { AdminPage } from "./pages/AdminPage";
+import { UpdateAddressPage } from "./pages/UpdateAddressPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -135,6 +136,10 @@ function App() {
         <Route
           path="/account/address/addAddress"
           element={<AddressPage />}
+        ></Route>
+        <Route
+          path="/account/address/updateAddress/:id"
+          element={<UpdateAddressPage />}
         ></Route>
         <Route path="/forgotPassword" element={<ForgotPasswordPage />}></Route>
         <Route path="/resetPassword/:token" element={<ResetPassPage />}></Route>
