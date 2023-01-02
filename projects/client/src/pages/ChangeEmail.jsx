@@ -34,7 +34,6 @@ export const ChangeEmail = (data) => {
       Swal.fire({
         icon: "success",
         text: "Email has changed",
-        // text: `${result.data}`,
       });
     } catch (err) {
       console.log(err);

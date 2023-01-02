@@ -50,7 +50,7 @@ export const ListAddressPage = () => {
   const onDelete = async (id) => {
     try {
       const res = await Axios.delete(
-        `http://localhost:8000/address/remove/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}address/remove/${id}`
       );
       console.log(res);
       getData();
@@ -117,8 +117,8 @@ export const ListAddressPage = () => {
                   </Flex>
                   <Text>{item.addressLine}</Text>
                   <Flex>
-                    <Text>{item.district}</Text>
-                    <Text>{item.city}</Text>
+                    <Text>{item.district},</Text>
+                    <Text>{item.city},</Text>
                     <Text>{item.province}</Text>
                   </Flex>
                   <Text>{item.detail}</Text>

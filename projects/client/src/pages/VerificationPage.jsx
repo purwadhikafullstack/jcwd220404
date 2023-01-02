@@ -39,7 +39,6 @@ export const VerificationPage = () => {
       });
       setMove(true);
     } catch (err) {
-      // alert(err.response.data);
       Swal.fire({
         icon: "error",
         title: "Oops...",

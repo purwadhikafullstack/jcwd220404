@@ -8,7 +8,7 @@ router.post("/login", userController.login);
 router.post("/verification", verifyToken, userController.verification);
 router.post("/changeotp", userController.changeOtp);
 router.post("/forgotPassword", userController.sendEmailForgotPass);
-router.post("/updatePass", verifyToken, userController.updatePassword);
+router.post("/updatePass", verifyToken, userController.changePassword);
 router.post(
   "/single-uploaded/:id",
   multerUpload.single("file"),
@@ -17,8 +17,8 @@ router.post(
 router.patch("/update/:id", userController.update);
 router.patch("/updatePassword/:id", userController.updatePass);
 router.patch("/updateEmail/:id", userController.updateEmail);
-router.get("/getAll", userController.getAll);
-router.get("/ById/:id", userController.getById);
+router.get("/getAll", userController.findAll);
+router.get("/byId/:id", userController.findById);
 router.get("/keepLogin", userController.keepLogin);
 
 module.exports = router;

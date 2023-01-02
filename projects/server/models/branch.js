@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       phoneNumber: DataTypes.INTEGER,
       longitude: DataTypes.STRING,
       lattitude: DataTypes.STRING,
+      city: DataTypes.STRING,
+      province: DataTypes.STRING,
+      cityId: DataTypes.INTEGER,
+      provinceId: DataTypes.INTEGER,
     },
     {
       sequelize,

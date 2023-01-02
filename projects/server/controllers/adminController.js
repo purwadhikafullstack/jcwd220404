@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
 
 module.exports = {
-  registerAdmin: async (req, res) => {
+  register: async (req, res) => {
     try {
       const { username, email, password, password_confirmation, isSuper } =
         req.body;
@@ -37,7 +37,7 @@ module.exports = {
     }
   },
 
-  loginAdmin: async (req, res) => {
+  login: async (req, res) => {
     try {
       const { usernameEmail, password } = req.body;
 
@@ -87,9 +87,12 @@ module.exports = {
     }
   },
 
-  findAllAdmin: async (req, res) => {
+  findAll: async (req, res) => {
     try {
-      const admins = await admin.findAll({ raw: true });
+      const admins = await admin.findAll({
+        attributes: ["username", "email", "isSuper"],
+        raw: true,
+      });
       res.status(200).send(admins);
     } catch (err) {
       console.log(err);

@@ -29,58 +29,6 @@ export const AddressComp = () => {
   const inputReceiverEmail = useRef("");
   const navigate = useNavigate();
 
-  // const registerSchema = Yup.object().shape({
-  //   username: Yup.string()
-  //     .required("Name is a required field")
-  //     .min(5, "Name min. 5 characters"),
-  //   email: Yup.string().email().required("Email is a required field"),
-  //   password: Yup.string()
-  //     .required("Password is a required field")
-  //     .min(8, "Password min. 8 characters"),
-  //   password_confirmation: Yup.string().oneOf(
-  //     [Yup.ref("password"), null],
-  //     "Password not matched"
-  //   ),
-  // });
-
-  // const onRegister = async (data) => {
-  //   try {
-  //     if (data.password !== data.password_confirmation) {
-  //       return Swal.fire({
-  //         icon: "error",
-  //         title: "Oooops ...",
-  //         text: "make sure password and confirm password match",
-  //         timer: 2000,
-  //         customClass: {
-  //           container: "my-swal",
-  //         },
-  //       });
-  //     }
-  //     const result = await Axios.post(
-  //       `${process.env.REACT_APP_API_BASE_URL}/admin/register`,
-  //       data
-  //     );
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Good Job",
-  //       text: `${result.data.massage}`,
-  //       timer: 2000,
-  //       customClass: {
-  //         container: "my-swal",
-  //       },
-  //     });
-  //   } catch (err) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops...",
-  //       text: `${err.response.data}`,
-  //       customClass: {
-  //         container: "my-swal",
-  //       },
-  //     });
-  //   }
-  // };
-
   const onCreate = async () => {
     try {
       const addAddress = {
@@ -96,13 +44,12 @@ export const AddressComp = () => {
       };
 
       const res = await Axios.post(
-        `http://localhost:8000/address/create`,
+        `${process.env.REACT_APP_API_BASE_URL}/address/create`,
         addAddress
       );
       Swal.fire({
         icon: "success",
         text: "Success",
-        // text: `${result.data}`,
       });
       navigate("/account/address");
       // setTimeout(() => window.location.replace("/account/address"), 2000);

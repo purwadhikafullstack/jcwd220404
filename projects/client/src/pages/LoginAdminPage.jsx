@@ -21,8 +21,6 @@ import { loginAdmin } from "../redux/adminSlice";
 import Swal from "sweetalert2";
 import OnlyFreshLogo from "../OnlyFresh.jpg";
 
-const url = "http://localhost:8000/admin/login";
-
 export const LoginAdminPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const inputUsernameEmail = useRef("");
@@ -37,7 +35,10 @@ export const LoginAdminPage = () => {
         password: inputPass.current.value,
       };
 
-      const result = await Axios.post(url, admin);
+      const result = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/admin/login`,
+        admin
+      );
       dispatch(
         loginAdmin({
           id: result.data.isUserExist.id,

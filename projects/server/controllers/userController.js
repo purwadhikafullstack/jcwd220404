@@ -242,7 +242,7 @@ module.exports = {
     }
   },
 
-  updatePassword: async (req, res) => {
+  changePassword: async (req, res) => {
     try {
       const { password, password_confirmation } = req.body;
 
@@ -410,7 +410,7 @@ module.exports = {
     }
   },
 
-  getAll: async (req, res) => {
+  findAll: async (req, res) => {
     try {
       const users = await profile.findAll({
         attributes: ["id", "gender", "birthDate"],
@@ -422,7 +422,7 @@ module.exports = {
     }
   },
 
-  getById: async (req, res) => {
+  findById: async (req, res) => {
     try {
       const users = await user.findOne({
         where: { id: req.params.id },

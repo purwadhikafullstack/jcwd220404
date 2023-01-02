@@ -71,7 +71,7 @@ export const ProfilePage = () => {
 
   const getData = async () => {
     try {
-      const result = await Axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/ById/6`);
+      const result = await Axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/byId/6`);
       setData(result.data);
       console.log(result.data);
     } catch (err) {
