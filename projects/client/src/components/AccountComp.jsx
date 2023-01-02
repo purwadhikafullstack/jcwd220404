@@ -71,7 +71,12 @@ export const AccountComp = () => {
           gap={"10px"}
         >
           <GridItem m={"auto"} rowSpan={2} colSpan={1}>
-            <Avatar display={"flex"} size={"lg"}></Avatar>
+            <Avatar
+              display={"flex"}
+              size={"lg"}
+              src={`http://localhost:8000/upload/PIMG-167222530022518785.jpeg`}
+              bg="teal.500"
+            ></Avatar>
           </GridItem>
           <GridItem colSpan={2}>
             <Badge ml={"10px"}>{name}</Badge>
