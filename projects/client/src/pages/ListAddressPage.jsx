@@ -23,7 +23,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../redux/addressSlice";
 
 export const ListAddressPage = () => {
-  // const [data, setData] = useState([]);
   const { data } = useSelector((state) => state.addressSlice.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,7 +37,6 @@ export const ListAddressPage = () => {
         `${process.env.REACT_APP_API_BASE_URL}/address/addressById`
       );
       console.log(result.data);
-      // setData(result.data);
       dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
@@ -52,7 +50,7 @@ export const ListAddressPage = () => {
   const onDelete = async (id) => {
     try {
       const res = await Axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}address/remove/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/address/remove/${id}`
       );
       console.log(res);
       getData();

@@ -34,8 +34,7 @@ export const ChangePassword = (data) => {
 
         // { headers: { Authorization: `Bearer ${params.token}` } }
       );
-
-      console.log();
+      console.log(res);
       Swal.fire({
         icon: "success",
         text: "Password has changed",

@@ -15,7 +15,6 @@ import { syncData } from "../redux/nameSlice";
 
 export const ListAdminComp = () => {
   const [data, setData] = useState([]);
-  // const { data } = useSelector((state) => state.nameSlice.value);
   const dispatch = useDispatch();
   const getData = async () => {
     try {
@@ -24,7 +23,6 @@ export const ListAdminComp = () => {
       );
       console.log(res.data);
       setData(res.data);
-      // dispatch(syncData(res.data));
     } catch (err) {
       console.log(err);
     }

@@ -46,7 +46,6 @@ export const EnterComp = () => {
     } catch (err) {
       Swal.fire({
         icon: "error",
-        // title: "Oops...",
         text: "User Not Found or Password Incorrect",
         // text: `${err.response.data}`,
         customClass: {
@@ -59,16 +58,6 @@ export const EnterComp = () => {
 
   return (
     <div>
-      {/* <Flex
-        w={"full"}
-        h={"100vh"}
-        backgroundImage={
-          "url(https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/healthiest-vegetables-1645751214.jpg)"
-        }
-        backgroundSize={"cover"}
-        backgroundPosition={"center center"}
-        pos="sticky"
-      > */}
       <Box className="body" h={"1750px"} w={"390px"} pos="fixed" mt="100px">
         <Heading size={"lg"} textAlign={"center"}>
           Sign in to your Account
@@ -101,7 +90,6 @@ export const EnterComp = () => {
           </Link>
         </Stack>
       </Box>
-      {/* </Flex> */}
     </div>
   );
 };

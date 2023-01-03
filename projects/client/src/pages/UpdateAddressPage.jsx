@@ -21,7 +21,6 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export const UpdateAddressPage = () => {
-  // const { id } = useSelector((state) => state.addressSlice.value);
   const [data, setData] = useState();
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
@@ -71,7 +70,6 @@ export const UpdateAddressPage = () => {
       );
       console.log(result.data);
       setData(result.data);
-      // dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
     }
@@ -94,15 +92,17 @@ export const UpdateAddressPage = () => {
               defaultValue={data?.addressLine}
             ></Input>
           </FormControl>
-          <FormLabel>Kecamatan</FormLabel>
-          <Input
-            ref={inputDistrict}
-            mb={"20px"}
-            defaultValue={data?.district}
-          ></Input>
+          <FormControl>
+            <FormLabel>Kecamatan</FormLabel>
+            <Input
+              ref={inputDistrict}
+              mb={"20px"}
+              defaultValue={data?.district}
+            ></Input>
+          </FormControl>
           <FormControl>
             <FormLabel>Kota/Kabupaten</FormLabel>
-            {/* <Input ref={inputCity} defaultValue={data?.city}></Input> */}
+            <Text>{data?.city}</Text>
             <Select ref={inputCity}>
               <option selected={data?.city === ""} value="">
                 Pilih Kota/Kabupaten
@@ -132,8 +132,10 @@ export const UpdateAddressPage = () => {
                 Kota Jakarta Utara
               </option>
             </Select>
+          </FormControl>
+          <FormControl>
             <FormLabel>Provinsi</FormLabel>
-            {/* <Input ref={inputProvince} defaultValue={data?.province}></Input> */}
+            <Text>{data?.province}</Text>
             <Select ref={inputProvince}>
               <option selected={data?.province === ""} value="">
                 Pilih Provinsi

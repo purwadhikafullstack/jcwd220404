@@ -17,7 +17,6 @@ import { syncData } from "../redux/nameSlice";
 
 export const ListCategoryComp = () => {
   const [data, setData] = useState([]);
-  // const { data } = useSelector((state) => state.nameSlice.value);
   const dispatch = useDispatch();
 
   const getData = async () => {
@@ -27,7 +26,6 @@ export const ListCategoryComp = () => {
       );
       console.log(res.data);
       setData(res.data);
-      // dispatch(syncData(res.data));
     } catch (err) {
       console.log(err);
     }

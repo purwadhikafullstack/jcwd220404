@@ -1,6 +1,6 @@
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
-    Box,
+  Box,
   Table,
   TableContainer,
   Tbody,
@@ -17,7 +17,6 @@ import { syncData } from "../redux/nameSlice";
 
 export const ListProductComp = () => {
   const [data, setData] = useState([]);
-  // const { data } = useSelector((state) => state.nameSlice.value);
   const dispatch = useDispatch();
 
   const getData = async () => {
@@ -27,7 +26,6 @@ export const ListProductComp = () => {
       );
       console.log(res.data);
       setData(res.data);
-      // dispatch(syncData(res.data));
     } catch (err) {
       console.log(err);
     }
@@ -57,7 +55,7 @@ export const ListProductComp = () => {
                   <Td>{item.distributor}</Td>
                   <Td>{item.description}</Td>
                   <Td>
-                  <Box display={"flex"} justifyContent="space-evenly">
+                    <Box display={"flex"} justifyContent="space-evenly">
                       <DeleteIcon />
                       <EditIcon />
                     </Box>

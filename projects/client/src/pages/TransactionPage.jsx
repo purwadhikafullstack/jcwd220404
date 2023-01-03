@@ -1,7 +1,9 @@
-import { Box, Center } from "@chakra-ui/react"
-import {NavbarComp} from "../components/NavbarComp"
+import { Box, Center } from "@chakra-ui/react";
+import { NavbarComp } from "../components/NavbarComp";
+import { AccountPage } from "./AccountPage";
 
 export const TransactionPage = () => {
+  const tokenLocalStorage = localStorage.getItem("tokenUser");
   return (
     <div>
       <Center>
@@ -22,7 +24,9 @@ export const TransactionPage = () => {
               ORDERS
             </Box>
           </Box>
-          <Box className="body" bgColor="white" h={"1750px"} w={"390px"} />
+          <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
+            {/* {tokenLocalStorage ? <TransactionPage /> : <AccountPage />} */}
+          </Box>
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>

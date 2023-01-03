@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import Swal from "sweetalert2";
 
-export const AddressComp = () => {
+export const AddAddressComp = () => {
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
   const inputProvince = useRef("");

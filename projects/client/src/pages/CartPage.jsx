@@ -1,11 +1,16 @@
-import { Box, Center } from "@chakra-ui/react"
-import { NavbarComp } from "../components//NavbarComp"
+import { Box, Center } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { NavbarComp } from "../components//NavbarComp";
+import { AccountPage } from "./AccountPage";
 
 export const CartPage = () => {
+  const navigate = useNavigate();
+  const tokenLocalStorage = localStorage.getItem("tokenUser");
+
   return (
     <div>
       <Center>
-      <Box>
+        <Box>
           <Box
             className="header"
             w={"390px"}
@@ -22,7 +27,9 @@ export const CartPage = () => {
               CART
             </Box>
           </Box>
-          <Box className="body" bgColor="white" h={"1750px"} w={"390px"} />
+          <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
+            {/* {tokenLocalStorage ? <CartPage /> : <AccountPage />} */}
+          </Box>
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>

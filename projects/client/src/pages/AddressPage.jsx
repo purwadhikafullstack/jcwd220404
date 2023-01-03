@@ -2,7 +2,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Box, Center } from "@chakra-ui/react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AddressComp } from "../components/AddAddressComp";
+import { AddAddressComp } from "../components/AddAddressComp";
 
 export const AddressPage = () => {
   return (
@@ -19,7 +19,7 @@ export const AddressPage = () => {
             h={"1750px"}
             w={"390px"}
           >
-            <AddressComp />
+            <AddAddressComp />
           </Box>
         </Box>
       </Center>

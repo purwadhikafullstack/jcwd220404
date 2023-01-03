@@ -186,35 +186,35 @@ module.exports = {
     }
   },
 
-  // uploadFile: async (req, res) => {
-  //   try {
-  //     let fileUploaded = req.file;
-  //     console.log("controller", fileUploaded);
-  //     await book.update(
-  //       {
-  //         Images: fileUploaded.filename,
-  //       },
-  //       {
-  //         where: {
-  //           id: req.params.id,
-  //         },
-  //       }
-  //     );
-  //     const getBook = await book.findOne({
-  //       where: {
-  //         id: req.params.id,
-  //       },
-  //       raw: true,
-  //     });
-  //     res.status(200).send({
-  //       id: getBook.id,
-  //       Title: getBook.Title,
-  //       Images: getBook.Images,
-  //     });
-  //   } catch (err) {
-  //     res.status(400).send(err);
-  //   }
-  // },
+  uploadFile: async (req, res) => {
+    try {
+      let fileUploaded = req.file;
+      console.log("controller", fileUploaded);
+      await product.update(
+        {
+          picture: `upload/${fileUploaded.filename}`,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      const getPicture = await product.findOne({
+        where: {
+          id: req.params.id,
+        },
+        raw: true,
+      });
+      res.status(200).send({
+        id: getPicture.id,
+        picture: getPicture.picture,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
 
   view2: async (req, res) => {
     try {

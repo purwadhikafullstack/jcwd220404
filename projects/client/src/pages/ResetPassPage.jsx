@@ -32,7 +32,6 @@ export const ResetPassPage = () => {
           },
         }
       );
-      alert(res.data);
       Swal.fire({
         icon: "success",
         title: "Succes...",
