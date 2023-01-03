@@ -11,42 +11,27 @@ import {
   Avatar,
   Box,
   Button,
-  Center,
-  Checkbox,
-  Flex,
   FormControl,
   FormLabel,
-  Heading,
-  Image,
   Input,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Select,
   Stack,
   Tab,
-  Table,
-  TableContainer,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  Tbody,
-  Td,
   Text,
   Textarea,
-  Th,
-  Thead,
-  Tr,
   useColorMode,
-  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 import Axios from "axios";
-import { ListAdminComp } from "./ListAdminComp";
 import { ListProductComp } from "./ListProductComp";
 import { ListCategoryComp } from "./ListCategoryComp";
 import { ChevronDownIcon } from "@chakra-ui/icons";
@@ -78,7 +63,6 @@ export const BranchComp = () => {
         icon: "success",
         text: "Success",
       });
-      // navigate("/account/address");
       setTimeout(() => window.location.replace("/adminPage"), 2000);
       console.log(res);
     } catch (err) {
@@ -99,7 +83,7 @@ export const BranchComp = () => {
         icon: "success",
         text: "Success",
       });
-      // navigate("/account/address");
+
       setTimeout(() => window.location.replace("/adminPage"), 2000);
       console.log(res);
     } catch (err) {
@@ -122,8 +106,14 @@ export const BranchComp = () => {
         h={"1750px"}
         w={"390px"}
       >
-        <Box display={"flex"} justifyContent="space-between">
-          <Text>Branch Admin</Text>
+        <Box
+          borderRadius={"5px"}
+          bgColor={"teal"}
+          mb={"50px"}
+          display={"flex"}
+          justifyContent="space-between"
+        >
+          <Text>Product Management</Text>
           <Menu>
             <MenuButton as={"button"} rightIcon={<ChevronDownIcon />}>
               <Avatar name={username}></Avatar>
@@ -135,9 +125,8 @@ export const BranchComp = () => {
             </MenuList>
           </Menu>
         </Box>
-        <Text>Product Management Page</Text>
 
-        <Accordion allowToggle>
+        <Accordion mb={"30px"} allowToggle>
           <AccordionItem>
             <h2>
               <AccordionButton>
@@ -213,6 +202,7 @@ export const BranchComp = () => {
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
+
         <Tabs isFitted variant="enclosed">
           <TabList mb="1em">
             <Tab>Product List</Tab>

@@ -22,17 +22,17 @@ export const AccountComp = () => {
   const { name } = useSelector((state) => state.userSlice.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isOpen, onToggle } = useDisclosure();
+
   const onLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("tokenUser");
     navigate("/");
   };
 
-  const onProfile = (id) => {
+  const toProfile = (id) => {
     navigate(`/account/profile`);
   };
-  const onAddress = () => {
+  const toAddress = () => {
     navigate("/account/address");
   };
 
@@ -82,7 +82,7 @@ export const AccountComp = () => {
             <Badge ml={"10px"}>{name}</Badge>
           </GridItem>
           <GridItem rowSpan={7} colSpan={4}>
-            <Tag as={"button"} ml={"10px"} onClick={onProfile}>
+            <Tag as={"button"} ml={"10px"} onClick={toProfile}>
               <EditIcon mr={"5px"} /> Edit Profile
             </Tag>
           </GridItem>
@@ -114,7 +114,7 @@ export const AccountComp = () => {
             ml={"10px"}
             textColor={"black"}
             h="40px"
-            onClick={onAddress}
+            onClick={toAddress}
           >
             My Address
           </Button>

@@ -1,5 +1,4 @@
 import {
-  AspectRatio,
   Button,
   Checkbox,
   Flex,
@@ -52,7 +51,6 @@ export const AddressComp = () => {
         text: "Success",
       });
       navigate("/account/address");
-      // setTimeout(() => window.location.replace("/account/address"), 2000);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -91,7 +89,6 @@ export const AddressComp = () => {
             <option value="155">Kota Jakarta Utara</option>
           </Select>
           <FormLabel>Provinsi</FormLabel>
-          {/* <Input ref={inputProvince}></Input> */}
           <Select ref={inputProvince}>
             <option
               // selected={data.Profile?.gender === ""}
