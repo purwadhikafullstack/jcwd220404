@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import OnlyFreshLogo from "../OnlyFreshLogo.png";
-import LogoHeader from "../logoheader.jpg";
 import Axios from "axios";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
@@ -36,7 +35,7 @@ export const RegisterPage = () => {
       .min(5, "Name min. 5 characters"),
     phoneNumber: Yup.string()
       .required("Phone Number is a required field")
-      .min(10, "Phone Number must max 12 numbers")
+      .min(10, "Phone Number must min 10 numbers")
       .max(12, "Phone Number must max 12 numbers"),
     email: Yup.string().email().required("Email is a required field"),
     password: Yup.string()
@@ -78,8 +77,8 @@ export const RegisterPage = () => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
+        text: "Email already used",
         width: "370px",
-        text: `${err.response.data}`,
         customClass: {
           container: "my-swal",
         },
@@ -89,15 +88,9 @@ export const RegisterPage = () => {
   return (
     <div>
       <Center>
-        <Box className="body" bgColor="#E5D9B6" h={"860px"} w={"390px"}>
+        <Box className="body" bgColor="#E5D9B6" h={"820px"} w={"390px"}>
           <Flex align={"center"} justify={"center"}>
             <Box>
-              <Image
-                h={"120px"}
-                w={"390px"}
-                src={LogoHeader}
-                objectFit={"cover"}
-              />
               <Flex justify={"center"}>
                 <Box h={120}>
                   <Image src={OnlyFreshLogo} height="100%" />
@@ -146,7 +139,7 @@ export const RegisterPage = () => {
                                   name="name"
                                   _placeholder={{ color: "#5F8D4E" }}
                                   bgColor={"white"}
-                                  textColor="black"
+                                  textColor="#285430"
                                   borderColor={"#285430"}
                                   border={"2px"}
                                   w={"230px"}
@@ -170,7 +163,7 @@ export const RegisterPage = () => {
                                   name="phoneNumber"
                                   _placeholder={{ color: "#5F8D4E" }}
                                   bgColor={"white"}
-                                  textColor="black"
+                                  textColor="#285430"
                                   borderColor={"#285430"}
                                   border={"2px"}
                                   w={"230px"}
@@ -194,7 +187,7 @@ export const RegisterPage = () => {
                                   name="email"
                                   _placeholder={{ color: "#5F8D4E" }}
                                   bgColor={"white"}
-                                  textColor="black"
+                                  textColor="#285430"
                                   borderColor={"#285430"}
                                   border={"2px"}
                                   w={"230px"}
@@ -220,7 +213,7 @@ export const RegisterPage = () => {
                                       name="password"
                                       _placeholder={{ color: "#5F8D4E" }}
                                       bgColor={"white"}
-                                      textColor="black"
+                                      textColor="#285430"
                                       borderColor={"#285430"}
                                       border={"2px"}
                                       w={"230px"}
@@ -270,7 +263,7 @@ export const RegisterPage = () => {
                                       name="password_confirmation"
                                       _placeholder={{ color: "#5F8D4E" }}
                                       bgColor={"white"}
-                                      textColor="black"
+                                      textColor="#285430"
                                       borderColor={"#285430"}
                                       border={"2px"}
                                       w={"230px"}
@@ -318,19 +311,22 @@ export const RegisterPage = () => {
                               </Button>
                             </VStack>
                           </Form>
-                          <Flex >
-                            </Flex>
-                            <Text mt={"20px"} fontSize={"md"} textColor="gray.800">
-                              Already have an account?
-                            </Text>
-                            <Text
-                              as={Link}
-                              to="/account"
-                              color="#5F8D4E"
-                              fontSize={"md"}
-                            >
-                              Login Here
-                            </Text>
+                          <Flex></Flex>
+                          <Text
+                            mt={"20px"}
+                            fontSize={"md"}
+                            textColor="gray.800"
+                          >
+                            Already have an account?
+                          </Text>
+                          <Text
+                            as={Link}
+                            to="/loginUser"
+                            color="#5F8D4E"
+                            fontSize={"md"}
+                          >
+                            Login Here
+                          </Text>
                         </div>
                       );
                     }}

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Address.belongsTo(models.User);
-      Address.belongsTo(models.City);
+      // Address.belongsTo(models.City);
     }
   }
   Address.init(
@@ -19,8 +19,16 @@ module.exports = (sequelize, DataTypes) => {
       postalCode: DataTypes.INTEGER,
       longitude: DataTypes.STRING,
       lattitude: DataTypes.STRING,
+      city: DataTypes.STRING,
+      province: DataTypes.STRING,
       detail: DataTypes.STRING,
       defaultAddress: DataTypes.BOOLEAN,
+      receiverName: DataTypes.STRING,
+      receiverPhone: DataTypes.STRING,
+      receiverEmail: DataTypes.STRING,
+      district: DataTypes.STRING,
+      cityId: DataTypes.INTEGER,
+      provinceId: DataTypes.INTEGER,
     },
     {
       sequelize,

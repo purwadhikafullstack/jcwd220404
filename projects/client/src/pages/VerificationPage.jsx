@@ -58,20 +58,25 @@ export const VerificationPage = () => {
   ) : (
     <Center>
       <Box>
-        <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"#E5D9B6"} h={"844px"} w={"390px"}>
+        <Flex
+          minH={"100vh"}
+          align={"center"}
+          justify={"center"}
+          bg={"#E5D9B6"}
+          h={"844px"}
+          w={"390px"}
+        >
           <Stack
             spacing={4}
             w={"full"}
             maxW={"sm"}
-            bg={"#E5D9B6"}   
+            bg={"#E5D9B6"}
             p={6}
             my={10}
+            mt="-380px"
           >
             <Center>
-              <Heading
-                color={"#285430"}
-                fontSize={{ base: "2xl", md: "3xl" }}
-              >
+              <Heading color={"#285430"} fontSize={{ base: "2xl", md: "3xl" }}>
                 Verify your Email
               </Heading>
             </Center>
@@ -83,36 +88,43 @@ export const VerificationPage = () => {
                 <HStack>
                   <PinInput>
                     <PinInputField
-                       textColor="gray.800"
-                       border="2px"
+                      type={"password"}
+                      size="xl"
+                      textColor="gray.800"
+                      border="2px"
                       borderColor={"#285430"}
                       ref={otp1}
                     />
                     <PinInputField
-                       textColor="gray.800"
-                       border="2px"
+                      type={"password"}
+                      textColor="gray.800"
+                      border="2px"
                       borderColor={"#285430"}
                       ref={otp2}
                     />
                     <PinInputField
-                       textColor="gray.800"
-                       border="2px"
+                      type={"password"}
+                      textColor="gray.800"
+                      border="2px"
                       borderColor={"#285430"}
                       ref={otp3}
                     />
                     <PinInputField
-                       textColor="gray.800"
-                       border="2px"
+                      type={"password"}
+                      textColor="gray.800"
+                      border="2px"
                       borderColor={"#285430"}
                       ref={otp4}
                     />
                     <PinInputField
-                       textColor="gray.800"
-                       border="2px"
+                      type={"password"}
+                      textColor="gray.800"
+                      border="2px"
                       borderColor={"#285430"}
                       ref={otp5}
                     />
                     <PinInputField
+                      type={"password"}
                       textColor="gray.800"
                       border="2px"
                       borderColor={"#285430"}

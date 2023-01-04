@@ -3,12 +3,13 @@ const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
 const db = require("../models");
-const bearerToken = require("express-bearer-token");
+const bearerToken = require("express-bearer-token")
+const path = require("path")
 const app = express();
 
 const PORT = process.env.PORT || 8000;
 app.use(express.json());
-app.use(cors());
+app.use(cors())
 
 // app.use(
 //   cors({
@@ -19,15 +20,21 @@ app.use(cors());
 //   })
 // );
 
-app.use(express.static("../Public"));
-app.use(bearerToken());
+app.use("/upload", express.static(path.join(__dirname, "../upload")));
+app.use(bearerToken())
+
 
 //#region API ROUTES
-const { userRouter } = require("../routers");
+const { userRouter, adminRouter, addressRouter, branchRouter,
+  productRouter, } = require("../routers");
 
 // ===========================
 // NOTE : Add your routes here
 app.use("/user", userRouter);
+app.use("/admin", adminRouter);
+app.use("/address", addressRouter);
+app.use("/branch", branchRouter);
+app.use("/product", productRouter);
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);
@@ -64,11 +71,11 @@ app.use((err, req, res, next) => {
 
 //#region CLIENT
 const clientPath = "../../client/build";
-app.use(express.static(join(__dirname, clientPath)));
+// app.use(express.static(join(__dirname, clientPath)));
 
 // Serve the HTML page
 app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, clientPath, "index.html"));
+  // res.sendFile(join(__dirname, clientPath, "index.html"));
 });
 
 //#endregion

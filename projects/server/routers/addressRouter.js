@@ -1,13 +1,14 @@
 const router = require("express").Router();
 const axios = require("axios");
-const { branchController } = require("../controllers/index");
+const { addressController } = require("../controllers/index");
 require("dotenv/config");
 
-router.post("/create", branchController.newBranch);
-router.get("/branchById", branchController.branchById);
-router.patch("/updateBranch/:id", branchController.updateBranch);
-router.patch("/setDefault/:id", branchController.setDefault);
-router.delete("/remove/:id", branchController.deleteBranch);
+router.post("/create", addressController.newAddress);
+router.get("/addressById", addressController.addressById);
+router.get("/findById/:id", addressController.findById);
+router.patch("/updateAddress/:id", addressController.updateAddress);
+router.patch("/setDefault/:id", addressController.setDefault);
+router.delete("/remove/:id", addressController.deleteAddress);
 
 axios.defaults.baseURL = process.env.BASE_URL_RAJAONGKIR;
 axios.defaults.headers.common["key"] = process.env.RAJA_KEY;

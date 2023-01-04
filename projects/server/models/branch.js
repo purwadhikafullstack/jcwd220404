@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Branch.belongsTo(models.Admin);
-      Branch.belongsTo(models.City);
+      // Branch.belongsTo(models.City);
       Branch.hasMany(models.Inventory);
       Branch.hasMany(models.Transaction);
     }
@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       phoneNumber: DataTypes.INTEGER,
       longitude: DataTypes.STRING,
       lattitude: DataTypes.STRING,
+      city: DataTypes.STRING,
+      province: DataTypes.STRING,
+      cityId: DataTypes.INTEGER,
+      provinceId: DataTypes.INTEGER,
     },
     {
       sequelize,

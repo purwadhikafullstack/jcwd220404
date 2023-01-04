@@ -1,20 +1,23 @@
+import { EditIcon } from "@chakra-ui/icons";
 import {
   Stack,
-  Flex,
   Button,
   Text,
-  VStack,
-  useBreakpointValue,
   Box,
-  Collapse,
   StackDivider,
-  useDisclosure,
   Avatar,
   Badge,
   Grid,
   GridItem,
-  HStack,
   Tag,
+  HStack,
+  useDisclosure,
+  Popover,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
+  PopoverFooter,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -23,19 +26,20 @@ import { NavbarComp } from "./NavbarComp";
 
 export const AccountComp = () => {
   const { name } = useSelector((state) => state.userSlice.value);
+  const { isOpen, onToggle, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isOpen, onToggle } = useDisclosure();
+  
   const onLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("tokenUser");
     navigate("/");
   };
 
-  const onProfile = () => {
+  const toProfile = () => {
     navigate("/account/profile");
   };
-  const onAddress = () => {
+  const toAddress = () => {
     navigate("/account/address");
   };
 
@@ -52,42 +56,75 @@ export const AccountComp = () => {
         pl={"1px"}
         pos="fixed"
         top={"0"}
+        zIndex={"2"}
       >
-        <Box margin={"auto"} alignItems={"center"} textColor="black">
-          Account
+        <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+          <Text as={"b"} fontSize="xl">
+            ACCOUNT
+          </Text>
         </Box>
       </Box>
 
-      <Box mt={"100px"} className="body" bgColor="white" h={"1750px"} w={"390px"}>
+      <Box
+        mt={"100px"}
+        className="body"
+        bgColor="white"
+        h={"844px"}
+        w={"390px"}
+        pos="fixed"
+      >
         <Grid
-          h="120px"
+          h="100px"
           templateRows="repeat(2, 1fr)"
           templateColumns="repeat(5, 1fr)"
           gap={"10px"}
         >
-          <GridItem rowSpan={2} colSpan={1}>
+          <GridItem m={"auto"} rowSpan={2} colSpan={1}>
             <Avatar
-              name={name}
-              src="https://bit.ly/tioluwani-kolawole"
-              size={"xl"}
+              bgColor={"gray.500"}
+              display={"flex"}
+              size={"lg"}
+              src={`http://localhost:8000/upload/PIMG-167280588303621324.jpeg`}             
+               ml="8"
             ></Avatar>
           </GridItem>
-          <GridItem colSpan={2}>
-            <Badge ml={"10px"}>{name}</Badge>
+          <GridItem colSpan={1}>
+            <Badge textColor={"#285430"} fontSize="md" ml={"10px"} as="b">
+              {name}
+            </Badge>
           </GridItem>
           <GridItem rowSpan={7} colSpan={4}>
-            <Tag as={"button"} ml={"10px"} onClick={onProfile}>
-              Edit Profile
-            </Tag>
-            <Tag as={"button"} ml={"10px"} onClick={onProfile}>
-              Change Password
+            <Tag
+              textColor={"#285430"}
+              as={"button"}
+              ml={"10px"}
+              onClick={toProfile}
+            >
+              <EditIcon textColor={"#285430"} mr={"5px"} /> Edit Profile
             </Tag>
           </GridItem>
         </Grid>
-        <HStack divider={<StackDivider borderColor="teal" />} align="stretch">
-          <Badge alignContent={"center"}>Voucher</Badge>
-          <Badge alignContent={"center"}>jumlah</Badge>
+        <HStack
+          borderColor={"#285430"}
+          display="flex"
+          justifyContent={"center"}
+          divider={<StackDivider borderColor="#E5D9B6" />}
+          align="center"
+        >
+          <Badge alignContent={"center"} mr="10px" textColor={"#285430"}>
+            Potongan Belanja
+            <Text textAlign={"center"} textColor={"#285430"}>
+              0
+            </Text>
+          </Badge>
+          <Badge alignContent={"center"} ml="10px" textColor={"#285430"}>
+            Gratis Ongkir
+            <Text textAlign={"center"} textColor={"#285430"}>
+              0
+            </Text>
+          </Badge>
         </HStack>
+
         <Stack
           mt={"30px"}
           divider={<StackDivider borderColor="transparent" />}
@@ -97,112 +134,67 @@ export const AccountComp = () => {
           <Button
             textAlign={"left"}
             variant={"unstyled"}
-            ml={"10px"}
-            textColor={"black"}
-            h="40px"
-            onClick={onAddress}
+            ml={"30px"}
+            textColor={"#285430"}
+            onClick={toAddress}
           >
             My Address
           </Button>
           <Button
-            textAlign={"left"}
-            variant={"unstyled"}
-            ml={"10px"}
-            textColor={"black"}
-            h="40px"
-          >
-            Privacy and Policy
-          </Button>
-          <Button
-            textAlign={"left"}
-            variant={"unstyled"}
-            ml={"10px"}
-            textColor={"black"}
-            h="40px"
-          >
-            Help
-          </Button>
-          <Button
-            textAlign={"left"}
+            display={"flex"}
+            bgColor={"#FF0000"}
+            textColor="gray.800"
+            width={"100px"}
+            m="auto"
+            justifyContent={"center"}
+            borderColor="#285430"
+            border="2px"
             onClick={onToggle}
-            variant={"unstyled"}
-            ml={"10px"}
-            textColor={"black"}
-            h="40px"
           >
-            Account Settings
+            LogOut
           </Button>
-          <Collapse in={isOpen} animateOpacity>
-            <Stack>
-              <Button
-                color="black"
-                bgColor={"salmon"}
-                rounded="lg"
-                shadow="md"
-                textAlign={"center"}
-                onClick={onLogout}
-              >
-                Logout
-              </Button>
-            </Stack>
-          </Collapse>
-          <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
-            Versi Aplikasi - 2.5.0
-            <NavbarComp/>
-          </Box>
+          <Popover
+            returnFocusOnClose={false}
+            isOpen={isOpen}
+            placement="auto-end"
+            closeOnBlur={false}
+          >
+            <PopoverContent ml="8" mt="275" bgColor={"#E5D9B6"}>
+              <PopoverArrow />
+              <PopoverBody textColor={"#285430"}>
+                Are you sure you want to logout?
+              </PopoverBody>
+              <PopoverFooter display="flex" justifyContent="flex-end">
+                <ButtonGroup size="sm">
+                  <Button
+                    onClick={onClose}
+                    bgColor={"#A4BE7B"}
+                    borderColor="#285430"
+                    border="2px"
+                    fontSize="14px"
+                    color="gray.800"
+                  >
+                    No
+                  </Button>
+                  <Button
+                    onClick={onLogout}
+                    bgColor="#A4BE7B"
+                    borderColor="#285430"
+                    border="2px"
+                    fontSize="14px"
+                    color="gray.800"
+                  >
+                    Yes
+                  </Button>
+                </ButtonGroup>
+              </PopoverFooter>
+            </PopoverContent>
+          </Popover>
         </Stack>
       </Box>
+      <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
+        <NavbarComp />
+      </Box>
     </div>
-  );
-};
-
-const WithBackgroundImage = () => {
-  return (
-    <Flex
-      w={"full"}
-      h={"100vh"}
-      backgroundImage={
-        "url(https://images.unsplash.com/photo-1600267175161-cfaa711b4a81?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)"
-      }
-      backgroundSize={"cover"}
-      backgroundPosition={"center center"}
-    >
-      <VStack
-        w={"full"}
-        justify={"center"}
-        px={useBreakpointValue({ base: 4, md: 8 })}
-        bgGradient={"linear(to-r, blackAlpha.600, transparent)"}
-      >
-        <Stack maxW={"2xl"} align={"flex-start"} spacing={6}>
-          <Text
-            color={"white"}
-            fontWeight={700}
-            lineHeight={1.2}
-            fontSize={useBreakpointValue({ base: "3xl", md: "4xl" })}
-          >
-            Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
-            eiusmod tempor
-          </Text>
-          <Stack direction={"row"}>
-            <Button
-              bg={"blue.400"}
-              rounded={"full"}
-              color={"white"}
-              _hover={{ bg: "blue.500" }}
-            >
-              Show me more
-            </Button>
-            <Button
-              bg={"whiteAlpha.300"}
-              rounded={"full"}
-              color={"white"}
-              _hover={{ bg: "whiteAlpha.500" }}
-            >
-              Show me more
-            </Button>
-          </Stack>
-        </Stack>
-      </VStack>
-    </Flex>
   );
 };

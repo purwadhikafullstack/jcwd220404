@@ -13,79 +13,82 @@ import {
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { loginUser } from "../redux/userSlice";
+import { loginAdmin } from "../redux/adminSlice";
 import OnlyFreshLogo from "../OnlyFreshLogo.png";
 import Swal from "sweetalert2";
-import { ForgotPasswordPage } from "../pages/ForgotPassPage";
 
-export const LoginUserComp = () => {
+const url = "http://localhost:8000/admin/login";
+
+export const LoginAdminPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
-  const inputPhoneEmail = useRef("");
+  const inputUsernameEmail = useRef("");
   const inputPass = useRef("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onLogin = async () => {
     try {
-      const user = {
-        phoneEmail: inputPhoneEmail.current.value,
+      const admin = {
         password: inputPass.current.value,
+        usernameEmail: inputUsernameEmail.current.value,
       };
 
-      const result = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/user/login`,
-        user
-      );
+      const result = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/admin/login`, admin);
 
       dispatch(
-        loginUser({
-          phoneNumber: result.data.isAccountExist.phoneNumber,
-          name: result.data.isAccountExist.name,
-          email: result.data.isAccountExist.email,
-          id: result.data.isAccountExist.id,
+        loginAdmin({
+          id: result.data.isUserExist.id,
+          username: result.data.isUserExist.username,
+          email: result.data.isUserExist.email,
+          isSuper: result.data.isUserExist.isSuper,
         })
       );
-      localStorage.setItem("tokenUser", result.data.token);
-      navigate("/");
+      if (result.data.isUserExist.isSuper === 2) {
+        localStorage.setItem("tokenSuper", result.data.token);
+      } else if (result.data.isUserExist.isSuper === 1) {
+        localStorage.setItem("tokenBranch", result.data.token);
+      } else if (!result.data.isUserExist.isSuper) {
+        localStorage.setItem("tokenUser", result.data.token);
+      }
+      navigate("/adminPage");
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        text: "User Not Found or Password Incorrect",
-        width: "370",
-        customClass: {
-          container: "my-swal",
-        },
-      });
-      console.log(err);
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Oops...",
+      //   text: `${err.response.data}`,
+      //   timer: 1000,
+      //   customClass: {
+      //     container: "my-swal",
+      //   },
+      // });
+      navigate("/forbidden")
     }
   };
 
   return (
     <div>
       <Center>
-        <Box py={10} px={6} bgColor="#E5D9B6" w={"390px"} h={"850px"}>
-          
-            <Image src={OnlyFreshLogo} height="150px" w={"auto"}   ml={"70px"}/>
-    
+        <Box ml="8" py={10} px={6} bgColor="#E5D9B6" w={"390px"} h={"850px"}>
+          <Image src={OnlyFreshLogo} height="150px" w={"auto"} ml={"70px"} />
 
           <Heading mt={"10px"} size={"lg"} textColor="#285430">
-            Sign in to your Account
+            Sign in to Admin
           </Heading>
           <Stack mt={"20px"} spacing={"8px"}>
             <Text textColor={"#285430"} justifyContent="space-between">
-              Phone Number or Email
+              Username or Email
             </Text>
             <Input
-              placeholder="08xx or Your Email"
+              placeholder="Username or Your Email"
               _placeholder={{ color: "#5F8D4E" }}
               bgColor={"white"}
               textColor="black"
               borderColor={"#285430"}
               border={"2px"}
               w={"230px"}
-              ref={inputPhoneEmail}
+              ref={inputUsernameEmail}
             ></Input>
             <Text textColor={"#285430"}>Password</Text>
             <InputGroup>
@@ -131,18 +134,6 @@ export const LoginUserComp = () => {
             >
               Sign In
             </Button>
-            <Box display={"flex"} justifyContent="center">
-              <Text mr={"8px"} textColor="gray.800">
-                Forgot Password
-              </Text>
-              <ForgotPasswordPage />
-            </Box>
-            <Text textAlign={"center"} textColor="gray.800">
-              Don't have an account?
-            </Text>
-            <Text as={Link} to="/register" textAlign={"center"} color="#5F8D4E">
-              Register here
-            </Text>
           </Stack>
         </Box>
       </Center>

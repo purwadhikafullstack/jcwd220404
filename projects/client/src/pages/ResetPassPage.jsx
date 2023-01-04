@@ -7,6 +7,7 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Navigate, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useState } from "react";
@@ -17,6 +18,9 @@ const url = "http://localhost:8000/user/updatePass";
 export const ResetPassPage = () => {
   const params = useParams();
   const [move, setMove] = useState(false);
+
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showNewConfirmPassword, setShowNewComfirmPassword] = useState(false);
 
   const onReset = async () => {
     try {
@@ -80,24 +84,67 @@ export const ResetPassPage = () => {
         <FormControl id="password" isRequired>
           <FormLabel textColor={"gray.800"}> New Password</FormLabel>
           <Input
-            type="password"
-            w={"230px"}
+            type={
+              showNewPassword
+                ? "text"
+                : "password"
+            }
+            name="new_password"
+            _placeholder={{ color: "#5F8D4E" }}
+            bgColor={"white"}
             textColor="gray.800"
-            border="2px"
             borderColor={"#285430"}
+            border={"2px"}
+            w={"230px"}
+            position="absolute"
           />
+          <Button
+              color={"black"}
+              onClick={() =>
+                setShowNewPassword(
+                  (showNewPassword) => !showNewPassword
+                )
+              }
+              pos="relative"
+              ml={"181px"}
+              zIndex="1"
+            >
+              {showNewPassword ? <ViewIcon /> : <ViewOffIcon />}
+            </Button>
         </FormControl>
-        <FormControl id="password_confirmation" isRequired>
+        <FormControl id="new_password_confirmation" isRequired>
           <FormLabel textColor={"gray.800"}>Password Confrimation</FormLabel>
-          <Input
-            type="password"
-            w={"230px"}
-            textColor="gray.800"
-            border="2px"
-            borderColor={"#285430"}
-          />
+          <Flex>
+            <Input
+              type={
+                showNewConfirmPassword
+                  ? "text"
+                  : "password"
+              }
+              name="password_confirmation"
+              _placeholder={{ color: "#5F8D4E" }}
+              bgColor={"white"}
+              textColor="gray.800"
+              borderColor={"#285430"}
+              border={"2px"}
+              w={"230px"}
+              position="absolute"
+            />
+            <Button
+              color={"black"}
+              onClick={() =>
+                setShowNewComfirmPassword(
+                  (showNewConfirmPassword) => !showNewConfirmPassword
+                )
+              }
+              pos="relative"
+              ml={"181px"}
+              zIndex="1"
+            >
+              {showNewConfirmPassword ? <ViewIcon /> : <ViewOffIcon />}
+            </Button>
+          </Flex>
         </FormControl>
-        <Stack spacing={6}>
           <Button
             onClick={onReset}
             bgColor={"#A4BE7B"}
@@ -105,10 +152,10 @@ export const ResetPassPage = () => {
             border="2px"
             fontSize="18px"
             color="gray.800"
+            width={"110px"}
           >
             Reset
           </Button>
-        </Stack>
       </Stack>
     </Flex>
   );

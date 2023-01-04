@@ -1,39 +1,40 @@
 const { Op } = require("sequelize");
 const axios = require("axios");
 const db = require("../models");
-const branch = db.Branch;
+const address = db.Address;
+const user = db.User;
 const rajaOngkirKey = process.env.RAJA_KEY;
 const openCageKey = process.env.GEO_KEY;
 
 module.exports = {
-  branchById: async (req, res) => {
+  addressById: async (req, res) => {
     try {
-      const { branchName = "", address = "" } = req.query;
-      if (branchName || address) {
+      const { receiverName = "", addressLine = "" } = req.query;
+      if (receiverName || addressLine) {
         const res = await address.findAll({
           where: {
             // UserId: req.user.id,
             [Op.or]: {
-              branchName: {
-                [Op.like]: `%${branchName}%`,
+              receiverName: {
+                [Op.like]: `%${receiverName}%`,
               },
-              address: {
-                [Op.like]: `${address}%`,
+              addressLine: {
+                [Op.like]: `${addressLine}%`,
               },
             },
           },
-          //   order: [["defaultAddress", "DESC"]],
+          order: [["defaultAddress", "DESC"]],
         });
         // res.status(200).send({
         //   message: "Get user Address by name and full Address",
         //   data: res,
         // });
       }
-      const response = await branch.findAll({
+      const response = await address.findAll({
         where: {
           // UserId: req.user.id,
         },
-        // order: [["defaultAddress", "DESC"]],
+        order: [["defaultAddress", "DESC"]],
       });
       return res.status(200).send({
         message: "Get User Address",
@@ -45,10 +46,18 @@ module.exports = {
     }
   },
 
-  newBranch: async (req, res) => {
+  newAddress: async (req, res) => {
     try {
-      const { branchName, address, city, province, postalCode, phoneNumber } =
-        req.body;
+      const {
+        receiverName,
+        receiverPhone,
+        addressLine,
+        city,
+        province,
+        postalCode,
+        detail,
+        district,
+      } = req.body;
       const provinceAndCity = await axios.get(
         `https://api.rajaongkir.com/starter/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
       );
@@ -57,7 +66,7 @@ module.exports = {
       const cityType = provinceAndCity.data.rajaongkir.results.type;
       const cityNameAndType = `${cityType} ${cityName}`;
       const location = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?key=${openCageKey}&q=${cityNameAndType},${provinceName}`
+        `https://api.opencagedata.com/geocode/v1/json?key=${openCageKey}&q=${district},${cityNameAndType},${provinceName}`
       );
       const lattitude = location.data.results[0].geometry.lat;
       const longitude = location.data.results[0].geometry.lng;
@@ -90,17 +99,20 @@ module.exports = {
       //     data: response,
       //   });
       // }
-      const response = await branch.create({
-        branchName,
-        address,
+      const response = await address.create({
+        receiverName,
+        receiverPhone,
+        addressLine,
         provinceId: province,
         province: provinceName,
         cityId: city,
         city: cityNameAndType,
         postalCode,
+        detail,
+        district,
         lattitude,
         longitude,
-        phoneNumber,
+        defaultAddress: true,
         // UserId: req.user.id,
       });
       res.status(200).json({
@@ -113,9 +125,18 @@ module.exports = {
     }
   },
 
-  updateBranch: async (req, res) => {
+  updateAddress: async (req, res) => {
     try {
-      const { branchName, address, province, city, postalCode } = req.body;
+      const {
+        receiverName,
+        receiverPhone,
+        addressLine,
+        province,
+        city,
+        postalCode,
+        detail,
+        district,
+      } = req.body;
       const { id } = req.params;
       const provinceAndCity = await axios.get(
         `https://api.rajaongkir.com/starter/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
@@ -125,19 +146,22 @@ module.exports = {
       const cityType = provinceAndCity.data.rajaongkir.results.type;
       const cityNameAndType = `${cityType} ${cityName}`;
       const location = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?key=${openCageKey}&q=${cityNameAndType},${provinceName}`
+        `https://api.opencagedata.com/geocode/v1/json?key=${openCageKey}&q=${district},${cityNameAndType},${provinceName}`
       );
       const lattitude = location.data.results[0].geometry.lat;
       const longitude = location.data.results[0].geometry.lng;
-      await branch.update(
+      await address.update(
         {
-          branchName,
-          address,
+          receiverName,
+          receiverPhone,
+          addressLine,
           provinceId: province,
           province: provinceName,
           cityId: city,
           city: cityNameAndType,
           postalCode,
+          detail,
+          district,
           lattitude,
           longitude,
         },
@@ -147,7 +171,7 @@ module.exports = {
           },
         }
       );
-      const findData = await branch.findByPk(id);
+      const findData = await address.findByPk(id);
       res.status(200).json({
         message: "Address edited",
         data: findData,
@@ -158,10 +182,10 @@ module.exports = {
     }
   },
 
-  deleteBranch: async (req, res) => {
+  deleteAddress: async (req, res) => {
     try {
       const { id } = req.params;
-      await branch.destroy({
+      await address.destroy({
         where: {
           id: id,
         },
@@ -178,16 +202,16 @@ module.exports = {
   setDefault: async (req, res) => {
     try {
       const { id } = req.params;
-      const findDefault = await branch.findOne({
+      const findDefault = await address.findOne({
         where: {
-          //   defaultAddress: true,
-          id: req.user.id,
+          defaultAddress: true,
+          UserId: req.user.id,
         },
       });
       if (findDefault) {
-        await branch.update(
+        await address.update(
           {
-            // defaultAddress: false,
+            defaultAddress: false,
           },
           {
             where: {
@@ -195,9 +219,9 @@ module.exports = {
             },
           }
         );
-        await branch.update(
+        await address.update(
           {
-            // defaultAddress: true,
+            defaultAddress: true,
           },
           {
             where: {
@@ -210,7 +234,7 @@ module.exports = {
         });
       }
       if (!findDefault) {
-        await branch.update(
+        await address.update(
           {
             defaultAddress: true,
           },
@@ -230,6 +254,19 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findById: async (req, res) => {
+    try {
+      const response = await address.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+      res.status(200).send(response);
+    } catch (err) {
       res.status(400).send(err);
     }
   },
