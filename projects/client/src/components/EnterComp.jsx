@@ -65,10 +65,8 @@ export const LoginUserComp = () => {
   return (
     <div>
       <Center>
-        <Box py={10} px={6} bgColor="#E5D9B6" w={"390px"} h={"850px"}>
-          
-            <Image src={OnlyFreshLogo} height="150px" w={"auto"}   ml={"70px"}/>
-    
+        <Box py={"120px"} px={6} bgColor="#E5D9B6" w={"390px"} h={"850px"}>
+          <Image src={OnlyFreshLogo} height="150px" w={"auto"} ml={"70px"} />
 
           <Heading mt={"10px"} size={"lg"} textColor="#285430">
             Sign in to your Account
@@ -81,10 +79,10 @@ export const LoginUserComp = () => {
               placeholder="08xx or Your Email"
               _placeholder={{ color: "#5F8D4E" }}
               bgColor={"white"}
-              textColor="black"
+              textColor="#285430"
               borderColor={"#285430"}
               border={"2px"}
-              w={"230px"}
+              w={"340px"}
               ref={inputPhoneEmail}
             ></Input>
             <Text textColor={"#285430"}>Password</Text>
@@ -97,40 +95,43 @@ export const LoginUserComp = () => {
                   ref={inputPass}
                   _placeholder={{ color: "#5F8D4E" }}
                   bgColor={"white"}
-                  textColor="black"
+                  textColor="#285430"
                   borderColor={"#285430"}
                   border={"2px"}
-                  w={"230px"}
-                  position="absolute"
+                  w={"340px"}
+                  zIndex="1"
                 ></Input>
                 <Button
                   color={"black"}
                   onClick={() =>
                     setShowPassword((showPassword) => !showPassword)
                   }
-                  pos="relative"
-                  ml={"181px"}
-                  zIndex="1"
+                  pos="absolute"
+                  zIndex="2"
                 >
                   {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                 </Button>
               </Flex>
             </InputGroup>
-            <Button
-              onClick={onLogin}
-              _hover={{
-                bg: "#E5D9B6",
-              }}
-              bgColor={"#A4BE7B"}
-              borderColor="#285430"
-              border="2px"
-              fontSize="18px"
-              color="gray.800"
-              w={"90px"}
-              alignItems="center"
-            >
-              Sign In
-            </Button>
+            <Center>
+              <Button
+                mt={"3"}
+                mb={"3"}
+                onClick={onLogin}
+                _hover={{
+                  bg: "#E5D9B6",
+                }}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="18px"
+                color="gray.800"
+                w={"90px"}
+                alignItems="center"
+              >
+                Sign In
+              </Button>
+            </Center>
             <Box display={"flex"} justifyContent="center">
               <Text mr={"8px"} textColor="gray.800">
                 Forgot Password

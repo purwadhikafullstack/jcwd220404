@@ -90,7 +90,7 @@ export const RegisterPage = () => {
       <Center>
         <Box className="body" bgColor="#E5D9B6" h={"820px"} w={"390px"}>
           <Flex align={"center"} justify={"center"}>
-            <Box>
+            <Box mt="40px">
               <Flex justify={"center"}>
                 <Box h={120}>
                   <Image src={OnlyFreshLogo} height="100%" />
@@ -295,6 +295,8 @@ export const RegisterPage = () => {
                                   style={{ color: "red" }}
                                 />
                               </FormControl>
+                              <Center>
+
                               <Button
                                 type="submit"
                                 _hover={{
@@ -305,10 +307,11 @@ export const RegisterPage = () => {
                                 border="2px"
                                 fontSize="18px"
                                 color="gray.800"
-                                w={"90px"}
-                              >
+                                w={"230px"}
+                                >
                                 Sign up
                               </Button>
+                          </Center>
                             </VStack>
                           </Form>
                           <Flex></Flex>

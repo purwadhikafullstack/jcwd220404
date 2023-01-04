@@ -136,9 +136,9 @@ export const AccountComp = () => {
             variant={"unstyled"}
             ml={"30px"}
             textColor={"#285430"}
-            onClick={toAddress}
+            onClick={toAddress} fontSize="sm"
           >
-            My Address
+            MY ADDRESS
           </Button>
           <Button
             display={"flex"}

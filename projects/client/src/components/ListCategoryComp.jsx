@@ -41,21 +41,21 @@ export const ListCategoryComp = () => {
     <div>
       <TableContainer>
         <Table variant="simple" colorScheme="teal">
-          <Thead>
+          <Thead alignContent={"center"}>
             <Tr>
-              <Th>Category</Th>
-              <Th>Actions</Th>
+              <Th color={"#285430"}>Category</Th>
+              <Th color={"#285430"}>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
             {data?.map((item) => {
               return (
                 <Tr>
-                  <Td>{item.categoryName}</Td>
+                  <Td color={"#285430"}>{item.categoryName}</Td>
                   <Td>
-                    <Box display={"flex"} justifyContent="space-evenly">
-                      <DeleteIcon />
-                      <EditIcon />
+                    <Box mr="28px" display={"flex"} justifyContent="space-evenly">
+                      <EditIcon color={"#285430"} />
+                      <DeleteIcon color={"#285430"}/>
                     </Box>
                   </Td>
                 </Tr>

@@ -16,7 +16,7 @@ import {
   EditIcon,
   HamburgerIcon,
 } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -99,6 +99,7 @@ export const ListAddressPage = () => {
           </Box>
           <Box
             mt={"80px"}
+            pt={"3px"}
             className="body"
             bgColor="white"
             h={"740px"}
@@ -107,9 +108,9 @@ export const ListAddressPage = () => {
             {data?.map((item) => {
               return (
                 <Box
-                  ml="3px"
-                  mr="3px"
-                  mt="5px"
+                  ml="8px"
+                  mr="8px"
+                  mt="8px"
                   pl="8px"
                   pr="8px"
                   border={"2px"}
@@ -134,6 +135,8 @@ export const ListAddressPage = () => {
                           icon={<EditIcon />}
                           bgColor="#E5D9B6"
                           textColor={"#285430"}
+                          placement="bottom"
+                          direction="ltr"
                         >
                           Edit Address
                         </MenuItem>
@@ -149,6 +152,7 @@ export const ListAddressPage = () => {
                       </MenuList>
                     </Menu>
                   </Flex>
+
                   <Text color={"#285430"}>{item.addressLine}</Text>
                   <Flex>
                     <Text color={"#285430"}>{item.district},</Text>
@@ -161,7 +165,8 @@ export const ListAddressPage = () => {
               );
             })}{" "}
             <Center>
-              <Button mt="8"
+              <Button
+                mt="8"
                 onClick={toAddAddress}
                 bgColor={"#A4BE7B"}
                 borderColor="#285430"

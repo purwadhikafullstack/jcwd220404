@@ -15,7 +15,6 @@ import {
   ButtonGroup,
   useColorMode,
   Menu,
-  MenuButton,
   Avatar,
   Accordion,
   AccordionItem,
@@ -33,13 +32,15 @@ import {
   Tab,
   TabPanels,
   TabPanel,
+  Center,
+  GridItem,
+  Grid,
+  Badge,
 } from "@chakra-ui/react";
-import Axios from "axios"
+import Axios from "axios";
 import Swal from "sweetalert2";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import { ListProductComp } from "./ListProductComp";
 import { ListCategoryComp } from "./ListCategoryComp";
-
 
 export const BranchComp = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
@@ -76,8 +77,7 @@ export const BranchComp = () => {
     }
   };
 
-
-const onCreateCategory = async () => {
+  const onCreateCategory = async () => {
     try {
       const addProduct = {
         categoryName: inputCategoryName.current.value,
@@ -125,13 +125,256 @@ const onCreateCategory = async () => {
           </Text>
         </Box>
         <Box
-          mt={"100px"}
+          mt={"70px"}
           className="body"
-          bgColor="black"
+          bgColor="white"
           h={"844px"}
           w={"390px"}
           pos="fixed"
         >
+          <Center>
+            <Text mt="5" as="b" color="#285430">
+              Product Management
+            </Text>
+          </Center>
+          <Menu>
+            <Grid
+              h="100px"
+              templateRows="repeat(2, 1fr)"
+              templateColumns="repeat(5, 1fr)"
+              gap={"10px"}
+            >
+              <GridItem m={"auto"} rowSpan={2} colSpan={1}>
+                <Avatar
+                  bgColor={"gray.500"}
+                  display={"flex"}
+                  size={"lg"}
+                  src={`http://localhost:8000/upload/PIMG-167280588303621324.jpeg`}
+                  ml="8"
+                  mt="3"
+                  mb="3"
+                  name={username}
+                ></Avatar>
+              </GridItem>
+              <GridItem colSpan={1}>
+                <Badge
+                  mt="8"
+                  textColor={"#285430"}
+                  fontSize="md"
+                  ml={"10px"}
+                  as="b"
+                >
+                  {username}
+                </Badge>
+              </GridItem>
+            </Grid>
+            <Accordion mb={"30px"} allowToggle>
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box
+                      ml="3"
+                      as="span"
+                      flex="1"
+                      textAlign="left"
+                      color="#285430"
+                    >
+                      Add Product
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <Stack spacing={"10px"}>
+                    <FormControl>
+                      <FormLabel ml="3" color="#285430">
+                        Nama Produk
+                      </FormLabel>
+                      <Input
+                        ref={inputProductName}
+                        placeholder="Produk"
+                        ml="3"
+                        _placeholder={{ color: "#5F8D4E" }}
+                        bgColor={"white"}
+                        textColor="#285430"
+                        borderColor={"#285430"}
+                        border={"2px"}
+                        w={"330px"}
+                      ></Input>
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel ml="3" color="#285430">
+                        Distributor
+                      </FormLabel>
+                      <Input
+                        ref={inputDistributor}
+                        placeholder="Distributor"
+                        ml="3"
+                        _placeholder={{ color: "#5F8D4E" }}
+                        bgColor={"white"}
+                        textColor="#285430"
+                        borderColor={"#285430"}
+                        border={"2px"}
+                        w={"330px"}
+                      ></Input>
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel ml="3" color="#285430">
+                        Category 1
+                      </FormLabel>
+                      <Select
+                        ml="3"
+                        _placeholder={{ color: "#5F8D4E" }}
+                        bgColor={"white"}
+                        textColor="#285430"
+                        borderColor={"#285430"}
+                        border={"2px"}
+                        w={"330px"}
+                      >
+                        <option
+                          // selected={data.Profile?.gender === ""}
+                          value=""
+                        >
+                          Pilih Kategori
+                        </option>
+                        <option>Sayuran</option>
+                        <option>Buah-buahan</option>
+                        <option>Daging</option>
+                        <option>Susu dan Olahan</option>
+                        <option>Perawatan Tubuh</option>
+                      </Select>
+                      <FormLabel ml="3" color="#285430">
+                        Category 2
+                      </FormLabel>
+                      <Select
+                        ml="3"
+                        _placeholder={{ color: "#5F8D4E" }}
+                        bgColor={"white"}
+                        textColor="#285430"
+                        borderColor={"#285430"}
+                        border={"2px"}
+                        w={"330px"}
+                      >
+                        <option
+                          // selected={data.Profile?.gender === ""}
+                          value=""
+                        >
+                          Pilih Kategori
+                        </option>
+                        <option>Sayuran</option>
+                        <option>Buah-buahan</option>
+                        <option>Daging</option>
+                        <option>Susu dan Olahan</option>
+                        <option>Perawatan Tubuh</option>
+                      </Select>
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel ml="3" color="#285430">
+                        Description
+                      </FormLabel>
+                      <Textarea
+                        ref={inputDescription}
+                        ml="3"
+                        _placeholder={{ color: "#5F8D4E" }}
+                        bgColor={"white"}
+                        textColor="#285430"
+                        borderColor={"#285430"}
+                        border={"2px"}
+                        w={"330px"}
+                      />
+                    </FormControl>
+                    <Center>
+                      <Button
+                        ml="3"
+                        type="submit"
+                        bgColor={"#A4BE7B"}
+                        borderColor="#285430"
+                        border="2px"
+                        fontSize="18px"
+                        color="gray.800"
+                        width={"40%"}
+                        justifyContent="center"
+                        onClick={onCreate}
+                      >
+                        Add Product
+                      </Button>
+                    </Center>
+                  </Stack>
+                </AccordionPanel>
+              </AccordionItem>
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box
+                      as="span"
+                      flex="1"
+                      textAlign="left"
+                      ml="3"
+                      color="#285430"
+                    >
+                      Add Cetegory
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <Stack spacing={"10px"}>
+                    <FormControl>
+                      <FormLabel ml="3" color="#285430">
+                        Nama Category
+                      </FormLabel>
+                      <Input
+                        ref={inputCategoryName}
+                        placeholder="Kategori"
+                        ml="3"
+                        _placeholder={{ color: "#5F8D4E" }}
+                        bgColor={"white"}
+                        textColor="#285430"
+                        borderColor={"#285430"}
+                        border={"2px"}
+                        w={"330px"}
+                      ></Input>
+                    </FormControl>
+                    <Center>
+                      <Button
+                        ml="3"
+                        type="submit"
+                        bgColor={"#A4BE7B"}
+                        borderColor="#285430"
+                        border="2px"
+                        fontSize="18px"
+                        color="gray.800"
+                        width={"40%"}
+                        justifyContent="center"
+                        onClick={onCreateCategory}
+                      >
+                        Add Category
+                      </Button>
+                    </Center>
+                  </Stack>
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
+
+            <Tabs isFitted variant="enclosed">
+              <TabList mb="1em">
+                <Tab as="b" color="#285430">
+                  Product List
+                </Tab>
+                <Tab as="b" color="#285430">
+                  Category List
+                </Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <ListProductComp />
+                </TabPanel>
+                <TabPanel>
+                  <ListCategoryComp />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </Menu>
           <Button
             display={"flex"}
             bgColor={"#FF0000"}
@@ -182,103 +425,6 @@ const onCreateCategory = async () => {
               </PopoverFooter>
             </PopoverContent>
           </Popover>
-          <Text>Product Management</Text>
-          <Menu>
-            <MenuButton as={"button"} rightIcon={<ChevronDownIcon />}>
-              <Avatar name={username}></Avatar>
-            </MenuButton>
-            <Accordion mb={"30px"} allowToggle>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  Add Product
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <Stack spacing={"10px"}>
-                <FormControl>
-                  <FormLabel>Nama Produk</FormLabel>
-                  <Input ref={inputProductName} placeholder="Produk"></Input>
-                </FormControl>
-                <FormLabel>Distributor</FormLabel>
-                <Input ref={inputDistributor} placeholder="Distributor"></Input>
-                <FormControl>
-                  <FormLabel>Category 1</FormLabel>
-                  <Select>
-                    <option
-                      // selected={data.Profile?.gender === ""}
-                      value=""
-                    >
-                      Pilih Kategori
-                    </option>
-                    <option>Sayuran</option>
-                    <option>Buah-buahan</option>
-                    <option>Daging</option>
-                    <option>Susu dan Olahan</option>
-                    <option>Perawatan Tubuh</option>
-                  </Select>
-                  <FormLabel>Category 2</FormLabel>
-                  <Select>
-                    <option
-                      // selected={data.Profile?.gender === ""}
-                      value=""
-                    >
-                      Pilih Kategori
-                    </option>
-                    <option>Sayuran</option>
-                    <option>Buah-buahan</option>
-                    <option>Daging</option>
-                    <option>Susu dan Olahan</option>
-                    <option>Perawatan Tubuh</option>
-                  </Select>
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Description</FormLabel>
-                  <Textarea ref={inputDescription}></Textarea>
-                </FormControl>
-                <Button onClick={onCreate}>Add Product</Button>
-              </Stack>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  Add Cetegory
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <Stack spacing={"10px"}>
-                <FormControl>
-                  <FormLabel>Nama Category</FormLabel>
-                  <Input ref={inputCategoryName} placeholder="Kategori"></Input>
-                </FormControl>
-                <Button onClick={onCreateCategory}>Add Category</Button>
-              </Stack>
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
-
-        <Tabs isFitted variant="enclosed">
-          <TabList mb="1em">
-            <Tab>Product List</Tab>
-            <Tab>Category List</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <ListProductComp />
-            </TabPanel>
-            <TabPanel>
-              <ListCategoryComp/>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-          </Menu>
         </Box>
       </Box>
     </div>

@@ -43,23 +43,23 @@ export const ListProductComp = () => {
         <Table variant="simple" colorScheme="teal">
           <Thead>
             <Tr>
-              <Th>Product</Th>
-              <Th>Distributor</Th>
-              <Th>Description</Th>
-              <Th>Actions</Th>
+              <Th color={"#285430"}>Product</Th>
+              <Th color={"#285430"}>Distributor</Th>
+              <Th color={"#285430"}>Description</Th>
+              <Th color={"#285430"}>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
             {data?.map((item) => {
               return (
                 <Tr>
-                  <Td>{item.productName}</Td>
-                  <Td>{item.distributor}</Td>
-                  <Td>{item.description}</Td>
+                  <Td color={"#285430"}>{item.productName}</Td>
+                  <Td color={"#285430"}>{item.distributor}</Td>
+                  <Td color={"#285430"}>{item.description}</Td>
                   <Td>
                     <Box display={"flex"} justifyContent="space-evenly">
-                      <DeleteIcon />
-                      <EditIcon />
+                      <EditIcon color={"#285430"}/>
+                      <DeleteIcon color={"#285430"}/>
                     </Box>
                   </Td>
                 </Tr>

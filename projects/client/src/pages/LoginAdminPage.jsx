@@ -35,7 +35,10 @@ export const LoginAdminPage = () => {
         usernameEmail: inputUsernameEmail.current.value,
       };
 
-      const result = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/admin/login`, admin);
+      const result = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/admin/login`,
+        admin
+      );
 
       dispatch(
         loginAdmin({
@@ -63,7 +66,7 @@ export const LoginAdminPage = () => {
       //     container: "my-swal",
       //   },
       // });
-      navigate("/forbidden")
+      navigate("/forbidden");
     }
   };
 
@@ -87,7 +90,7 @@ export const LoginAdminPage = () => {
               textColor="black"
               borderColor={"#285430"}
               border={"2px"}
-              w={"230px"}
+              w={"340px"}
               ref={inputUsernameEmail}
             ></Input>
             <Text textColor={"#285430"}>Password</Text>
@@ -103,37 +106,38 @@ export const LoginAdminPage = () => {
                   textColor="black"
                   borderColor={"#285430"}
                   border={"2px"}
-                  w={"230px"}
-                  position="absolute"
+                  w={"340px"}
+                  zIndex="1"
                 ></Input>
                 <Button
                   color={"black"}
                   onClick={() =>
                     setShowPassword((showPassword) => !showPassword)
                   }
-                  pos="relative"
-                  ml={"181px"}
-                  zIndex="1"
+                  pos="absolute"
+                  zIndex="2"
                 >
                   {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                 </Button>
               </Flex>
             </InputGroup>
-            <Button
-              onClick={onLogin}
-              _hover={{
-                bg: "#E5D9B6",
-              }}
-              bgColor={"#A4BE7B"}
-              borderColor="#285430"
-              border="2px"
-              fontSize="18px"
-              color="gray.800"
-              w={"90px"}
-              alignItems="center"
-            >
-              Sign In
-            </Button>
+            <Center>
+              <Button
+                onClick={onLogin}
+                _hover={{
+                  bg: "#E5D9B6",
+                }}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="18px"
+                color="gray.800"
+                w={"90px"}
+                alignItems="center"
+              >
+                Sign In
+              </Button>
+            </Center>
           </Stack>
         </Box>
       </Center>
