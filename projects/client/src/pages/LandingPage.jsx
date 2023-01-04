@@ -4,7 +4,7 @@ import { NotificationComp } from "../components/NotificationComp";
 import { SearchComp } from "../components/SearchComp";
 import { NavbarComp } from "../components/NavbarComp";
 import { CarouselComp } from "../components/CarouselComp";
-import { Menu } from "../components/MenuComp";
+import { MenuComp } from "../components/MenuComp";
 
 export const LandingPage = () => {
   return (
@@ -30,7 +30,7 @@ export const LandingPage = () => {
           <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
             <VStack>
               <CarouselComp />
-              <Menu />
+              <MenuComp />
             </VStack>
           </Box>
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>

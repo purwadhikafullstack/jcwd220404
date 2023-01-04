@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const db = require("../models");
 const product = db.Product;
+const price = db.Price;
 const category = db.Category;
 
 module.exports = {
@@ -48,10 +49,16 @@ module.exports = {
     }
   },
 
-  getAll: async (req, res) => {
+  findAll: async (req, res) => {
     try {
       const users = await product.findAll({
-        attributes: ["id", "productName", "distributor", "description"],
+        attributes: [
+          "id",
+          "productName",
+          "distributor",
+          "description",
+          "picture",
+        ],
       });
       res.status(200).send(users);
     } catch (err) {
@@ -59,7 +66,7 @@ module.exports = {
     }
   },
 
-  getAllCategory: async (req, res) => {
+  findAllCategory: async (req, res) => {
     try {
       const users = await category.findAll({
         attributes: ["id", "categoryName"],
@@ -70,7 +77,7 @@ module.exports = {
     }
   },
 
-  getById: async (req, res) => {
+  findById: async (req, res) => {
     try {
       const users = await product.findOne({
         where: {
@@ -83,7 +90,7 @@ module.exports = {
     }
   },
 
-  getBy: async (req, res) => {
+  findBy: async (req, res) => {
     try {
       const { productName, distributor, description } = req.query;
       const users = await product.findAll({
@@ -150,6 +157,21 @@ module.exports = {
     }
   },
 
+  removeCategory: async (req, res) => {
+    try {
+      await category.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      console.log(req.params.id);
+      const users = await category.findAll();
+      res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
   update: async (req, res) => {
     try {
       const { productName, distributor, description } = req.body;
@@ -168,6 +190,28 @@ module.exports = {
         }
       );
       const users = await product.findOne({ where: { id: req.params.id } });
+      res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  updateCategory: async (req, res) => {
+    try {
+      const { categoryName } = req.body;
+      //   let fileUploaded = req.file;
+      await category.update(
+        {
+          categoryName,
+        },
+        // {
+        //   Images: fileUploaded.filename,
+        // },
+        {
+          where: { id: req.params.id },
+        }
+      );
+      const users = await category.findOne({ where: { id: req.params.id } });
       res.status(200).send(users);
     } catch (err) {
       res.status(400).send(err);
@@ -289,6 +333,36 @@ module.exports = {
   stock: async (req, res) => {
     try {
     } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  uploadFile: async (req, res) => {
+    try {
+      let fileUploaded = req.file;
+      console.log("controller", fileUploaded);
+      await product.update(
+        {
+          picture: `upload/${fileUploaded.filename}`,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      const getProduct = await product.findOne({
+        where: {
+          id: req.params.id,
+        },
+        raw: true,
+      });
+      res.status(200).send({
+        id: getProduct.id,
+        picture: getProduct.picture,
+      });
+    } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },

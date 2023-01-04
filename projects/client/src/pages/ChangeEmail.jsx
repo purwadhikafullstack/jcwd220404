@@ -12,12 +12,14 @@ import {
 import Axios from "axios";
 import React from "react";
 import { useRef } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export const ChangeEmail = (data) => {
   const inputEmail = useRef("");
   const navigate = useNavigate();
+  const { id } = useSelector((state) => state.userSlice.value);
 
   const updateEmail = async () => {
     try {
@@ -25,7 +27,7 @@ export const ChangeEmail = (data) => {
         email: inputEmail.current.value,
       };
       const result = await Axios.patch(
-        `${process.env.REACT_APP_API_BASE_URL}/user/updateEmail/6`,
+        `${process.env.REACT_APP_API_BASE_URL}/user/updateEmail/${id}`,
         user
       );
       // setTimeout(() => navigate(`/verification/${result.data.token} `), 2000);

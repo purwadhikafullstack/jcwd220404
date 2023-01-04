@@ -26,6 +26,7 @@ export const ListAddressPage = () => {
   const { data } = useSelector((state) => state.addressSlice.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
 
   const toAddAddress = () => {
     navigate("/account/address/addAddress");

@@ -1,6 +1,8 @@
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
+  Heading,
   Table,
   TableContainer,
   Tbody,
@@ -14,30 +16,33 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { syncData } from "../redux/nameSlice";
+import { UpdateComp } from "./UpdateComp";
 
 export const ListProductComp = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  // const [edit, setEdit] = useState({});
   const dispatch = useDispatch();
+  const data2 = useSelector((state) => state.productSlice.value);
 
-  const getData = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/list`
-      );
-      console.log(res.data);
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const res = await Axios.get(
+  //       `${process.env.REACT_APP_API_BASE_URL}/product/list`
+  //     );
+  //     console.log(res.data);
+  //     setData(res.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <div>
-      <TableContainer>
+      {/* <TableContainer>
         <Table variant="simple" colorScheme="teal">
           <Thead>
             <Tr>
@@ -57,7 +62,9 @@ export const ListProductComp = () => {
                   <Td>
                     <Box display={"flex"} justifyContent="space-evenly">
                       <DeleteIcon />
-                      <EditIcon />
+                      <Button onClick={() => setEdit(item)}>
+                        <EditIcon onClick={"#href"} />
+                      </Button>
                     </Box>
                   </Td>
                 </Tr>
@@ -65,7 +72,7 @@ export const ListProductComp = () => {
             })}
           </Tbody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
     </div>
   );
 };

@@ -23,6 +23,7 @@ import { RestrictedPage } from "./pages/403ResultPage";
 import { LoginAdminPage } from "./pages/LoginAdminPage";
 import { AdminPage } from "./pages/AdminPage";
 import { UpdateAddressPage } from "./pages/UpdateAddressPage";
+import { NotFoundPage } from "./pages/404ResultPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -146,6 +147,7 @@ function App() {
         <Route path="/restricted" element={<RestrictedPage />}></Route>
         <Route path="/loginAdmin" element={<LoginAdminPage />}></Route>
         <Route path="/adminPage" element={<AdminPage />}></Route>
+        <Route path="/*" element={<NotFoundPage />}></Route>
       </Routes>
     </div>
   );

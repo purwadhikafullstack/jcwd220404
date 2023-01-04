@@ -14,19 +14,22 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useState } from "react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 
 export const ChangePassword = (data) => {
   const [move, setMove] = useState(false);
+  const { id } = useSelector((state) => state.userSlice.value);
   const inputPass = useRef("");
   const params = useParams();
   const navigate = useNavigate();
+
   const updatePass = async () => {
     try {
       const user = {
         password: inputPass.current.value,
       };
       const res = await Axios.patch(
-        `${process.env.REACT_APP_API_BASE_URL}/user/updatePassword/6`,
+        `${process.env.REACT_APP_API_BASE_URL}/user/updatePassword/${id}`,
         user
         // {
         //   password: document.getElementById("password").value,

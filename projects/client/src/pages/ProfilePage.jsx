@@ -73,7 +73,7 @@ export const ProfilePage = () => {
   const getData = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/user/byId/6`
+        `${process.env.REACT_APP_API_BASE_URL}/user/byId/7`
       );
       setData(result.data);
       console.log(result.data);
@@ -139,7 +139,7 @@ export const ProfilePage = () => {
             <Center>
               <Box>
                 <Avatar
-                  src={`http://localhost:8000/upload/PIMG-167222530022518785.jpeg`}
+                  src={`http://localhost:8000/upload/PIMG-167281085573286921.png`}
                   size={"lg"}
                   bg="teal.500"
                 />

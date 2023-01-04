@@ -16,7 +16,7 @@ import {
 import Axios from "axios";
 import { useState } from "react";
 
-export const Menu = () => {
+export const MenuComp = () => {
   const [category, setCategory] = useState();
   const [product, setProduct] = useState();
 
