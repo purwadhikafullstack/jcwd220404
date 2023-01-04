@@ -19,25 +19,25 @@ export const ListCategoryComp = () => {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
 
-  const getData = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
-      );
-      console.log(res.data);
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const res = await Axios.get(
+  //       `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
+  //     );
+  //     console.log(res.data);
+  //     setData(res.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <div>
-      <TableContainer>
+      {/* <TableContainer>
         <Table variant="simple" colorScheme="teal">
           <Thead>
             <Tr>
@@ -61,7 +61,7 @@ export const ListCategoryComp = () => {
             })}
           </Tbody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
     </div>
   );
 };

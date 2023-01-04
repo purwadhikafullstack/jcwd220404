@@ -24,7 +24,7 @@ import {
 import { useRef } from "react";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, syncData, updateUser } from "../redux/userSlice";
+import { getUser, syncData, updateUser } from "../../redux/userSlice";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";

@@ -22,7 +22,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { ArrowUpIcon } from "@chakra-ui/icons";
 
-export const UpdateComp = ({ data }) => {
+export const UpdateProductComp = ({ data }) => {
   //   const { id } = useSelector((state) => state.productSlice.value);
   //   const [data, setData] = useState([]);
   const [image, setImage] = useState("");
@@ -84,26 +84,8 @@ export const UpdateComp = ({ data }) => {
   console.log(image);
   console.log(profile);
 
-  //   const getData = async () => {
-  //     try {
-  //       const res = await Axios.get(
-  //         `${process.env.REACT_APP_API_BASE_URL}/product/list`
-  //       );
-  //       console.log(res.data);
-  //       setData(res.data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     getData();
-  //   }, []);
-
   return (
     <div>
-      {/* {data?.map((item) => {
-        return ( */}
       <Stack spacing={"10px"}>
         <FormControl>
           <FormLabel>Nama Produk</FormLabel>
@@ -155,7 +137,7 @@ export const UpdateComp = ({ data }) => {
           <FormLabel>Description</FormLabel>
 
           <Tag mt={"20px"} as={"button"} ml={"10px"} onClick={onToggle}>
-            <ArrowUpIcon mr={"5px"} /> Add Picture
+            <ArrowUpIcon mr={"5px"} /> Update Picture
           </Tag>
           <Popover
             returnFocusOnClose={false}
@@ -187,8 +169,6 @@ export const UpdateComp = ({ data }) => {
         </FormControl>
         <Button onClick={() => onUpdate(data.id)}>Edit Product</Button>
       </Stack>
-      {/* );
-      })} */}
     </div>
   );
 };

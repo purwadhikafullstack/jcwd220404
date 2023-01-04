@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../redux/userSlice";
+import { logoutUser } from "../../redux/userSlice";
 import { LogoComp } from "./LogoComp";
 
 export const AccountComp = () => {

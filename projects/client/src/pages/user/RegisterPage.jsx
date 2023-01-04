@@ -16,8 +16,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import OnlyFreshLogo from "../OnlyFresh.jpg";
-import LogoHeader from "../logoheader.jpg";
+import OnlyFreshLogo from "../../OnlyFresh.jpg";
+import LogoHeader from "../../logoheader.jpg";
 import Axios from "axios";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";

@@ -9,7 +9,6 @@ import {
   Stack,
   Textarea,
 } from "@chakra-ui/react";
-import React from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
@@ -28,38 +27,38 @@ export const AddAddressComp = () => {
   const inputReceiverEmail = useRef("");
   const navigate = useNavigate();
 
-  const onCreate = async () => {
-    try {
-      const addAddress = {
-        addressLine: inputAddressLine.current.value,
-        district: inputDistrict.current.value,
-        city: inputCity.current.value,
-        province: inputProvince.current.value,
-        postalCode: inputPostalCode.current.value,
-        detail: inputDetail.current.value,
-        receiverName: inputReceiverName.current.value,
-        receiverPhone: inputReceiverPhone.current.value,
-        receiverEmail: inputReceiverEmail.current.value,
-      };
+  // const onCreate = async () => {
+  //   try {
+  //     const addAddress = {
+  //       addressLine: inputAddressLine.current.value,
+  //       district: inputDistrict.current.value,
+  //       city: inputCity.current.value,
+  //       province: inputProvince.current.value,
+  //       postalCode: inputPostalCode.current.value,
+  //       detail: inputDetail.current.value,
+  //       receiverName: inputReceiverName.current.value,
+  //       receiverPhone: inputReceiverPhone.current.value,
+  //       receiverEmail: inputReceiverEmail.current.value,
+  //     };
 
-      const res = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/address/create`,
-        addAddress
-      );
-      Swal.fire({
-        icon: "success",
-        text: "Success",
-      });
-      navigate("/account/address");
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     const res = await Axios.post(
+  //       `${process.env.REACT_APP_API_BASE_URL}/address/create`,
+  //       addAddress
+  //     );
+  //     Swal.fire({
+  //       icon: "success",
+  //       text: "Success",
+  //     });
+  //     navigate("/account/address");
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <div>
-      <Stack spacing={"10px"} mt={"20px"}>
+      {/* <Stack spacing={"10px"} mt={"20px"}>
         <FormControl>
           <FormLabel>Alamat</FormLabel>
           <Input
@@ -132,7 +131,7 @@ export const AddAddressComp = () => {
           </FormControl>
         </FormControl>
         <Button onClick={onCreate}>Add Address</Button>
-      </Stack>
+      </Stack> */}
     </div>
   );
 };

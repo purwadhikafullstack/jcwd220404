@@ -17,9 +17,9 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginAdmin } from "../redux/adminSlice";
+import { loginAdmin } from "../../redux/adminSlice";
 import Swal from "sweetalert2";
-import OnlyFreshLogo from "../OnlyFresh.jpg";
+import OnlyFreshLogo from "../../OnlyFresh.jpg";
 
 export const LoginAdminPage = () => {
   const [showPassword, setShowPassword] = useState(false);

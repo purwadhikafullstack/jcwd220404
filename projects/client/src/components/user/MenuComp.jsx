@@ -12,6 +12,7 @@ import {
   CardBody,
   CardFooter,
   Button,
+  Image,
 } from "@chakra-ui/react";
 import Axios from "axios";
 import { useState } from "react";
@@ -152,6 +153,7 @@ export const MenuComp = () => {
                 </CardHeader>
                 <CardBody>
                   <Text fontSize={"xs"}>Price</Text>
+                  <Image src={"http://localhost:8000/" + item.picture} />
                 </CardBody>
                 <CardFooter>
                   <Button>Tambah</Button>

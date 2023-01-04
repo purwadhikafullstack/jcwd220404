@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -24,6 +24,13 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
 } from "@chakra-ui/react";
 import Axios from "axios";
 import {
@@ -39,11 +46,11 @@ import {
 import Swal from "sweetalert2";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
-import { logoutAdmin } from "../redux/adminSlice";
-import { ListAdminComp } from "./ListAdminComp";
+import { logoutAdmin } from "../../redux/adminSlice";
 
 export const SuperComp = () => {
   const [edit, setEdit] = useState({});
+  const [data, setData] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowComfirmPassword] = useState(false);
   const { username } = useSelector((state) => state.adminSlice.value);
@@ -109,6 +116,22 @@ export const SuperComp = () => {
       });
     }
   };
+
+  const getData = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/admin/findAll`
+      );
+      console.log(res.data);
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div>
@@ -287,7 +310,32 @@ export const SuperComp = () => {
                 </Formik>
               </TabPanel>
               <TabPanel>
-                <ListAdminComp />
+                <TableContainer>
+                  <Table variant="simple" colorScheme="teal">
+                    <Thead>
+                      <Tr>
+                        <Th>Username</Th>
+                        <Th>Email</Th>
+                        <Th>Status</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {data?.map((item) => {
+                        return (
+                          <Tr>
+                            <Td>{item.username}</Td>
+                            <Td>{item.email}</Td>
+                            <Td>
+                              {item.isSuper === 2
+                                ? "Super Admin"
+                                : "Branch Admin"}
+                            </Td>
+                          </Tr>
+                        );
+                      })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
               </TabPanel>
             </TabPanels>
           </Tabs>

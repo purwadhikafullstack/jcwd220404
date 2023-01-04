@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { logoutAdmin } from "../redux/adminSlice";
+import { logoutAdmin } from "../../redux/adminSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -14,6 +14,7 @@ import {
   ButtonGroup,
   FormControl,
   FormLabel,
+  Heading,
   Image,
   Input,
   Menu,
@@ -47,23 +48,21 @@ import {
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 import Axios from "axios";
-import { ListProductComp } from "./ListProductComp";
-import { ListCategoryComp } from "./ListCategoryComp";
 import {
   ArrowUpIcon,
   ChevronDownIcon,
   DeleteIcon,
   EditIcon,
 } from "@chakra-ui/icons";
-import { UpdateComp } from "./UpdateComp";
+import { UpdateProductComp } from "./UpdateProductComp";
 
 export const BranchComp = () => {
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   const [edit, setEdit] = useState({});
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
   const { username } = useSelector((state) => state.adminSlice.value);
-  // const { id } = useSelector((state) => state.productSlice.value);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const dispatch = useDispatch();
@@ -137,6 +136,22 @@ export const BranchComp = () => {
   useEffect(() => {
     getData();
   }, [edit]);
+
+  const getCategory = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
+      );
+      console.log(res.data);
+      setData2(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   const handleChoose = (e) => {
     console.log("e.target.files", e.target.files);
@@ -334,10 +349,7 @@ export const BranchComp = () => {
                           <Td>
                             <Box display={"flex"} justifyContent="space-evenly">
                               <DeleteIcon />
-                              <Button
-                                // href={<UpdateComp />}
-                                onClick={() => setEdit(item)}
-                              >
+                              <Button onClick={() => setEdit(item)}>
                                 <EditIcon />
                               </Button>
                             </Box>
@@ -350,11 +362,36 @@ export const BranchComp = () => {
               </TableContainer>
             </TabPanel>
             <TabPanel>
-              <ListCategoryComp />
+              <TableContainer>
+                <Table variant="simple" colorScheme="teal">
+                  <Thead>
+                    <Tr>
+                      <Th>Category</Th>
+                      <Th>Actions</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {data2?.map((item) => {
+                      return (
+                        <Tr>
+                          <Td>{item.categoryName}</Td>
+                          <Td>
+                            <Box display={"flex"} justifyContent="space-evenly">
+                              <DeleteIcon />
+                              <EditIcon />
+                            </Box>
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
             </TabPanel>
           </TabPanels>
         </Tabs>
-        <UpdateComp data={edit} />
+        <Heading>Edit Product</Heading>
+        <UpdateProductComp data={edit} />
       </Box>
     </div>
   );

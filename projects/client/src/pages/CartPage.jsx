@@ -1,7 +1,7 @@
 import { Box, Center } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { NavbarComp } from "../components//NavbarComp";
-import { AccountPage } from "./AccountPage";
+import { NavbarComp } from "../components/user/NavbarComp";
+import { AccountPage } from "../pages/user/AccountPage";
 
 export const CartPage = () => {
   const navigate = useNavigate();

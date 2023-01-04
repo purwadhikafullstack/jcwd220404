@@ -11,8 +11,8 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { loginUser } from "../redux/userSlice";
-import { ForgotPasswordPage } from "../pages/ForgotPassPage";
+import { loginUser } from "../../redux/userSlice";
+import { ForgotPasswordPage } from "../../pages/user/ForgotPassPage";
 import Swal from "sweetalert2";
 
 export const EnterComp = () => {

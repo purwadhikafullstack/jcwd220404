@@ -20,7 +20,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { syncData } from "../redux/addressSlice";
+import { syncData } from "../../redux/addressSlice";
 
 export const ListAddressPage = () => {
   const { data } = useSelector((state) => state.addressSlice.value);

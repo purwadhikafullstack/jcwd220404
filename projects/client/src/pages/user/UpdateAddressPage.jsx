@@ -16,7 +16,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
 import Swal from "sweetalert2";
-import { syncData } from "../redux/addressSlice";
+import { syncData } from "../../redux/addressSlice";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 

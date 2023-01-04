@@ -16,7 +16,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { syncData } from "../redux/nameSlice";
-import { UpdateComp } from "./UpdateComp";
+import { UpdateComp } from "./UpdateProductComp";
 
 export const ListProductComp = () => {
   // const [data, setData] = useState([]);

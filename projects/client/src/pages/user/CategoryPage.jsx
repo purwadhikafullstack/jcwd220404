@@ -1,5 +1,5 @@
 import { Box, Center, Text } from "@chakra-ui/react";
-import { NavbarComp } from "../components/NavbarComp";
+import { NavbarComp } from "../../components/user/NavbarComp";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 
