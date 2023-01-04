@@ -5,6 +5,7 @@ import {
   Text,
   VStack,
   useBreakpointValue,
+  Box,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,6 +20,7 @@ export const WindowComp = () => {
   };
 
   return (
+    <Box width="390px" height="100%"   position="absolute">
     <Flex
       w={"full"}
       h={"100vh"}
@@ -27,12 +29,14 @@ export const WindowComp = () => {
       }
       backgroundSize={"cover"}
       backgroundPosition={"center center"}
+    
     >
       <VStack
         w={"full"}
         justify={"center"}
         px={useBreakpointValue({ base: 4, md: 8 })}
         bgGradient={"linear(to-r, blackAlpha.1000, transparent)"}
+     
       >
         <Stack maxW={"2xl"} align={"flex-start"} spacing={6} mt="80px">
           <Text
@@ -74,5 +78,6 @@ export const WindowComp = () => {
         </Stack>
       </VStack>
     </Flex>
+    </Box>
   );
 };

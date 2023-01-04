@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Button,
@@ -9,6 +10,8 @@ import {
   Flex,
   Image,
   InputGroup,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useRef, useState } from "react";
@@ -19,6 +22,7 @@ import { loginUser } from "../redux/userSlice";
 import OnlyFreshLogo from "../OnlyFreshLogo.png";
 import Swal from "sweetalert2";
 import { ForgotPasswordPage } from "../pages/ForgotPassPage";
+
 
 export const LoginUserComp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -65,18 +69,27 @@ export const LoginUserComp = () => {
   return (
     <div>
       <Center>
-        <Box py={"120px"} px={6} bgColor="#E5D9B6" w={"390px"} h={"850px"}>
-          <Image src={OnlyFreshLogo} height="150px" w={"auto"} ml={"70px"} />
-
+        <Box 
+        px={3} 
+        py={3} 
+        bgColor="#E5D9B6" 
+        w={"390px"} 
+        h={"100%"}   
+        border="2px"  >
+          <Image src={OnlyFreshLogo} height="160px" w={"auto"} ml={"75px"} />
+          <Stack align={"center"}>
           <Heading mt={"10px"} size={"lg"} textColor="#285430">
-            Sign in to your Account
+           Sign in to your Account
           </Heading>
-          <Stack mt={"20px"} spacing={"8px"}>
-            <Text textColor={"#285430"} justifyContent="space-between">
-              Phone Number or Email
-            </Text>
+          </Stack>
+          <Center>
+          <Stack mt={"20px"} spacing={"2px"}>
+          <FormControl isRequired>
+          <FormLabel htmlFor="email" textColor={"#285430"}>
+            <b> Phone Number or Email </b>
+          </FormLabel>
             <Input
-              placeholder="08xx or Your Email"
+              placeholder="08xx or your_email@mail.com"
               _placeholder={{ color: "#5F8D4E" }}
               bgColor={"white"}
               textColor="#285430"
@@ -84,14 +97,18 @@ export const LoginUserComp = () => {
               border={"2px"}
               w={"340px"}
               ref={inputPhoneEmail}
-            ></Input>
-            <Text textColor={"#285430"}>Password</Text>
+            />
+            </FormControl>
+            <FormControl isRequired>
+          <FormLabel htmlFor="password" textColor={"#285430"}>
+            <b> Password</b>
+          </FormLabel>
             <InputGroup>
               <Flex justifyContent={"end"}>
                 <Input
                   type={showPassword ? "text" : "password"}
                   name="password"
-                  placeholder="Your Password"
+                  placeholder="your password"
                   ref={inputPass}
                   _placeholder={{ color: "#5F8D4E" }}
                   bgColor={"white"}
@@ -100,7 +117,7 @@ export const LoginUserComp = () => {
                   border={"2px"}
                   w={"340px"}
                   zIndex="1"
-                ></Input>
+                />
                 <Button
                   color={"black"}
                   onClick={() =>
@@ -113,6 +130,7 @@ export const LoginUserComp = () => {
                 </Button>
               </Flex>
             </InputGroup>
+            </FormControl>
             <Center>
               <Button
                 mt={"3"}
@@ -129,22 +147,28 @@ export const LoginUserComp = () => {
                 w={"90px"}
                 alignItems="center"
               >
-                Sign In
+                <b>Sign In</b>
               </Button>
             </Center>
-            <Box display={"flex"} justifyContent="center">
+            <Box display={"flex"} justifyContent="center" >
               <Text mr={"8px"} textColor="gray.800">
-                Forgot Password
+               <b> Forgot Password</b>
               </Text>
               <ForgotPasswordPage />
             </Box>
             <Text textAlign={"center"} textColor="gray.800">
-              Don't have an account?
+              <b> Don't have an account? </b>
             </Text>
             <Text as={Link} to="/register" textAlign={"center"} color="#5F8D4E">
-              Register here
+            <b> Register here</b>
             </Text>
           </Stack>
+          </Center>
+          <Box  justifyContent="center" >
+            <React.StrictMode>
+            <img src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif" width="100%" height="200px"></img>
+            </React.StrictMode>
+            </Box>
         </Box>
       </Center>
     </div>

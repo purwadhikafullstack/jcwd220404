@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Button,
@@ -9,6 +10,8 @@ import {
   Flex,
   Image,
   InputGroup,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useRef, useState } from "react";
@@ -70,16 +73,19 @@ export const LoginAdminPage = () => {
   return (
     <div>
       <Center>
-        <Box ml="8" py={10} px={6} bgColor="#E5D9B6" w={"390px"} h={"850px"}>
-          <Image src={OnlyFreshLogo} height="150px" w={"auto"} ml={"70px"} />
-
+        <Box py={3} px={3} bgColor="#E5D9B6" w={"390px"} h={"100%"} border="2px" >
+        <Image src={OnlyFreshLogo} height="160px" w={"auto"} ml={"75px"} />
+        <Stack align={"center"}>
           <Heading mt={"10px"} size={"lg"} textColor="#285430">
             Sign in to Admin
           </Heading>
-          <Stack mt={"20px"} spacing={"8px"}>
-            <Text textColor={"#285430"} justifyContent="space-between">
-              Username or Email
-            </Text>
+          </Stack>
+          <Center>
+          <Stack mt={"20px"} spacing={"2px"} align={"center"}>
+          <FormControl isRequired>
+          <FormLabel htmlFor="username" textColor={"#285430"}>
+            <b> Username or Email </b>
+          </FormLabel>
             <Input
               placeholder="Username or Your Email"
               _placeholder={{ color: "#5F8D4E" }}
@@ -87,10 +93,14 @@ export const LoginAdminPage = () => {
               textColor="black"
               borderColor={"#285430"}
               border={"2px"}
-              w={"230px"}
+              w={"340px"}
               ref={inputUsernameEmail}
-            ></Input>
-            <Text textColor={"#285430"}>Password</Text>
+            />
+            </FormControl>
+            <FormControl isRequired>
+          <FormLabel htmlFor="password" textColor={"#285430"}>
+            <b> Password</b>
+          </FormLabel>
             <InputGroup>
               <Flex justifyContent={"end"}>
                 <Input
@@ -103,22 +113,23 @@ export const LoginAdminPage = () => {
                   textColor="black"
                   borderColor={"#285430"}
                   border={"2px"}
-                  w={"230px"}
-                  position="absolute"
-                ></Input>
+                  w={"340px"}
+                  zIndex="1"
+                 />
                 <Button
                   color={"black"}
                   onClick={() =>
                     setShowPassword((showPassword) => !showPassword)
                   }
-                  pos="relative"
-                  ml={"181px"}
-                  zIndex="1"
+                  pos="absolute"
+                  zIndex="2"
                 >
                   {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                 </Button>
               </Flex>
             </InputGroup>
+            </FormControl>
+            <Box py={6} px={6}>
             <Button
               onClick={onLogin}
               _hover={{
@@ -132,9 +143,16 @@ export const LoginAdminPage = () => {
               w={"90px"}
               alignItems="center"
             >
-              Sign In
+              <b>Sign In</b>
             </Button>
-          </Stack>
+            </Box>
+            </Stack>
+            </Center>
+            <Box  justifyContent="center" >
+            <React.StrictMode>
+            <img src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif" width="100%" height="200px"></img>
+            </React.StrictMode>
+            </Box>
         </Box>
       </Center>
     </div>

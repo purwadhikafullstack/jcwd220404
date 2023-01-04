@@ -50,7 +50,7 @@ export const ForgotPasswordPage = () => {
   return (
     <>
       <Button onClick={onOpen} as="u" variant={"unstyled"} color="#5F8D4E">
-        Forgot Password
+       <b> Click Here</b>
       </Button>
       <Modal
         colorScheme={"#5F8D4E"}
