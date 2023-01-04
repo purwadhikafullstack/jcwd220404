@@ -13,19 +13,16 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  InputRightElement,
   VStack,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import OnlyFreshLogo from "../OnlyFresh.jpg";
-import LogoHeader from "../logoheader.jpg";
+import OnlyFreshLogo from "../OnlyFreshLogo.png";
 import Axios from "axios";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Field, ErrorMessage, Formik, Form } from "formik";
 import Swal from "sweetalert2";
-
-const url = `${process.env.REACT_APP_API_BASE_URL}/user/register`;
+const url = "http://localhost:8000/user/register";
 
 export const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +35,7 @@ export const RegisterPage = () => {
       .min(5, "Name min. 5 characters"),
     phoneNumber: Yup.string()
       .required("Phone Number is a required field")
-      .min(10, "Phone Number must max 12 numbers")
+      .min(10, "Phone Number must min 10 numbers")
       .max(12, "Phone Number must max 12 numbers"),
     email: Yup.string().email().required("Email is a required field"),
     password: Yup.string()
@@ -56,6 +53,7 @@ export const RegisterPage = () => {
         return Swal.fire({
           icon: "error",
           title: "Oooops ...",
+          width: "370px",
           text: "make sure password and confirm password match",
           timer: 2000,
           customClass: {
@@ -66,7 +64,8 @@ export const RegisterPage = () => {
       const result = await Axios.post(url, data);
       Swal.fire({
         icon: "success",
-        title: "Good Job",
+        title: "Register Success",
+        width: "370px",
         text: `${result.data.massage}`,
         timer: 2000,
         customClass: {
@@ -78,7 +77,8 @@ export const RegisterPage = () => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: `${err.response.data}`,
+        text: "Email already used",
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
@@ -86,37 +86,26 @@ export const RegisterPage = () => {
     }
   };
   return (
-    <>
-      <Center py={6}>
-        <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
-          <Flex minH={"100vh"} align={"center"} justify={"center"}>
-            <Box
-              w={"full"}
-              boxShadow={"2xl"}
-              rounded={"md"}
-              overflow={"hidden"}
-            >
-              <Image
-                h={"200px"}
-                w={"390px"}
-                src={LogoHeader}
-                objectFit={"cover"}
-                top="0"
-                // pos="fixed"
-              />
-              <Flex justify={"center"} mt={-12}>
-                <Box h={100} w={100} borderWidth="2px">
+    <div>
+      <Center>
+        <Box className="body" bgColor="#E5D9B6" h={"820px"} w={"390px"}>
+          <Flex align={"center"} justify={"center"}>
+            <Box mt="40px">
+              <Flex justify={"center"}>
+                <Box h={120}>
                   <Image src={OnlyFreshLogo} height="100%" />
                 </Box>
               </Flex>
-              <Stack spacing={8} mx={"auto"} maxW={"lg"} py={10} px={6}>
+              <Stack mx={"auto"} maxW={"auto"} py={3} px={8}>
                 <Stack align={"center"}>
-                  <Heading fontSize={"2xl"}>Create your account</Heading>
-                  <Text fontSize={"lg"} color={"gray.600"}>
-                    to start your freshness{" "}
+                  <Heading textColor={"#285430"} fontSize={"2xl"} mt="-6">
+                    Create your account
+                  </Heading>
+                  <Text fontSize={"lg"} color={"#285430"}>
+                    Start Your Freshness{" "}
                   </Text>
                 </Stack>
-                <Box rounded={"lg"} boxShadow={"lg"} p={8}>
+                <Box rounded={"2xl"} p={"8"}>
                   <Formik
                     initialValues={{
                       name: "",
@@ -137,20 +126,23 @@ export const RegisterPage = () => {
                   >
                     {(props) => {
                       return (
-                        <>
+                        <div>
                           <Form>
-                            <VStack spacing={4} align="flex-start">
+                            <VStack spacing={2} mt="-8" align="flex-start">
                               <FormControl isRequired>
-                                <FormLabel htmlFor="name" textColor={"black"}>Name</FormLabel>
+                                <FormLabel htmlFor="name" textColor={"#285430"}>
+                                  Name
+                                </FormLabel>
                                 <Field
                                   as={Input}
                                   type="text"
                                   name="name"
-                                  variant="filled"
+                                  _placeholder={{ color: "#5F8D4E" }}
                                   bgColor={"white"}
-          
-          borderColor={"#285430"}
-                                  
+                                  textColor="#285430"
+                                  borderColor={"#285430"}
+                                  border={"2px"}
+                                  w={"230px"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -159,17 +151,22 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="phoneNumber" textColor={"black"}>
+                                <FormLabel
+                                  htmlFor="phoneNumber"
+                                  textColor={"#285430"}
+                                >
                                   Phone Number
                                 </FormLabel>
                                 <Field
                                   as={Input}
                                   type="text"
                                   name="phoneNumber"
-                                  variant="filled"
+                                  _placeholder={{ color: "#5F8D4E" }}
                                   bgColor={"white"}
-          
-          borderColor={"#285430"}
+                                  textColor="#285430"
+                                  borderColor={"#285430"}
+                                  border={"2px"}
+                                  w={"230px"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -178,15 +175,22 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="email" textColor={"black"}>Email</FormLabel>
-                                <Field
-                                  as={Input}
+                                <FormLabel
+                                  htmlFor="email"
+                                  textColor={"#285430"}
+                                >
+                                  Email
+                                </FormLabel>
+                                <Input
+                                  as={Field}
                                   type="email"
                                   name="email"
-                                  variant="filled"
+                                  _placeholder={{ color: "#5F8D4E" }}
                                   bgColor={"white"}
-        
-          borderColor={"#285430"}
+                                  textColor="#285430"
+                                  borderColor={"#285430"}
+                                  border={"2px"}
+                                  w={"230px"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -195,28 +199,36 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="password" textColor={"black"}>
+                                <FormLabel
+                                  htmlFor="password"
+                                  textColor={"#285430"}
+                                >
                                   Password
                                 </FormLabel>
                                 <InputGroup>
-                                  <Field
-                                    as={Input}
-                                    type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    variant="filled"
-                                    bgColor={"white"}
-        
-          borderColor={"#285430"}
-                                  />
-
-                                  <InputRightElement h={"full"}>
+                                  <Flex justifyContent={"end"}>
+                                    <Field
+                                      as={Input}
+                                      type={showPassword ? "text" : "password"}
+                                      name="password"
+                                      _placeholder={{ color: "#5F8D4E" }}
+                                      bgColor={"white"}
+                                      textColor="#285430"
+                                      borderColor={"#285430"}
+                                      border={"2px"}
+                                      w={"230px"}
+                                      position="absolute"
+                                    />
                                     <Button
-                                      variant={"ghost"}
+                                      color={"black"}
                                       onClick={() =>
                                         setShowPassword(
                                           (showPassword) => !showPassword
                                         )
                                       }
+                                      pos="relative"
+                                      ml={"181px"}
+                                      zIndex="1"
                                     >
                                       {showPassword ? (
                                         <ViewIcon />
@@ -224,7 +236,7 @@ export const RegisterPage = () => {
                                         <ViewOffIcon />
                                       )}
                                     </Button>
-                                  </InputRightElement>
+                                  </Flex>
                                 </InputGroup>
                                 <ErrorMessage
                                   component="div"
@@ -233,30 +245,41 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="password_confirmation" textColor={"black"} >
+                                <FormLabel
+                                  htmlFor="password_confirmation"
+                                  textColor={"#285430"}
+                                >
                                   Confirm Password
                                 </FormLabel>
                                 <InputGroup>
-                                  <Field
-                                    as={Input}
-                                    type={
-                                      showConfirmPassword ? "text" : "password"
-                                    }
-                                    name="password_confirmation"
-                                    variant="filled"
-                                    bgColor={"white"}
-          
-          borderColor={"#285430"}
-                                  />
-                                  <InputRightElement h={"full"}>
+                                  <Flex justifyContent="end">
+                                    <Field
+                                      as={Input}
+                                      type={
+                                        showConfirmPassword
+                                          ? "text"
+                                          : "password"
+                                      }
+                                      name="password_confirmation"
+                                      _placeholder={{ color: "#5F8D4E" }}
+                                      bgColor={"white"}
+                                      textColor="#285430"
+                                      borderColor={"#285430"}
+                                      border={"2px"}
+                                      w={"230px"}
+                                      position="absolute"
+                                    />
                                     <Button
-                                      variant={"ghost"}
+                                      color={"black"}
                                       onClick={() =>
                                         setShowComfirmPassword(
                                           (showConfirmPassword) =>
                                             !showConfirmPassword
                                         )
                                       }
+                                      pos="relative"
+                                      ml={"181px"}
+                                      zIndex="1"
                                     >
                                       {showConfirmPassword ? (
                                         <ViewIcon />
@@ -264,7 +287,7 @@ export const RegisterPage = () => {
                                         <ViewOffIcon />
                                       )}
                                     </Button>
-                                  </InputRightElement>
+                                  </Flex>
                                 </InputGroup>
                                 <ErrorMessage
                                   component="div"
@@ -272,20 +295,42 @@ export const RegisterPage = () => {
                                   style={{ color: "red" }}
                                 />
                               </FormControl>
+                              <Center>
+
                               <Button
                                 type="submit"
-                                width="100%"
-                                bg={"green.400"}
-                                color={"white"}
                                 _hover={{
-                                  bg: "green.500",
+                                  bg: "#E5D9B6",
                                 }}
-                              >
+                                bgColor={"#A4BE7B"}
+                                borderColor="#285430"
+                                border="2px"
+                                fontSize="18px"
+                                color="gray.800"
+                                w={"230px"}
+                                >
                                 Sign up
                               </Button>
+                          </Center>
                             </VStack>
                           </Form>
-                        </>
+                          <Flex></Flex>
+                          <Text
+                            mt={"20px"}
+                            fontSize={"md"}
+                            textColor="gray.800"
+                          >
+                            Already have an account?
+                          </Text>
+                          <Text
+                            as={Link}
+                            to="/loginUser"
+                            color="#5F8D4E"
+                            fontSize={"md"}
+                          >
+                            Login Here
+                          </Text>
+                        </div>
                       );
                     }}
                   </Formik>
@@ -295,6 +340,6 @@ export const RegisterPage = () => {
           </Flex>
         </Box>
       </Center>
-    </>
+    </div>
   );
 };

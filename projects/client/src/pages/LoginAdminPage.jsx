@@ -1,148 +1,142 @@
-import React from "react";
-import { useRef, useState } from "react";
 import {
-    Heading,
-    Box,
-    Center,
-    Image,
-    Flex,
-    Text,
-    Stack,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Checkbox,
-    InputGroup,
-    InputRightElement,
-  } from '@chakra-ui/react';
-  import Axios from "axios";
-  import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-  import OnlyFreshLogo from "../OnlyFresh.jpg";
-  import { useDispatch } from "react-redux";
-  import { loginAdmin } from "../redux/admin/adminSlice";
-  import { useNavigate } from "react-router-dom";
-  import Swal from 'sweetalert2'
-  
-  const url = "http://localhost:8000/admin/login"
+  Box,
+  Button,
+  Center,
+  Heading,
+  Input,
+  Stack,
+  Text,
+  Flex,
+  Image,
+  InputGroup,
+} from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Axios from "axios";
+import { loginAdmin } from "../redux/adminSlice";
+import OnlyFreshLogo from "../OnlyFreshLogo.png";
+import Swal from "sweetalert2";
 
-  export const LoginAdminPage = () => {
-    const [showPassword, setShowPassword] = useState(false);
-    const inputUsernameEmail = useRef("");
-    const inputPass     = useRef("");
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    
+const url = "http://localhost:8000/admin/login";
 
-    const onLogin = async () => {
-        try {
-            const admin = {
-                password: inputPass.current.value,
-                usernameEmail: inputUsernameEmail.current.value,
-            };
+export const LoginAdminPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const inputUsernameEmail = useRef("");
+  const inputPass = useRef("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-            const result = await Axios.post(url, admin);
-        
-            dispatch(loginAdmin({
-                id: result.data.isUserExist.id,
-                username: result.data.isUserExist.username,
-                email: result.data.isUserExist.email,
-                isSuper: result.data.isUserExist.isSuper,
-    
-            }));
-            if ( result.data.isUserExist.isSuper===1){
-              localStorage.setItem( "tokenSuper", result.data.token);  
-            }else if(result.data.isUserExist.isSuper===0){
-              localStorage.setItem( "tokenBranch", result.data.token);
-            }
-            navigate("/AdminPage")
-        } catch (err) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: `${err.response.data}`,
-                timer: 1000,
-                customClass: {
-                    container: 'my-swal'
-                }
-            })
-        }
-    };
+  const onLogin = async () => {
+    try {
+      const admin = {
+        password: inputPass.current.value,
+        usernameEmail: inputUsernameEmail.current.value,
+      };
 
-    return (
-      <>
-    <Center py={6}>
-    <Flex
-    minH={'100vh'}
-    align={'center'}
-    justify={'center'}
-   >
-      <Box
-        w={'full'}
-     
-        boxShadow={'2xl'}
-        rounded={'md'}
-        overflow={'hidden'}>
-        <Image
-          h={'200px'}
-          w={'full'}
-          src={
-            'https://cdn-2.tstatic.net/tribunnews/foto/bank/images/ilustrasi-makanan-sayuran-dan-buah-buahan.jpg'
-          }
-          objectFit={'cover'}
-        />
-        <Flex justify={'center'} mt={-12}>
-        <Box h={100} w={100} borderWidth='2px' >
-    <Image src={OnlyFreshLogo}  height="100%"/>
-    </Box>
-        </Flex>
-    <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-      <Stack align={'center'}>
-        <Heading fontSize={'4xl'}>Sign in to Admin</Heading>
-      </Stack>
-      <Box
-        rounded={'lg'}
-        boxShadow={'lg'}
-        p={8}>
-        <Stack spacing={4}>
-        <FormControl>
-        <FormLabel htmlFor="username">Username or Email</FormLabel>
-        <Input type="text" name="username" variant="filled" ref={inputUsernameEmail} />
-        </FormControl>
-          <FormControl id="password" isRequired>
-            <FormLabel>Password</FormLabel>
+      const result = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/admin/login`, admin);
+
+      dispatch(
+        loginAdmin({
+          id: result.data.isUserExist.id,
+          username: result.data.isUserExist.username,
+          email: result.data.isUserExist.email,
+          isSuper: result.data.isUserExist.isSuper,
+        })
+      );
+      if (result.data.isUserExist.isSuper === 2) {
+        localStorage.setItem("tokenSuper", result.data.token);
+      } else if (result.data.isUserExist.isSuper === 1) {
+        localStorage.setItem("tokenBranch", result.data.token);
+      } else if (!result.data.isUserExist.isSuper) {
+        localStorage.setItem("tokenUser", result.data.token);
+      }
+      navigate("/adminPage");
+    } catch (err) {
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Oops...",
+      //   text: `${err.response.data}`,
+      //   timer: 1000,
+      //   customClass: {
+      //     container: "my-swal",
+      //   },
+      // });
+      navigate("/forbidden")
+    }
+  };
+
+  return (
+    <div>
+      <Center>
+        <Box ml="8" py={10} px={6} bgColor="#E5D9B6" w={"390px"} h={"850px"}>
+          <Image src={OnlyFreshLogo} height="150px" w={"auto"} ml={"70px"} />
+
+          <Heading mt={"10px"} size={"lg"} textColor="#285430">
+            Sign in to Admin
+          </Heading>
+          <Stack mt={"20px"} spacing={"8px"}>
+            <Text textColor={"#285430"} justifyContent="space-between">
+              Username or Email
+            </Text>
+            <Input
+              placeholder="Username or Your Email"
+              _placeholder={{ color: "#5F8D4E" }}
+              bgColor={"white"}
+              textColor="black"
+              borderColor={"#285430"}
+              border={"2px"}
+              w={"230px"}
+              ref={inputUsernameEmail}
+            ></Input>
+            <Text textColor={"#285430"}>Password</Text>
             <InputGroup>
-              <Input type={showPassword ? 'text' : 'password'} ref={inputPass} />
-              <InputRightElement h={'full'}>
+              <Flex justifyContent={"end"}>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Your Password"
+                  ref={inputPass}
+                  _placeholder={{ color: "#5F8D4E" }}
+                  bgColor={"white"}
+                  textColor="black"
+                  borderColor={"#285430"}
+                  border={"2px"}
+                  w={"230px"}
+                  position="absolute"
+                ></Input>
                 <Button
-                  variant={'ghost'}
+                  color={"black"}
                   onClick={() =>
                     setShowPassword((showPassword) => !showPassword)
-                  }>
+                  }
+                  pos="relative"
+                  ml={"181px"}
+                  zIndex="1"
+                >
                   {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                 </Button>
-              </InputRightElement>
+              </Flex>
             </InputGroup>
-          </FormControl>
-          <Stack spacing={10}>
             <Button
               onClick={onLogin}
-              bg={'green.400'}
-              color={'white'}
               _hover={{
-                bg: 'green.500',
-              }}>
-              Sign in
+                bg: "#E5D9B6",
+              }}
+              bgColor={"#A4BE7B"}
+              borderColor="#285430"
+              border="2px"
+              fontSize="18px"
+              color="gray.800"
+              w={"90px"}
+              alignItems="center"
+            >
+              Sign In
             </Button>
-          
           </Stack>
-        </Stack>
-      </Box>
-    </Stack>
-      </Box>
-      </Flex>
-    </Center>
-    </>
-    )
-  }
-  
+        </Box>
+      </Center>
+    </div>
+  );
+};

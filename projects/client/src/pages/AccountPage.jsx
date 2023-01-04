@@ -1,7 +1,6 @@
 import { Box, Center } from "@chakra-ui/react";
 import { AccountComp } from "../components/AccountComp";
 import { WindowComp } from "../components/WindowComp";
-import { NavbarComp } from "../components/NavbarComp";
 
 export const AccountPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
@@ -9,11 +8,9 @@ export const AccountPage = () => {
   return (
     <div>
       <Center>
-        <Box w={"390px"} h={"844px"} bgColor="white">
+        <Box classsName="header" w={"390px"} h={"844px"} bgColor="white">
           {tokenLocalStorage ? <AccountComp /> : <WindowComp />}
-          <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
-            <NavbarComp />
-          </Box>
+          <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}></Box>
         </Box>
       </Center>
     </div>

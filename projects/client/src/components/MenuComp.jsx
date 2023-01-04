@@ -1,7 +1,25 @@
-import React from "react";
-import { Box, Center, Text, Flex, Avatar } from "@chakra-ui/react";
+import { useEffect } from "react";
+import {
+  Box,
+  Center,
+  Text,
+  Flex,
+  Avatar,
+  SimpleGrid,
+  Card,
+  CardHeader,
+  Heading,
+  CardBody,
+  CardFooter,
+  Button,
+} from "@chakra-ui/react";
+import Axios from "axios";
+import { useState } from "react";
 
 export const Menu = () => {
+  const [category, setCategory] = useState();
+  const [product, setProduct] = useState();
+
   const cards = [
     [
       "https://s3-ap-southeast-1.amazonaws.com/assets.segari.id/categories/v3/semua_produk.png",
@@ -45,6 +63,40 @@ export const Menu = () => {
     ],
   ];
 
+  const getCategory = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
+      );
+      console.log(res.data);
+      setCategory(res.data);
+      // dispatch(syncData(res.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCategory();
+  }, []);
+
+  const getProduct = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/product/list`
+      );
+      console.log(res.data);
+      setProduct(res.data);
+      // dispatch(syncData(res.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, []);
+
   return (
     <div>
       <Center>
@@ -78,6 +130,37 @@ export const Menu = () => {
           })}
         </Flex>
       </Center>
+      <Box mt={"50px"}>
+        {category?.map((item) => {
+          return (
+            <div>
+              <Text>{item.categoryName}</Text>
+            </div>
+          );
+        })}
+      </Box>
+      <Box>
+        <SimpleGrid
+          spacing={4}
+          templateColumns="repeat(auto-fill, minmax(100px, 1fr))"
+        >
+          {product?.map((item) => {
+            return (
+              <Card>
+                <CardHeader>
+                  <Heading size="sm">{item.productName}</Heading>
+                </CardHeader>
+                <CardBody>
+                  <Text fontSize={"xs"}>Price</Text>
+                </CardBody>
+                <CardFooter>
+                  <Button>Tambah</Button>
+                </CardFooter>
+              </Card>
+            );
+          })}
+        </SimpleGrid>
+      </Box>
     </div>
   );
 };

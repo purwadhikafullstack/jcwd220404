@@ -16,7 +16,7 @@ export const NotFoundPage = () => {
             py={10}
             px={6}
             bgColor="#E5D9B6"
-            w={"390px"}
+            w={"542.7px"}
             h={"820px"}
           >
             <Heading

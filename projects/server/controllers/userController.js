@@ -79,8 +79,8 @@ module.exports = {
       const isAccountExist = await user.findOne({
         where: {
           phoneNumber: req.user.phoneNumber,
-          email: req.user.email,
-          id: req.user.id,
+          // email: req.user.email,
+          // id: req.user.id,
         },
         raw: true,
       });
@@ -94,8 +94,8 @@ module.exports = {
         {
           where: {
             phoneNumber: req.user.phoneNumber,
-            email: req.user.email,
-            id: req.user.id,
+            // email: req.user.email,
+            // id: req.user.id,
           },
         }
       );
@@ -123,13 +123,16 @@ module.exports = {
         {
           where: {
             phoneNumber,
-            email,
+            // email,
           },
         }
       );
 
       const isAccountExist = await user.findOne({
-        where: { phoneNumber, email },
+        where: {
+          phoneNumber,
+          // email
+        },
         raw: true,
       });
 
@@ -164,13 +167,14 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const { phoneEmail, password } = req.body;
+      const { phoneEmail, password, id } = req.body;
 
       const isAccountExist = await user.findOne({
         where: {
           [Op.or]: {
             phoneNumber: phoneEmail ? phoneEmail : "",
             email: phoneEmail ? phoneEmail : "",
+            id: id ? id : 0,
           },
         },
         raw: true,
@@ -179,7 +183,10 @@ module.exports = {
       if (isAccountExist === null) throw "Account not found";
       if (isAccountExist.status === false) throw "Your Account is blocked";
 
-      const payload = { phoneNumber: isAccountExist.phoneNumber };
+      const payload = {
+        phoneNumber: isAccountExist.phoneNumber,
+        id: isAccountExist.id,
+      };
       const token = jwt.sign(payload, "jcwd2204");
 
       // const isProfileExist = await profile.findOne({
@@ -220,19 +227,23 @@ module.exports = {
   keepLogin: async (req, res) => {
     try {
       const verify = jwt.verify(req.token, "jcwd2204");
+      console.log(verify);
       const result = await user.findOne({
         where: {
           phoneNumber: verify.phoneNumber,
+          id: verify.id,
+          
         },
         raw: true,
       });
+      console.log(result);
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send(err);
     }
   },
 
-  updatePassword: async (req, res) => {
+  changePassword: async (req, res) => {
     try {
       const { password, password_confirmation } = req.body;
 
@@ -301,7 +312,7 @@ module.exports = {
   update: async (req, res) => {
     try {
       const { name, birthDate, gender } = req.body;
-      console.log(req.body);
+
       const data = await user.update(
         {
           name,
@@ -319,11 +330,7 @@ module.exports = {
           where: { UserId: req.params.id },
         }
       );
-      // let fileUploaded = req.file;
-      // {
-      //   Images: fileUploaded.filename,
-      // },
-      // );
+
       res.status(200).send({
         message: "success",
         data,
@@ -404,7 +411,7 @@ module.exports = {
     }
   },
 
-  getAll: async (req, res) => {
+  findAll: async (req, res) => {
     try {
       const users = await profile.findAll({
         attributes: ["id", "gender", "birthDate"],
@@ -416,38 +423,7 @@ module.exports = {
     }
   },
 
-  // getBy: async (req, res) => {
-  //   try {
-  //     const { name, gender, birthDate, email, password } = req.query;
-  //     const profile = await profile.findAll({
-  //       where: {
-  //         [Op.or]: {
-  //           gender: gender ? gender : "",
-  //           birthDate: birthDate ? birthDate : "",
-  //         },
-  //       },
-  //       raw: true,
-  //     });
-  //     const user = await user.findAll({
-  //       where: {
-  //         [Op.or]: {
-  //           name: name ? name : "",
-  //           email: email ? email : "",
-  //           password: password ? password : "",
-  //         },
-  //       },
-  //     });
-  //     res.status(200).send({
-  //       message: "success",
-  //       profile,
-  //       user,
-  //     });
-  //   } catch (err) {
-  //     res.status(400).send(err);
-  //   }
-  // },
-
-  getById: async (req, res) => {
+  findById: async (req, res) => {
     try {
       const users = await user.findOne({
         where: { id: req.params.id },
@@ -460,10 +436,34 @@ module.exports = {
     }
   },
 
-  // address: async (req, res) => {
-  //   try {
-  //   } catch (err) {
-  //     res.status(400).send(err);
-  //   }
-  // },
+  uploadFile: async (req, res) => {
+    try {
+      let fileUploaded = req.file;
+      console.log("controller", fileUploaded);
+      await profile.update(
+        {
+          profilePic: `upload/${fileUploaded.filename}`,
+        },
+        {
+          where: {
+            UserId: req.params.id,
+          },
+        }
+      );
+      const getProfile = await profile.findOne({
+        where: {
+          UserId: req.params.id,
+        },
+        raw: true,
+      });
+      res.status(200).send({
+        UserId: getProfile.id,
+        phoneNumber: getProfile.phoneNumber,
+        profilePic: getProfile.profilePic,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
 };

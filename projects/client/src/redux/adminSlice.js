@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   value: {
     username: "",
-    email:"",
+    email: "",
     password: "",
-    isSuper:0,
+    isSuper: 0,
   },
 };
 
@@ -21,7 +21,7 @@ export const adminSlice = createSlice({
     logoutAdmin: (state, action) => {
       state.value.username = "";
       state.value.email = "";
-      state.value.isSuper=0;
+      state.value.isSuper = 0;
     },
   },
 });
