@@ -26,6 +26,8 @@ import {
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
   Select,
   Stack,
   Tab,
@@ -55,11 +57,13 @@ import {
   EditIcon,
 } from "@chakra-ui/icons";
 import { UpdateProductComp } from "./UpdateProductComp";
+import { UpdateCategoryComp } from "./UpdateCategoryComp";
 
 export const BranchComp = () => {
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [edit, setEdit] = useState({});
+  const [edit2, setEdit2] = useState({});
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
   const { username } = useSelector((state) => state.adminSlice.value);
@@ -151,7 +155,7 @@ export const BranchComp = () => {
 
   useEffect(() => {
     getCategory();
-  }, []);
+  }, [edit2]);
 
   const handleChoose = (e) => {
     console.log("e.target.files", e.target.files);
@@ -191,7 +195,8 @@ export const BranchComp = () => {
       >
         <Box
           borderRadius={"5px"}
-          bgColor={"teal"}
+          borderColor="black"
+          border={"1px"}
           mb={"50px"}
           display={"flex"}
           justifyContent="space-between"
@@ -199,7 +204,7 @@ export const BranchComp = () => {
           <Text>Product Management</Text>
           <Menu>
             <MenuButton as={"button"} rightIcon={<ChevronDownIcon />}>
-              <Avatar name={username}></Avatar>
+              <Avatar size={"sm"} name={username}></Avatar>
             </MenuButton>
             <MenuList>
               <MenuItem as={"button"} onClick={onLogout}>
@@ -261,37 +266,23 @@ export const BranchComp = () => {
                   <FormLabel>Description</FormLabel>
                   <Textarea ref={inputDescription}></Textarea>
                 </FormControl>
+                <FormControl>
+                  <FormLabel>Image</FormLabel>
+                  <ButtonGroup size="sm">
+                    <form encType="multipart/form-data">
+                      <input
+                        type={"file"}
+                        accept="image/*"
+                        name="file"
+                        onChange={(e) => handleChoose(e)}
+                      ></input>
+                    </form>
+                    <Button colorScheme="blue" onClick={handleUpload}>
+                      Upload
+                    </Button>
+                  </ButtonGroup>
+                </FormControl>
                 <Button onClick={onCreate}>Add Product</Button>
-                <Tag mt={"20px"} as={"button"} ml={"10px"} onClick={onToggle}>
-                  <ArrowUpIcon mr={"5px"} /> Add Picture
-                </Tag>
-                <Popover
-                  returnFocusOnClose={false}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  placement="auto-end"
-                  closeOnBlur={false}
-                >
-                  <PopoverContent w={"400px"}>
-                    <PopoverBody>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <ButtonGroup size="sm">
-                        <form encType="multipart/form-data">
-                          <input
-                            type={"file"}
-                            accept="image/*"
-                            name="file"
-                            onChange={(e) => handleChoose(e)}
-                          ></input>
-                        </form>
-                        <Button colorScheme="blue" onClick={handleUpload}>
-                          Upload
-                        </Button>
-                      </ButtonGroup>
-                    </PopoverBody>
-                  </PopoverContent>
-                </Popover>
               </Stack>
             </AccordionPanel>
           </AccordionItem>
@@ -378,7 +369,26 @@ export const BranchComp = () => {
                           <Td>
                             <Box display={"flex"} justifyContent="space-evenly">
                               <DeleteIcon />
-                              <EditIcon />
+                              <Button onClick={() => setEdit2(item)}>
+                                <EditIcon />
+                              </Button>
+
+                              {/* <Popover
+                                returnFocusOnClose={false}
+                                isOpen={isOpen}
+                                onClose={onClose}
+                                placement="right"
+                                closeOnBlur={false}
+                              >
+                                <PopoverContent>
+                                  <PopoverHeader fontWeight="semibold">
+                                    Edit Category
+                                  </PopoverHeader>
+                                  <PopoverArrow />
+                                  <PopoverCloseButton />
+                                  <PopoverBody></PopoverBody>
+                                </PopoverContent>
+                              </Popover> */}
                             </Box>
                           </Td>
                         </Tr>
@@ -392,6 +402,8 @@ export const BranchComp = () => {
         </Tabs>
         <Heading>Edit Product</Heading>
         <UpdateProductComp data={edit} />
+        <Heading>Edit Category</Heading>
+        <UpdateCategoryComp data={edit2} />
       </Box>
     </div>
   );

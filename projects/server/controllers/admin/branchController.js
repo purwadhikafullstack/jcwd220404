@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 const axios = require("axios");
-const db = require("../models");
+const db = require("../../models");
 const branch = db.Branch;
 const rajaOngkirKey = process.env.RAJA_KEY;
 const openCageKey = process.env.GEO_KEY;

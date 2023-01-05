@@ -73,7 +73,7 @@ export const ProfilePage = () => {
   const getData = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/user/byId/7`
+        `${process.env.REACT_APP_API_BASE_URL}/user/byId/${params.id}`
       );
       setData(result.data);
       console.log(result.data);
@@ -109,6 +109,7 @@ export const ProfilePage = () => {
     console.log(resultImage.data);
     setProfile(resultImage.data.profilePic);
     setImage({ images: "" });
+    setTimeout(() => window.location.replace("/account"), 2000);
   };
   console.log(image);
   console.log(profile);
@@ -139,12 +140,12 @@ export const ProfilePage = () => {
             <Center>
               <Box>
                 <Avatar
-                  src={`http://localhost:8000/upload/PIMG-167281085573286921.png`}
+                  src={`http://localhost:8000/${data.Profile?.profilePic}`}
                   size={"lg"}
                   bg="teal.500"
                 />
                 <Tag mt={"20px"} as={"button"} ml={"10px"} onClick={onToggle}>
-                  <ArrowUpIcon mr={"5px"} /> Add Picture
+                  <ArrowUpIcon mr={"5px"} /> Update Picture
                 </Tag>
                 <Popover
                   returnFocusOnClose={false}

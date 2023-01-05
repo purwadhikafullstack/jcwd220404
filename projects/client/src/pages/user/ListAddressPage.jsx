@@ -24,9 +24,9 @@ import { syncData } from "../../redux/addressSlice";
 
 export const ListAddressPage = () => {
   const { data } = useSelector((state) => state.addressSlice.value);
+  // const { id } = useSelector((state) => state.userSlice.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
 
   const toAddAddress = () => {
     navigate("/account/address/addAddress");
@@ -36,6 +36,7 @@ export const ListAddressPage = () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/addressById`
+        // `${process.env.REACT_APP_API_BASE_URL}/address/addressById/${id}`
       );
       console.log(result.data);
       dispatch(syncData(result.data));
@@ -62,6 +63,7 @@ export const ListAddressPage = () => {
 
   const toUpdate = (id) => {
     navigate(`/account/address/updateAddress/${id}`);
+    // navigate(`/account/address/updateAddress/${id}`);
   };
 
   return (

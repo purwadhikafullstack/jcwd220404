@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 const axios = require("axios");
-const db = require("../models");
+const db = require("../../models");
 const address = db.Address;
 const user = db.User;
 const rajaOngkirKey = process.env.RAJA_KEY;
@@ -13,7 +13,7 @@ module.exports = {
       if (receiverName || addressLine) {
         const res = await address.findAll({
           where: {
-            // UserId: req.user.id,
+            // UserId: req.params.id,
             [Op.or]: {
               receiverName: {
                 [Op.like]: `%${receiverName}%`,
@@ -32,7 +32,7 @@ module.exports = {
       }
       const response = await address.findAll({
         where: {
-          // UserId: req.user.id,
+          // UserId: req.params.id,
         },
         order: [["defaultAddress", "DESC"]],
       });

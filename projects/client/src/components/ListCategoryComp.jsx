@@ -1,14 +1,5 @@
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import {} from "@chakra-ui/icons";
+import {} from "@chakra-ui/react";
 import Axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";

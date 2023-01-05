@@ -29,6 +29,7 @@ export const AddressPage = () => {
   const inputReceiverPhone = useRef("");
   const inputReceiverEmail = useRef("");
   const navigate = useNavigate();
+  
   const onCreate = async () => {
     try {
       const addAddress = {

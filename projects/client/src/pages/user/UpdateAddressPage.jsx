@@ -21,6 +21,8 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export const UpdateAddressPage = () => {
+  // const { data } = useSelector((state) => state.addressSlice.value);
+  // const { id } = useSelector((state) => state.userSlice.value);
   const [data, setData] = useState();
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
@@ -50,6 +52,7 @@ export const UpdateAddressPage = () => {
       };
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/address/updateAddress/${params.id}`,
+        // `${process.env.REACT_APP_API_BASE_URL}/address/updateAddress/${id}`,
         updateAddress
       );
       console.log(result);
@@ -67,9 +70,11 @@ export const UpdateAddressPage = () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findById/${params.id}`
+        // `${process.env.REACT_APP_API_BASE_URL}/address/addressById/${id}`
       );
       console.log(result.data);
       setData(result.data);
+      // dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
     }

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const axios = require("axios");
-const { productController } = require("../controllers/index");
-const { multerUpload } = require("../middleware/multer");
+const { productController } = require("../../controllers/index");
+const { multerUpload } = require("../../middleware/multer");
 require("dotenv/config");
 
 router.post("/create", productController.create);
@@ -12,6 +12,7 @@ router.post(
   productController.uploadFile
 );
 router.patch("/update/:id", productController.update);
+router.patch("/updateCategory/:id", productController.updateCategory);
 router.get("/list", productController.findAll);
 router.get("/listCategory", productController.findAllCategory);
 router.get("/list/:id", productController.findById);

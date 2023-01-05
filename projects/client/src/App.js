@@ -6,10 +6,10 @@ import { loginUser } from "./redux/userSlice";
 import { loginAdmin } from "./redux/adminSlice";
 import { LandingPage } from "./pages/user/LandingPage";
 import { AccountPage } from "./pages/user/AccountPage";
-import { NotificationPage } from "./pages/NotificationPage";
-import { TransactionPage } from "./pages/TransactionPage";
+import { NotificationPage } from "./pages/user/NotificationPage";
+import { TransactionPage } from "./pages/user/TransactionPage";
 import { CategoryPage } from "./pages/user/CategoryPage";
-import { CartPage } from "./pages/CartPage";
+import { CartPage } from "./pages/user/CartPage";
 import { RegisterPage } from "./pages/user/RegisterPage";
 import { VerificationPage } from "./pages/user/VerificationPage";
 import { ProfilePage } from "./pages/user/ProfilePage";
@@ -127,17 +127,22 @@ function App() {
           element={<VerificationPage />}
         ></Route>
         <Route path="/account" element={<AccountPage />}></Route>
-        <Route path="/account/profile" element={<ProfilePage />}></Route>
+        <Route path="/account/profile/:id" element={<ProfilePage />}></Route>
         <Route
           path="/account/profile/password"
           element={<ChangePassword />}
         ></Route>
         <Route path="/account/profile/email" element={<ChangeEmail />}></Route>
+        {/* <Route path="/account/address/:id" element={<ListAddressPage />}></Route> */}
         <Route path="/account/address" element={<ListAddressPage />}></Route>
         <Route
           path="/account/address/addAddress"
           element={<AddressPage />}
         ></Route>
+        {/* <Route
+          path="/account/address/updateAddress/:id"
+          element={<UpdateAddressPage />}
+        ></Route> */}
         <Route
           path="/account/address/updateAddress/:id"
           element={<UpdateAddressPage />}

@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../../models");
 const bcrypt = require("bcrypt");
 const admin = db.Admin;
 const jwt = require("jsonwebtoken");
@@ -40,6 +40,7 @@ module.exports = {
   login: async (req, res) => {
     try {
       const { usernameEmail, password } = req.body;
+      
 
       const isUserExist = await admin.findOne({
         where: {

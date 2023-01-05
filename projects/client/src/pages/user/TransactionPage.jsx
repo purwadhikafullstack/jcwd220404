@@ -1,12 +1,9 @@
 import { Box, Center } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { NavbarComp } from "../components/user/NavbarComp";
-import { AccountPage } from "../pages/user/AccountPage";
+import { NavbarComp } from "../../components/user/NavbarComp";
+import { AccountPage } from "./AccountPage";
 
-export const CartPage = () => {
-  const navigate = useNavigate();
+export const TransactionPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
-
   return (
     <div>
       <Center>
@@ -24,11 +21,11 @@ export const CartPage = () => {
             zIndex="2"
           >
             <Box margin={"auto"} alignItems={"center"} textColor="black">
-              CART
+              ORDERS
             </Box>
           </Box>
           <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
-            {/* {tokenLocalStorage ? <CartPage /> : <AccountPage />} */}
+            {/* {tokenLocalStorage ? <TransactionPage /> : <AccountPage />} */}
           </Box>
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />

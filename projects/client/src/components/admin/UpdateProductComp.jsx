@@ -35,7 +35,7 @@ export const UpdateProductComp = ({ data }) => {
 
   const onUpdate = async (id) => {
     try {
-      const updateBook = {
+      const updateProduct = {
         productName: inputProductName.current.value,
         description: inputDescription.current.value,
         distributor: inputDistributor.current.value,
@@ -44,7 +44,7 @@ export const UpdateProductComp = ({ data }) => {
 
       const res = await Axios.patch(
         `http://localhost:8000/product/update/${id}`,
-        updateBook
+        updateProduct
       );
       console.log(res);
       Swal.fire({
@@ -134,38 +134,20 @@ export const UpdateProductComp = ({ data }) => {
           ></Textarea>
         </FormControl>
         <FormControl>
-          <FormLabel>Description</FormLabel>
-
-          <Tag mt={"20px"} as={"button"} ml={"10px"} onClick={onToggle}>
-            <ArrowUpIcon mr={"5px"} /> Update Picture
-          </Tag>
-          <Popover
-            returnFocusOnClose={false}
-            isOpen={isOpen}
-            onClose={onClose}
-            placement="auto-end"
-            closeOnBlur={false}
-          >
-            <PopoverContent w={"400px"}>
-              <PopoverBody>
-                <PopoverArrow />
-                <PopoverCloseButton />
-                <ButtonGroup size="sm">
-                  <form encType="multipart/form-data">
-                    <input
-                      type={"file"}
-                      accept="image/*"
-                      name="file"
-                      onChange={(e) => handleChoose(e)}
-                    ></input>
-                  </form>
-                  <Button colorScheme="blue" onClick={handleUpload}>
-                    Upload
-                  </Button>
-                </ButtonGroup>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+          <FormLabel>Image</FormLabel>
+          <ButtonGroup size="sm">
+            <form encType="multipart/form-data">
+              <input
+                type={"file"}
+                accept="image/*"
+                name="file"
+                onChange={(e) => handleChoose(e)}
+              ></input>
+            </form>
+            <Button colorScheme="blue" onClick={handleUpload}>
+              Upload
+            </Button>
+          </ButtonGroup>
         </FormControl>
         <Button onClick={() => onUpdate(data.id)}>Edit Product</Button>
       </Stack>

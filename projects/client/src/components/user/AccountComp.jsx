@@ -13,15 +13,20 @@ import {
   Tag,
   HStack,
 } from "@chakra-ui/react";
+import Axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { logoutUser } from "../../redux/userSlice";
 import { LogoComp } from "./LogoComp";
 
 export const AccountComp = () => {
-  const { name } = useSelector((state) => state.userSlice.value);
+  const { name, id } = useSelector((state) => state.userSlice.value);
+  const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
 
   const onLogout = () => {
     dispatch(logoutUser());
@@ -29,11 +34,28 @@ export const AccountComp = () => {
     navigate("/");
   };
 
-  const toProfile = (id) => {
-    navigate(`/account/profile`);
+  const getData = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/user/byId/${params.id}`
+      );
+      setData(result.data);
+      console.log(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const toProfile = () => {
+    navigate(`/account/profile/${id}`);
   };
   const toAddress = () => {
-    navigate("/account/address");
+    navigate(`/account/address/`);
+    // navigate(`/account/address/${id}`);
   };
 
   return (
@@ -74,7 +96,7 @@ export const AccountComp = () => {
             <Avatar
               display={"flex"}
               size={"lg"}
-              src={`http://localhost:8000/upload/PIMG-167222530022518785.jpeg`}
+              src={`http://localhost:8000/${data.Profile?.profilePic}`}
               bg="teal.500"
             ></Avatar>
           </GridItem>
