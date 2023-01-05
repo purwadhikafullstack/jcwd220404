@@ -157,6 +157,30 @@ export const BranchComp = () => {
     getCategory();
   }, [edit2]);
 
+  const onDelete = async (id) => {
+    try {
+      const res = await Axios.delete(
+        `http://localhost:8000/product/remove/${id}`
+      );
+      console.log(res);
+      getData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onDeleteCategory = async (id) => {
+    try {
+      const res = await Axios.delete(
+        `http://localhost:8000/product/removeCategory/${id}`
+      );
+      console.log(res);
+      getData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleChoose = (e) => {
     console.log("e.target.files", e.target.files);
     setImage(e.target.files[0]);
@@ -339,7 +363,9 @@ export const BranchComp = () => {
                           </Td>
                           <Td>
                             <Box display={"flex"} justifyContent="space-evenly">
-                              <DeleteIcon />
+                              <Button onClick={() => onDelete(item.id)}>
+                                <DeleteIcon />
+                              </Button>
                               <Button onClick={() => setEdit(item)}>
                                 <EditIcon />
                               </Button>
@@ -368,7 +394,9 @@ export const BranchComp = () => {
                           <Td>{item.categoryName}</Td>
                           <Td>
                             <Box display={"flex"} justifyContent="space-evenly">
-                              <DeleteIcon />
+                              <Button onClick={() => onDeleteCategory(item.id)}>
+                                <DeleteIcon />
+                              </Button>
                               <Button onClick={() => setEdit2(item)}>
                                 <EditIcon />
                               </Button>

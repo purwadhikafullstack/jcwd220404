@@ -22,5 +22,6 @@ router.get("/search", productController.searchBy);
 router.get("/view2", productController.view2);
 router.get("/sort", productController.sortBy);
 router.delete("/remove/:id", productController.remove);
+router.delete("/removeCategory/:id", productController.removeCategory);
 
 module.exports = router;
