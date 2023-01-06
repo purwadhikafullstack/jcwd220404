@@ -7,7 +7,6 @@ import { useState } from "react";
 import { useRef } from "react";
 import Swal from "sweetalert2";
 
-
 export const VerificationPage = () => {
   const params = useParams();
   const [move, setMove] = useState(false);
@@ -49,40 +48,98 @@ export const VerificationPage = () => {
       });
     }
   };
+
   return move ? (
     <Navigate to="/" />
   ) : (
     <Center>
-      <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
-        <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"white"}>
+      <Box
+      // className="body"
+      // bgColor="white"
+      // h={"1750px"}
+      // w={"390px"}
+      >
+        <Flex
+          minH={"100vh"}
+          align={"center"}
+          justify={"center"}
+          bg={"#E5D9B6"}
+          h={"844px"}
+          w={"390px"}
+        >
           <Stack
             spacing={4}
             w={"full"}
             maxW={"sm"}
-            bg={"white"}
-            rounded={"xl"}
-            boxShadow={"lg"}
+            bg={"#E5D9B6"}
             p={6}
             my={10}
+            mt="-380px"
           >
             <Center>
-              <Heading lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }}>
+              <Heading
+                color={"#285430"}
+                lineHeight={1.1}
+                fontSize={{ base: "2xl", md: "3xl" }}
+              >
                 Verify your Email
               </Heading>
             </Center>
-            <Center fontSize={{ base: "sm", sm: "md" }}>
+            <Center textColor={"#285430"} fontSize={{ base: "sm", sm: "md" }}>
               We have sent code to your email
             </Center>
             <FormControl>
               <Center>
                 <HStack>
                   <PinInput>
-                    <PinInputField type={"password"} ref={otp1} />
-                    <PinInputField type={"password"} ref={otp2} />
-                    <PinInputField type={"password"} ref={otp3} />
-                    <PinInputField type={"password"} ref={otp4} />
-                    <PinInputField type={"password"} ref={otp5} />
-                    <PinInputField type={"password"} ref={otp6} />
+                    <PinInputField
+                      type={"password"}
+                      ref={otp1}
+                      size="xl"
+                      textColor="gray.800"
+                      border="2px"
+                      borderColor={"#285430"}
+                    />
+                    <PinInputField
+                      type={"password"}
+                      ref={otp2}
+                      size="xl"
+                      textColor="gray.800"
+                      border="2px"
+                      borderColor={"#285430"}
+                    />
+                    <PinInputField
+                      type={"password"}
+                      ref={otp3}
+                      size="xl"
+                      textColor="gray.800"
+                      border="2px"
+                      borderColor={"#285430"}
+                    />
+                    <PinInputField
+                      type={"password"}
+                      ref={otp4}
+                      size="xl"
+                      textColor="gray.800"
+                      border="2px"
+                      borderColor={"#285430"}
+                    />
+                    <PinInputField
+                      type={"password"}
+                      ref={otp5}
+                      size="xl"
+                      textColor="gray.800"
+                      border="2px"
+                      borderColor={"#285430"}
+                    />
+                    <PinInputField
+                      type={"password"}
+                      ref={otp6}
+                      size="xl"
+                      textColor="gray.800"
+                      border="2px"
+                      borderColor={"#285430"}
+                    />
                   </PinInput>
                 </HStack>
               </Center>
@@ -90,11 +147,11 @@ export const VerificationPage = () => {
             <Stack spacing={6}>
               <Button
                 onClick={onVerification}
-                bg={"teal.400"}
-                color={"white"}
-                _hover={{
-                  bg: "teal.500",
-                }}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                fontSize="18px"
+                color="gray.800"
+                border="2px"
               >
                 Verify
               </Button>

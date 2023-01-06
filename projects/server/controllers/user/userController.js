@@ -168,38 +168,38 @@ module.exports = {
   login: async (req, res) => {
     try {
       const { phoneEmail, password, id, isVerified } = req.body;
-      if (isVerified === 0) {
-        const hashOtp = await bcrypt.hash(code_otp, salt);
-        const data = await user.create({
-          code_otp: hashOtp,
-        });
+      // if (isVerified === 0) {
+      //   const hashOtp = await bcrypt.hash(code_otp, salt);
+      //   const data = await user.create({
+      //     code_otp: hashOtp,
+      //   });
 
-        const token = jwt.sign(
-          { phoneNumber: phoneNumber },
-          "jcwd2204"
-          // { expiresIn: "1h" }
-        );
+      //   const token = jwt.sign(
+      //     { phoneNumber: phoneNumber },
+      //     "jcwd2204"
+      //     // { expiresIn: "1h" }
+      //   );
 
-        const tempEmail = fs.readFileSync("./template/codeotp.html", "utf-8");
-        const tempCompile = handlebars.compile(tempEmail);
-        const tempResult = tempCompile({
-          phoneNumber,
-          code_otp,
-        });
+      //   const tempEmail = fs.readFileSync("./template/codeotp.html", "utf-8");
+      //   const tempCompile = handlebars.compile(tempEmail);
+      //   const tempResult = tempCompile({
+      //     phoneNumber,
+      //     code_otp,
+      //   });
 
-        await transporter.sendMail({
-          from: "Admin",
-          to: email,
-          subject: "Verifikasi akun",
-          html: tempResult,
-        });
-      }
+      //   await transporter.sendMail({
+      //     from: "Admin",
+      //     to: email,
+      //     subject: "Verifikasi akun",
+      //     html: tempResult,
+      //   });
+      // }
 
-      res.status(200).send({
-        message: "Verification Succes",
-        data,
-        token,
-      });
+      // res.status(200).send({
+      //   message: "Verification Succes",
+      //   data,
+      //   token,
+      // });
 
       const isAccountExist = await user.findOne({
         where: {

@@ -44,7 +44,7 @@ export const CarouselComp = () => {
           left={side}
           top={top}
           transform={"translate(0%, -50%)"}
-          zIndex={2}
+          zIndex={1}
           onClick={() => slider?.slickPrev()}
           variant="unstyled"
         >

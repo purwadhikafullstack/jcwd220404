@@ -20,7 +20,7 @@ import OnlyFreshLogo from "../../OnlyFresh.jpg";
 import LogoHeader from "../../logoheader.jpg";
 import Axios from "axios";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Field, ErrorMessage, Formik, Form } from "formik";
 import Swal from "sweetalert2";
 
@@ -85,38 +85,39 @@ export const RegisterPage = () => {
       });
     }
   };
+
   return (
     <>
       <Center py={6}>
-        <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
-          <Flex minH={"100vh"} align={"center"} justify={"center"}>
-            <Box
-              w={"full"}
-              boxShadow={"2xl"}
-              rounded={"md"}
-              overflow={"hidden"}
-            >
-              <Image
-                h={"200px"}
-                w={"390px"}
-                src={LogoHeader}
-                objectFit={"cover"}
-                top="0"
-                // pos="fixed"
-              />
-              <Flex justify={"center"} mt={-12}>
-                <Box h={100} w={100} borderWidth="2px">
+        <Box className="body" bgColor="#E5D9B6" h={"820px"} w={"390px"}>
+          <Flex align={"center"} justify={"center"}>
+            <Box mt="40px">
+              <Flex justify={"center"}>
+                <Box h={120}>
+                  {/* <Image
+                    h="100%"
+                    w={"390px"}
+                    src={LogoHeader}
+                    objectFit={"cover"}
+                    top="0"
+                    pos="fixed"
+                  /> */}
                   <Image src={OnlyFreshLogo} height="100%" />
                 </Box>
               </Flex>
-              <Stack spacing={8} mx={"auto"} maxW={"lg"} py={10} px={6}>
+              {/* <Flex justify={"center"} mt={-12}>
+                <Box h={100} w={100} borderWidth="2px"></Box>
+              </Flex> */}
+              <Stack mx={"auto"} maxW={"auto"} py={10} px={6}>
                 <Stack align={"center"}>
-                  <Heading fontSize={"2xl"}>Create your account</Heading>
-                  <Text fontSize={"lg"} color={"gray.600"}>
+                  <Heading mt="-6" textColor={"#285430"} fontSize={"2xl"}>
+                    Create your account
+                  </Heading>
+                  <Text fontSize={"lg"} color={"#285430"}>
                     to start your freshness{" "}
                   </Text>
                 </Stack>
-                <Box rounded={"lg"} boxShadow={"lg"} p={8}>
+                <Box rounded={"2xl"} boxShadow={"lg"} p={8}>
                   <Formik
                     initialValues={{
                       name: "",
@@ -258,15 +259,33 @@ export const RegisterPage = () => {
                               </FormControl>
                               <Button
                                 type="submit"
-                                width="100%"
-                                bg={"green.400"}
-                                color={"white"}
                                 _hover={{
-                                  bg: "green.500",
+                                  bg: "#E5D9B6",
                                 }}
+                                bgColor={"#A4BE7B"}
+                                borderColor="#285430"
+                                border="2px"
+                                fontSize="18px"
+                                color="gray.800"
+                                w={"230px"}
                               >
                                 Sign up
                               </Button>
+                              <Text
+                                mt={"20px"}
+                                fontSize={"md"}
+                                textColor="gray.800"
+                              >
+                                Already have an account?
+                              </Text>
+                              <Text
+                                as={Link}
+                                to="/account"
+                                color="#5F8D4E"
+                                fontSize={"md"}
+                              >
+                                Login Here
+                              </Text>
                             </VStack>
                           </Form>
                         </>

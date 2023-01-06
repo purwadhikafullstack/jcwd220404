@@ -9,11 +9,14 @@ import {
   AccordionItem,
   AccordionPanel,
   Avatar,
+  Badge,
   Box,
   Button,
   ButtonGroup,
   FormControl,
   FormLabel,
+  Grid,
+  GridItem,
   Heading,
   Image,
   Input,
@@ -211,13 +214,113 @@ export const BranchComp = () => {
   return (
     <div>
       <Box
-        mt={"100px"}
+        className="header"
+        w={"390px"}
+        h={"80px"}
+        bgColor="#E5D9B6"
+        display={"flex"}
+        justifyContent="space-between"
+        pt={"10px"}
+        pl={"1px"}
+        pos="fixed"
+        top={"0"}
+        zIndex={"2"}
+      >
+        <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+          <Text as={"b"} fontSize="xl">
+            BRANCH ADMIN
+          </Text>
+        </Box>
+      </Box>
+      <Box
+        mt={"70px"}
         className="body"
         bgColor="white"
-        h={"1750px"}
+        h={"844px"}
         w={"390px"}
+        // pos="fixed"
       >
-        <Box
+        <Grid
+          h="100px"
+          templateRows="repeat(2, 1fr)"
+          templateColumns="repeat(5, 1fr)"
+          gap={"10px"}
+        >
+          <GridItem m={"auto"} rowSpan={2} colSpan={1}>
+            <Avatar
+              bgColor={"gray.500"}
+              display={"flex"}
+              size={"lg"}
+              // src={`http://localhost:8000/upload/PIMG-167280588303621324.jpeg`}
+              ml="8"
+              mt="3"
+              mb="3"
+              name={username}
+            ></Avatar>
+          </GridItem>
+          <GridItem colSpan={1}>
+            <Badge
+              mt="8"
+              textColor={"#285430"}
+              fontSize="md"
+              ml={"10px"}
+              as="b"
+            >
+              {username}
+            </Badge>
+          </GridItem>
+        </Grid>
+        <Button
+          display={"flex"}
+          bgColor={"#FF0000"}
+          textColor="gray.800"
+          width={"100px"}
+          m="auto"
+          justifyContent={"center"}
+          borderColor="#gray.800"
+          border="2px"
+          onClick={onToggle}
+        >
+          LogOut
+        </Button>
+        <Popover
+          returnFocusOnClose={false}
+          isOpen={isOpen}
+          placement="auto-end"
+          closeOnBlur={false}
+        >
+          <PopoverContent ml="8" mt="275" bgColor={"#E5D9B6"}>
+            <PopoverArrow />
+            <PopoverBody textColor={"#285430"}>
+              Are you sure you want to logout?
+            </PopoverBody>
+            <PopoverFooter display="flex" justifyContent="flex-end">
+              <ButtonGroup size="sm">
+                <Button
+                  onClick={onClose}
+                  bgColor={"#A4BE7B"}
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="14px"
+                  color="gray.800"
+                >
+                  No
+                </Button>
+                <Button
+                  onClick={onLogout}
+                  bgColor="#A4BE7B"
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="14px"
+                  color="gray.800"
+                >
+                  Yes
+                </Button>
+              </ButtonGroup>
+            </PopoverFooter>
+          </PopoverContent>
+        </Popover>
+        {/* <Box
           borderRadius={"5px"}
           borderColor="black"
           border={"1px"}
@@ -236,7 +339,7 @@ export const BranchComp = () => {
               </MenuItem>
             </MenuList>
           </Menu>
-        </Box>
+        </Box> */}
 
         <Accordion mb={"30px"} allowToggle>
           <AccordionItem>
@@ -265,12 +368,12 @@ export const BranchComp = () => {
                           <option>{item.categoryName}</option>
                         </Select>
                       </FormControl>
-                      <FormControl>
+                      {/* <FormControl>
                         <FormLabel>Category 2</FormLabel>
                         <Select>
                           <option>{item.categoryName}</option>
                         </Select>
-                      </FormControl>
+                      </FormControl> */}
                     </>
                   );
                 })}
@@ -328,34 +431,38 @@ export const BranchComp = () => {
             <TabPanel>
               <TableContainer>
                 <Table variant="simple" colorScheme="teal">
-                  <Thead>
+                  <Thead alignContent={"center"}>
                     <Tr>
-                      <Th>Product</Th>
-                      <Th>Distributor</Th>
-                      <Th>Description</Th>
-                      <Th>Picture</Th>
-                      <Th>Actions</Th>
+                      <Th color={"#285430"}>Product</Th>
+                      <Th color={"#285430"}>Distributor</Th>
+                      <Th color={"#285430"}>Description</Th>
+                      <Th color={"#285430"}>Picture</Th>
+                      <Th color={"#285430"}>Actions</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
                     {data?.map((item) => {
                       return (
                         <Tr>
-                          <Td>{item.productName}</Td>
-                          <Td>{item.distributor}</Td>
-                          <Td>{item.description}</Td>
+                          <Td color={"#285430"}>{item.productName}</Td>
+                          <Td color={"#285430"}>{item.distributor}</Td>
+                          <Td color={"#285430"}>{item.description}</Td>
                           <Td>
                             <Image
                               src={"http://localhost:8000/" + item.picture}
                             />
                           </Td>
                           <Td>
-                            <Box display={"flex"} justifyContent="space-evenly">
+                            <Box
+                              mr="28px"
+                              display={"flex"}
+                              justifyContent="space-evenly"
+                            >
                               <Button onClick={() => onDelete(item.id)}>
-                                <DeleteIcon />
+                                <DeleteIcon color={"#285430"} />
                               </Button>
                               <Button onClick={() => setEdit(item)}>
-                                <EditIcon />
+                                <EditIcon color={"#285430"} />
                               </Button>
                             </Box>
                           </Td>
@@ -379,14 +486,18 @@ export const BranchComp = () => {
                     {data2?.map((item) => {
                       return (
                         <Tr>
-                          <Td>{item.categoryName}</Td>
+                          <Td color={"#285430"}>{item.categoryName}</Td>
                           <Td>
-                            <Box display={"flex"} justifyContent="space-evenly">
+                            <Box
+                              mr="28px"
+                              display={"flex"}
+                              justifyContent="space-evenly"
+                            >
                               <Button onClick={() => onDeleteCategory(item.id)}>
-                                <DeleteIcon />
+                                <DeleteIcon color={"#285430"} />
                               </Button>
                               <Button onClick={() => setEdit2(item)}>
-                                <EditIcon />
+                                <EditIcon color={"#285430"} />
                               </Button>
 
                               {/* <Popover

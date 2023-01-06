@@ -328,21 +328,26 @@ export const SuperComp = () => {
               </TabPanel>
               <TabPanel>
                 <TableContainer>
-                  <Table variant="simple" colorScheme="teal">
+                  <Table
+                    ml="10px"
+                    mr="10px"
+                    variant="simple"
+                    colorScheme="teal"
+                  >
                     <Thead>
                       <Tr>
-                        <Th>Username</Th>
-                        <Th>Email</Th>
-                        <Th>Status</Th>
+                        <Th color={"#285430"}>Username</Th>
+                        <Th color={"#285430"}>Email</Th>
+                        <Th color={"#285430"}>Status</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
                       {data?.map((item) => {
                         return (
                           <Tr>
-                            <Td>{item.username}</Td>
-                            <Td>{item.email}</Td>
-                            <Td>
+                            <Td color={"#285430"}>{item.username}</Td>
+                            <Td color={"#285430"}>{item.email}</Td>
+                            <Td color={"#285430"}>
                               {item.isSuper === 2
                                 ? "Super Admin"
                                 : "Branch Admin"}

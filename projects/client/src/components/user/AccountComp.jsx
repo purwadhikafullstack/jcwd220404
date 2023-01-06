@@ -12,6 +12,12 @@ import {
   GridItem,
   Tag,
   HStack,
+  ButtonGroup,
+  PopoverFooter,
+  PopoverBody,
+  PopoverArrow,
+  PopoverContent,
+  Popover,
 } from "@chakra-ui/react";
 import Axios from "axios";
 import { useEffect } from "react";
@@ -27,6 +33,7 @@ export const AccountComp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
+  const { isOpen, onToggle, onClose } = useDisclosure();
 
   const onLogout = () => {
     dispatch(logoutUser());
@@ -73,7 +80,7 @@ export const AccountComp = () => {
         top={"0"}
         zIndex={"2"}
       >
-        <Box margin={"auto"} alignItems={"center"} textColor="black">
+        <Box margin={"auto"} alignItems={"center"} textColor="#285430">
           Account
         </Box>
       </Box>
@@ -82,7 +89,7 @@ export const AccountComp = () => {
         mt={"100px"}
         className="body"
         bgColor="white"
-        h={"1750px"}
+        h={"844px"}
         w={"390px"}
         pos="fixed"
       >
@@ -101,26 +108,39 @@ export const AccountComp = () => {
             ></Avatar>
           </GridItem>
           <GridItem colSpan={2}>
-            <Badge ml={"10px"}>{name}</Badge>
+            <Badge textColor={"#285430"} fontSize="md" ml={"10px"} as="b">
+              {name}
+            </Badge>
           </GridItem>
           <GridItem rowSpan={7} colSpan={4}>
-            <Tag as={"button"} ml={"10px"} onClick={toProfile}>
-              <EditIcon mr={"5px"} /> Edit Profile
+            <Tag
+              textColor={"#285430"}
+              as={"button"}
+              ml={"10px"}
+              onClick={toProfile}
+            >
+              <EditIcon textColor={"#285430"} mr={"5px"} /> Edit Profile
             </Tag>
           </GridItem>
         </Grid>
         <HStack
-          borderColor={"black"}
+          borderColor={"#285430"}
           display="flex"
           justifyContent={"center"}
-          divider={<StackDivider borderColor="teal" />}
+          divider={<StackDivider borderColor="#E5D9B6" />}
           align="center"
         >
           <Badge alignContent={"center"} mr="10px">
-            Potongan Belanja<Text textAlign={"center"}>0</Text>
+            Potongan Belanja
+            <Text textAlign={"center"} textColor={"#285430"}>
+              0
+            </Text>
           </Badge>
-          <Badge alignContent={"center"} ml="10px">
-            Gratis Ongkir<Text textAlign={"center"}>0</Text>
+          <Badge alignContent={"center"} ml="10px" textColor={"#285430"}>
+            Gratis Ongkir
+            <Text textAlign={"center"} textColor={"#285430"}>
+              0
+            </Text>
           </Badge>
         </HStack>
 
@@ -133,15 +153,15 @@ export const AccountComp = () => {
           <Button
             textAlign={"left"}
             variant={"unstyled"}
-            ml={"10px"}
-            textColor={"black"}
-            h="40px"
+            ml={"30px"}
+            textColor={"#285430"}
             onClick={toAddress}
+            fontSize="sm"
           >
             My Address
           </Button>
 
-          <Button
+          {/* <Button
             textAlign={"left"}
             variant={"unstyled"}
             ml={"10px"}
@@ -149,21 +169,60 @@ export const AccountComp = () => {
             h="40px"
           >
             Help
-          </Button>
+          </Button> */}
           <Button
-            textAlign={"left"}
-            onClick={onLogout}
-            variant={"unstyled"}
-            ml={"10px"}
-            textColor={"black"}
-            h="40px"
+            display={"flex"}
+            bgColor={"#FF0000"}
+            textColor="gray.800"
+            width={"100px"}
+            m="auto"
+            justifyContent={"center"}
+            borderColor="#285430"
+            border="2px"
+            onClick={onToggle}
           >
             Logout Account
           </Button>
-
-          <Box opacity={"initial"} margin={"auto"} w="50px">
+          <Popover
+            returnFocusOnClose={false}
+            isOpen={isOpen}
+            placement="auto-end"
+            closeOnBlur={false}
+          >
+            <PopoverContent ml="8" mt="275" bgColor={"#E5D9B6"}>
+              <PopoverArrow />
+              <PopoverBody textColor={"#285430"}>
+                Are you sure you want to logout?
+              </PopoverBody>
+              <PopoverFooter display="flex" justifyContent="flex-end">
+                <ButtonGroup size="sm">
+                  <Button
+                    onClick={onClose}
+                    bgColor={"#A4BE7B"}
+                    borderColor="#285430"
+                    border="2px"
+                    fontSize="14px"
+                    color="gray.800"
+                  >
+                    No
+                  </Button>
+                  <Button
+                    onClick={onLogout}
+                    bgColor="#A4BE7B"
+                    borderColor="#285430"
+                    border="2px"
+                    fontSize="14px"
+                    color="gray.800"
+                  >
+                    Yes
+                  </Button>
+                </ButtonGroup>
+              </PopoverFooter>
+            </PopoverContent>
+          </Popover>
+          {/* <Box opacity={"initial"} margin={"auto"} w="50px">
             <LogoComp />
-          </Box>
+          </Box> */}
         </Stack>
       </Box>
     </div>
