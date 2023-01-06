@@ -28,7 +28,9 @@ import { logoutUser } from "../../redux/userSlice";
 import { LogoComp } from "./LogoComp";
 
 export const AccountComp = () => {
-  const { name, id } = useSelector((state) => state.userSlice.value);
+  const { name, id, profilePic } = useSelector(
+    (state) => state.userSlice.value
+  );
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,9 +45,7 @@ export const AccountComp = () => {
 
   const getData = async () => {
     try {
-      const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/user/byId/${params.id}`
-      );
+      const result = await Axios.get(`http://localhost:8000/user/byId/${id}`);
       setData(result.data);
       console.log(result.data);
     } catch (err) {
@@ -55,7 +55,7 @@ export const AccountComp = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
 
   const toProfile = () => {
     navigate(`/account/profile/${id}`);
@@ -65,6 +65,7 @@ export const AccountComp = () => {
     // navigate(`/account/address/${id}`);
   };
 
+  console.log(data.Profile?.profilePic);
   return (
     <div>
       <Box

@@ -13,6 +13,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Collapse,
   FormControl,
   FormLabel,
   Grid,
@@ -69,6 +70,7 @@ export const BranchComp = () => {
   const [edit2, setEdit2] = useState({});
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
+  const [show, setShow] = React.useState(false);
   const { username } = useSelector((state) => state.adminSlice.value);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
@@ -77,6 +79,7 @@ export const BranchComp = () => {
   const inputDescription = useRef("");
   const inputDistributor = useRef("");
   const inputCategoryName = useRef("");
+  const handleToggle = () => setShow(!show);
   const navigate = useNavigate();
 
   const onCreate = async () => {
@@ -351,6 +354,7 @@ export const BranchComp = () => {
                 <AccordionIcon />
               </AccordionButton>
             </h2>
+
             <AccordionPanel pb={4}>
               <Stack spacing={"10px"}>
                 <FormControl>
@@ -429,78 +433,86 @@ export const BranchComp = () => {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <TableContainer>
-                <Table variant="simple" colorScheme="teal">
-                  <Thead alignContent={"center"}>
-                    <Tr>
-                      <Th color={"#285430"}>Product</Th>
-                      <Th color={"#285430"}>Distributor</Th>
-                      <Th color={"#285430"}>Description</Th>
-                      <Th color={"#285430"}>Picture</Th>
-                      <Th color={"#285430"}>Actions</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {data?.map((item) => {
-                      return (
-                        <Tr>
-                          <Td color={"#285430"}>{item.productName}</Td>
-                          <Td color={"#285430"}>{item.distributor}</Td>
-                          <Td color={"#285430"}>{item.description}</Td>
-                          <Td>
-                            <Image
-                              src={"http://localhost:8000/" + item.picture}
-                            />
-                          </Td>
-                          <Td>
-                            <Box
-                              mr="28px"
-                              display={"flex"}
-                              justifyContent="space-evenly"
-                            >
-                              <Button onClick={() => onDelete(item.id)}>
-                                <DeleteIcon color={"#285430"} />
-                              </Button>
-                              <Button onClick={() => setEdit(item)}>
-                                <EditIcon color={"#285430"} />
-                              </Button>
-                            </Box>
-                          </Td>
-                        </Tr>
-                      );
-                    })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
+              <Collapse startingHeight={20} in={show}>
+                <TableContainer>
+                  <Table variant="simple" colorScheme="teal">
+                    <Thead alignContent={"center"}>
+                      <Tr>
+                        <Th color={"#285430"}>Product</Th>
+                        <Th color={"#285430"}>Distributor</Th>
+                        <Th color={"#285430"}>Description</Th>
+                        <Th color={"#285430"}>Picture</Th>
+                        <Th color={"#285430"}>Actions</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {data?.map((item) => {
+                        return (
+                          <Tr>
+                            <Td color={"#285430"}>{item.productName}</Td>
+                            <Td color={"#285430"}>{item.distributor}</Td>
+                            <Td color={"#285430"}>{item.description}</Td>
+                            <Td>
+                              <Image
+                                src={"http://localhost:8000/" + item.picture}
+                              />
+                            </Td>
+                            <Td>
+                              <Box
+                                mr="28px"
+                                display={"flex"}
+                                justifyContent="space-evenly"
+                              >
+                                <Button onClick={() => onDelete(item.id)}>
+                                  <DeleteIcon color={"#285430"} />
+                                </Button>
+                                <Button onClick={() => setEdit(item)}>
+                                  <EditIcon color={"#285430"} />
+                                </Button>
+                              </Box>
+                            </Td>
+                          </Tr>
+                        );
+                      })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </Collapse>
+              <Button size="sm" onClick={handleToggle} mt="1rem">
+                Show {show ? "Less" : "More"}
+              </Button>
             </TabPanel>
             <TabPanel>
-              <TableContainer>
-                <Table variant="simple" colorScheme="teal">
-                  <Thead>
-                    <Tr>
-                      <Th>Category</Th>
-                      <Th>Actions</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {data2?.map((item) => {
-                      return (
-                        <Tr>
-                          <Td color={"#285430"}>{item.categoryName}</Td>
-                          <Td>
-                            <Box
-                              mr="28px"
-                              display={"flex"}
-                              justifyContent="space-evenly"
-                            >
-                              <Button onClick={() => onDeleteCategory(item.id)}>
-                                <DeleteIcon color={"#285430"} />
-                              </Button>
-                              <Button onClick={() => setEdit2(item)}>
-                                <EditIcon color={"#285430"} />
-                              </Button>
+              <Collapse startingHeight={20} in={show}>
+                <TableContainer>
+                  <Table variant="simple" colorScheme="teal">
+                    <Thead>
+                      <Tr>
+                        <Th>Category</Th>
+                        <Th>Actions</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {data2?.map((item) => {
+                        return (
+                          <Tr>
+                            <Td color={"#285430"}>{item.categoryName}</Td>
+                            <Td>
+                              <Box
+                                mr="28px"
+                                display={"flex"}
+                                justifyContent="space-evenly"
+                              >
+                                <Button
+                                  onClick={() => onDeleteCategory(item.id)}
+                                >
+                                  <DeleteIcon color={"#285430"} />
+                                </Button>
+                                <Button onClick={() => setEdit2(item)}>
+                                  <EditIcon color={"#285430"} />
+                                </Button>
 
-                              {/* <Popover
+                                {/* <Popover
                                 returnFocusOnClose={false}
                                 isOpen={isOpen}
                                 onClose={onClose}
@@ -516,14 +528,18 @@ export const BranchComp = () => {
                                   <PopoverBody></PopoverBody>
                                 </PopoverContent>
                               </Popover> */}
-                            </Box>
-                          </Td>
-                        </Tr>
-                      );
-                    })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
+                              </Box>
+                            </Td>
+                          </Tr>
+                        );
+                      })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </Collapse>
+              <Button size="sm" onClick={handleToggle} mt="1rem">
+                Show {show ? "Less" : "More"}
+              </Button>
             </TabPanel>
           </TabPanels>
         </Tabs>

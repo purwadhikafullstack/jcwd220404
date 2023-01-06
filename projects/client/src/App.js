@@ -41,7 +41,7 @@ function App() {
           },
         }
       );
-      console.log(user.data);
+
       dispatch(
         loginUser({
           id: user.data.id,
@@ -50,6 +50,7 @@ function App() {
           email: user.data.email,
           gender: user.data.gender,
           birthDate: user.data.birthDate,
+          profilePic: user.data["Profile.profilePic"],
         })
       );
     } catch (err) {

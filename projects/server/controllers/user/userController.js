@@ -265,8 +265,10 @@ module.exports = {
           phoneNumber: verify.phoneNumber,
           id: verify.id,
         },
+        include: [{ model: profile }],
         raw: true,
       });
+
       console.log(result);
       res.status(200).send(result);
     } catch (err) {
