@@ -51,6 +51,7 @@ import { logoutAdmin } from "../../redux/adminSlice";
 export const SuperComp = () => {
   const [edit, setEdit] = useState({});
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowComfirmPassword] = useState(false);
   const { username } = useSelector((state) => state.adminSlice.value);
@@ -133,6 +134,22 @@ export const SuperComp = () => {
     getData();
   }, []);
 
+  const getBranch = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/branch/findAll`
+      );
+      console.log(res.data);
+      setData2(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getBranch();
+  }, []);
+
   return (
     <div>
       <Box
@@ -198,7 +215,6 @@ export const SuperComp = () => {
                                 name="username"
                               />
                             </FormControl>
-
                             <FormControl isRequired>
                               <FormLabel htmlFor="email">Email</FormLabel>
                               <Field
@@ -213,15 +229,16 @@ export const SuperComp = () => {
                                 name="email"
                               />
                             </FormControl>
-                            {/* <FormControl>
-                      <FormLabel>Branch</FormLabel>
-                      <Select placeholder="Select Branch">
-                        <option value={"1"}>Bekasi</option>
-                        <option value={"2"}>Depok</option>
-                        <option value={"3"}>Tangerang Selatan</option>
-                        <option value={"4"}>Jakarta Timur</option>
-                      </Select>
-                    </FormControl> */}
+                            {data2.map((item) => {
+                              return (
+                                <FormControl>
+                                  <FormLabel>Branch</FormLabel>
+                                  <Select placeholder="Select Branch">
+                                    <option>{item.branchName}</option>
+                                  </Select>
+                                </FormControl>
+                              );
+                            })}
                             <FormControl isRequired>
                               <FormLabel htmlFor="password">Password</FormLabel>
                               <InputGroup>

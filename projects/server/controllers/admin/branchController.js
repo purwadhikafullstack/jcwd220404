@@ -233,4 +233,32 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  findAll: async (req, res) => {
+    try {
+      const users = await product.findAll({
+        attributes: [
+          "id",
+          "productName",
+          "distributor",
+          "description",
+          "picture",
+        ],
+      });
+      res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findAll: async (req, res) => {
+    try {
+      const users = await branch.findAll({
+        attributes: ["id", "branchName"],
+      });
+      res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
 };

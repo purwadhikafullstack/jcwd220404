@@ -13,11 +13,18 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Axios from "axios";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
-export const AddressPage = () => {
+export const AddressPage = ({ selectProvince, selectCity }) => {
+  const [province, setProvince] = useState([]);
+  const [city, setCity] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState(0);
+  const [selectedCity, setSelectedCity] = useState(0);
+  selectProvince(selectedProvince);
+  selectCity(selectedCity);
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
   const inputProvince = useRef("");
@@ -29,7 +36,7 @@ export const AddressPage = () => {
   const inputReceiverPhone = useRef("");
   const inputReceiverEmail = useRef("");
   const navigate = useNavigate();
-  
+
   const onCreate = async () => {
     try {
       const addAddress = {
@@ -58,6 +65,65 @@ export const AddressPage = () => {
       console.log(err);
     }
   };
+
+  const fetchProvince = async () => {
+    try {
+      const response = await Axios.get(
+        `http://localhost:8000/address/province`
+      );
+      setProvince(response.data.rajaOngkir.results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderProvince = () => {
+    return province.map((val) => {
+      <option value={val.province_id} key={val.province_id.toString()}>
+        {val.province}
+      </option>;
+    });
+  };
+
+  const fetchCity = async () => {
+    try {
+      const response = await Axios.get(
+        `http://localhost:8000/address/city/${selectedProvince}`
+      );
+      setCity(response.data.rajaOngkir.results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderCity = () => {
+    return Array.from(city).map((val, i) => {
+      return (
+        <option value={val.city_id} key={i}>
+          {val.province}
+        </option>
+      );
+    });
+  };
+
+  const provinceHandler = ({ target }) => {
+    const { value } = target;
+    setSelectedProvince(value);
+  };
+
+  const cityHandler = ({ target }) => {
+    const { value } = target;
+    setSelectedCity(value);
+  };
+
+  useEffect(() => {
+    fetchProvince();
+  }, []);
+  
+  useEffect(() => {
+    fetchCity();
+  }, [selectedProvince]);
+
   return (
     <div>
       <Center>

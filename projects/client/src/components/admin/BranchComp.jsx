@@ -256,36 +256,24 @@ export const BranchComp = () => {
                 </FormControl>
                 <FormLabel>Distributor</FormLabel>
                 <Input ref={inputDistributor} placeholder="Distributor"></Input>
-                <FormControl>
-                  <FormLabel>Category 1</FormLabel>
-                  <Select>
-                    <option
-                      // selected={data.Profile?.gender === ""}
-                      value=""
-                    >
-                      Pilih Kategori
-                    </option>
-                    <option>Sayuran</option>
-                    <option>Buah-buahan</option>
-                    <option>Daging</option>
-                    <option>Susu dan Olahan</option>
-                    <option>Perawatan Tubuh</option>
-                  </Select>
-                  <FormLabel>Category 2</FormLabel>
-                  <Select>
-                    <option
-                      // selected={data.Profile?.gender === ""}
-                      value=""
-                    >
-                      Pilih Kategori
-                    </option>
-                    <option>Sayuran</option>
-                    <option>Buah-buahan</option>
-                    <option>Daging</option>
-                    <option>Susu dan Olahan</option>
-                    <option>Perawatan Tubuh</option>
-                  </Select>
-                </FormControl>
+                {data2?.map((item) => {
+                  return (
+                    <>
+                      <FormControl>
+                        <FormLabel>Category 1</FormLabel>
+                        <Select>
+                          <option>{item.categoryName}</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel>Category 2</FormLabel>
+                        <Select>
+                          <option>{item.categoryName}</option>
+                        </Select>
+                      </FormControl>
+                    </>
+                  );
+                })}
                 <FormControl>
                   <FormLabel>Description</FormLabel>
                   <Textarea ref={inputDescription}></Textarea>
