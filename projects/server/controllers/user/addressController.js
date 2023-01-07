@@ -9,30 +9,30 @@ const openCageKey = process.env.GEO_KEY;
 module.exports = {
   addressById: async (req, res) => {
     try {
-      const { receiverName = "", addressLine = "" } = req.query;
-      if (receiverName || addressLine) {
-        const res = await address.findAll({
-          where: {
-            // UserId: req.params.id,
-            [Op.or]: {
-              receiverName: {
-                [Op.like]: `%${receiverName}%`,
-              },
-              addressLine: {
-                [Op.like]: `${addressLine}%`,
-              },
-            },
-          },
-          order: [["defaultAddress", "DESC"]],
-        });
-        // res.status(200).send({
-        //   message: "Get user Address by name and full Address",
-        //   data: res,
-        // });
-      }
+      // const { receiverName = "", addressLine = "" } = req.query;
+      // if (receiverName || addressLine) {
+      //   const res = await address.findAll({
+      //     where: {
+      //       UserId: req.params.id,
+      //       [Op.or]: {
+      //         receiverName: {
+      //           [Op.like]: `%${receiverName}%`,
+      //         },
+      //         addressLine: {
+      //           [Op.like]: `${addressLine}%`,
+      //         },
+      //       },
+      //     },
+      //     order: [["defaultAddress", "DESC"]],
+      //   });
+      //   res.status(200).send({
+      //     message: "Get user Address by name and full Address",
+      //     data: res,
+      //   });
+      // }
       const response = await address.findAll({
         where: {
-          // UserId: req.params.id,
+          UserId: req.params.id,
         },
         order: [["defaultAddress", "DESC"]],
       });
@@ -171,7 +171,14 @@ module.exports = {
           },
         }
       );
-      const findData = await address.findByPk(id);
+      const findData = await address.findByPk(
+        id
+        //   {
+        //   where: {
+        //     UserId: req.params.id,
+        //   },
+        // }
+      );
       res.status(200).json({
         message: "Address edited",
         data: findData,
@@ -258,15 +265,25 @@ module.exports = {
     }
   },
 
-  findById: async (req, res) => {
+  findAddressById: async (req, res) => {
     try {
+      // const response = await address.findAll({
+      //   where: {
+      //     UserId: req.params.id,
+      //   },
+      // });
       const response = await address.findOne({
         where: {
-          id: req.params.id,
+          UserId: req.params.id,
+          id: req.body.id,
         },
       });
-      res.status(200).send(response);
+      return res.status(200).send({
+        message: "Get User Address",
+        data: response,
+      });
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },

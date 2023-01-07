@@ -28,7 +28,7 @@ import { logoutUser } from "../../redux/userSlice";
 import { LogoComp } from "./LogoComp";
 
 export const AccountComp = () => {
-  const { name, id, profilePic } = useSelector(
+  const { name, id } = useSelector(
     (state) => state.userSlice.value
   );
   const [data, setData] = useState([]);
@@ -61,8 +61,8 @@ export const AccountComp = () => {
     navigate(`/account/profile/${id}`);
   };
   const toAddress = () => {
-    navigate(`/account/address/`);
-    // navigate(`/account/address/${id}`);
+    // navigate(`/account/address/`);
+    navigate(`/account/address/${id}`);
   };
 
   return (

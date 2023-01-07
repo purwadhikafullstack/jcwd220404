@@ -259,6 +259,36 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+  
+  uploadCategory: async (req, res) => {
+    try {
+      let fileUploaded = req.file;
+      console.log("controller", fileUploaded);
+      await category.update(
+        {
+          categoryPicture: `upload/${fileUploaded.filename}`,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      const getPicture = await category.findOne({
+        where: {
+          id: req.params.id,
+        },
+        raw: true,
+      });
+      res.status(200).send({
+        id: getPicture.id,
+        categoryPicture: getPicture.categoryPicture,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
 
   view2: async (req, res) => {
     try {

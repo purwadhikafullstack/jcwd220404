@@ -51,6 +51,7 @@ function App() {
           gender: user.data.gender,
           birthDate: user.data.birthDate,
           profilePic: user.data["Profile.profilePic"],
+          // addressLine: user.data["Address.addressLine"],
         })
       );
     } catch (err) {
@@ -133,8 +134,11 @@ function App() {
           path="/account/profile/password"
           element={<ChangePassword />}
         ></Route>
-        <Route path="/account/profile/email" element={<ChangeEmail />}></Route>
-        {/* <Route path="/account/address/:id" element={<ListAddressPage />}></Route> */}
+        {/* <Route path="/account/profile/email" element={<ChangeEmail />}></Route> */}
+        <Route
+          path="/account/address/:id"
+          element={<ListAddressPage />}
+        ></Route>
         <Route path="/account/address" element={<ListAddressPage />}></Route>
         <Route
           path="/account/address/addAddress"

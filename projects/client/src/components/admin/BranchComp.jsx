@@ -14,6 +14,7 @@ import {
   Button,
   ButtonGroup,
   Collapse,
+  Flex,
   FormControl,
   FormLabel,
   Grid,
@@ -59,6 +60,7 @@ import {
   ChevronDownIcon,
   DeleteIcon,
   EditIcon,
+  RepeatIcon,
 } from "@chakra-ui/icons";
 import { UpdateProductComp } from "./UpdateProductComp";
 import { UpdateCategoryComp } from "./UpdateCategoryComp";
@@ -70,7 +72,10 @@ export const BranchComp = () => {
   const [edit2, setEdit2] = useState({});
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
-  const [show, setShow] = React.useState(false);
+  const [image2, setImage2] = useState("");
+  const [profile2, setProfile2] = useState("upload");
+  const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
   const { username } = useSelector((state) => state.adminSlice.value);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
@@ -80,6 +85,7 @@ export const BranchComp = () => {
   const inputDistributor = useRef("");
   const inputCategoryName = useRef("");
   const handleToggle = () => setShow(!show);
+  const handleToggle2 = () => setShow2(!show2);
   const navigate = useNavigate();
 
   const onCreate = async () => {
@@ -192,6 +198,11 @@ export const BranchComp = () => {
     setImage(e.target.files[0]);
   };
 
+  const handleChoose1 = (e) => {
+    console.log("e.target.files", e.target.files);
+    setImage2(e.target.files[0]);
+  };
+
   const handleUpload = async (id) => {
     const data = new FormData();
     console.log(data);
@@ -199,7 +210,7 @@ export const BranchComp = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/7`,
       data,
       {
         headers: {
@@ -210,9 +221,35 @@ export const BranchComp = () => {
     console.log(resultImage.data);
     setProfile(resultImage.data.picture);
     setImage({ images: "" });
+    console.log(image);
+    console.log(profile);
   };
-  console.log(image);
-  console.log(profile);
+
+  const handleUpload1 = async (id) => {
+    const data = new FormData();
+    console.log(data);
+    data.append("file", image2);
+    console.log(data.get("file"));
+
+    const resultImage = await Axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded-category/5`,
+      data,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(resultImage.data);
+    setProfile2(resultImage.data.categoryPicture);
+    setImage2({ images: "" });
+    console.log(image2);
+    console.log(profile2);
+  };
+
+  const onRefresh = () => {
+    setTimeout(() => window.location.replace("/adminPage"), 2000);
+  };
 
   return (
     <div>
@@ -362,43 +399,39 @@ export const BranchComp = () => {
                 </FormControl>
                 <FormLabel>Distributor</FormLabel>
                 <Input ref={inputDistributor} placeholder="Distributor"></Input>
-                {data2?.map((item) => {
-                  return (
-                    <>
-                      <FormControl>
-                        <FormLabel>Category 1</FormLabel>
-                        <Select>
+                <FormControl>
+                  <FormLabel>Category 1</FormLabel>
+                  <Select>
+                    {data2?.map((item) => {
+                      return (
+                        <>
                           <option>{item.categoryName}</option>
-                        </Select>
-                      </FormControl>
-                      {/* <FormControl>
+                        </>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Category 2</FormLabel>
+                  <Select>
+                    {data2?.map((item) => {
+                      return (
+                        <>
+                          <option>{item.categoryName}</option>
+                        </>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+                {/* <FormControl>
                         <FormLabel>Category 2</FormLabel>
                         <Select>
                           <option>{item.categoryName}</option>
                         </Select>
                       </FormControl> */}
-                    </>
-                  );
-                })}
                 <FormControl>
                   <FormLabel>Description</FormLabel>
                   <Textarea ref={inputDescription}></Textarea>
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Image</FormLabel>
-                  <ButtonGroup size="sm">
-                    <form encType="multipart/form-data">
-                      <input
-                        type={"file"}
-                        accept="image/*"
-                        name="file"
-                        onChange={(e) => handleChoose(e)}
-                      ></input>
-                    </form>
-                    <Button colorScheme="blue" onClick={handleUpload}>
-                      Upload
-                    </Button>
-                  </ButtonGroup>
                 </FormControl>
                 <Button onClick={onCreate}>Add Product</Button>
               </Stack>
@@ -425,6 +458,10 @@ export const BranchComp = () => {
           </AccordionItem>
         </Accordion>
 
+        <Flex as={"button"} onClick={onRefresh} justifyContent={"right"}>
+          <RepeatIcon />
+        </Flex>
+
         <Tabs isFitted variant="enclosed">
           <TabList mb="1em">
             <Tab>Product List</Tab>
@@ -432,16 +469,16 @@ export const BranchComp = () => {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <Collapse startingHeight={20} in={show}>
+              <Collapse startingHeight={120} in={show}>
                 <TableContainer>
                   <Table variant="simple" colorScheme="teal">
                     <Thead alignContent={"center"}>
                       <Tr>
                         <Th color={"#285430"}>Product</Th>
+                        <Th color={"#285430"}>Actions</Th>
+                        <Th color={"#285430"}>Picture</Th>
                         <Th color={"#285430"}>Distributor</Th>
                         <Th color={"#285430"}>Description</Th>
-                        <Th color={"#285430"}>Picture</Th>
-                        <Th color={"#285430"}>Actions</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
@@ -449,14 +486,7 @@ export const BranchComp = () => {
                         return (
                           <Tr>
                             <Td color={"#285430"}>{item.productName}</Td>
-                            <Td color={"#285430"}>{item.distributor}</Td>
-                            <Td color={"#285430"}>{item.description}</Td>
-                            <Td>
-                              <Image
-                                src={"http://localhost:8000/" + item.picture}
-                              />
-                            </Td>
-                            <Td>
+                            <Td color={"#285430"}>
                               <Box
                                 mr="28px"
                                 display={"flex"}
@@ -470,6 +500,33 @@ export const BranchComp = () => {
                                 </Button>
                               </Box>
                             </Td>
+
+                            <Td>
+                              <Image
+                                boxSize={"50px"}
+                                src={"http://localhost:8000/" + item.picture}
+                              />
+                              <ButtonGroup size="sm">
+                                <form encType="multipart/form-data">
+                                  <input
+                                    type={"file"}
+                                    accept="image/*"
+                                    name="file"
+                                    size={"100px"}
+                                    onChange={(e) => handleChoose(e)}
+                                  ></input>
+                                </form>
+                                <Button
+                                  colorScheme="blue"
+                                  onClick={handleUpload}
+                                  size="sm"
+                                >
+                                  Upload
+                                </Button>
+                              </ButtonGroup>
+                            </Td>
+                            <Td color={"#285430"}>{item.description}</Td>
+                            <Td>{item.distributor}</Td>
                           </Tr>
                         );
                       })}
@@ -482,13 +539,14 @@ export const BranchComp = () => {
               </Button>
             </TabPanel>
             <TabPanel>
-              <Collapse startingHeight={20} in={show}>
+              <Collapse startingHeight={100} in={show}>
                 <TableContainer>
                   <Table variant="simple" colorScheme="teal">
                     <Thead>
                       <Tr>
                         <Th>Category</Th>
                         <Th>Actions</Th>
+                        <Th>Picture</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
@@ -497,21 +555,41 @@ export const BranchComp = () => {
                           <Tr>
                             <Td color={"#285430"}>{item.categoryName}</Td>
                             <Td>
-                              <Box
-                                mr="28px"
-                                display={"flex"}
-                                justifyContent="space-evenly"
-                              >
+                              <Button onClick={() => onDeleteCategory(item.id)}>
+                                <DeleteIcon color={"#285430"} />
+                              </Button>
+                              <Button onClick={() => setEdit2(item)}>
+                                <EditIcon color={"#285430"} />
+                              </Button>
+                            </Td>
+                            <Td>
+                              <Image
+                                boxSize={"50px"}
+                                src={
+                                  "http://localhost:8000/" +
+                                  item.categoryPicture
+                                }
+                              />
+                              <ButtonGroup size="sm">
+                                <form encType="multipart/form-data">
+                                  <input
+                                    type={"file"}
+                                    accept="image/*"
+                                    name="file"
+                                    size={"100px"}
+                                    onChange={(e) => handleChoose1(e)}
+                                  ></input>
+                                </form>
                                 <Button
-                                  onClick={() => onDeleteCategory(item.id)}
+                                  colorScheme="blue"
+                                  onClick={handleUpload1}
+                                  size="sm"
                                 >
-                                  <DeleteIcon color={"#285430"} />
+                                  Upload
                                 </Button>
-                                <Button onClick={() => setEdit2(item)}>
-                                  <EditIcon color={"#285430"} />
-                                </Button>
-
-                                {/* <Popover
+                              </ButtonGroup>
+                            </Td>
+                            {/* <Popover
                                 returnFocusOnClose={false}
                                 isOpen={isOpen}
                                 onClose={onClose}
@@ -527,8 +605,6 @@ export const BranchComp = () => {
                                   <PopoverBody></PopoverBody>
                                 </PopoverContent>
                               </Popover> */}
-                              </Box>
-                            </Td>
                           </Tr>
                         );
                       })}
@@ -542,10 +618,21 @@ export const BranchComp = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
-        <Heading>Edit Product</Heading>
-        <UpdateProductComp data={edit} />
-        <Heading>Edit Category</Heading>
-        <UpdateCategoryComp data={edit2} />
+
+        <Tabs isFitted variant="enclosed">
+          <TabList mb="1em">
+            <Tab>Edit Product</Tab>
+            <Tab>Edit Category</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <UpdateProductComp data={edit} />
+            </TabPanel>
+            <TabPanel>
+              <UpdateCategoryComp data={edit2} />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </Box>
     </div>
   );

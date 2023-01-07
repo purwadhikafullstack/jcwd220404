@@ -229,16 +229,18 @@ export const SuperComp = () => {
                                 name="email"
                               />
                             </FormControl>
-                            {data2.map((item) => {
-                              return (
-                                <FormControl>
-                                  <FormLabel>Branch</FormLabel>
-                                  <Select placeholder="Select Branch">
-                                    <option>{item.branchName}</option>
-                                  </Select>
-                                </FormControl>
-                              );
-                            })}
+                            <FormControl>
+                              <FormLabel>Branch</FormLabel>
+                              <Select placeholder="Select Branch">
+                                {data2.map((item) => {
+                                  return (
+                                    <>
+                                      <option>{item.branchName}</option>
+                                    </>
+                                  );
+                                })}
+                              </Select>
+                            </FormControl>
                             <FormControl isRequired>
                               <FormLabel htmlFor="password">Password</FormLabel>
                               <InputGroup>

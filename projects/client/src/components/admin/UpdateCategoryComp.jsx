@@ -39,33 +39,6 @@ export const UpdateCategoryComp = ({ data }) => {
     }
   };
 
-  const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage(e.target.files[0]);
-  };
-
-  const handleUpload = async (id) => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile(resultImage.data.picture);
-    setImage({ images: "" });
-  };
-  console.log(image);
-  console.log(profile);
-
   return (
     <div>
       <Stack spacing={"10px"}>
@@ -75,22 +48,6 @@ export const UpdateCategoryComp = ({ data }) => {
             defaultValue={data?.categoryName}
             ref={inputCategoryName}
           ></Input>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Image</FormLabel>
-          <ButtonGroup size="sm">
-            <form encType="multipart/form-data">
-              <input
-                type={"file"}
-                accept="image/*"
-                name="file"
-                onChange={(e) => handleChoose(e)}
-              ></input>
-            </form>
-            <Button colorScheme="blue" onClick={handleUpload}>
-              Upload
-            </Button>
-          </ButtonGroup>
         </FormControl>
         <Button onClick={() => onUpdate(data.id)}>Edit </Button>
       </Stack>

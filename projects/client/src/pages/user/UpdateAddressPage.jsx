@@ -23,9 +23,9 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const UpdateAddressPage = () => {
-  // const { data } = useSelector((state) => state.addressSlice.value);
-  // const { id } = useSelector((state) => state.userSlice.value);
-  const [data, setData] = useState();
+  const { data } = useSelector((state) => state.addressSlice.value);
+  const { id } = useSelector((state) => state.userSlice.value);
+  // const [data, setData] = useState();
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
   const inputProvince = useRef("");
@@ -53,8 +53,8 @@ export const UpdateAddressPage = () => {
         receiverEmail: inputReceiverEmail.current.value,
       };
       const result = await Axios.patch(
+        // `${process.env.REACT_APP_API_BASE_URL}/address/updateAddress/${params.id}`,
         `${process.env.REACT_APP_API_BASE_URL}/address/updateAddress/${params.id}`,
-        // `${process.env.REACT_APP_API_BASE_URL}/address/updateAddress/${id}`,
         updateAddress
       );
       console.log(result);
@@ -70,13 +70,13 @@ export const UpdateAddressPage = () => {
 
   const getData = async () => {
     try {
-      const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/address/findById/${params.id}`
-        // `${process.env.REACT_APP_API_BASE_URL}/address/addressById/${id}`
+      const result = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/address/findById/${id}`,
+        { id: params.id }
       );
       console.log(result.data);
-      setData(result.data);
-      // dispatch(syncData(result.data));
+      // setData(result.data);
+      dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
     }
@@ -84,7 +84,7 @@ export const UpdateAddressPage = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
 
   return (
     <div>
@@ -152,8 +152,8 @@ export const UpdateAddressPage = () => {
               </FormControl>
               <FormControl>
                 <FormLabel>Kota/Kabupaten</FormLabel>
-                <Text>{data?.city}</Text>
-                <Select ref={inputCity}>
+                {/* <Text>{data?.city}</Text> */}
+                <Select ref={inputCity} defaultValue={data?.city}>
                   <option selected={data?.city === ""} value="">
                     Pilih Kota/Kabupaten
                   </option>
@@ -185,7 +185,7 @@ export const UpdateAddressPage = () => {
               </FormControl>
               <FormControl>
                 <FormLabel>Provinsi</FormLabel>
-                <Text>{data?.province}</Text>
+                {/* <Text>{data?.province}</Text> */}
                 <Select ref={inputProvince}>
                   <option selected={data?.province === ""} value="">
                     Pilih Provinsi

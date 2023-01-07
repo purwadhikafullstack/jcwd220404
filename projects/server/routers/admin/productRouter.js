@@ -11,6 +11,11 @@ router.post(
   multerUpload.single("file"),
   productController.uploadFile
 );
+router.post(
+  "/single-uploaded-category/:id",
+  multerUpload.single("file"),
+  productController.uploadCategory
+);
 router.patch("/update/:id", productController.update);
 router.patch("/updateCategory/:id", productController.updateCategory);
 router.get("/list", productController.findAll);

@@ -151,7 +151,7 @@ export const ProfilePage = () => {
                   returnFocusOnClose={false}
                   isOpen={isOpen}
                   onClose={onClose}
-                  placement="auto-end"
+                  // placement="auto-end"
                   closeOnBlur={false}
                 >
                   <PopoverContent w={"400px"}>

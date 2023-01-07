@@ -101,7 +101,7 @@ export const MenuComp = () => {
   return (
     <div>
       <Center>
-        <Flex
+        {/* <Flex
           flexWrap="wrap"
           mt="-12"
           w={[330, 330, 380]}
@@ -129,17 +129,35 @@ export const MenuComp = () => {
               </div>
             );
           })}
-        </Flex>
+        </Flex> */}
       </Center>
-      <Box mt={"50px"}>
-        {category?.map((item) => {
-          return (
-            <div>
-              <Text>{item.categoryName}</Text>
-            </div>
-          );
-        })}
-      </Box>
+      <Center>
+        <Box mt={"50px"}>
+          {category?.map((item) => {
+            return (
+              <div>
+                {/* <Box> */}
+                  <Avatar
+                    border="1px"
+                    bgColor="#A4BE7B"
+                    _hover={{ border: "2px" }}
+                    mr={[2, 3, 4]}
+                    ml={[2, 3, 4]}
+                    mt="3"
+                    size="md"
+                    name="Grocery"
+                    src={"http://localhost:8000/" + item.picture}
+                  ></Avatar>
+                  <Text fontSize="x-small" color={"#285430"}>
+                    {item.categoryName}
+                  </Text>
+                {/* </Box> */}
+                {/* <Text>{item.categoryName}</Text> */}
+              </div>
+            );
+          })}
+        </Box>
+      </Center>
       <Box>
         <SimpleGrid
           spacing={4}
