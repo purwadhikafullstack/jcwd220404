@@ -65,7 +65,6 @@ export const AccountComp = () => {
     // navigate(`/account/address/${id}`);
   };
 
-  console.log(data.Profile?.profilePic);
   return (
     <div>
       <Box
