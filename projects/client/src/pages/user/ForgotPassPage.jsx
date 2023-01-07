@@ -47,10 +47,10 @@ export const ForgotPasswordPage = () => {
 
   return (
     <>
-      <FormLabel onClick={onOpen} as="Button" color="green.400">
-        Click here
-      </FormLabel>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Button onClick={onOpen} as="u" variant={"unstyled"} color="#5F8D4E">
+        Click Here
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose} colorScheme={"#5F8D4E"}>
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
@@ -59,36 +59,49 @@ export const ForgotPasswordPage = () => {
               spacing={4}
               w={"full"}
               maxW={"md"}
-              bg={useColorModeValue("white", "gray.700")}
+              bgColor={"#E5D9B6"}
               rounded={"xl"}
-              boxShadow={"lg"}
+              boxShadow={"dark-lg"}
               p={6}
               my={12}
             >
-              <Heading lineHeight={1.1} fontSize={{ base: "2xl", md: "3xl" }}>
+              <Heading
+                textColor={"#5F8D4E"}
+                lineHeight={1.1}
+                fontSize={{ base: "2xl", md: "3xl" }}
+              >
                 Forgot your password?
               </Heading>
               <Text
                 fontSize={{ base: "sm", sm: "md" }}
                 color={useColorModeValue("gray.800", "gray.400")}
+                textColor={"#285430"}
               >
                 You&apos;ll get an email with a reset link
               </Text>
               <FormControl id="email">
                 <Input
                   placeholder="your-email@example.com"
-                  _placeholder={{ color: "gray.500" }}
+                  _placeholder={{ color: "#5F8D4E" }}
                   type="email"
+                  bgColor={"white"}
+                  textColor="#285430"
+                  borderColor={"#285430"}
                 />
               </FormControl>
               <Stack spacing={6}>
                 <Button
                   onClick={onSendEmail}
-                  bg={"green.400"}
-                  color={"white"}
                   _hover={{
-                    bg: "green.500",
+                    bg: "#E5D9B6",
                   }}
+                  bgColor={"#A4BE7B"}
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="18px"
+                  color="gray.800"
+                  w={"150px"}
+                  margin="auto"
                 >
                   Request Reset
                 </Button>

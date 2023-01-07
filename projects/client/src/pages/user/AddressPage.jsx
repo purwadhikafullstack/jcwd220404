@@ -11,6 +11,7 @@ import {
   Select,
   Stack,
   Textarea,
+  Text,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
@@ -119,7 +120,7 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
   useEffect(() => {
     fetchProvince();
   }, []);
-  
+
   useEffect(() => {
     fetchCity();
   }, [selectedProvince]);
@@ -127,31 +128,67 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
   return (
     <div>
       <Center>
-        <Box w={"390px"} h={"844px"} bgColor="white">
+        <Box
+          className="header"
+          w={"390px"}
+          h={"80px"}
+          bgColor="#E5D9B6"
+          display={"flex"}
+          justifyContent="space-between"
+          pt={"10px"}
+          pl={"1px"}
+          pos="fixed"
+          top={"0"}
+          zIndex={"2"}
+        >
           <Box as={Link} to={"/account/address"}>
-            <ArrowBackIcon mt={"20px"} pos={"fixed"} />
+            <ArrowBackIcon
+              mt={"20px"}
+              ml={"20px"}
+              pos={"fixed"}
+              color="#285430"
+              fontSize={"25px"}
+            />
+            <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+              <Text as={"b"} fontSize="xl">
+                ADD ADDRESS
+              </Text>
+            </Box>
           </Box>
-          <Box
-            mt={"100px"}
-            className="body"
-            bgColor="white"
-            h={"1750px"}
-            w={"390px"}
-          >
-            <Stack spacing={"10px"} mt={"20px"}>
+          <Box className="body" bgColor="white" h={"850px"} w={"390px"}>
+            <Stack spacing={"10px"} mt={"20px"} textColor="#285430">
               <FormControl>
                 <FormLabel>Alamat</FormLabel>
                 <Input
                   ref={inputAddressLine}
                   placeholder="Alamat"
                   mb={"20px"}
+                  ml="20px"
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
                 ></Input>
               </FormControl>
-              <FormLabel>Kecamatan</FormLabel>
-              <Input ref={inputDistrict} mb={"20px"}></Input>
+              <FormControl>
+                <FormLabel>Kecamatan</FormLabel>
+                <Input
+                  ref={inputDistrict}
+                  mb={"20px"}
+                  ml="20px"
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
+                ></Input>
+              </FormControl>
               <FormControl>
                 <FormLabel>Kota/Kabupaten</FormLabel>
-                <Select ref={inputCity}>
+                <Select
+                  ref={inputCity}
+                  ml="20px"
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
+                >
                   <option
                     // selected={data.Profile?.gender === ""}
                     value=""
@@ -168,7 +205,13 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
                   <option value="155">Kota Jakarta Utara</option>
                 </Select>
                 <FormLabel>Provinsi</FormLabel>
-                <Select ref={inputProvince}>
+                <Select
+                  ref={inputProvince}
+                  ml="20px"
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
+                >
                   <option
                     // selected={data.Profile?.gender === ""}
                     value=""
@@ -182,7 +225,13 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
               </FormControl>
               <FormControl>
                 <FormLabel>Kode Pos</FormLabel>
-                <Input ref={inputPostalCode}></Input>
+                <Input
+                  ref={inputPostalCode}
+                  ml={"20px"}
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
+                ></Input>
               </FormControl>
               <FormControl>
                 <FormLabel>Detail Alamat</FormLabel>
@@ -190,30 +239,49 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
                   ref={inputDetail}
                   placeholder="e.g. Blok/Lantai"
                 ></Textarea>
-                <Checkbox mb={"20px"}>Set as Default Address</Checkbox>
-                <FormControl>
-                  <FormLabel>Nama Penerima</FormLabel>
-                  <Flex>
-                    <Input ref={inputReceiverName} placeholder="Name"></Input>
-                  </Flex>
-                </FormControl>
-                <FormControl>
-                  <FormLabel>No. Telepon Penerima</FormLabel>
-                  <Input
-                    ref={inputReceiverPhone}
-                    placeholder="08xxx"
-                    type={"text"}
-                  ></Input>
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Email Penerima</FormLabel>
-                  <Input
-                    ref={inputReceiverEmail}
-                    placeholder="yourname@example.com"
-                  ></Input>
-                </FormControl>
               </FormControl>
-              <Button onClick={onCreate}>Add Address</Button>
+              <Checkbox mb={"20px"}>Set as Default Address</Checkbox>
+              <FormControl>
+                <FormLabel>Nama Penerima</FormLabel>
+                <Flex>
+                  <Input ref={inputReceiverName} placeholder="Name"></Input>
+                </Flex>
+              </FormControl>
+              <FormControl>
+                <FormLabel>No. Telepon Penerima</FormLabel>
+                <Input
+                  ref={inputReceiverPhone}
+                  placeholder="08xxx"
+                  type={"text"}
+                  ml={"20px"}
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
+                ></Input>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Email Penerima</FormLabel>
+                <Input
+                  ref={inputReceiverEmail}
+                  placeholder="yourname@example.com"
+                  ml={"20px"}
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
+                ></Input>
+              </FormControl>
+              <Button
+                onClick={onCreate}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="18px"
+                color="gray.800"
+                width={"160px"}
+                justifyContent="center"
+              >
+                Add Address
+              </Button>
             </Stack>
           </Box>
         </Box>

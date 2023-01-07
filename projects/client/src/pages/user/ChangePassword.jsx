@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   FormControl,
   FormLabel,
   Heading,
@@ -13,11 +14,13 @@ import Swal from "sweetalert2";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useState } from "react";
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
 
 export const ChangePassword = (data) => {
   const [move, setMove] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState(false);
   const { id } = useSelector((state) => state.userSlice.value);
   const inputPass = useRef("");
   const params = useParams();
@@ -48,12 +51,19 @@ export const ChangePassword = (data) => {
       console.log(err);
     }
   };
+
   return (
     <div>
       <Center>
-        <Box w={"390px"} h={"844px"} bgColor="white">
+        <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
           <Box as={Link} to={"/account/profile"}>
-            <ArrowBackIcon mt={"20px"} pos={"fixed"} />
+            <ArrowBackIcon
+              mt={"20px"}
+              pos={"fixed"}
+              ml={"20px"}
+              color="#285430"
+              fontSize={"25px"}
+            />
           </Box>
           <Box
             mt={"100px"}
@@ -63,15 +73,39 @@ export const ChangePassword = (data) => {
             w={"390px"}
             pos="fixed"
           >
-            <Heading textAlign={"center"}>Edit your Password</Heading>
+            <Heading textAlign={"center"} color="#285430">
+              Edit your Password
+            </Heading>
             <Stack spacing={"20px"} mt={"20px"}>
               <FormControl isRequired>
-                <FormLabel>Input Password Existing</FormLabel>
-                <Input
-                  type={"password"}
-                  isRequired
-                  placeholder="Current Password"
-                />
+                <FormLabel color={"#285430"} ml="8">
+                  Input Password Existing
+                </FormLabel>
+                <Flex>
+                  <Input
+                    type={"password"}
+                    isRequired
+                    placeholder="Current Password"
+                    _placeholder={{ color: "#5F8D4E" }}
+                    textColor={"#285430"}
+                    borderColor={"#285430"}
+                    border={"2px"}
+                    width="200px"
+                    ml={"8"}
+                    position="absolute"
+                  />
+                  <Button
+                    color={"black"}
+                    onClick={() =>
+                      setCurrentPassword((currentPassword) => !currentPassword)
+                    }
+                    pos="relative"
+                    ml={"181px"}
+                    zIndex="1"
+                  >
+                    {currentPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </Flex>
               </FormControl>
               <FormControl isRequired>
                 <FormLabel>Create New Password</FormLabel>
@@ -80,9 +114,36 @@ export const ChangePassword = (data) => {
                   ref={inputPass}
                   isRequired
                   placeholder="New Password"
+                  _placeholder={{ color: "#5F8D4E" }}
+                  textColor={"#285430"}
+                  borderColor={"#285430"}
+                  border={"2px"}
+                  width="200px"
+                  ml={"8"}
+                  position="absolute"
                 />
+                <Button
+                  color={"black"}
+                  onClick={() => setNewPassword((newPassword) => !newPassword)}
+                  pos="relative"
+                  ml={"181px"}
+                  zIndex="1"
+                >
+                  {newPassword ? <ViewIcon /> : <ViewOffIcon />}
+                </Button>
               </FormControl>
-              <Button onClick={() => updatePass(data.id)}>Save</Button>
+              <Button
+                onClick={() => updatePass(data.id)}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="18px"
+                color="gray.800"
+                width={"100px"}
+                justifyContent="center"
+              >
+                Save
+              </Button>
             </Stack>
           </Box>
         </Box>
