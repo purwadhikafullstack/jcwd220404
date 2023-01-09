@@ -29,6 +29,7 @@ const {
   adminRouter,
   branchRouter,
   productRouter,
+  pictureRouter,
 } = require("../routers");
 
 // ===========================
@@ -38,6 +39,7 @@ app.use("/address", addressRouter);
 app.use("/admin", adminRouter);
 app.use("/branch", branchRouter);
 app.use("/product", productRouter);
+app.use("/picture", pictureRouter)
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);

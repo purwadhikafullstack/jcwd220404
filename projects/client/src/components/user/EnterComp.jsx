@@ -27,12 +27,31 @@ export const EnterComp = () => {
   const inputPass = useRef("");
   const navigate = useNavigate();
 
-  const onLogin = async () => {
+  const onLogin = async (
+    // data
+    ) => {
     try {
       const user = {
         phoneEmail: inputPhoneEmail.current.value,
         password: inputPass.current.value,
       };
+
+      // if (data.isVerified === 0) {
+      //   return Swal.fire({
+      //     icon: "error",
+      //     // title: "Oooops ...",
+      //     text: "You have to verify your Account",
+      //     timer: 2000,
+      //     customClass: {
+      //       container: "my-swal",
+      //     },
+      //   });
+      // }
+      // const result1 = await Axios.post(
+      //   `${process.env.REACT_APP_API_BASE_URL}/user/login`,
+      //   user
+      // );
+      // setTimeout(() => navigate(`/verification/${result1.data.token}`), 8000);
 
       const result = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/user/login`,
@@ -45,6 +64,7 @@ export const EnterComp = () => {
           name: result.data.isAccountExist.name,
           email: result.data.isAccountExist.email,
           id: result.data.isAccountExist.id,
+          // isVerified: result.data.isAccountExist,
         })
       );
       localStorage.setItem("tokenUser", result.data.token);

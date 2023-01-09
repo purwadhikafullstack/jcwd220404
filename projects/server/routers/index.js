@@ -3,6 +3,7 @@ const adminRouter = require("./admin/adminRouter");
 const addressRouter = require("./user/addressRouter");
 const branchRouter = require("./admin/branchRouter");
 const productRouter = require("./admin/productRouter");
+const pictureRouter = require("./admin/pictureRouter")
 
 module.exports = {
   userRouter,
@@ -10,4 +11,5 @@ module.exports = {
   addressRouter,
   branchRouter,
   productRouter,
+  pictureRouter
 };

@@ -79,8 +79,6 @@ module.exports = {
       const isAccountExist = await user.findOne({
         where: {
           phoneNumber: req.user.phoneNumber,
-          // email: req.user.email,
-          // id: req.user.id,
         },
         raw: true,
       });
@@ -94,8 +92,6 @@ module.exports = {
         {
           where: {
             phoneNumber: req.user.phoneNumber,
-            // email: req.user.email,
-            // id: req.user.id,
           },
         }
       );
@@ -123,7 +119,6 @@ module.exports = {
         {
           where: {
             phoneNumber,
-            // email,
           },
         }
       );
@@ -131,7 +126,6 @@ module.exports = {
       const isAccountExist = await user.findOne({
         where: {
           phoneNumber,
-          // email
         },
         raw: true,
       });
@@ -168,13 +162,17 @@ module.exports = {
   login: async (req, res) => {
     try {
       const { phoneEmail, password, id, isVerified } = req.body;
+
       // if (isVerified === 0) {
+      //   const code_otp = Math.floor(100000 + Math.random() * 900000).toString();
+      //   const salt = await bcrypt.genSalt(10);
+
       //   const hashOtp = await bcrypt.hash(code_otp, salt);
-      //   const data = await user.create({
+      //   const data1 = await user.create({
       //     code_otp: hashOtp,
       //   });
 
-      //   const token = jwt.sign(
+      //   const token1 = jwt.sign(
       //     { phoneNumber: phoneNumber },
       //     "jcwd2204"
       //     // { expiresIn: "1h" }
@@ -193,13 +191,13 @@ module.exports = {
       //     subject: "Verifikasi akun",
       //     html: tempResult,
       //   });
-      // }
 
-      // res.status(200).send({
-      //   message: "Verification Succes",
-      //   data,
-      //   token,
-      // });
+      //   res.status(200).send({
+      //     message: "Verification Succes",
+      //     data1,
+      //     token1,
+      //   });
+      // }
 
       const isAccountExist = await user.findOne({
         where: {
@@ -218,28 +216,9 @@ module.exports = {
       const payload = {
         phoneNumber: isAccountExist.phoneNumber,
         id: isAccountExist.id,
+        isVerified: isAccountExist.isVerified,
       };
       const token = jwt.sign(payload, "jcwd2204");
-
-      // const isProfileExist = await profile.findOne({
-      //   where: {
-      //     UserId: isAccountExist.phoneNumber,
-      //   },
-      //   raw: true,
-      // });
-
-      // isAccountExist.profilePic = isProfileExist.profilePic;
-      // isAccountExist.gender = isProfileExist.gender;
-      // isAccountExist.birthDate = isProfileExist.birthDate;
-
-      // const isAddressExist = await address.findOne({
-      //   where: {
-      //     UserId: isAccountExist.phoneNumber,
-      //   },
-      //   raw: true,
-      // });
-
-      // isAccountExist.addressLine = isAddressExist.addressLine;
 
       const isValid = await bcrypt.compare(password, isAccountExist.password);
 
@@ -391,9 +370,6 @@ module.exports = {
           where: { id: req.params.id },
         }
       );
-      // const token = jwt.sign({ email: isAccountExist.email }, "jcwd2204", {
-      //   expiresIn: "1h",
-      // });
 
       res.status(200).send({ data });
     } catch (err) {

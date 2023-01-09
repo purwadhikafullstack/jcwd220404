@@ -75,7 +75,7 @@ export const MenuComp = () => {
                   size="md"
                   name="Grocery"
                   src={
-                    `${process.env.REACT_APP_API_BASE_URL}` +
+                    `${process.env.REACT_APP_API_BASE_URL}/` +
                     item.categoryPicture
                   }
                 ></Avatar>
@@ -102,7 +102,7 @@ export const MenuComp = () => {
                   <Text fontSize={"xs"}>Price</Text>
                   <Image
                     boxSize={"50px"}
-                    src={`${process.env.REACT_APP_API_BASE_URL}` + item.picture}
+                    src={`${process.env.REACT_APP_API_BASE_URL}/` + item.picture}
                   />
                 </CardBody>
                 <CardFooter>

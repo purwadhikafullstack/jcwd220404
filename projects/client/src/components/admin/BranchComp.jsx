@@ -59,6 +59,8 @@ export const BranchComp = () => {
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
   const [image2, setImage2] = useState("");
+  const [profile3, setProfile3] = useState("upload");
+  const [image3, setImage3] = useState("");
   const [profile2, setProfile2] = useState("upload");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -72,7 +74,7 @@ export const BranchComp = () => {
   const inputCategoryName = useRef("");
   const handleToggle = () => setShow(!show);
   const navigate = useNavigate();
-  const params = useParams()
+  const params = useParams();
 
   const onCreate = async () => {
     try {
@@ -189,6 +191,11 @@ export const BranchComp = () => {
     setImage2(e.target.files[0]);
   };
 
+  const handleChoose2 = (e) => {
+    console.log("e.target.files", e.target.files);
+    setImage3(e.target.files[0]);
+  };
+
   const handleUpload = async (id) => {
     const data = new FormData();
     console.log(data);
@@ -231,6 +238,28 @@ export const BranchComp = () => {
     setImage2({ images: "" });
     console.log(image2);
     console.log(profile2);
+  };
+
+  const handleUpload2 = async () => {
+    const data = new FormData();
+    console.log(data);
+    data.append("file", image3);
+    console.log(data.get("file"));
+
+    const resultImage = await Axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/picture/single-uploaded-picture`,
+      data,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(resultImage.data);
+    setProfile3(resultImage.data.pictureName);
+    setImage3({ images: "" });
+    console.log(image3);
+    console.log(profile3);
   };
 
   const onRefresh = () => {
@@ -347,6 +376,32 @@ export const BranchComp = () => {
         </Popover>
 
         <Accordion mb={"30px"} allowToggle>
+          <AccordionItem>
+            <h2>
+              <AccordionButton>
+                <Box as="span" flex="1" textAlign="left">
+                  Add Picture
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>
+              <ButtonGroup size="sm">
+                <form encType="multipart/form-data">
+                  <input
+                    type={"file"}
+                    accept="image/*"
+                    name="file"
+                    size={"100px"}
+                    onChange={(e) => handleChoose2(e)}
+                  ></input>
+                </form>
+                <Button colorScheme="blue" onClick={handleUpload2} size="sm">
+                  Upload
+                </Button>
+              </ButtonGroup>
+            </AccordionPanel>
+          </AccordionItem>
           <AccordionItem>
             <h2>
               <AccordionButton>
