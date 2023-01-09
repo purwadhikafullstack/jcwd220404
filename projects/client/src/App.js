@@ -140,7 +140,7 @@ function App() {
         ></Route>
         <Route path="/account/address" element={<ListAddressPage />}></Route>
         <Route
-          path="/account/address/addAddress"
+          path="/account/address/addAddress/:id"
           element={<AddressPage />}
         ></Route>
         <Route

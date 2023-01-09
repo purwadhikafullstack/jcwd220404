@@ -113,7 +113,7 @@ module.exports = {
         lattitude,
         longitude,
         defaultAddress: true,
-        // UserId: req.user.id,
+        UserId: req.params.id,
       });
       res.status(200).json({
         message: "New address",

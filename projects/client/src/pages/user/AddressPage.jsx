@@ -13,13 +13,13 @@ import {
   Textarea,
   Text,
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
 
-export const AddressPage = ({ selectProvince, selectCity }) => {
+export const AddressPage = () => {
   const [province, setProvince] = useState([]);
   const [city, setCity] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState(0);
@@ -37,6 +37,7 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
   const inputReceiverPhone = useRef("");
   const inputReceiverEmail = useRef("");
   const navigate = useNavigate();
+  const params = useParams();
 
   const onCreate = async () => {
     try {
@@ -53,7 +54,7 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
       };
 
       const res = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/address/create`,
+        `${process.env.REACT_APP_API_BASE_URL}/address/create/${params.id}`,
         addAddress
       );
       Swal.fire({
@@ -72,7 +73,7 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
       const response = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/province`
       );
-      setProvince(response.data.rajaOngkir.results);
+      setProvince(response.data.rajaongkir.results);
     } catch (err) {
       console.log(err);
     }
@@ -93,7 +94,8 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
       const response = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
       );
-      setCity(response.data.rajaOngkir.results);
+      console.log(response);
+      setCity(response.data.rajaongkir.results);
     } catch (err) {
       console.log(err);
     }
@@ -103,7 +105,7 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
     return Array.from(city).map((val, i) => {
       return (
         <option value={val.city_id} key={i}>
-          {val.province}
+          {val.type + " "} {val.city_name}
         </option>
       );
     });
@@ -182,7 +184,7 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
                   borderColor="#285430"
                 ></Input>
               </FormControl>
-              {/* <FormControl>
+              <FormControl>
                 <FormLabel>Province</FormLabel>
                 <Select
                   placeholder="Select Province"
@@ -190,14 +192,14 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
                 >
                   {renderProvince()}
                 </Select>
-              </FormControl> */}
-              {/* <FormControl>
+              </FormControl>
+              <FormControl>
                 <FormLabel>City</FormLabel>
                 <Select placeholder="Select City" onChange={cityHandler}>
                   {renderCity()}
                 </Select>
-              </FormControl> */}
-              <FormControl>
+              </FormControl>
+              {/* <FormControl>
                 <FormLabel>Provinsi</FormLabel>
                 <Select
                   ref={inputProvince}
@@ -216,8 +218,8 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
                   <option value="9">Jawa Barat</option>
                   <option value="3">Banten</option>
                 </Select>
-              </FormControl>
-              <FormControl>
+              </FormControl> */}
+              {/* <FormControl>
                 <FormLabel>Kota/Kabupaten</FormLabel>
                 <Select
                   ref={inputCity}
@@ -241,7 +243,7 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
                   <option value="79">Kota Bogor</option>
                   <option value="155">Kota Jakarta Utara</option>
                 </Select>
-              </FormControl>
+              </FormControl> */}
               <FormControl>
                 <FormLabel>Kode Pos</FormLabel>
                 <Input

@@ -3,11 +3,9 @@ const axios = require("axios");
 const { addressController } = require("../../controllers/index");
 require("dotenv/config");
 
-router.post("/create", addressController.newAddress);
-// router.get("/addressById", addressController.addressById);
+router.post("/create/:id", addressController.newAddress);
 router.get("/addressById/:id", addressController.addressById);
 router.post("/findById/:id", addressController.findAddressById);
-// router.patch("/updateAddress", addressController.updateAddress);
 router.patch("/updateAddress/:id", addressController.updateAddress);
 router.patch("/setDefault/:id", addressController.setDefault);
 router.delete("/remove/:id", addressController.deleteAddress);

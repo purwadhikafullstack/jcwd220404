@@ -28,6 +28,7 @@ export const ListAddressPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
+  console.log(params);
 
   const getData = async () => {
     try {
@@ -58,7 +59,7 @@ export const ListAddressPage = () => {
   };
 
   const toAddAddress = () => {
-    navigate(`/account/address/addAddress`);
+    navigate(`/account/address/addAddress/${id}`);
   };
 
   const toUpdate = (addressId) => {
