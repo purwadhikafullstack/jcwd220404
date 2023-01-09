@@ -11,6 +11,7 @@ router.post(
   multerUpload.single("file"),
   productController.uploadFile
 );
+router.patch("/updateCategory/:id", productController.updateCategory);
 router.patch("/update/:id", productController.update);
 router.get("/list", productController.findAll);
 router.get("/listCategory", productController.findAllCategory);
@@ -21,5 +22,5 @@ router.get("/search", productController.searchBy);
 router.get("/view2", productController.view2);
 router.get("/sort", productController.sortBy);
 router.delete("/remove/:id", productController.remove);
-
+router.delete("/removeCategory/:id", productController.removeCategory);
 module.exports = router;
