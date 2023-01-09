@@ -140,7 +140,7 @@ export const ProfilePage = () => {
             <Center>
               <Box>
                 <Avatar
-                  src={`http://localhost:8000/${data.Profile?.profilePic}`}
+                  src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}
                   size={"lg"}
                   bg="teal.500"
                 />

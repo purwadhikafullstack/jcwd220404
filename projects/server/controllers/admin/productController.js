@@ -11,16 +11,11 @@ module.exports = {
 
       if (!productName && !distributor && !description) throw "required field";
 
-      await product.create(
-        {
-          productName,
-          distributor,
-          description,
-        }
-        // {
-        //   Images: fileUploaded.filename,
-        // }
-      );
+      await product.create({
+        productName,
+        distributor,
+        description,
+      });
       res.status(200).send({
         message: "Successfully Added",
       });
@@ -33,14 +28,9 @@ module.exports = {
     try {
       const { categoryName } = req.body;
 
-      await category.create(
-        {
-          categoryName,
-        }
-        // {
-        //   Images: fileUploaded.filename,
-        // }
-      );
+      await category.create({
+        categoryName,
+      });
       res.status(200).send({
         message: "Successfully Added",
       });
@@ -69,7 +59,7 @@ module.exports = {
   findAllCategory: async (req, res) => {
     try {
       const users = await category.findAll({
-        attributes: ["id", "categoryName"],
+        attributes: ["id", "categoryName", "categoryPicture"],
       });
       res.status(200).send(users);
     } catch (err) {
@@ -131,7 +121,7 @@ module.exports = {
     }
   },
 
-  totalBooks: async (req, res) => {
+  totalProduct: async (req, res) => {
     try {
       const users = await product.findAll({
         attributes: [[sequelize.fn("count", sequelize.col(`id`)), "total"]],
@@ -175,16 +165,13 @@ module.exports = {
   update: async (req, res) => {
     try {
       const { productName, distributor, description } = req.body;
-      //   let fileUploaded = req.file;
+
       await product.update(
         {
           productName,
           distributor,
           description,
         },
-        // {
-        //   Images: fileUploaded.filename,
-        // },
         {
           where: { id: req.params.id },
         }
@@ -199,14 +186,10 @@ module.exports = {
   updateCategory: async (req, res) => {
     try {
       const { categoryName } = req.body;
-      //   let fileUploaded = req.file;
       await category.update(
         {
           categoryName,
         },
-        // {
-        //   Images: fileUploaded.filename,
-        // },
         {
           where: { id: req.params.id },
         }
@@ -259,7 +242,7 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-  
+
   uploadCategory: async (req, res) => {
     try {
       let fileUploaded = req.file;
@@ -363,36 +346,6 @@ module.exports = {
   stock: async (req, res) => {
     try {
     } catch (err) {
-      res.status(400).send(err);
-    }
-  },
-
-  uploadFile: async (req, res) => {
-    try {
-      let fileUploaded = req.file;
-      console.log("controller", fileUploaded);
-      await product.update(
-        {
-          picture: `upload/${fileUploaded.filename}`,
-        },
-        {
-          where: {
-            id: req.params.id,
-          },
-        }
-      );
-      const getProduct = await product.findOne({
-        where: {
-          id: req.params.id,
-        },
-        raw: true,
-      });
-      res.status(200).send({
-        id: getProduct.id,
-        picture: getProduct.picture,
-      });
-    } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

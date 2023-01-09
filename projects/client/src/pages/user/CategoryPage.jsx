@@ -1,4 +1,4 @@
-import { Box, Center, Text } from "@chakra-ui/react";
+import { Avatar, Box, Center, Flex, Text } from "@chakra-ui/react";
 import { NavbarComp } from "../../components/user/NavbarComp";
 import Axios from "axios";
 import { useEffect, useState } from "react";
@@ -13,7 +13,6 @@ export const CategoryPage = () => {
       );
       console.log(res.data);
       setData(res.data);
-      // dispatch(syncData(res.data));
     } catch (err) {
       console.log(err);
     }
@@ -51,15 +50,33 @@ export const CategoryPage = () => {
             h={"1750px"}
             w={"390px"}
           >
-            <Box>
-              {data?.map((item) => {
-                return (
-                  <Box>
-                    <Text>{item.categoryName}</Text>
-                  </Box>
-                );
-              })}
-            </Box>
+            <Center>
+              <Flex
+                flexWrap="wrap"
+                mt="-5"
+                w={[330, 330, 380]}
+                justifyContent="center"
+              >
+                {data?.map((item) => {
+                  return (
+                    <div>
+                      <Avatar
+                        border="1px"
+                        bgColor="#A4BE7B"
+                        _hover={{ border: "2px" }}
+                        mr={[2, 3, 4]}
+                        ml={[2, 3, 4]}
+                        mt="3"
+                        size="md"
+                        name="Grocery"
+                        src={"http://localhost:8000/" + item.categoryPicture}
+                      ></Avatar>
+                      <Text>{item.categoryName}</Text>
+                    </div>
+                  );
+                })}
+              </Flex>
+            </Center>
           </Box>
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />

@@ -3,18 +3,10 @@ import Axios from "axios";
 import { useSelector } from "react-redux";
 import {
   Button,
-  ButtonGroup,
   FormControl,
   FormLabel,
   Input,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  Select,
   Stack,
-  Tag,
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -23,8 +15,6 @@ import Swal from "sweetalert2";
 import { ArrowUpIcon } from "@chakra-ui/icons";
 
 export const UpdateProductComp = ({ data }) => {
-  //   const { id } = useSelector((state) => state.productSlice.value);
-  //   const [data, setData] = useState([]);
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
@@ -40,10 +30,9 @@ export const UpdateProductComp = ({ data }) => {
         description: inputDescription.current.value,
         distributor: inputDistributor.current.value,
       };
-      // console.log(updateBook);
 
       const res = await Axios.patch(
-        `http://localhost:8000/product/update/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/product/update/${id}`,
         updateProduct
       );
       console.log(res);

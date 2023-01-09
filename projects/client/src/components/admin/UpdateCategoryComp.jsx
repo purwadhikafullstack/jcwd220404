@@ -19,14 +19,14 @@ export const UpdateCategoryComp = ({ data }) => {
 
   const onUpdate = async (id) => {
     try {
-      const updateBook = {
+      const updateCategory = {
         categoryName: inputCategoryName.current.value,
       };
       // console.log(updateBook);
 
       const res = await Axios.patch(
-        `http://localhost:8000/product/updateCategory/${id}`,
-        updateBook
+        `${process.env.REACT_APP_API_BASE_URL}/product/updateCategory/${id}`,
+        updateCategory
       );
       console.log(res);
       Swal.fire({

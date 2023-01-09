@@ -32,7 +32,6 @@ export const ListAddressPage = () => {
   const getData = async () => {
     try {
       const result = await Axios.get(
-        // `${process.env.REACT_APP_API_BASE_URL}/address/addressById`
         `${process.env.REACT_APP_API_BASE_URL}/address/addressById/${id}`
       );
       console.log(result.data);
@@ -59,12 +58,11 @@ export const ListAddressPage = () => {
   };
 
   const toAddAddress = () => {
-    navigate("/account/address/addAddress");
+    navigate(`/account/address/addAddress`);
   };
 
   const toUpdate = (addressId) => {
     navigate(`/account/address/updateAddress/${addressId}`);
-    // navigate(`/account/address/updateAddress/${id}`);
   };
 
   return (

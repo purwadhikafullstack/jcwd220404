@@ -1,5 +1,4 @@
 import {
-  AspectRatio,
   Box,
   Button,
   Center,
@@ -19,13 +18,12 @@ import Axios from "axios";
 import Swal from "sweetalert2";
 import { syncData } from "../../redux/addressSlice";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const UpdateAddressPage = () => {
   const { data } = useSelector((state) => state.addressSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
-  // const [data, setData] = useState();
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
   const inputProvince = useRef("");
@@ -38,6 +36,7 @@ export const UpdateAddressPage = () => {
   const inputReceiverEmail = useRef("");
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
 
   const onUpdate = async () => {
     try {
@@ -53,7 +52,6 @@ export const UpdateAddressPage = () => {
         receiverEmail: inputReceiverEmail.current.value,
       };
       const result = await Axios.patch(
-        // `${process.env.REACT_APP_API_BASE_URL}/address/updateAddress/${params.id}`,
         `${process.env.REACT_APP_API_BASE_URL}/address/updateAddress/${params.id}`,
         updateAddress
       );
@@ -75,7 +73,6 @@ export const UpdateAddressPage = () => {
         { id: params.id }
       );
       console.log(result.data);
-      // setData(result.data);
       dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
@@ -85,6 +82,10 @@ export const UpdateAddressPage = () => {
   useEffect(() => {
     getData();
   }, [id]);
+
+  const onRefresh = () => {
+    setTimeout(() => window.location.replace(`/account/address/${id}`), 2000);
+  };
 
   return (
     <div>
@@ -103,7 +104,12 @@ export const UpdateAddressPage = () => {
             top={"0"}
             zIndex={"2"}
           >
-            <Box as={Link} to={"/account/address"}>
+            <Box
+              // as={Link}
+              // to={`/account/address/${id}`}
+              as="button"
+              onClick={onRefresh}
+            >
               <ArrowBackIcon
                 mt={"20px"}
                 ml={"20px"}

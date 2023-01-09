@@ -53,7 +53,6 @@ export const EnterComp = () => {
       Swal.fire({
         icon: "error",
         text: "User Not Found or Password Incorrect",
-        // text: `${err.response.data}`,
         customClass: {
           container: "my-swal",
         },

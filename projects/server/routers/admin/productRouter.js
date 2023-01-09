@@ -22,7 +22,7 @@ router.get("/list", productController.findAll);
 router.get("/listCategory", productController.findAllCategory);
 router.get("/list/:id", productController.findById);
 router.get("/list/filter", productController.findBy);
-router.get("/list/total", productController.totalBooks);
+router.get("/list/total", productController.totalProduct);
 router.get("/search", productController.searchBy);
 router.get("/view2", productController.view2);
 router.get("/sort", productController.sortBy);

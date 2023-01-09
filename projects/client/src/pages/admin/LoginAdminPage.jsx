@@ -58,16 +58,16 @@ export const LoginAdminPage = () => {
       }
       navigate("/adminPage");
     } catch (err) {
-      // Swal.fire({
-      //   icon: "error",
-      //   title: "Oops...",
-      //   text: `${err.response.data}`,
-      //   timer: 1000,
-      //   customClass: {
-      //     container: "my-swal",
-      //   },
-      // });
-      navigate("/restricted");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${err.response.data}`,
+        timer: 1000,
+        customClass: {
+          container: "my-swal",
+        },
+      });
+      // navigate("/restricted");
     }
   };
 

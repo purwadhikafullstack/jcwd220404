@@ -24,8 +24,8 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
   const [city, setCity] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState(0);
   const [selectedCity, setSelectedCity] = useState(0);
-  selectProvince(selectedProvince);
-  selectCity(selectedCity);
+  // selectProvince(selectedProvince);
+  // selectCity(selectedCity);
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
   const inputProvince = useRef("");
@@ -70,7 +70,7 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
   const fetchProvince = async () => {
     try {
       const response = await Axios.get(
-        `http://localhost:8000/address/province`
+        `${process.env.REACT_APP_API_BASE_URL}/address/province`
       );
       setProvince(response.data.rajaOngkir.results);
     } catch (err) {
@@ -80,16 +80,18 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
 
   const renderProvince = () => {
     return province.map((val) => {
-      <option value={val.province_id} key={val.province_id.toString()}>
-        {val.province}
-      </option>;
+      return (
+        <option value={val.province_id} key={val.province_id.toString()}>
+          {val.province}
+        </option>
+      );
     });
   };
 
   const fetchCity = async () => {
     try {
       const response = await Axios.get(
-        `http://localhost:8000/address/city/${selectedProvince}`
+        `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
       );
       setCity(response.data.rajaOngkir.results);
     } catch (err) {
@@ -137,7 +139,7 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
           justifyContent="space-between"
           pt={"10px"}
           pl={"1px"}
-          pos="fixed"
+          // pos="fixed"
           top={"0"}
           zIndex={"2"}
         >
@@ -180,6 +182,41 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
                   borderColor="#285430"
                 ></Input>
               </FormControl>
+              {/* <FormControl>
+                <FormLabel>Province</FormLabel>
+                <Select
+                  placeholder="Select Province"
+                  onChange={provinceHandler}
+                >
+                  {renderProvince()}
+                </Select>
+              </FormControl> */}
+              {/* <FormControl>
+                <FormLabel>City</FormLabel>
+                <Select placeholder="Select City" onChange={cityHandler}>
+                  {renderCity()}
+                </Select>
+              </FormControl> */}
+              <FormControl>
+                <FormLabel>Provinsi</FormLabel>
+                <Select
+                  ref={inputProvince}
+                  ml="20px"
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
+                >
+                  <option
+                    // selected={data.Profile?.gender === ""}
+                    value=""
+                  >
+                    Pilih Provinsi
+                  </option>
+                  <option value="6">DKI Jakarta</option>
+                  <option value="9">Jawa Barat</option>
+                  <option value="3">Banten</option>
+                </Select>
+              </FormControl>
               <FormControl>
                 <FormLabel>Kota/Kabupaten</FormLabel>
                 <Select
@@ -203,24 +240,6 @@ export const AddressPage = ({ selectProvince, selectCity }) => {
                   <option value="152">Kota Jakarta Pusat</option>
                   <option value="79">Kota Bogor</option>
                   <option value="155">Kota Jakarta Utara</option>
-                </Select>
-                <FormLabel>Provinsi</FormLabel>
-                <Select
-                  ref={inputProvince}
-                  ml="20px"
-                  width="340px"
-                  border="2px"
-                  borderColor="#285430"
-                >
-                  <option
-                    // selected={data.Profile?.gender === ""}
-                    value=""
-                  >
-                    Pilih Provinsi
-                  </option>
-                  <option value="6">DKI Jakarta</option>
-                  <option value="9">Jawa Barat</option>
-                  <option value="3">Banten</option>
                 </Select>
               </FormControl>
               <FormControl>

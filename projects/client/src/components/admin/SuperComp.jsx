@@ -33,16 +33,7 @@ import {
   Td,
 } from "@chakra-ui/react";
 import Axios from "axios";
-import {
-  ChevronDownIcon,
-  DeleteIcon,
-  EditIcon,
-  HamburgerIcon,
-  MoonIcon,
-  SunIcon,
-  ViewIcon,
-  ViewOffIcon,
-} from "@chakra-ui/icons";
+import { ChevronDownIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";

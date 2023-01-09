@@ -73,7 +73,7 @@ module.exports = {
 
       // const findAddress = await address.findOne({
       //   where: {
-      //     UserId: req.user.id,
+      //     UserId: req.params.id,
       //   },
       // });
 

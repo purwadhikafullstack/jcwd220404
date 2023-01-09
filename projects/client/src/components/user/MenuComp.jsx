@@ -21,49 +21,6 @@ export const MenuComp = () => {
   const [category, setCategory] = useState();
   const [product, setProduct] = useState();
 
-  const cards = [
-    [
-      "https://s3-ap-southeast-1.amazonaws.com/assets.segari.id/categories/v3/semua_produk.png",
-      "Semua Produk",
-    ],
-    [
-      "https://s3.ap-southeast-1.amazonaws.com/assets.segari.id/categories/v3/produk-baru.png",
-      "Produk Terbaru",
-    ],
-    [
-      "https://s3.ap-southeast-1.amazonaws.com/assets.segari.id/categories/v3/serba-promo.png",
-      "Serba Promo",
-    ],
-    [
-      "https://s3-ap-southeast-1.amazonaws.com/assets.segari.id/categories/v3/sayuran-semua_not-selected.png",
-      "Serba Sayuran",
-    ],
-    [
-      "https://s3-ap-southeast-1.amazonaws.com/assets.segari.id/categories/v3/buah-semua_not-selected.png",
-      "Serba Buah",
-    ],
-    [
-      "https://s3-ap-southeast-1.amazonaws.com/assets.segari.id/categories/v3/daging-semua_not-selected.png",
-      "Serba Daging",
-    ],
-    [
-      "https://s3.ap-southeast-1.amazonaws.com/assets.segari.id/categories/unggas-semua.png",
-      "Serba Unggas",
-    ],
-    [
-      "https://s3-ap-southeast-1.amazonaws.com/assets.segari.id/categories/v3/seafood-semua_not-selected.png",
-      "Serba Seafood",
-    ],
-    [
-      "https://s3.ap-southeast-1.amazonaws.com/assets.segari.id/categories/v4/Icons_Pack-FMCG_Protein.png",
-      "Serba Protein",
-    ],
-    [
-      "https://s3.ap-southeast-1.amazonaws.com/assets.segari.id/categories/v3/icon_lainnya.png",
-      "Lainnya",
-    ],
-  ];
-
   const getCategory = async () => {
     try {
       const res = await Axios.get(
@@ -71,7 +28,6 @@ export const MenuComp = () => {
       );
       console.log(res.data);
       setCategory(res.data);
-      // dispatch(syncData(res.data));
     } catch (err) {
       console.log(err);
     }
@@ -88,7 +44,6 @@ export const MenuComp = () => {
       );
       console.log(res.data);
       setProduct(res.data);
-      // dispatch(syncData(res.data));
     } catch (err) {
       console.log(err);
     }
@@ -101,62 +56,36 @@ export const MenuComp = () => {
   return (
     <div>
       <Center>
-        {/* <Flex
+        <Flex
           flexWrap="wrap"
           mt="-12"
           w={[330, 330, 380]}
           justifyContent="center"
         >
-          {cards.map((item, index) => {
-            return (
-              <div>
-                <Box key={index} align="center" _hover={{ cursor: "pointer" }}>
-                  <Avatar
-                    border="1px"
-                    bgColor="#A4BE7B"
-                    _hover={{ border: "2px" }}
-                    mr={[2, 3, 4]}
-                    ml={[2, 3, 4]}
-                    mt="3"
-                    size="md"
-                    name="Grocery"
-                    src={item[0]}
-                  />
-                  <Text fontSize="x-small" color={"#285430"}>
-                    {item[1]}
-                  </Text>
-                </Box>
-              </div>
-            );
-          })}
-        </Flex> */}
-      </Center>
-      <Center>
-        <Box mt={"50px"}>
           {category?.map((item) => {
             return (
               <div>
-                {/* <Box> */}
-                  <Avatar
-                    border="1px"
-                    bgColor="#A4BE7B"
-                    _hover={{ border: "2px" }}
-                    mr={[2, 3, 4]}
-                    ml={[2, 3, 4]}
-                    mt="3"
-                    size="md"
-                    name="Grocery"
-                    src={"http://localhost:8000/" + item.picture}
-                  ></Avatar>
-                  <Text fontSize="x-small" color={"#285430"}>
-                    {item.categoryName}
-                  </Text>
-                {/* </Box> */}
-                {/* <Text>{item.categoryName}</Text> */}
+                <Avatar
+                  border="1px"
+                  bgColor="#A4BE7B"
+                  _hover={{ border: "2px" }}
+                  mr={[2, 3, 4]}
+                  ml={[2, 3, 4]}
+                  mt="3"
+                  size="md"
+                  name="Grocery"
+                  src={
+                    `${process.env.REACT_APP_API_BASE_URL}` +
+                    item.categoryPicture
+                  }
+                ></Avatar>
+                <Text fontSize="x-small" color={"#285430"}>
+                  {item.categoryName}
+                </Text>
               </div>
             );
           })}
-        </Box>
+        </Flex>
       </Center>
       <Box>
         <SimpleGrid
@@ -167,11 +96,14 @@ export const MenuComp = () => {
             return (
               <Card>
                 <CardHeader>
-                  <Heading size="sm">{item.productName}</Heading>
+                  <Text size="sm">{item.productName}</Text>
                 </CardHeader>
                 <CardBody>
                   <Text fontSize={"xs"}>Price</Text>
-                  <Image src={"http://localhost:8000/" + item.picture} />
+                  <Image
+                    boxSize={"50px"}
+                    src={`${process.env.REACT_APP_API_BASE_URL}` + item.picture}
+                  />
                 </CardBody>
                 <CardFooter>
                   <Button>Tambah</Button>

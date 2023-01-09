@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { logoutAdmin } from "../../redux/adminSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Accordion,
   AccordionButton,
@@ -19,20 +19,13 @@ import {
   FormLabel,
   Grid,
   GridItem,
-  Heading,
   Image,
   Input,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Popover,
   PopoverArrow,
   PopoverBody,
-  PopoverCloseButton,
   PopoverContent,
   PopoverFooter,
-  PopoverHeader,
   Select,
   Stack,
   Tab,
@@ -42,7 +35,6 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-  Tag,
   Tbody,
   Td,
   Text,
@@ -55,13 +47,7 @@ import {
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 import Axios from "axios";
-import {
-  ArrowUpIcon,
-  ChevronDownIcon,
-  DeleteIcon,
-  EditIcon,
-  RepeatIcon,
-} from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon, RepeatIcon } from "@chakra-ui/icons";
 import { UpdateProductComp } from "./UpdateProductComp";
 import { UpdateCategoryComp } from "./UpdateCategoryComp";
 
@@ -85,8 +71,8 @@ export const BranchComp = () => {
   const inputDistributor = useRef("");
   const inputCategoryName = useRef("");
   const handleToggle = () => setShow(!show);
-  const handleToggle2 = () => setShow2(!show2);
   const navigate = useNavigate();
+  const params = useParams()
 
   const onCreate = async () => {
     try {
@@ -172,7 +158,7 @@ export const BranchComp = () => {
   const onDelete = async (id) => {
     try {
       const res = await Axios.delete(
-        `http://localhost:8000/product/remove/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
       );
       console.log(res);
       getData();
@@ -184,7 +170,7 @@ export const BranchComp = () => {
   const onDeleteCategory = async (id) => {
     try {
       const res = await Axios.delete(
-        `http://localhost:8000/product/removeCategory/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/product/removeCategory/${id}`
       );
       console.log(res);
       getData();
@@ -210,7 +196,7 @@ export const BranchComp = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/7`,
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
       data,
       {
         headers: {
@@ -232,7 +218,7 @@ export const BranchComp = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded-category/5`,
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded-category/${id}`,
       data,
       {
         headers: {
@@ -359,26 +345,6 @@ export const BranchComp = () => {
             </PopoverFooter>
           </PopoverContent>
         </Popover>
-        {/* <Box
-          borderRadius={"5px"}
-          borderColor="black"
-          border={"1px"}
-          mb={"50px"}
-          display={"flex"}
-          justifyContent="space-between"
-        >
-          <Text>Product Management</Text>
-          <Menu>
-            <MenuButton as={"button"} rightIcon={<ChevronDownIcon />}>
-              <Avatar size={"sm"} name={username}></Avatar>
-            </MenuButton>
-            <MenuList>
-              <MenuItem as={"button"} onClick={onLogout}>
-                Logout
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        </Box> */}
 
         <Accordion mb={"30px"} allowToggle>
           <AccordionItem>
