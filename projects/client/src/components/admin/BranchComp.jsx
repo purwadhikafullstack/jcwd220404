@@ -400,7 +400,7 @@ export const BranchComp = () => {
                     type={"file"}
                     accept="image/*"
                     name="file"
-                    size={"100px"}
+                    // size={"100px"}
                     onChange={(e) => handleChoose2(e)}
                   ></input>
                 </form>
