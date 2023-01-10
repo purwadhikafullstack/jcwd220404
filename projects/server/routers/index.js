@@ -1,8 +1,9 @@
-const userRouter = require("./userRouter");
-const adminRouter = require("./adminRouter");
-const addressRouter = require("./addressRouter");
-const branchRouter = require("./branchRouter");
-const productRouter = require("./productRouter");
+const userRouter = require("./user/userRouter");
+const adminRouter = require("./admin/adminRouter");
+const addressRouter = require("./user/addressRouter");
+const branchRouter = require("./admin/branchRouter");
+const productRouter = require("./admin/productRouter");
+const pictureRouter = require("./admin/pictureRouter")
 
 module.exports = {
   userRouter,
@@ -10,4 +11,5 @@ module.exports = {
   addressRouter,
   branchRouter,
   productRouter,
+  pictureRouter
 };

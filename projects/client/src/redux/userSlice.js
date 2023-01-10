@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
-    id: null,
+    id: 0,
     phoneNumber: "",
     email: "",
     password: "",
@@ -15,6 +15,7 @@ const initialState = {
     receiverName: "",
     detail: "",
     district: "",
+    // isVerified: 0
   },
 };
 
@@ -36,6 +37,7 @@ export const userSlice = createSlice({
       state.value.receiverName = action.payload.receiverName;
       state.value.detail = action.payload.detail;
       state.value.district = action.payload.district
+      // state.value.isVerified = action.payload.isVerified
     },
     logoutUser: (state, action) => {
       state.value.phoneNumber = "";
