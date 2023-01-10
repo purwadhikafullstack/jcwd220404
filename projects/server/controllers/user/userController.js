@@ -1,11 +1,11 @@
-const db = require("../models");
+const db = require("../../models");
 const user = db.User;
 const profile = db.Profile;
 const address = db.Address;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
-const transporter = require("../middleware/transporter");
+const transporter = require("../../middleware/transporter");
 const fs = require("fs");
 const handlebars = require("handlebars");
 
@@ -79,23 +79,19 @@ module.exports = {
       const isAccountExist = await user.findOne({
         where: {
           phoneNumber: req.user.phoneNumber,
-          // email: req.user.email,
-          // id: req.user.id,
         },
         raw: true,
       });
 
       const isValid = await bcrypt.compare(code_otp, isAccountExist.code_otp);
 
-      if (!isValid) throw `your code otp incorrect...`;
+      if (!isValid) throw `Incorrect OTP Code`;
 
       await user.update(
         { isVerified: true },
         {
           where: {
             phoneNumber: req.user.phoneNumber,
-            // email: req.user.email,
-            // id: req.user.id,
           },
         }
       );
@@ -123,7 +119,6 @@ module.exports = {
         {
           where: {
             phoneNumber,
-            // email,
           },
         }
       );
@@ -131,7 +126,6 @@ module.exports = {
       const isAccountExist = await user.findOne({
         where: {
           phoneNumber,
-          // email
         },
         raw: true,
       });
@@ -167,7 +161,43 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const { phoneEmail, password, id } = req.body;
+      const { phoneEmail, password, id, isVerified } = req.body;
+
+      // if (isVerified === 0) {
+      //   const code_otp = Math.floor(100000 + Math.random() * 900000).toString();
+      //   const salt = await bcrypt.genSalt(10);
+
+      //   const hashOtp = await bcrypt.hash(code_otp, salt);
+      //   const data1 = await user.create({
+      //     code_otp: hashOtp,
+      //   });
+
+      //   const token1 = jwt.sign(
+      //     { phoneNumber: phoneNumber },
+      //     "jcwd2204"
+      //     // { expiresIn: "1h" }
+      //   );
+
+      //   const tempEmail = fs.readFileSync("./template/codeotp.html", "utf-8");
+      //   const tempCompile = handlebars.compile(tempEmail);
+      //   const tempResult = tempCompile({
+      //     phoneNumber,
+      //     code_otp,
+      //   });
+
+      //   await transporter.sendMail({
+      //     from: "Admin",
+      //     to: email,
+      //     subject: "Verifikasi akun",
+      //     html: tempResult,
+      //   });
+
+      //   res.status(200).send({
+      //     message: "Verification Succes",
+      //     data1,
+      //     token1,
+      //   });
+      // }
 
       const isAccountExist = await user.findOne({
         where: {
@@ -186,28 +216,9 @@ module.exports = {
       const payload = {
         phoneNumber: isAccountExist.phoneNumber,
         id: isAccountExist.id,
+        isVerified: isAccountExist.isVerified,
       };
       const token = jwt.sign(payload, "jcwd2204");
-
-      // const isProfileExist = await profile.findOne({
-      //   where: {
-      //     UserId: isAccountExist.phoneNumber,
-      //   },
-      //   raw: true,
-      // });
-
-      // isAccountExist.profilePic = isProfileExist.profilePic;
-      // isAccountExist.gender = isProfileExist.gender;
-      // isAccountExist.birthDate = isProfileExist.birthDate;
-
-      // const isAddressExist = await address.findOne({
-      //   where: {
-      //     UserId: isAccountExist.phoneNumber,
-      //   },
-      //   raw: true,
-      // });
-
-      // isAccountExist.addressLine = isAddressExist.addressLine;
 
       const isValid = await bcrypt.compare(password, isAccountExist.password);
 
@@ -232,10 +243,11 @@ module.exports = {
         where: {
           phoneNumber: verify.phoneNumber,
           id: verify.id,
-          
         },
+        include: [{ model: profile }],
         raw: true,
       });
+
       console.log(result);
       res.status(200).send(result);
     } catch (err) {
@@ -358,9 +370,6 @@ module.exports = {
           where: { id: req.params.id },
         }
       );
-      // const token = jwt.sign({ email: isAccountExist.email }, "jcwd2204", {
-      //   expiresIn: "1h",
-      // });
 
       res.status(200).send({ data });
     } catch (err) {
@@ -422,6 +431,31 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  findEmail: async (req, res) => {
+    try {
+      const users = await user.findOne({
+        attributes: ["email"],
+      });
+      res.status(200).send(users);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+  
+  findPhoneNumber: async (req, res) => {
+    try {
+      const users = await user.findOne({
+        attributes: ["phoneNumber"],
+      });
+      res.status(200).send(users);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
 
   findById: async (req, res) => {
     try {

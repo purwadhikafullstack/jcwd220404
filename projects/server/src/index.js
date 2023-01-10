@@ -3,13 +3,15 @@ const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
 const db = require("../models");
-const bearerToken = require("express-bearer-token")
-const path = require("path")
+const bearerToken = require("express-bearer-token");
+const path = require("path");
 const app = express();
 
 const PORT = process.env.PORT || 8000;
 app.use(express.json());
-app.use(cors())
+app.use(cors());
+app.use("/upload", express.static(path.join(__dirname, "../upload")));
+app.use(bearerToken());
 
 // app.use(
 //   cors({
@@ -20,21 +22,24 @@ app.use(cors())
 //   })
 // );
 
-app.use("/upload", express.static(path.join(__dirname, "../upload")));
-app.use(bearerToken())
-
-
 //#region API ROUTES
-const { userRouter, adminRouter, addressRouter, branchRouter,
-  productRouter, } = require("../routers");
+const {
+  userRouter,
+  addressRouter,
+  adminRouter,
+  branchRouter,
+  productRouter,
+  pictureRouter,
+} = require("../routers");
 
 // ===========================
 // NOTE : Add your routes here
 app.use("/user", userRouter);
-app.use("/admin", adminRouter);
 app.use("/address", addressRouter);
+app.use("/admin", adminRouter);
 app.use("/branch", branchRouter);
 app.use("/product", productRouter);
+app.use("/picture", pictureRouter)
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);

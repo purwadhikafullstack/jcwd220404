@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
-const db = require("../models");
+const db = require("../../models");
 const product = db.Product;
+const price = db.Price;
 const category = db.Category;
 
 module.exports = {
@@ -10,16 +11,11 @@ module.exports = {
 
       if (!productName && !distributor && !description) throw "required field";
 
-      await product.create(
-        {
-          productName,
-          distributor,
-          description,
-        }
-        // {
-        //   Images: fileUploaded.filename,
-        // }
-      );
+      await product.create({
+        productName,
+        distributor,
+        description,
+      });
       res.status(200).send({
         message: "Successfully Added",
       });
@@ -32,14 +28,9 @@ module.exports = {
     try {
       const { categoryName } = req.body;
 
-      await category.create(
-        {
-          categoryName,
-        }
-        // {
-        //   Images: fileUploaded.filename,
-        // }
-      );
+      await category.create({
+        categoryName,
+      });
       res.status(200).send({
         message: "Successfully Added",
       });
@@ -48,10 +39,16 @@ module.exports = {
     }
   },
 
-  getAll: async (req, res) => {
+  findAll: async (req, res) => {
     try {
       const users = await product.findAll({
-        attributes: ["id", "productName", "distributor", "description"],
+        attributes: [
+          "id",
+          "productName",
+          "distributor",
+          "description",
+          "picture",
+        ],
       });
       res.status(200).send(users);
     } catch (err) {
@@ -59,10 +56,10 @@ module.exports = {
     }
   },
 
-  getAllCategory: async (req, res) => {
+  findAllCategory: async (req, res) => {
     try {
       const users = await category.findAll({
-        attributes: ["id", "categoryName"],
+        // attributes: ["id", "categoryName", "categoryPicture"],
       });
       res.status(200).send(users);
     } catch (err) {
@@ -70,7 +67,7 @@ module.exports = {
     }
   },
 
-  getById: async (req, res) => {
+  findById: async (req, res) => {
     try {
       const users = await product.findOne({
         where: {
@@ -83,7 +80,7 @@ module.exports = {
     }
   },
 
-  getBy: async (req, res) => {
+  findBy: async (req, res) => {
     try {
       const { productName, distributor, description } = req.query;
       const users = await product.findAll({
@@ -124,7 +121,7 @@ module.exports = {
     }
   },
 
-  totalBooks: async (req, res) => {
+  totalProduct: async (req, res) => {
     try {
       const users = await product.findAll({
         attributes: [[sequelize.fn("count", sequelize.col(`id`)), "total"]],
@@ -150,24 +147,54 @@ module.exports = {
     }
   },
 
+  removeCategory: async (req, res) => {
+    try {
+      await category.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      console.log(req.params.id);
+      const users = await category.findAll();
+      res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
   update: async (req, res) => {
     try {
       const { productName, distributor, description } = req.body;
-      //   let fileUploaded = req.file;
+
       await product.update(
         {
           productName,
           distributor,
           description,
         },
-        // {
-        //   Images: fileUploaded.filename,
-        // },
         {
           where: { id: req.params.id },
         }
       );
       const users = await product.findOne({ where: { id: req.params.id } });
+      res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  updateCategory: async (req, res) => {
+    try {
+      const { categoryName } = req.body;
+      await category.update(
+        {
+          categoryName,
+        },
+        {
+          where: { id: req.params.id },
+        }
+      );
+      const users = await category.findOne({ where: { id: req.params.id } });
       res.status(200).send(users);
     } catch (err) {
       res.status(400).send(err);
@@ -186,35 +213,65 @@ module.exports = {
     }
   },
 
-  // uploadFile: async (req, res) => {
-  //   try {
-  //     let fileUploaded = req.file;
-  //     console.log("controller", fileUploaded);
-  //     await book.update(
-  //       {
-  //         Images: fileUploaded.filename,
-  //       },
-  //       {
-  //         where: {
-  //           id: req.params.id,
-  //         },
-  //       }
-  //     );
-  //     const getBook = await book.findOne({
-  //       where: {
-  //         id: req.params.id,
-  //       },
-  //       raw: true,
-  //     });
-  //     res.status(200).send({
-  //       id: getBook.id,
-  //       Title: getBook.Title,
-  //       Images: getBook.Images,
-  //     });
-  //   } catch (err) {
-  //     res.status(400).send(err);
-  //   }
-  // },
+  uploadFile: async (req, res) => {
+    try {
+      let fileUploaded = req.file;
+      console.log("controller", fileUploaded);
+      await product.update(
+        {
+          picture: `upload/${fileUploaded.filename}`,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      const getPicture = await product.findOne({
+        where: {
+          id: req.params.id,
+        },
+        raw: true,
+      });
+      res.status(200).send({
+        id: getPicture.id,
+        picture: getPicture.picture,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  uploadCategory: async (req, res) => {
+    try {
+      let fileUploaded = req.file;
+      console.log("controller", fileUploaded);
+      await category.update(
+        {
+          categoryPicture: `upload/${fileUploaded.filename}`,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      const getPicture = await category.findOne({
+        where: {
+          id: req.params.id,
+        },
+        raw: true,
+      });
+      res.status(200).send({
+        id: getPicture.id,
+        categoryPicture: getPicture.categoryPicture,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
 
   view2: async (req, res) => {
     try {
