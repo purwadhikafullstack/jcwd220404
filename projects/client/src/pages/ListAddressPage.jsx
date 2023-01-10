@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Button,
@@ -9,6 +10,7 @@ import {
   MenuItem,
   MenuList,
   Text,
+ 
 } from "@chakra-ui/react";
 import {
   ArrowBackIcon,
@@ -16,7 +18,7 @@ import {
   EditIcon,
   HamburgerIcon,
 } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +29,7 @@ export const ListAddressPage = () => {
   const { data } = useSelector((state) => state.addressSlice.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   const toAddAddress = () => {
     navigate("/account/address/addAddress");
   };
@@ -119,21 +121,23 @@ export const ListAddressPage = () => {
                   <Flex justifyContent={"space-between"}>
                     <Text color={"#285430"}>{item.receiverName}</Text>
                     <Text color={"#285430"}>{item.receiverPhone}</Text>
-                    <Menu>
+                    <Menu theme={({ direction : "rtl" })} width="50px">
                       <MenuButton
                         color={"#285430"}
                         as={IconButton}
                         aria-label="Options"
                         icon={<HamburgerIcon />}
-                        variant="ghost"
+                        variant="ghost" 
                       />
-                      <MenuList bgColor="#E5D9B6">
+                        
+                      <MenuList bgColor="#E5D9B6" >
                         <MenuItem
                           as={"button"}
                           onClick={() => toUpdate(item.id)}
                           icon={<EditIcon />}
                           bgColor="#E5D9B6"
                           textColor={"#285430"}
+                          
                         >
                           Edit Address
                         </MenuItem>
@@ -143,6 +147,7 @@ export const ListAddressPage = () => {
                           icon={<DeleteIcon />}
                           bgColor="#E5D9B6"
                           textColor={"#285430"}
+                          
                         >
                           Delete Address
                         </MenuItem>

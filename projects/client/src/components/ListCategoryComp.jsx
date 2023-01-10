@@ -37,6 +37,7 @@ export const ListCategoryComp = () => {
     getData();
   }, []);
 
+    
   return (
     <div>
       <TableContainer>

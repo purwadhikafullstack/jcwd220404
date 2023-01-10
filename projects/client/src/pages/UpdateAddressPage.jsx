@@ -1,5 +1,6 @@
+import React from "react"
 import {
-    AspectRatio,
+    Image,
     Box,
     Button,
     Checkbox,
@@ -9,8 +10,9 @@ import {
     Input,
     Select,
     Stack,
-    Text,
+    Center,
     Textarea,
+    Heading,
   } from "@chakra-ui/react";
   import { useRef, useState } from "react";
   import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +21,8 @@ import {
   import { syncData } from "../redux/addressSlice";
   import { useEffect } from "react";
   import { useParams } from "react-router-dom";
-  
+  import OnlyFreshLogo from "../OnlyFreshLogo.png";
+
   export const UpdateAddressPage = () => {
     // const { id } = useSelector((state) => state.addressSlice.value);
     const [data, setData] = useState();
@@ -83,27 +86,56 @@ import {
   
     return (
       <div>
-        <Box>
-          <Stack spacing={"10px"} mt={"20px"}>
+      <Center>
+        <Box 
+        w={"390px"}
+        h={"100%"}   
+        px={3} 
+        py={3} 
+        border="2px"  
+        bgColor="#E5D9B6" >
+      <Image src={OnlyFreshLogo} height="160px" w={"auto"} ml={"75px"} />
+          <Stack  spacing={"10px"}  >
+          <Heading mt={"10px"} size={"lg"} textColor="#285430">
+           Update Your Address
+          </Heading>
             <FormControl>
-              <FormLabel>Alamat</FormLabel>
+              <FormLabel><b>Alamat</b></FormLabel>
               <Input
                 ref={inputAddressLine}
+                bgColor={"white"}
+                textColor="#285430"
                 placeholder="Alamat"
+                _placeholder={{ color: "#5F8D4E" }}
                 mb={"20px"}
                 defaultValue={data?.addressLine}
+                w={"340px"}
+                border={"2px"}
               ></Input>
             </FormControl>
-            <FormLabel>Kecamatan</FormLabel>
+            <FormLabel><b>Kecamatan</b></FormLabel>
             <Input
               ref={inputDistrict}
+              bgColor={"white"}
+              textColor="#285430"
+              placeholder="Alamat"
+              _placeholder={{ color: "#5F8D4E" }}
               mb={"20px"}
+              w={"340px"}
+              border={"2px"}
               defaultValue={data?.district}
             ></Input>
             <FormControl>
-              <FormLabel>Kota/Kabupaten</FormLabel>
+              <FormLabel><b>Kota/Kabupaten</b></FormLabel>
               {/* <Input ref={inputCity} defaultValue={data?.city}></Input> */}
-              <Select ref={inputCity}>
+              <Select 
+              ref={inputCity} 
+              bgColor={"white"}
+              textColor="#285430"
+              _placeholder={{ color: "#5F8D4E" }}
+              mb={"20px"}
+              w={"340px"}
+              border={"2px"}>
                 <option selected={data?.city === ""} value="">
                   Pilih Kota/Kabupaten
                 </option>
@@ -132,9 +164,16 @@ import {
                   Kota Jakarta Utara
                 </option>
               </Select>
-              <FormLabel>Provinsi</FormLabel>
+              <FormLabel><b>Provinsi</b></FormLabel>
               {/* <Input ref={inputProvince} defaultValue={data?.province}></Input> */}
-              <Select ref={inputProvince}>
+              <Select 
+              ref={inputProvince}
+              bgColor={"white"}
+              textColor="#285430"
+              _placeholder={{ color: "#5F8D4E" }}
+              mb={"20px"}
+              w={"340px"}
+              border={"2px"}>
                 <option selected={data?.province === ""} value="">
                   Pilih Provinsi
                 </option>
@@ -150,51 +189,105 @@ import {
               </Select>
             </FormControl>
             <FormControl>
-              <FormLabel>Kode Pos</FormLabel>
+              <FormLabel><b>Kode Pos</b></FormLabel>
               <Input
                 ref={inputPostalCode}
                 defaultValue={data?.postalCode}
+                bgColor={"white"}
+                textColor="#285430"
+                _placeholder={{ color: "#5F8D4E" }}
+                mb={"20px"}
+                w={"340px"}
+                border={"2px"}
               ></Input>
             </FormControl>
             <FormControl>
-              <FormLabel>Detail Alamat</FormLabel>
+              <FormLabel><b>Detail Alamat</b></FormLabel>
               <Textarea
                 ref={inputDetail}
                 placeholder="e.g. Blok/Lantai"
                 defaultValue={data?.detail}
+                bgColor={"white"}
+                textColor="#285430"
+                _placeholder={{ color: "#5F8D4E" }}
+                mb={"20px"}
+                w={"340px"}
+                border={"2px"}
               ></Textarea>
-              <Checkbox mb={"20px"}>Set as Default Address</Checkbox>
+              <Checkbox mb={"20px"}><b>Set as Default Address</b></Checkbox>
               <FormControl>
-                <FormLabel>Nama Penerima</FormLabel>
+                <FormLabel><b>Nama Penerima</b></FormLabel>
                 <Flex>
                   <Input
                     ref={inputReceiverName}
                     defaultValue={data?.receiverName}
                     placeholder="Name"
+                    bgColor={"white"}
+                textColor="#285430"
+                _placeholder={{ color: "#5F8D4E" }}
+                mb={"20px"}
+                w={"340px"}
+                border={"2px"}
                   ></Input>
                 </Flex>
               </FormControl>
               <FormControl>
-                <FormLabel>No. Telepon Penerima</FormLabel>
+                <FormLabel><b>No. Telepon Penerima</b></FormLabel>
                 <Input
                   ref={inputReceiverPhone}
                   placeholder="08xxx"
                   type={"text"}
                   defaultValue={data?.receiverPhone}
+                  bgColor={"white"}
+                textColor="#285430"
+                _placeholder={{ color: "#5F8D4E" }}
+                mb={"20px"}
+                w={"340px"}
+                border={"2px"}
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel>Email Penerima</FormLabel>
+                <FormLabel><b>Email Penerima</b></FormLabel>
                 <Input
                   ref={inputReceiverEmail}
                   placeholder="yourname@example.com"
                   defaultValue={data?.receiverEmail}
+                  bgColor={"white"}
+                textColor="#285430"
+                _placeholder={{ color: "#5F8D4E" }}
+                mb={"20px"}
+                w={"340px"}
+                border={"2px"}
                 ></Input>
               </FormControl>
             </FormControl>
-            <Button onClick={() => onUpdate(data.id)}>Confirm</Button>
+            <Center>
+            <Button
+                onClick={() => onUpdate(data.id)}
+                mt={"3"}
+                mb={"3"}
+                _hover={{
+                  bg: "#E5D9B6",
+                }}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="18px"
+                color="gray.800"
+                w={"90px"}
+                alignItems="center"
+              >
+                <b>Confirm</b>
+              </Button>
+              </Center>
+              <Box  justifyContent="center" >
+            <React.StrictMode>
+            <img src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif" width="100%" height="200px"></img>
+            </React.StrictMode>
+            </Box>
           </Stack>
         </Box>
+        </Center>
       </div>
     );
   };

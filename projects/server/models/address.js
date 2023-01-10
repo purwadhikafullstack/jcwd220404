@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
       receiverPhone: DataTypes.STRING,
       receiverEmail: DataTypes.STRING,
       district: DataTypes.STRING,
-      // cityId: DataTypes.INTEGER,
-      // provinceId: DataTypes.INTEGER,
+      cityId: DataTypes.INTEGER,
+      provinceId: DataTypes.INTEGER,
     },
     {
       sequelize,

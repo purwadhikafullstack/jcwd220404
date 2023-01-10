@@ -5,42 +5,64 @@ import {
   Text,
   Box,
   StackDivider,
+  useDisclosure,
   Avatar,
   Badge,
   Grid,
   GridItem,
   Tag,
   HStack,
-  useDisclosure,
-  Popover,
-  PopoverContent,
-  PopoverArrow,
-  PopoverBody,
-  PopoverFooter,
   ButtonGroup,
+  PopoverFooter,
+  PopoverBody,
+  PopoverArrow,
+  PopoverContent,
+  Popover,
 } from "@chakra-ui/react";
+import Axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { logoutUser } from "../redux/userSlice";
-import { NavbarComp } from "./NavbarComp";
+import { LogoComp } from "./LogoComp";
 
 export const AccountComp = () => {
-  const { name } = useSelector((state) => state.userSlice.value);
-  const { isOpen, onToggle, onClose } = useDisclosure();
+  const { name, id } = useSelector((state) => state.userSlice.value);
+  const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+  const params = useParams();
+  const { isOpen, onToggle, onClose } = useDisclosure();
+
   const onLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("tokenUser");
     navigate("/");
   };
 
+  const getData = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/user/byId/${id}`
+      );
+      setData(result.data);
+      console.log(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [id]);
+
   const toProfile = () => {
-    navigate("/account/profile");
+    navigate(`/account/profile/${id}`);
   };
   const toAddress = () => {
-    navigate("/account/address");
+    navigate(`/account/address/`);
+    // navigate(`/account/address/${id}`);
   };
 
   return (
@@ -59,9 +81,7 @@ export const AccountComp = () => {
         zIndex={"2"}
       >
         <Box margin={"auto"} alignItems={"center"} textColor="#285430">
-          <Text as={"b"} fontSize="xl">
-            ACCOUNT
-          </Text>
+          Account
         </Box>
       </Box>
 
@@ -81,14 +101,13 @@ export const AccountComp = () => {
         >
           <GridItem m={"auto"} rowSpan={2} colSpan={1}>
             <Avatar
-              bgColor={"gray.500"}
               display={"flex"}
               size={"lg"}
-              src={`http://localhost:8000/upload/PIMG-167280588303621324.jpeg`}             
-               ml="8"
+              src={`http://localhost:8000/${data.Profile?.profilePic}`}
+              bg="teal.500"
             ></Avatar>
           </GridItem>
-          <GridItem colSpan={1}>
+          <GridItem colSpan={2}>
             <Badge textColor={"#285430"} fontSize="md" ml={"10px"} as="b">
               {name}
             </Badge>
@@ -111,7 +130,7 @@ export const AccountComp = () => {
           divider={<StackDivider borderColor="#E5D9B6" />}
           align="center"
         >
-          <Badge alignContent={"center"} mr="10px" textColor={"#285430"}>
+          <Badge alignContent={"center"} mr="10px">
             Potongan Belanja
             <Text textAlign={"center"} textColor={"#285430"}>
               0
@@ -137,12 +156,23 @@ export const AccountComp = () => {
             ml={"30px"}
             textColor={"#285430"}
             onClick={toAddress}
+            fontSize="sm"
           >
             My Address
           </Button>
+
+          {/* <Button
+            textAlign={"left"}
+            variant={"unstyled"}
+            ml={"10px"}
+            textColor={"black"}
+            h="40px"
+          >
+            Help
+          </Button> */}
           <Button
             display={"flex"}
-            bgColor={"#FF0000"}
+            bgColor={"#A4BE7B"}
             textColor="gray.800"
             width={"100px"}
             m="auto"
@@ -151,7 +181,7 @@ export const AccountComp = () => {
             border="2px"
             onClick={onToggle}
           >
-            LogOut
+            <b>Logout</b> 
           </Button>
           <Popover
             returnFocusOnClose={false}
@@ -190,10 +220,10 @@ export const AccountComp = () => {
               </PopoverFooter>
             </PopoverContent>
           </Popover>
+          {/* <Box opacity={"initial"} margin={"auto"} w="50px">
+            <LogoComp />
+          </Box> */}
         </Stack>
-      </Box>
-      <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
-        <NavbarComp />
       </Box>
     </div>
   );

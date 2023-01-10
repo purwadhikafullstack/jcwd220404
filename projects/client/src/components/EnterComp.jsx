@@ -157,10 +157,10 @@ export const LoginUserComp = () => {
               <ForgotPasswordPage />
             </Box>
             <Text textAlign={"center"} textColor="gray.800">
-              <b> Don't have an account? </b>
+              <b> Don't have an account ?</b>
             </Text>
             <Text as={Link} to="/register" textAlign={"center"} color="#5F8D4E">
-            <b> Register here</b>
+            <b> Register Here</b>
             </Text>
           </Stack>
           </Center>

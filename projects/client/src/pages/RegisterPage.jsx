@@ -320,7 +320,7 @@ export const RegisterPage = () => {
                             fontSize={"md"}
                             textColor="gray.800"
                           >
-                            <b>Already have an account?</b>
+                            <b>Already have an account ?</b>
                           </Text>
                           </Box>
                           <Center>

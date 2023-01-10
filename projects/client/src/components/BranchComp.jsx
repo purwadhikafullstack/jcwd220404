@@ -56,10 +56,13 @@ import {
   EditIcon,
 } from "@chakra-ui/icons";
 import { UpdateProductComp } from "./UpdateProductComp";
+import { UpdateCategoryComp} from "./UpdateCategoryComp"
 
 export const BranchComp = () => {
   const [data, setData] = useState([]);
   const [edit, setEdit] = useState({});
+  const [data2, setData2] = useState([]);
+  const [edit2, setEdit2] = useState({});
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
   const { username } = useSelector((state) => state.adminSlice.value);
@@ -164,6 +167,34 @@ export const BranchComp = () => {
   };
   console.log(image);
   console.log(profile);
+  
+  const getCategory = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
+      );
+      console.log(res.data);
+      setData2(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCategory();
+  }, [edit2]);
+
+  const onDeleteCategory = async (id) => {
+    try {
+      const res = await Axios.delete(
+        `http://localhost:8000/product/removeCategory/${id}`
+      );
+      console.log(res);
+      getData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
@@ -350,11 +381,40 @@ export const BranchComp = () => {
               </TableContainer>
             </TabPanel>
             <TabPanel>
-              <ListCategoryComp />
+            <TableContainer>
+        <Table variant="simple" colorScheme="teal">
+          <Thead>
+            <Tr>
+              <Th>Category</Th>
+              <Th>Actions</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data2?.map((item) => {
+              return (
+                <Tr>
+                  <Td>{item.categoryName}</Td>
+                  <Td>
+                    <Box display={"flex"} justifyContent="space-evenly">
+                    <Button onClick={() => onDeleteCategory(item.id)}>
+                                <DeleteIcon />
+                              </Button>
+                              <Button onClick={() => setEdit2(item)}>
+                                <EditIcon />
+                              </Button>
+                    </Box>
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
             </TabPanel>
           </TabPanels>
         </Tabs>
         <UpdateProductComp data={edit} />
+        <UpdateCategoryComp data={edit2} />
       </Box>
     </div>
   );

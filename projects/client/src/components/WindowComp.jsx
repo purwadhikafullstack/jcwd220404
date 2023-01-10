@@ -20,16 +20,19 @@ export const WindowComp = () => {
   };
 
   return (
-    <Box width="390px" height="100%"   position="absolute">
+    
     <Flex
       w={"full"}
       h={"100vh"}
+
       backgroundImage={
         "url(https://media.istockphoto.com/id/467970412/vector/groceries.jpg?s=612x612&w=0&k=20&c=tH30XMv3C-OnoxGIvN3sWmjbmtbdOJMuffd_dR9L5Z8=)"
       }
       backgroundSize={"cover"}
       backgroundPosition={"center center"}
-    
+      position="center"
+      zIndex="2"
+      
     >
       <VStack
         w={"full"}
@@ -59,6 +62,7 @@ export const WindowComp = () => {
               border="2px"
               fontSize="18px"
               color="gray.800"
+              zIndex="2"
             >
               Masuk
             </Button>
@@ -71,6 +75,7 @@ export const WindowComp = () => {
               border="2px"
               fontSize="18px"
               color="gray.800"
+              zIndex="2"
             >
               Daftar
             </Button>
@@ -78,6 +83,6 @@ export const WindowComp = () => {
         </Stack>
       </VStack>
     </Flex>
-    </Box>
+  
   );
 };

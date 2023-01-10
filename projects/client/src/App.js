@@ -48,11 +48,13 @@ function App() {
       );
       dispatch(
         loginUser({
+          id: user.data.id,
           phoneNumber: user.data.phoneNumber,
           name: user.data.name,
           email: user.data.email,
           gender: user.data.gender,
           birthDate: user.data.birthDate,
+          profilePic: user.data["Profile.profilePic"],
         })
       );
     } catch (err) {
@@ -123,7 +125,7 @@ function App() {
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/transaction" element={<TransactionPage />}></Route>
         <Route path="/notification" element={<NotificationPage />}></Route>
-        <Route path="/account/profile" element={<ProfilePage />}></Route>
+        <Route path="/account/profile/:id" element={<ProfilePage />}></Route>
         <Route path="/account/profile/password" element={<ChangePassword />}></Route>
         <Route path="/account/profile/email" element={<ChangeEmail />}></Route>
         <Route path="/account/address" element={<ListAddressPage />}></Route>
