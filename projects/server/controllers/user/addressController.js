@@ -9,27 +9,6 @@ const openCageKey = process.env.GEO_KEY;
 module.exports = {
   addressById: async (req, res) => {
     try {
-      // const { receiverName = "", addressLine = "" } = req.query;
-      // if (receiverName || addressLine) {
-      //   const res = await address.findAll({
-      //     where: {
-      //       UserId: req.params.id,
-      //       [Op.or]: {
-      //         receiverName: {
-      //           [Op.like]: `%${receiverName}%`,
-      //         },
-      //         addressLine: {
-      //           [Op.like]: `${addressLine}%`,
-      //         },
-      //       },
-      //     },
-      //     order: [["defaultAddress", "DESC"]],
-      //   });
-      //   res.status(200).send({
-      //     message: "Get user Address by name and full Address",
-      //     data: res,
-      //   });
-      // }
       const response = await address.findAll({
         where: {
           UserId: req.params.id,
@@ -71,34 +50,6 @@ module.exports = {
       const lattitude = location.data.results[0].geometry.lat;
       const longitude = location.data.results[0].geometry.lng;
 
-      // const findAddress = await address.findOne({
-      //   where: {
-      //     UserId: req.params.id,
-      //   },
-      // });
-
-      // if (!findAddress) {
-      //   const response = await address.create({
-      //     receiverName,
-      //     receiverPhone,
-      //     addressLine,
-      //     provinceId: province,
-      //     province: provinceName,
-      //     cityId: city,
-      //     city: cityNameAndType,
-      //     postalCode,
-      //     detail,
-      //     district,
-      //     lattitude,
-      //     longitude,
-      //     defaultAddress: true,
-      //     // UserId: req.user.id,
-      //   });
-      //   res.status(200).json({
-      //     message: "New address",
-      //     data: response,
-      //   });
-      // }
       const response = await address.create({
         receiverName,
         receiverPhone,

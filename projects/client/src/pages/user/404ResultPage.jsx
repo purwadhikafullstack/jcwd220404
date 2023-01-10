@@ -46,7 +46,9 @@ export const NotFoundPage = () => {
               Go to Home
             </Button>
             <Box mt={"40px"}>
-              <Image src={NotFoundIcon} />
+              <Image
+                src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167331006247012353.png`}
+              />
             </Box>
           </Box>
         </Box>

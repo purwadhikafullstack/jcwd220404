@@ -35,9 +35,41 @@ export const RegisterPage = () => {
       .min(5, "Name min. 5 characters"),
     phoneNumber: Yup.string()
       .required("Phone Number is a required field")
-      .min(10, "Phone Number must max 12 numbers")
+      .min(10, "Phone Number minimum 10 numbers")
       .max(12, "Phone Number must max 12 numbers"),
-    email: Yup.string().email().required("Email is a required field"),
+      // .test("Phone Number", "Phone Number already exist", function (value) {
+      //   return new Promise((resolve, reject) => {
+      //     Axios.get(`http://localhost:8000/user/${value}/availableNumber`)
+      //       .then((res) => {
+      //         resolve(!res.data);
+      //       })
+      //       .catch((err) => {
+      //         if (
+      //           err.response.data.content === `The phone number already used`
+      //         ) {
+      //           resolve(false);
+      //         }
+      //       });
+      //   });
+      // }),
+
+    email: Yup.string()
+      .email()
+      .required("Email is a required field"),
+      // .test("Email", "Email already exist", function (value) {
+      //   return new Promise((resolve, reject) => {
+      //     Axios.get(`http://localhost:8000/user/${value}/available`)
+      //       .then((res) => {
+      //         resolve(!res.data);
+      //       })
+      //       .catch((err) => {
+      //         if (err.response.data.content === `The email already used`) {
+      //           resolve(false);
+      //         }
+      //       });
+      //   });
+      // }),
+
     password: Yup.string()
       .required("Password is a required field")
       .min(8, "Password min. 8 characters"),

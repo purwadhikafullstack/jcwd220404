@@ -85,7 +85,7 @@ module.exports = {
 
       const isValid = await bcrypt.compare(code_otp, isAccountExist.code_otp);
 
-      if (!isValid) throw `your code otp incorrect...`;
+      if (!isValid) throw `Incorrect OTP Code`;
 
       await user.update(
         { isVerified: true },
@@ -431,6 +431,31 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  findEmail: async (req, res) => {
+    try {
+      const users = await user.findOne({
+        attributes: ["email"],
+      });
+      res.status(200).send(users);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+  
+  findPhoneNumber: async (req, res) => {
+    try {
+      const users = await user.findOne({
+        attributes: ["phoneNumber"],
+      });
+      res.status(200).send(users);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
 
   findById: async (req, res) => {
     try {

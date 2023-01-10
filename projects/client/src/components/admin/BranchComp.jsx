@@ -214,8 +214,10 @@ export const BranchComp = () => {
     console.log(resultImage.data);
     setProfile(resultImage.data.picture);
     setImage({ images: "" });
+
     console.log(image);
     console.log(profile);
+    
   };
 
   const handleUpload1 = async (id) => {
@@ -260,6 +262,12 @@ export const BranchComp = () => {
     setImage3({ images: "" });
     console.log(image3);
     console.log(profile3);
+    Swal.fire({
+      icon: "success",
+      text: "Success",
+    });
+
+    setTimeout(() => window.location.replace("/adminPage"), 2000);
   };
 
   const onRefresh = () => {

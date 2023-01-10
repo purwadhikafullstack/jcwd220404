@@ -20,5 +20,7 @@ router.patch("/updateEmail/:id", userController.updateEmail);
 router.get("/getAll", userController.findAll);
 router.get("/byId/:id", userController.findById);
 router.get("/keepLogin", userController.keepLogin);
+router.get("/available", userController.findEmail);
+router.get("/availableNumber", userController.findPhoneNumber);
 
 module.exports = router;
