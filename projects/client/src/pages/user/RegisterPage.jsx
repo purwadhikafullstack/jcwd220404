@@ -312,7 +312,7 @@ export const RegisterPage = () => {
                               </Text>
                               <Text
                                 as={Link}
-                                to="/account"
+                                to="/loginUser"
                                 color="#5F8D4E"
                                 fontSize={"md"}
                               >

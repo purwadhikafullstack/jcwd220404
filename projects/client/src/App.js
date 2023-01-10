@@ -24,6 +24,8 @@ import { LoginAdminPage } from "./pages/admin/LoginAdminPage";
 import { AdminPage } from "./pages/admin/AdminPage";
 import { UpdateAddressPage } from "./pages/user/UpdateAddressPage";
 import { NotFoundPage } from "./pages/user/404ResultPage";
+import { WindowComp } from "./components/user/WindowComp";
+import { EnterComp } from "./components/user/EnterComp";
 
 function App() {
   const dispatch = useDispatch();
@@ -127,6 +129,7 @@ function App() {
           path="/verification/:token"
           element={<VerificationPage />}
         ></Route>
+        <Route path="/loginUser" element={<EnterComp />}></Route>
         <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/account/profile/:id" element={<ProfilePage />}></Route>
         <Route
