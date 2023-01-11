@@ -6,7 +6,6 @@ import {
   Heading,
   Input,
   Stack,
-  Text,
   Flex,
   Image,
   InputGroup,
@@ -21,8 +20,6 @@ import Axios from "axios";
 import { loginAdmin } from "../../redux/adminSlice";
 import OnlyFreshLogo from "../../OnlyFreshLogo.png";
 import Swal from "sweetalert2";
-
-const url = "http://localhost:8000/admin/login";
 
 export const LoginAdminPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -60,29 +57,23 @@ export const LoginAdminPage = () => {
       }
       navigate("/adminPage");
     } catch (err) {
-      // Swal.fire({
-      //   icon: "error",
-      //   title: "Oops...",
-      //   text: `${err.response.data}`,
-      //   timer: 1000,
-      //   customClass: {
-      //     container: "my-swal",
-      //   },
-      // });
-      navigate("/forbidden");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        width: "370",
+        text: `${err.response.data}`,
+        timer: 1000,
+        customClass: {
+          container: "my-swal",
+        },
+      });
     }
   };
 
   return (
     <div>
       <Center>
-        <Box
-          py={3}
-          px={3}
-          bgColor="#E5D9B6"
-          w={"390px"}
-          h={"100%"}
-        >
+        <Box py={3} px={3} bgColor="#E5D9B6" w={"390px"} h={"100%"}>
           <Image src={OnlyFreshLogo} height="160px" w={"auto"} ml={"75px"} />
           <Stack align={"center"}>
             <Heading mt={"10px"} size={"lg"} textColor="#285430">
