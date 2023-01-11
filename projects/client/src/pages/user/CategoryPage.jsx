@@ -1,7 +1,27 @@
-import { Box, Center } from "@chakra-ui/react";
+import { Avatar, Box, Center, Flex, Text } from "@chakra-ui/react";
 import { NavbarComp } from "../../components/user/NavbarComp";
+import Axios from "axios";
+import { useEffect, useState } from "react";
 
 export const CategoryPage = () => {
+  const [data, setData] = useState([]);
+
+  const getData = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
+      );
+      console.log(res.data);
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div>
       <Center>
@@ -23,7 +43,39 @@ export const CategoryPage = () => {
               CATEGORIES
             </Box>
           </Box>
-          <Box className="body" bgColor={"white"} h={"1750px"} w={"390px"}>
+          <Box
+            mt={"80px"}
+            className="body"
+            bgColor={"white"}
+            h={"1750px"}
+            w={"390px"}
+          >
+            <Center>
+              <Flex
+                flexWrap="wrap"
+                w={[330, 330, 380]}
+                justifyContent="center"
+              >
+                {data?.map((item) => {
+                  return (
+                    <div>
+                      <Avatar
+                        border="1px"
+                        bgColor="#A4BE7B"
+                        _hover={{ border: "2px" }}
+                        mr={[2, 3, 4]}
+                        ml={[2, 3, 4]}
+                        mt="3"
+                        size="md"
+                        name="Grocery"
+                        src={"http://localhost:8000/" + item.categoryPicture}
+                      ></Avatar>
+                      <Text>{item.categoryName}</Text>
+                    </div>
+                  );
+                })}
+              </Flex>
+            </Center>
           </Box>
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />

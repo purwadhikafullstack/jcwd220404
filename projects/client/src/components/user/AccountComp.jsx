@@ -104,7 +104,7 @@ export const AccountComp = () => {
               bgColor={"gray.500"}
               display={"flex"}
               size={"lg"}
-              src={`http://localhost:8000/upload/PIMG-167280588303621324.jpeg`}             
+              src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}           
                ml="8"
             ></Avatar>
           </GridItem>

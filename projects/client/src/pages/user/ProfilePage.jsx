@@ -66,7 +66,7 @@ export const ProfilePage = (user) => {
       });
       setTimeout(() => window.location.replace("/account"), 2000);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
@@ -98,7 +98,7 @@ export const ProfilePage = (user) => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/user/single-uploaded/${params.id}`,
+      `${process.env.REACT_APP_API_BASE_URL}/user/single-uploaded/${id}`,
       data,
       {
         headers: {
@@ -109,6 +109,7 @@ export const ProfilePage = (user) => {
     console.log(resultImage.data);
     setProfile(resultImage.data.profilePic);
     setImage({ images: "" });
+    window.location.replace("/account");
   };
   console.log(image);
   console.log(profile);
@@ -166,39 +167,62 @@ export const ProfilePage = (user) => {
             bg="gray.500"
             ml={"8"}
             mt="5"
-            src={`http://localhost:8000/upload/PIMG-167280588303621324.jpeg`}
+            src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}
           />
-          <Tag mt={"30px"} as={"button"} ml={"10px"} size="8" onClick={onToggle}>
+          <Tag
+            mt={"30px"}
+            as={"button"}
+            ml={"10px"}
+            size="8"
+            onClick={onToggle}
+          >
             <ArrowUpIcon mr={"8px"} fontSize="20" textColor={"#285430"} />{" "}
             <Text color={"#285430"}>Upload Picture</Text>
           </Tag>
+
           <Popover
-                  returnFocusOnClose={false}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  // placement="auto-end"
-                  closeOnBlur={false}
-                >
-                  <PopoverContent w={"400px"}>
-                    <PopoverBody>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <ButtonGroup size="sm">
-                        <form encType="multipart/form-data">
-                          <input
-                            type={"file"}
-                            accept="image/*"
-                            name="file"
-                            onChange={(e) => handleChoose(e)}
-                          ></input>
-                        </form>
-                        <Button colorScheme="blue" onClick={handleUpload}>
-                          Upload
-                        </Button>
-                      </ButtonGroup>
-                    </PopoverBody>
-                  </PopoverContent>
-                </Popover>
+            returnFocusOnClose={false}
+            isOpen={isOpen}
+            onClose={onClose}
+            closeOnBlur={false}
+            >
+            <PopoverContent w={"380px"} ml="530px" mt="170px">
+              <PopoverBody>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                  <ButtonGroup size="sm">
+              <Box>
+                    <form encType="multipart/form-data">
+                      <input
+                        color="#285430"
+                        type={"file"}
+                        accept="image/*"
+                        name="file"
+                        size={"100px"}
+                        onChange={(e) => handleChoose(e)}
+                        ></input>
+                    </form><Center>
+
+                    <Button
+                    mt="3"
+                    ml="30px"
+                      bgColor={"#A4BE7B"}
+                      borderColor="#285430"
+                      border="2px"
+                      fontSize="14px"
+                      color="gray.800"
+                      width={"30%"}
+                      onClick={handleUpload}
+                      size="sm"
+                      >
+                      Upload
+                    </Button>
+                        </Center>
+                      </Box>
+                  </ButtonGroup>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
 
           <Heading mt={"20px"} ml="8" size={"md"} color="#285430">
             Personal Data
@@ -217,7 +241,6 @@ export const ProfilePage = (user) => {
                   ref={inputName}
                   placeholder="Name"
                   _placeholder={{ color: "#285430" }}
-                  
                   defaultValue={data.name}
                   textColor="black"
                 ></Input>

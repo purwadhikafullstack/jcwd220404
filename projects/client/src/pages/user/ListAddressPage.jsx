@@ -113,8 +113,7 @@ export const ListAddressPage = () => {
                   ml="8px"
                   mr="8px"
                   mt="8px"
-                  pl="8px"
-                  pr="8px"
+                  p="4"
                   border={"2px"}
                   borderColor={"#285430"}
                   borderRadius="xl"

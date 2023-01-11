@@ -199,7 +199,7 @@ export const BranchComp = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/3`,
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
       data,
       {
         headers: {
@@ -294,6 +294,7 @@ export const BranchComp = () => {
         mt={"70px"}
         className="body"
         bgColor="white"
+        color="gray.800"
         h={"1580px"}
         w={"390px"}
         // pos="fixed"
@@ -354,6 +355,7 @@ export const BranchComp = () => {
                   ></input>
                 </form>
                 <Button
+                  mr="120px"
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"
@@ -538,7 +540,7 @@ export const BranchComp = () => {
                               <ButtonGroup size="sm">
                                 <form encType="multipart/form-data">
                                   <input
-                                    textcolor="#285430"
+                                    color="#285430"
                                     type={"file"}
                                     accept="image/*"
                                     name="file"

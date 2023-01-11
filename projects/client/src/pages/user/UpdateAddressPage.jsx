@@ -24,6 +24,12 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 export const UpdateAddressPage = () => {
   const { data } = useSelector((state) => state.addressSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
+  const [province, setProvince] = useState([]);
+  const [city, setCity] = useState([]);
+  const [postal, setPostal] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState(0);
+  const [selectedCity, setSelectedCity] = useState(0);
+  const [selectedPostal, setSelectedPostal] = useState(0);
   // const [data, setData] = useState();
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
@@ -37,7 +43,7 @@ export const UpdateAddressPage = () => {
   const inputReceiverEmail = useRef("");
   const dispatch = useDispatch();
   const params = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onUpdate = async () => {
     try {
@@ -68,11 +74,103 @@ export const UpdateAddressPage = () => {
     }
   };
 
+  const fetchProvince = async () => {
+    try {
+      const response = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/address/province`
+      );
+      setProvince(response.data.rajaongkir.results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderProvince = () => {
+    return province.map((val) => {
+      return (
+        <option value={val.province_id} key={val.province_id.toString()}>
+          {val.province}
+        </option>
+      );
+    });
+  };
+
+  const fetchCity = async () => {
+    try {
+      const response = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
+      );
+      console.log(response);
+      setCity(response.data.rajaongkir.results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderCity = () => {
+    return Array.from(city).map((val, i) => {
+      return (
+        <option value={val.city_id} key={i}>
+          {val.type + " "} {val.city_name}
+        </option>
+      );
+    });
+  };
+
+  const fetchPostal = async () => {
+    try {
+      const response = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/address/postal/${selectedPostal}`
+      );
+      console.log(response);
+      setPostal(response.data.rajaongkir.results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderPostal = () => {
+    return Array.from(postal).map((val, i) => {
+      return (
+        <option value={val.city_id} key={i}>
+          {val.type + " "} {val.postal_code}
+        </option>
+      );
+    });
+  };
+
+  const provinceHandler = ({ target }) => {
+    const { value } = target;
+    setSelectedProvince(value);
+  };
+
+  const cityHandler = ({ target }) => {
+    const { value } = target;
+    setSelectedCity(value);
+  };
+
+  const postalHandler = ({ target }) => {
+    const { value } = target;
+    setSelectedPostal(value);
+  };
+
+  useEffect(() => {
+    fetchProvince();
+  }, []);
+
+  useEffect(() => {
+    fetchCity();
+  }, [selectedProvince]);
+
+  useEffect(() => {
+    fetchPostal();
+  }, [selectedCity]);
+
   const getData = async () => {
     try {
       const result = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/address/findById/${id}`,
-        {id: params.id}
+        { id: params.id }
       );
       console.log(result.data);
       // setData(result.data);
@@ -81,17 +179,19 @@ export const UpdateAddressPage = () => {
       console.log(err);
     }
   };
-  
+
   useEffect(() => {
     getData();
   }, [id]);
 
-  
   const toListAddress = () => {
-    navigate(`/account/address/${id}`)
-    getData()
-  }
+    navigate(`/account/address/${id}`);
+    getData();
+  };
 
+  const onRefresh = () => {
+    window.location.replace(`/account/address/${id}`);
+  };
 
   return (
     <div>
@@ -110,9 +210,9 @@ export const UpdateAddressPage = () => {
             top={"0"}
             zIndex={"2"}
           >
-            <Box as={Link} to={`/account/address/${id}`}>
+            <Box as="button" onClick={onRefresh}>
               <ArrowBackIcon
-                mt={"20px"}
+                mt={"-15px"}
                 ml={"20px"}
                 pos={"fixed"}
                 color="#285430"
@@ -158,64 +258,25 @@ export const UpdateAddressPage = () => {
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>Kota/Kabupaten</FormLabel>
-                {/* <Input ref={inputCity} defaultValue={data?.city}></Input> */}
+                <FormLabel ml={"20px"}>Province</FormLabel>
                 <Select
-                  ref={inputCity}
+                  placeholder="Select Province"
+                  onChange={provinceHandler}
                   ml={"20px"}
                   width="340px"
                   border="2px"
                   borderColor="#285430"
                 >
-                  <option color="#E5D9B6" selected={data?.city === ""} value="">
-                    Pilih Kota/Kabupaten
-                  </option>
-                  <option value="154" selected={data?.city === "154"}>
-                    Jakarta Timur
-                  </option>
-                  <option value="55" selected={data?.city === "55"}>
-                    Kota Bekasi
-                  </option>
-                  <option value="457" selected={data?.city === "457"}>
-                    Kota Tangerang Selatan
-                  </option>
-                  <option value="153" selected={data?.city === "153"}>
-                    Kota Jakarta Selatan
-                  </option>
-                  <option value="151" selected={data?.city === "151"}>
-                    Kota Jakarta Barat
-                  </option>
-                  <option value="152" selected={data?.city === "152"}>
-                    Kota Jakarta Pusat
-                  </option>
-                  <option value="79" selected={data?.city === "79"}>
-                    Kota Bogor
-                  </option>
-                  <option value="155" selected={data?.city === "155"}>
-                    Kota Jakarta Utara
-                  </option>
+                  {renderProvince()}
                 </Select>
-                <FormLabel ml={"20px"}>Provinsi</FormLabel>
-                {/* <Input ref={inputProvince} defaultValue={data?.province}></Input> */}
-                <Select
-                  ref={inputProvince}
-                  ml={"20px"}
+              </FormControl>
+              <FormControl>
+                <FormLabel ml={"20px"}>City</FormLabel>
+                <Select placeholder="Select City" onChange={cityHandler}ml={"20px"}
                   width="340px"
                   border="2px"
-                  borderColor="#285430"
-                >
-                  <option selected={data?.province === ""} value="">
-                    Pilih Provinsi
-                  </option>
-                  <option value="6" selected={data?.province === "6"}>
-                    DKI Jakarta
-                  </option>
-                  <option value="9" selected={data?.province === "9"}>
-                    Jawa Barat
-                  </option>
-                  <option value="3" selected={data?.province === "3"}>
-                    Banten
-                  </option>
+                  borderColor="#285430">
+                  {renderCity()}
                 </Select>
               </FormControl>
               <FormControl>
@@ -240,7 +301,13 @@ export const UpdateAddressPage = () => {
                   borderColor="#285430"
                   defaultValue={data?.detail}
                 ></Textarea>
-                <Checkbox iconColor='#285430' iconSize='1rem' mt="10px" mb={"10px"} ml={"20px"}>
+                <Checkbox
+                  iconColor="#285430"
+                  iconSize="1rem"
+                  mt="10px"
+                  mb={"10px"}
+                  ml={"20px"}
+                >
                   Set as Default Address
                 </Checkbox>
                 <FormControl>
