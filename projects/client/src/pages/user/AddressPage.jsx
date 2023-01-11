@@ -22,10 +22,10 @@ import { useState } from "react";
 export const AddressPage = () => {
   const [province, setProvince] = useState([]);
   const [city, setCity] = useState([]);
+  const [postal, setPostal] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState(0);
   const [selectedCity, setSelectedCity] = useState(0);
-  // selectProvince(selectedProvince);
-  // selectCity(selectedCity);
+  const [selectedPostal, setSelectedPostal] = useState(0);
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
   const inputProvince = useRef("");
@@ -111,6 +111,28 @@ export const AddressPage = () => {
     });
   };
 
+  const fetchPostal = async () => {
+    try {
+      const response = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/address/postal/${selectedPostal}`
+      );
+      console.log(response);
+      setPostal(response.data.rajaongkir.results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderPostal = () => {
+    return Array.from(postal).map((val, i) => {
+      return (
+        <option value={val.city_id} key={i}>
+          {val.type + " "} {val.postal_code}
+        </option>
+      );
+    });
+  };
+
   const provinceHandler = ({ target }) => {
     const { value } = target;
     setSelectedProvince(value);
@@ -121,6 +143,11 @@ export const AddressPage = () => {
     setSelectedCity(value);
   };
 
+  const postalHandler = ({ target }) => {
+    const { value } = target;
+    setSelectedPostal(value);
+  };
+
   useEffect(() => {
     fetchProvince();
   }, []);
@@ -128,6 +155,10 @@ export const AddressPage = () => {
   useEffect(() => {
     fetchCity();
   }, [selectedProvince]);
+
+  useEffect(() => {
+    fetchPostal();
+  }, [selectedCity]);
 
   return (
     <div>
@@ -247,12 +278,14 @@ export const AddressPage = () => {
               <FormControl>
                 <FormLabel>Kode Pos</FormLabel>
                 <Input
-                  ref={inputPostalCode}
+                  // ref={renderCity()}
                   ml={"20px"}
                   width="340px"
                   border="2px"
                   borderColor="#285430"
-                ></Input>
+                >
+                  {/* {renderPostal()} */}
+                </Input>
               </FormControl>
               <FormControl>
                 <FormLabel>Detail Alamat</FormLabel>

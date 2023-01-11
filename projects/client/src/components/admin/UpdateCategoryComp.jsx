@@ -22,7 +22,6 @@ export const UpdateCategoryComp = ({ data }) => {
       const updateCategory = {
         categoryName: inputCategoryName.current.value,
       };
-      // console.log(updateBook);
 
       const res = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/product/updateCategory/${id}`,
@@ -33,7 +32,7 @@ export const UpdateCategoryComp = ({ data }) => {
         icon: "success",
         text: "Data Updated",
       });
-      setTimeout(() => window.location.replace("/adminPage"), 2000);
+      setTimeout(() => window.location.replace("/adminPage"), 900);
     } catch (err) {
       console.log(err);
     }

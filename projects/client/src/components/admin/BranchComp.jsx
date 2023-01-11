@@ -21,12 +21,17 @@ import {
   GridItem,
   Image,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
   PopoverFooter,
   Select,
+  Spinner,
   Stack,
   Tab,
   Table,
@@ -89,9 +94,11 @@ export const BranchComp = () => {
       );
       Swal.fire({
         icon: "success",
-        text: "Success",
+        text: "Product Added",
       });
-      setTimeout(() => window.location.replace("/adminPage"), 2000);
+      setTimeout(() => {
+        window.location.replace("/adminPage");
+      }, 900);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -109,10 +116,12 @@ export const BranchComp = () => {
       );
       Swal.fire({
         icon: "success",
-        text: "Success",
+        text: "Category Added",
       });
 
-      setTimeout(() => window.location.replace("/adminPage"), 2000);
+      setTimeout(() => {
+        window.location.replace("/adminPage");
+      }, 900);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -217,7 +226,6 @@ export const BranchComp = () => {
 
     console.log(image);
     console.log(profile);
-    
   };
 
   const handleUpload1 = async (id) => {
@@ -267,11 +275,11 @@ export const BranchComp = () => {
       text: "Success",
     });
 
-    setTimeout(() => window.location.replace("/adminPage"), 2000);
+    window.location.replace("/adminPage");
   };
 
   const onRefresh = () => {
-    setTimeout(() => window.location.replace("/adminPage"), 2000);
+    window.location.replace("/adminPage");
   };
 
   return (
@@ -463,6 +471,14 @@ export const BranchComp = () => {
                   <Textarea ref={inputDescription}></Textarea>
                 </FormControl>
                 <Button onClick={onCreate}>Add Product</Button>
+                <Modal isOpen={isOpen} onClose={onClose}>
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalBody>
+                      <Spinner></Spinner>
+                    </ModalBody>
+                  </ModalContent>
+                </Modal>
               </Stack>
             </AccordionPanel>
           </AccordionItem>

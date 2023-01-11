@@ -12,16 +12,19 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import { syncData } from "../../redux/addressSlice";
-import { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const UpdateAddressPage = () => {
+  const [province, setProvince] = useState([]);
+  const [city, setCity] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState(0);
+  const [selectedCity, setSelectedCity] = useState(0);
   const { data } = useSelector((state) => state.addressSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const inputAddressLine = useRef("");
@@ -36,7 +39,6 @@ export const UpdateAddressPage = () => {
   const inputReceiverEmail = useRef("");
   const dispatch = useDispatch();
   const params = useParams();
-  const navigate = useNavigate();
 
   const onUpdate = async () => {
     try {
@@ -83,8 +85,69 @@ export const UpdateAddressPage = () => {
     getData();
   }, [id]);
 
+  const fetchProvince = async () => {
+    try {
+      const response = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/address/province`
+      );
+      setProvince(response.data.rajaongkir.results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderProvince = () => {
+    return province.map((val) => {
+      return (
+        <option value={val.province_id} key={val.province_id.toString()}>
+          {val.province}
+        </option>
+      );
+    });
+  };
+
+  const fetchCity = async () => {
+    try {
+      const response = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
+      );
+      console.log(response);
+      setCity(response.data.rajaongkir.results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderCity = () => {
+    return Array.from(city).map((val, i) => {
+      return (
+        <option value={val.city_id} key={i}>
+          {val.type + " "} {val.city_name}
+        </option>
+      );
+    });
+  };
+
+  const provinceHandler = ({ target }) => {
+    const { value } = target;
+    setSelectedProvince(value);
+  };
+
+  const cityHandler = ({ target }) => {
+    const { value } = target;
+    setSelectedCity(value);
+  };
+
+  useEffect(() => {
+    fetchProvince();
+  }, []);
+
+  useEffect(() => {
+    fetchCity();
+  }, [selectedProvince]);
+
   const onRefresh = () => {
-    setTimeout(() => window.location.replace(`/account/address/${id}`), 2000);
+    window.location.replace(`/account/address/${id}`);
   };
 
   return (
@@ -104,14 +167,9 @@ export const UpdateAddressPage = () => {
             top={"0"}
             zIndex={"2"}
           >
-            <Box
-              // as={Link}
-              // to={`/account/address/${id}`}
-              as="button"
-              onClick={onRefresh}
-            >
+            <Box as="button" onClick={onRefresh} mt="0.5">
               <ArrowBackIcon
-                mt={"20px"}
+                mt={"10px"}
                 ml={"20px"}
                 pos={"fixed"}
                 color="#285430"
@@ -157,9 +215,36 @@ export const UpdateAddressPage = () => {
                 ></Input>
               </FormControl>
               <FormControl>
+                <FormLabel>Provinsi</FormLabel>
+                <Text>{data?.province}</Text>
+                <Select
+                  placeholder="Select Province"
+                  onChange={provinceHandler}
+                >
+                  {renderProvince()}
+                </Select>
+                {/* <Select ref={inputProvince}>
+                  <option selected={data?.province === ""} value="">
+                    Pilih Provinsi
+                  </option>
+                  <option value="6" selected={data?.province === "6"}>
+                    DKI Jakarta
+                  </option>
+                  <option value="9" selected={data?.province === "9"}>
+                    Jawa Barat
+                  </option>
+                  <option value="3" selected={data?.province === "3"}>
+                    Banten
+                  </option>
+                </Select> */}
+              </FormControl>
+              <FormControl>
                 <FormLabel>Kota/Kabupaten</FormLabel>
-                {/* <Text>{data?.city}</Text> */}
-                <Select ref={inputCity} defaultValue={data?.city}>
+                <Text>{data?.city}</Text>
+                <Select placeholder="Select City" onChange={cityHandler}>
+                  {renderCity()}
+                </Select>
+                {/* <Select ref={inputCity} defaultValue={data?.city}>
                   <option selected={data?.city === ""} value="">
                     Pilih Kota/Kabupaten
                   </option>
@@ -187,30 +272,13 @@ export const UpdateAddressPage = () => {
                   <option value="155" selected={data?.city === "155"}>
                     Kota Jakarta Utara
                   </option>
-                </Select>
+                </Select> */}
               </FormControl>
-              <FormControl>
-                <FormLabel>Provinsi</FormLabel>
-                {/* <Text>{data?.province}</Text> */}
-                <Select ref={inputProvince}>
-                  <option selected={data?.province === ""} value="">
-                    Pilih Provinsi
-                  </option>
-                  <option value="6" selected={data?.province === "6"}>
-                    DKI Jakarta
-                  </option>
-                  <option value="9" selected={data?.province === "9"}>
-                    Jawa Barat
-                  </option>
-                  <option value="3" selected={data?.province === "3"}>
-                    Banten
-                  </option>
-                </Select>
-              </FormControl>
+
               <FormControl>
                 <FormLabel>Kode Pos</FormLabel>
                 <Input
-                  ref={inputPostalCode}
+                  // ref={renderCity()}
                   defaultValue={data?.postalCode}
                 ></Input>
               </FormControl>

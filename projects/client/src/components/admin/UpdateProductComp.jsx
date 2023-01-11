@@ -38,9 +38,9 @@ export const UpdateProductComp = ({ data }) => {
       console.log(res);
       Swal.fire({
         icon: "success",
-        text: "Data Updated",
+        text: "Product Updated",
       });
-      setTimeout(() => window.location.replace("/adminPage"), 2000);
+      setTimeout(() => window.location.replace("/adminPage"), 900);
     } catch (err) {
       console.log(err);
     }

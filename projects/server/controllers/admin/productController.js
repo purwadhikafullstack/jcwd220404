@@ -41,7 +41,7 @@ module.exports = {
 
   findAll: async (req, res) => {
     try {
-      const users = await product.findAll({
+      const products = await product.findAll({
         attributes: [
           "id",
           "productName",
@@ -50,7 +50,7 @@ module.exports = {
           "picture",
         ],
       });
-      res.status(200).send(users);
+      res.status(200).send(products);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -58,10 +58,10 @@ module.exports = {
 
   findAllCategory: async (req, res) => {
     try {
-      const users = await category.findAll({
+      const categories = await category.findAll({
         attributes: ["id", "categoryName", "categoryPicture"],
       });
-      res.status(200).send(users);
+      res.status(200).send(categories);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -69,40 +69,40 @@ module.exports = {
 
   findById: async (req, res) => {
     try {
-      const users = await product.findOne({
+      const products = await product.findOne({
         where: {
           id: req.params.id,
         },
       });
-      res.status(200).send(users);
+      res.status(200).send(products);
     } catch (err) {
       res.status(400).send(err);
     }
   },
 
-  findBy: async (req, res) => {
-    try {
-      const { productName, distributor, description } = req.query;
-      const users = await product.findAll({
-        where: {
-          [Op.or]: {
-            productName: productName ? productName : "",
-            distributor: distributor ? distributor : "",
-            description: description ? description : "",
-          },
-        },
-        raw: true,
-      });
-      res.status(200).send(users);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
+  // findBy: async (req, res) => {
+  //   try {
+  //     const { productName, distributor, description } = req.query;
+  //     const users = await product.findAll({
+  //       where: {
+  //         [Op.or]: {
+  //           productName: productName ? productName : "",
+  //           distributor: distributor ? distributor : "",
+  //           description: description ? description : "",
+  //         },
+  //       },
+  //       raw: true,
+  //     });
+  //     res.status(200).send(users);
+  //   } catch (err) {
+  //     res.status(400).send(err);
+  //   }
+  // },
 
   searchBy: async (req, res) => {
     try {
       const { productName, description } = req.query;
-      const users = await product.findAll({
+      const products = await product.findAll({
         where: {
           [Op.or]: {
             productName: {
@@ -115,7 +115,7 @@ module.exports = {
         },
         raw: true,
       });
-      res.status(200).send(users);
+      res.status(200).send(products);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -123,10 +123,10 @@ module.exports = {
 
   totalProduct: async (req, res) => {
     try {
-      const users = await product.findAll({
+      const products = await product.findAll({
         attributes: [[sequelize.fn("count", sequelize.col(`id`)), "total"]],
       });
-      res.status(200).send(users);
+      res.status(200).send(products);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -204,10 +204,10 @@ module.exports = {
   sortBy: async (req, res) => {
     try {
       const { data, order } = req.query;
-      const users = await product.findAll({
+      const products = await product.findAll({
         order: [[data, order]],
       });
-      res.status(200).send(users);
+      res.status(200).send(products);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -238,7 +238,6 @@ module.exports = {
         picture: getPicture.picture,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -268,7 +267,6 @@ module.exports = {
         categoryPicture: getPicture.categoryPicture,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

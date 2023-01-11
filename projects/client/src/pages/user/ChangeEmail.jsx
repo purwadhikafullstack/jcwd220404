@@ -46,7 +46,7 @@ export const ChangeEmail = (data) => {
     <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
-          <Box as={Link} to={"/account/profile"}>
+          <Box as={Link} to={`/account/profile/${id}`}>
             <ArrowBackIcon mt={"20px"} pos={"fixed"} />
           </Box>
           <Box

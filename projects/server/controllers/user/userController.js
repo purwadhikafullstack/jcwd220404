@@ -55,9 +55,9 @@ module.exports = {
       });
 
       await transporter.sendMail({
-        from: "Admin",
+        from: "Only Fresh",
         to: email,
-        subject: "Verifikasi akun",
+        subject: "Account Verification",
         html: tempResult,
       });
 
@@ -96,11 +96,10 @@ module.exports = {
         }
       );
       res.status(200).send({
-        message: "Succes Verification",
+        message: "Verification Succes",
         data: isAccountExist,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -142,19 +141,18 @@ module.exports = {
       });
 
       await transporter.sendMail({
-        from: "Admin",
+        from: "Only Fresh",
         to: isAccountExist.email,
-        subject: "Verifikasi akun",
+        subject: "Account Verification",
         html: tempResult,
       });
 
       res.status(200).send({
-        massage: "Check Your Email, code otp send succes",
+        massage: "Please check your Email for OTP Code",
         data,
         token,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -230,7 +228,6 @@ module.exports = {
         token,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -238,7 +235,6 @@ module.exports = {
   keepLogin: async (req, res) => {
     try {
       const verify = jwt.verify(req.token, "jcwd2204");
-      console.log(verify);
       const result = await user.findOne({
         where: {
           phoneNumber: verify.phoneNumber,
@@ -247,8 +243,6 @@ module.exports = {
         include: [{ model: profile }],
         raw: true,
       });
-
-      console.log(result);
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send(err);
@@ -277,7 +271,6 @@ module.exports = {
       );
       res.status(200).send("Update Password Success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -316,7 +309,6 @@ module.exports = {
         .status(200)
         .send("Send email request reset password succes, open your email");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -349,7 +341,6 @@ module.exports = {
         data2,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -373,7 +364,6 @@ module.exports = {
 
       res.status(200).send({ data });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -434,28 +424,25 @@ module.exports = {
 
   findEmail: async (req, res) => {
     try {
-      const users = await user.findOne({
+      const users = await user.findAll({
         attributes: ["email"],
       });
       res.status(200).send(users);
     } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
-    }
-  },
-  
-  findPhoneNumber: async (req, res) => {
-    try {
-      const users = await user.findOne({
-        attributes: ["phoneNumber"],
-      });
-      res.status(200).send(users);
-    } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
 
+  findPhoneNumber: async (req, res) => {
+    try {
+      const users = await user.findAll({
+        attributes: ["phoneNumber"],
+      });
+      res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
 
   findById: async (req, res) => {
     try {
@@ -463,7 +450,6 @@ module.exports = {
         where: { id: req.params.id },
         include: [{ model: profile }],
       });
-      console.log(req.body);
       res.status(200).send(users);
     } catch (err) {
       res.status(400).send(err);
@@ -496,7 +482,6 @@ module.exports = {
         profilePic: getProfile.profilePic,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

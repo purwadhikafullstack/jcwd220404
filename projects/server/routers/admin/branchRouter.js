@@ -5,7 +5,7 @@ require("dotenv/config");
 
 router.post("/create", branchController.newBranch);
 router.patch("/updateBranch/:id", branchController.updateBranch);
-router.patch("/setDefault/:id", branchController.setDefault);
+// router.patch("/setDefault/:id", branchController.setDefault);
 router.get("/branchById", branchController.branchById);
 router.get("/findAll", branchController.findAll);
 router.delete("/remove/:id", branchController.deleteBranch);

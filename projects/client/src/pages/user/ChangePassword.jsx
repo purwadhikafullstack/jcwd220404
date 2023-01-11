@@ -23,7 +23,6 @@ export const ChangePassword = (data) => {
   const [newPassword, setNewPassword] = useState(false);
   const { id } = useSelector((state) => state.userSlice.value);
   const inputPass = useRef("");
-  const params = useParams();
   const navigate = useNavigate();
 
   const updatePass = async () => {
@@ -56,7 +55,7 @@ export const ChangePassword = (data) => {
     <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
-          <Box as={Link} to={"/account/profile"}>
+          <Box as={Link} to={`/account/profile/${id}`}>
             <ArrowBackIcon
               mt={"20px"}
               pos={"fixed"}

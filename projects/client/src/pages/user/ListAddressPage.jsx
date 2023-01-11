@@ -16,8 +16,8 @@ import {
   EditIcon,
   HamburgerIcon,
 } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/addressSlice";
@@ -27,8 +27,6 @@ export const ListAddressPage = () => {
   const { id } = useSelector((state) => state.userSlice.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const params = useParams();
-  console.log(params);
 
   const getData = async () => {
     try {

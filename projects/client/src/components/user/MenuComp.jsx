@@ -16,10 +16,13 @@ import {
 } from "@chakra-ui/react";
 import Axios from "axios";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export const MenuComp = () => {
   const [category, setCategory] = useState();
   const [product, setProduct] = useState();
+  const navigate = useNavigate();
+  const tokenLocalStorage = localStorage.getItem("tokenUser");
 
   const getCategory = async () => {
     try {
@@ -52,6 +55,14 @@ export const MenuComp = () => {
   useEffect(() => {
     getProduct();
   }, []);
+
+  const onNavigate = () => {
+    if (!tokenLocalStorage) {
+      navigate("/account");
+    } else {
+      navigate("/cart");
+    }
+  };
 
   return (
     <div>
@@ -102,11 +113,13 @@ export const MenuComp = () => {
                   <Text fontSize={"xs"}>Price</Text>
                   <Image
                     boxSize={"50px"}
-                    src={`${process.env.REACT_APP_API_BASE_URL}/` + item.picture}
+                    src={
+                      `${process.env.REACT_APP_API_BASE_URL}/` + item.picture
+                    }
                   />
                 </CardBody>
                 <CardFooter>
-                  <Button>Tambah</Button>
+                  <Button onClick={onNavigate}>Tambah</Button>
                 </CardFooter>
               </Card>
             );

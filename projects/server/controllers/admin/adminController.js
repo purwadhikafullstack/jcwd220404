@@ -40,7 +40,6 @@ module.exports = {
   login: async (req, res) => {
     try {
       const { usernameEmail, password } = req.body;
-      
 
       const isUserExist = await admin.findOne({
         where: {
@@ -67,7 +66,6 @@ module.exports = {
         token,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -90,16 +88,15 @@ module.exports = {
 
   findAll: async (req, res) => {
     try {
-      const admins = await admin.findAll({
+      const admin = await admin.findAll({
         where: {
           isSuper: 1,
         },
         attributes: ["username", "email", "isSuper"],
         raw: true,
       });
-      res.status(200).send(admins);
+      res.status(200).send(admin);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

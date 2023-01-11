@@ -19,10 +19,19 @@ router.get("/province", (req, res) => {
     .then((response) => res.json(response.data))
     .catch((err) => res.send(err));
 });
+
 router.get("/city/:provinceId", (req, res) => {
   const id = req.params.provinceId;
   axios
     .get(`/city?province=${id}`)
+    .then((response) => res.json(response.data))
+    .catch((err) => res.send(err));
+});
+
+router.get("/postal/:cityId", (req, res) => {
+  const id = req.params.cityId;
+  axios
+    .get(`/postal?city=${id}`)
     .then((response) => res.json(response.data))
     .catch((err) => res.send(err));
 });
