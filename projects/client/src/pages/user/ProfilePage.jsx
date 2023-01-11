@@ -109,7 +109,7 @@ export const ProfilePage = () => {
     console.log(resultImage.data);
     setProfile(resultImage.data.profilePic);
     setImage({ images: "" });
-    setTimeout(() => window.location.replace("/account"), 2000);
+    window.location.replace("/account");
   };
   console.log(image);
   console.log(profile);

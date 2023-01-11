@@ -278,7 +278,6 @@ export const AddressPage = () => {
               <FormControl>
                 <FormLabel>Kode Pos</FormLabel>
                 <Input
-                  // ref={renderCity()}
                   ml={"20px"}
                   width="340px"
                   border="2px"

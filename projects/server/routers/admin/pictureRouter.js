@@ -8,4 +8,4 @@ router.post(
   pictureController.uploadFile
 );
 
-module.exports = router
+module.exports = router;

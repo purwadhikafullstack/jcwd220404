@@ -471,14 +471,14 @@ export const BranchComp = () => {
                   <Textarea ref={inputDescription}></Textarea>
                 </FormControl>
                 <Button onClick={onCreate}>Add Product</Button>
-                <Modal isOpen={isOpen} onClose={onClose}>
+                {/* <Modal isOpen={isOpen} onClose={onClose}>
                   <ModalOverlay />
                   <ModalContent>
                     <ModalBody>
                       <Spinner></Spinner>
                     </ModalBody>
                   </ModalContent>
-                </Modal>
+                </Modal> */}
               </Stack>
             </AccordionPanel>
           </AccordionItem>

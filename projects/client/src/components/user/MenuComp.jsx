@@ -8,7 +8,6 @@ import {
   SimpleGrid,
   Card,
   CardHeader,
-  Heading,
   CardBody,
   CardFooter,
   Button,
@@ -17,6 +16,7 @@ import {
 import Axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AddIcon } from "@chakra-ui/icons";
 
 export const MenuComp = () => {
   const [category, setCategory] = useState();
@@ -105,21 +105,22 @@ export const MenuComp = () => {
         >
           {product?.map((item) => {
             return (
-              <Card>
+              <Card as={"button"}>
+                <Image
+                  boxSize={"50px"}
+                  src={`${process.env.REACT_APP_API_BASE_URL}/` + item.picture}
+                />
                 <CardHeader>
                   <Text size="sm">{item.productName}</Text>
                 </CardHeader>
                 <CardBody>
                   <Text fontSize={"xs"}>Price</Text>
-                  <Image
-                    boxSize={"50px"}
-                    src={
-                      `${process.env.REACT_APP_API_BASE_URL}/` + item.picture
-                    }
-                  />
                 </CardBody>
                 <CardFooter>
-                  <Button onClick={onNavigate}>Tambah</Button>
+                  <Button onClick={onNavigate}>
+                    <AddIcon />
+                    Cart
+                  </Button>
                 </CardFooter>
               </Card>
             );
