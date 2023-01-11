@@ -16,14 +16,15 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
 import Swal from "sweetalert2";
-import { syncData } from "../redux/addressSlice";
+import { syncData } from "../../redux/addressSlice";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const UpdateAddressPage = () => {
-  // const { id } = useSelector((state) => state.addressSlice.value);
-  const [data, setData] = useState();
+  const { data } = useSelector((state) => state.addressSlice.value);
+  const { id } = useSelector((state) => state.userSlice.value);
+  // const [data, setData] = useState();
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
   const inputProvince = useRef("");
@@ -36,6 +37,7 @@ export const UpdateAddressPage = () => {
   const inputReceiverEmail = useRef("");
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate()
 
   const onUpdate = async () => {
     try {
@@ -58,8 +60,9 @@ export const UpdateAddressPage = () => {
       Swal.fire({
         icon: "success",
         text: "Success",
+        width: "370",
       });
-      setTimeout(() => window.location.replace("/account/address"), 2000);
+      setTimeout(() => window.location.replace("/account/address"), 1000);
     } catch (err) {
       console.log(err);
     }
@@ -67,20 +70,28 @@ export const UpdateAddressPage = () => {
 
   const getData = async () => {
     try {
-      const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/address/findById/${params.id}`
+      const result = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/address/findById/${id}`,
+        {id: params.id}
       );
       console.log(result.data);
-      setData(result.data);
-      // dispatch(syncData(result.data));
+      // setData(result.data);
+      dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
     }
   };
-
+  
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
+
+  
+  const toListAddress = () => {
+    navigate(`/account/address/${id}`)
+    getData()
+  }
+
 
   return (
     <div>
@@ -99,7 +110,7 @@ export const UpdateAddressPage = () => {
             top={"0"}
             zIndex={"2"}
           >
-            <Box as={Link} to={"/account/address"}>
+            <Box as={Link} to={`/account/address/${id}`}>
               <ArrowBackIcon
                 mt={"20px"}
                 ml={"20px"}

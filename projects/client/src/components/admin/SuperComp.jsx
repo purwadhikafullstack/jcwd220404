@@ -1,51 +1,47 @@
-import React, { useState } from "react";
-import { logoutAdmin } from "../redux/adminSlice";
+import React, { useEffect, useState } from "react";
+import { logoutAdmin } from "../../redux/adminSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Button,
+import { Box,
   Text,
-  useDisclosure,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverFooter,
-  ButtonGroup,
-  Avatar,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  VStack,
+  InputGroup,
+  InputRightElement,
   Tabs,
   TabList,
   Tab,
   TabPanels,
   TabPanel,
-  VStack,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Center,
-  GridItem,
-  Grid,
-  Badge,
+  Avatar,
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  Button,
+  Center, useDisclosure, Popover, PopoverContent, PopoverArrow, PopoverBody, PopoverFooter, ButtonGroup, Grid, GridItem, Badge
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import Axios from "axios";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { ListAdminComp } from "./ListAdminComp";
 
 export const SuperComp = () => {
-  const { isOpen, onToggle, onClose } = useDisclosure();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [edit, setEdit] = useState({});
+  const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowComfirmPassword] = useState(false);
   const { username } = useSelector((state) => state.adminSlice.value);
-
+  const { isOpen, onClose, onToggle } = useDisclosure();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const registerSchema = Yup.object().shape({
     username: Yup.string()
       .required("Name is a required field")
@@ -109,6 +105,38 @@ export const SuperComp = () => {
     navigate("/loginAdmin");
   };
 
+  const getData = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/admin/findAll`
+      );
+      console.log(res.data);
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getBranch = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/branch/findAll`
+      );
+      console.log(res.data);
+      setData2(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getBranch();
+  }, []);
+  
   return (
     <div>
       <Box
@@ -157,7 +185,6 @@ export const SuperComp = () => {
                 ml="8"
                 mt="3"
                 mb="3"
-                name={username}
               ></Avatar>
             </GridItem>
             <GridItem colSpan={1}>
@@ -254,6 +281,23 @@ export const SuperComp = () => {
                                 component="div"
                                 name="email"
                               />
+                            </FormControl>
+                            <FormControl>
+                              <FormLabel ml="3" color="#285430" htmlFor="branch">Branch</FormLabel>
+                              <Select ml="3" placeholder="Select Branch"  _placeholder={{ color: "#5F8D4E" }}
+                                bgColor={"white"}
+                                textColor="#285430"
+                                borderColor={"#285430"}
+                                border={"2px"}
+                                w={"330px"}>
+                                {data2.map((item) => {
+                                  return (
+                                    <>
+                                      <option>{item.branchName}</option>
+                                    </>
+                                  );
+                                })}
+                              </Select>
                             </FormControl>
                             <FormControl isRequired>
                               <FormLabel
@@ -363,7 +407,7 @@ export const SuperComp = () => {
                                 border="2px"
                                 fontSize="18px"
                                 color="gray.800"
-                                width={"100%"}
+                                width={"330px"}
                                 justifyContent="center"
                               >
                                 Create Branch Admin
@@ -375,9 +419,38 @@ export const SuperComp = () => {
                     );
                   }}
                 </Formik>
-              </TabPanel>
-              <TabPanel>
-                <ListAdminComp />
+              </TabPanel><TabPanel>
+                <TableContainer>
+                  <Table
+                    ml="10px"
+                    mr="10px"
+                    variant="simple"
+                    colorScheme="teal"
+                  >
+                    <Thead>
+                      <Tr>
+                        <Th color={"#285430"}>Username</Th>
+                        <Th color={"#285430"}>Email</Th>
+                        <Th color={"#285430"}>Status</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {data?.map((item) => {
+                        return (
+                          <Tr>
+                            <Td color={"#285430"}>{item.username}</Td>
+                            <Td color={"#285430"}>{item.email}</Td>
+                            <Td color={"#285430"}>
+                              {item.isSuper === 2
+                                ? "Super Admin"
+                                : "Branch Admin"}
+                            </Td>
+                          </Tr>
+                        );
+                      })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
               </TabPanel>
             </TabPanels>
           </Tabs>
@@ -400,7 +473,8 @@ export const SuperComp = () => {
             placement="auto-end"
             closeOnBlur={false}
           >
-            <PopoverContent ml="8" mt="275" bgColor={"#E5D9B6"}>
+            <PopoverContent ml="8" mt="275" borderColor="#285430"
+                    border="2px" bgColor={"#E5D9B6"}>
               <PopoverArrow />
               <PopoverBody textColor={"#285430"}>
                 Are you sure you want to logout?

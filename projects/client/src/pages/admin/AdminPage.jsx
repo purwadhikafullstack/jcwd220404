@@ -1,7 +1,7 @@
 import { Box, Center } from "@chakra-ui/react";
-import { BranchComp } from "../components/BranchComp";
-import { SuperComp } from "../components/SuperComp";
-import { ForbiddenPage } from "./403ForbiddenPage";
+import { BranchComp } from "../../components/admin/BranchComp";
+import { SuperComp } from "../../components/admin/SuperComp";
+import { ForbiddenPage } from "../403ForbiddenPage";
 
 export const AdminPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenSuper");

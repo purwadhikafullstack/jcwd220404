@@ -1,10 +1,10 @@
 import { Box, Center, VStack } from "@chakra-ui/react";
-import { LogoComp } from "../components/LogoComp";
-import { NotificationComp } from "../components/NotificationComp";
-import { SearchComp } from "../components/SearchComp";
-import { NavbarComp } from "../components/NavbarComp";
-import { CarouselComp } from "../components/CarouselComp";
-import { Menu } from "../components/MenuComp";
+import { LogoComp } from "../../components/user/LogoComp";
+import { NotificationComp } from "../../components/user/NotificationComp";
+import { SearchComp } from "../../components/user/SearchComp";
+import { NavbarComp } from "../../components/user/NavbarComp";
+import { CarouselComp } from "../../components/user/CarouselComp";
+import { MenuComp } from "../../components/user/MenuComp";
 
 export const LandingPage = () => {
   return (
@@ -30,7 +30,7 @@ export const LandingPage = () => {
           <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
             <VStack>
               <CarouselComp />
-              <Menu />
+              <MenuComp />
             </VStack>
           </Box>
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>

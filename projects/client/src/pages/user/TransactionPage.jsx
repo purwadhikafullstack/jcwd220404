@@ -1,5 +1,5 @@
 import { Box, Center } from "@chakra-ui/react"
-import {NavbarComp} from "../components/NavbarComp"
+import {NavbarComp} from "../../components/user/NavbarComp"
 
 export const TransactionPage = () => {
   return (

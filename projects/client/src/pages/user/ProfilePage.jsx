@@ -55,7 +55,7 @@ export const ProfilePage = (user) => {
         profilePic: inputProfilePic.current.value,
       };
       const result = await Axios.patch(
-        `${process.env.REACT_APP_API_BASE_URL}/user/update/12`,
+        `${process.env.REACT_APP_API_BASE_URL}/user/update/${id}`,
         user
       );
       console.log(result);
@@ -73,7 +73,7 @@ export const ProfilePage = (user) => {
   const getData = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/user/byId/12`
+        `${process.env.REACT_APP_API_BASE_URL}/user/byId/${params.id}`
       );
       setData(result.data);
       console.log(result.data);
@@ -98,7 +98,7 @@ export const ProfilePage = (user) => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/user/single-uploaded/12`,
+      `${process.env.REACT_APP_API_BASE_URL}/user/single-uploaded/${params.id}`,
       data,
       {
         headers: {

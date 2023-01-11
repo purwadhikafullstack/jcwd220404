@@ -1,16 +1,17 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Box, Center } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
-import { AddAddressComp } from "../components/AddAddressComp";
-import { DetailAddressComp } from "../components/DetailAddressComp";
+import { Link, useParams } from "react-router-dom";
+import { AddAddressComp } from "../../components/AddAddressComp";
 
 export const AddressPage = () => {
+  const params = useParams()
+
   return (
     <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
-          <Box as={Link} to={"/account"}>
+          <Box as={Link} to={`/account/address`}>
             <ArrowBackIcon mt={"20px"} pos={"fixed"} />
           </Box>
           <Box

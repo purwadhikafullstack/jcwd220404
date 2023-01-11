@@ -36,7 +36,7 @@ export const ChangeEmail = (data) => {
         width: "370",
         text: "Email has changed",
       });
-      navigate("/account/profile");
+      navigate(`/account/profile/${id}`);
     } catch (err) {}
   };
 
@@ -44,7 +44,7 @@ export const ChangeEmail = (data) => {
     <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
-          <Box as={Link} to={"/account/profile"}>
+          <Box as={Link} to={`/account/profile/${id}`}>
             <ArrowBackIcon
               mt={"20px"}
               ml={"20px"}

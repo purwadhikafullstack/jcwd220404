@@ -13,15 +13,16 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  VStack,
+
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import OnlyFreshLogo from "../OnlyFreshLogo.png";
+import OnlyFreshLogo from "../../OnlyFreshLogo.png";
 import Axios from "axios";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { Field, ErrorMessage, Formik, Form } from "formik";
 import Swal from "sweetalert2";
+
 const url = "http://localhost:8000/user/register";
 
 export const RegisterPage = () => {
@@ -88,24 +89,17 @@ export const RegisterPage = () => {
   return (
     <div>
       <Center>
-        <Box className="body" bgColor="#E5D9B6" h={"820px"} w={"390px"}>
-          <Flex align={"center"} justify={"center"}>
-            <Box mt="40px">
-              <Flex justify={"center"}>
-                <Box h={120}>
-                  <Image src={OnlyFreshLogo} height="100%" />
-                </Box>
-              </Flex>
-              <Stack mx={"auto"} maxW={"auto"} py={3} px={8}>
-                <Stack align={"center"}>
-                  <Heading textColor={"#285430"} fontSize={"2xl"} mt="-6">
-                    Create your account
-                  </Heading>
-                  <Text fontSize={"lg"} color={"#285430"}>
-                    Start Your Freshness{" "}
-                  </Text>
-                </Stack>
-                <Box rounded={"2xl"} p={"8"}>
+        <Box px={3} py={3} bgColor="#E5D9B6" h={"100%"} w={"390px"} justifyContent="center">
+        <Image src={OnlyFreshLogo} height="160px" w={"auto"} ml={"75px"} />  
+        <Stack align={"center"}>
+        <Heading mt={"10px"} size={"lg"} textColor="#285430">
+          Create your account
+        </Heading>
+          <Text fontSize={"lg"} color={"#285430"} spacing={"2"}>
+          <b>Start Your Freshness</b>
+          </Text>
+          </Stack>
+          <Stack mt={"20px"} spacing={"8px"} align={"center"}>    
                   <Formik
                     initialValues={{
                       name: "",
@@ -128,21 +122,22 @@ export const RegisterPage = () => {
                       return (
                         <div>
                           <Form>
-                            <VStack spacing={2} mt="-8" align="flex-start">
+                          <Stack  spacing={"8px"} align={"center"}>
                               <FormControl isRequired>
                                 <FormLabel htmlFor="name" textColor={"#285430"}>
-                                  Name
+                                  <b>Name</b>
                                 </FormLabel>
                                 <Field
                                   as={Input}
                                   type="text"
                                   name="name"
+                                  placeholder="Your Name"
                                   _placeholder={{ color: "#5F8D4E" }}
                                   bgColor={"white"}
                                   textColor="#285430"
                                   borderColor={"#285430"}
                                   border={"2px"}
-                                  w={"230px"}
+                                  w={"340px"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -155,18 +150,19 @@ export const RegisterPage = () => {
                                   htmlFor="phoneNumber"
                                   textColor={"#285430"}
                                 >
-                                  Phone Number
+                                  <b>Phone Number</b>
                                 </FormLabel>
                                 <Field
                                   as={Input}
                                   type="text"
                                   name="phoneNumber"
+                                  placeholder="08xx until 12 Character "
                                   _placeholder={{ color: "#5F8D4E" }}
                                   bgColor={"white"}
                                   textColor="#285430"
                                   borderColor={"#285430"}
                                   border={"2px"}
-                                  w={"230px"}
+                                  w={"340px"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -179,18 +175,19 @@ export const RegisterPage = () => {
                                   htmlFor="email"
                                   textColor={"#285430"}
                                 >
-                                  Email
+                                  <b>Email</b>
                                 </FormLabel>
                                 <Input
                                   as={Field}
                                   type="email"
                                   name="email"
+                                  placeholder="your_email@mail.com"
                                   _placeholder={{ color: "#5F8D4E" }}
                                   bgColor={"white"}
                                   textColor="#285430"
                                   borderColor={"#285430"}
                                   border={"2px"}
-                                  w={"230px"}
+                                  w={"340px"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -203,7 +200,7 @@ export const RegisterPage = () => {
                                   htmlFor="password"
                                   textColor={"#285430"}
                                 >
-                                  Password
+                                <b>Password</b>
                                 </FormLabel>
                                 <InputGroup>
                                   <Flex justifyContent={"end"}>
@@ -211,13 +208,14 @@ export const RegisterPage = () => {
                                       as={Input}
                                       type={showPassword ? "text" : "password"}
                                       name="password"
+                                      placeholder="your password"
                                       _placeholder={{ color: "#5F8D4E" }}
                                       bgColor={"white"}
                                       textColor="#285430"
                                       borderColor={"#285430"}
                                       border={"2px"}
-                                      w={"230px"}
-                                      position="absolute"
+                                      w={"340px"}  
+                                      zIndex="1"
                                     />
                                     <Button
                                       color={"black"}
@@ -226,9 +224,9 @@ export const RegisterPage = () => {
                                           (showPassword) => !showPassword
                                         )
                                       }
-                                      pos="relative"
+                                      pos="absolute"
                                       ml={"181px"}
-                                      zIndex="1"
+                                      zIndex="2"
                                     >
                                       {showPassword ? (
                                         <ViewIcon />
@@ -249,7 +247,7 @@ export const RegisterPage = () => {
                                   htmlFor="password_confirmation"
                                   textColor={"#285430"}
                                 >
-                                  Confirm Password
+                                  <b>Confirm Password</b>
                                 </FormLabel>
                                 <InputGroup>
                                   <Flex justifyContent="end">
@@ -261,13 +259,14 @@ export const RegisterPage = () => {
                                           : "password"
                                       }
                                       name="password_confirmation"
+                                      placeholder="your confirmation password"
                                       _placeholder={{ color: "#5F8D4E" }}
                                       bgColor={"white"}
                                       textColor="#285430"
                                       borderColor={"#285430"}
                                       border={"2px"}
-                                      w={"230px"}
-                                      position="absolute"
+                                      w={"340px"}
+                                      zIndex="1"
                                     />
                                     <Button
                                       color={"black"}
@@ -277,9 +276,9 @@ export const RegisterPage = () => {
                                             !showConfirmPassword
                                         )
                                       }
-                                      pos="relative"
+                                      pos="absolute"
                                       ml={"181px"}
-                                      zIndex="1"
+                                      zIndex="2"
                                     >
                                       {showConfirmPassword ? (
                                         <ViewIcon />
@@ -296,48 +295,55 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <Center>
-
                               <Button
-                                type="submit"
-                                _hover={{
-                                  bg: "#E5D9B6",
-                                }}
-                                bgColor={"#A4BE7B"}
-                                borderColor="#285430"
-                                border="2px"
-                                fontSize="18px"
-                                color="gray.800"
-                                w={"230px"}
-                                >
-                                Sign up
-                              </Button>
+                              type = "submit"
+                              mt={"3"}
+                              mb={"3"}
+                              _hover={{
+                              bg: "#E5D9B6",
+                              }}
+                              bgColor={"#A4BE7B"}
+                              borderColor="#285430"
+                              border="2px"
+                              fontSize="18px"
+                              color="gray.800"
+                              w={"90px"}
+                              alignItems="center"
+                              >
+                             <b> Sign up</b>
+                            </Button>
                           </Center>
-                            </VStack>
+                          </Stack>
                           </Form>
-                          <Flex></Flex>
+                          <Box display={"flex"} justifyContent="center" spacing={"4"} >
                           <Text
-                            mt={"20px"}
                             fontSize={"md"}
                             textColor="gray.800"
                           >
-                            Already have an account?
+                            <b>Already have an account ?</b>
                           </Text>
+                          </Box>
+                          <Center>
                           <Text
                             as={Link}
                             to="/loginUser"
                             color="#5F8D4E"
                             fontSize={"md"}
                           >
-                            Login Here
+                            <b>Login Here</b>
                           </Text>
+                          
+                          </Center>
                         </div>
                       );
                     }}
                   </Formik>
-                </Box>
-              </Stack>
+            </Stack>  
+            <Box  justifyContent="center" >
+            <React.StrictMode>
+            <img src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif" width="100%" height="200px"></img>
+            </React.StrictMode>
             </Box>
-          </Flex>
         </Box>
       </Center>
     </div>

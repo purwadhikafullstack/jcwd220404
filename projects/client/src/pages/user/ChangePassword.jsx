@@ -45,14 +45,14 @@ export const ChangePassword = (data) => {
         width: "370",
         text: "Password has changed",
       });
-      navigate("/account/profile");
+      navigate(`/account/profile/${id}`);
     } catch (err) {}
   };
   return (
     <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
-          <Box as={Link} to={"/account/profile"}>
+          <Box as={Link} to={`/account/profile/${id}`}>
             <ArrowBackIcon
               mt={"20px"}
               ml={"20px"}

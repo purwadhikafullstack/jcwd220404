@@ -21,14 +21,34 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../redux/userSlice";
+import { logoutUser } from "../../redux/userSlice";
 import { NavbarComp } from "./NavbarComp";
+import Axios from "axios"
+import { useState } from "react";
+import { useEffect } from "react";
 
 export const AccountComp = () => {
-  const { name } = useSelector((state) => state.userSlice.value);
+  const [data, setData] = useState([])
+  const { name, id } = useSelector((state) => state.userSlice.value);
   const { isOpen, onToggle, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const getData = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/user/byId/${id}`
+      );
+      setData(result.data);
+      console.log(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData()
+  }, [id])
   
   const onLogout = () => {
     dispatch(logoutUser());
@@ -37,10 +57,10 @@ export const AccountComp = () => {
   };
 
   const toProfile = () => {
-    navigate("/account/profile");
+    navigate(`/account/profile/${id}`);
   };
   const toAddress = () => {
-    navigate("/account/address");
+    navigate(`/account/address/${id}`);
   };
 
   return (
@@ -159,7 +179,8 @@ export const AccountComp = () => {
             placement="auto-end"
             closeOnBlur={false}
           >
-            <PopoverContent ml="8" mt="275" bgColor={"#E5D9B6"}>
+            <PopoverContent ml="8" mt="275" borderColor="#285430"
+                    border="2px" bgColor={"#E5D9B6"}>
               <PopoverArrow />
               <PopoverBody textColor={"#285430"}>
                 Are you sure you want to logout?

@@ -17,28 +17,26 @@ import {
   HamburgerIcon,
 } from "@chakra-ui/icons";
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { syncData } from "../redux/addressSlice";
+import { syncData } from "../../redux/addressSlice";
+import { useState } from "react";
 
 export const ListAddressPage = () => {
-  // const [data, setData] = useState([]);
+  // const [data, setData] = useState()
   const { data } = useSelector((state) => state.addressSlice.value);
+  const { id } = useSelector((state) => state.userSlice.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const toAddAddress = () => {
-    navigate("/account/address/addAddress");
-  };
+  const params = useParams()
 
   const getData = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/address/addressById`
+        `${process.env.REACT_APP_API_BASE_URL}/address/addressById/${id}`
       );
       console.log(result.data);
-      // setData(result.data);
       dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
@@ -47,7 +45,7 @@ export const ListAddressPage = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
 
   const onDelete = async (id) => {
     try {
@@ -61,8 +59,12 @@ export const ListAddressPage = () => {
     }
   };
 
-  const toUpdate = (id) => {
-    navigate(`/account/address/updateAddress/${id}`);
+  const toAddAddress = () => {
+    navigate(`/account/address/addAddress/${id}`);
+  };
+
+  const toUpdate = (addressId) => {
+    navigate(`/account/address/updateAddress/${addressId}`);
   };
 
   return (
@@ -120,7 +122,7 @@ export const ListAddressPage = () => {
                   <Flex justifyContent={"space-between"}>
                     <Text color={"#285430"}>{item.receiverName}</Text>
                     <Text color={"#285430"}>{item.receiverPhone}</Text>
-                    <Menu>
+                    <Menu theme= {({ direction:"rtl" })}>
                       <MenuButton
                         color={"#285430"}
                         as={IconButton}

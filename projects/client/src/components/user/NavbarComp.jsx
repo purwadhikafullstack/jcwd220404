@@ -11,7 +11,7 @@ import {
   IoPerson,
 } from "react-icons/io5";
 import { Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
-import "./NavbarComp.css";
+import "../NavbarComp.css";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export const NavbarComp = () => {
