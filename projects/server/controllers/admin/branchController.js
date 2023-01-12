@@ -123,71 +123,12 @@ module.exports = {
     }
   },
 
-  // setDefault: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const findDefault = await branch.findOne({
-  //       where: {
-  //         //   defaultAddress: true,
-  //         id: req.user.id,
-  //       },
-  //     });
-  //     if (findDefault) {
-  //       await branch.update(
-  //         {
-  //           // defaultAddress: false,
-  //         },
-  //         {
-  //           where: {
-  //             id: findDefault.id,
-  //           },
-  //         }
-  //       );
-  //       await branch.update(
-  //         {
-  //           // defaultAddress: true,
-  //         },
-  //         {
-  //           where: {
-  //             id: id,
-  //           },
-  //         }
-  //       );
-  //       res.status(200).json({
-  //         message: "success",
-  //       });
-  //     }
-  //     if (!findDefault) {
-  //       await branch.update(
-  //         {
-  //           defaultAddress: true,
-  //         },
-  //         {
-  //           where: {
-  //             id: id,
-  //           },
-  //         }
-  //       );
-  //       res.status(200).json({
-  //         message: "success",
-  //       });
-  //     }
-  //     res.status(200).json({
-  //       message: "set as default",
-  //       data: findDefault,
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.status(400).send(err);
-  //   }
-  // },
-
   findAll: async (req, res) => {
     try {
-      const branch = await branch.findAll({
+      const branches = await branch.findAll({
         attributes: ["id", "branchName"],
       });
-      res.status(200).send(branch);
+      res.status(200).send(branches);
     } catch (err) {
       res.status(400).send(err);
     }
