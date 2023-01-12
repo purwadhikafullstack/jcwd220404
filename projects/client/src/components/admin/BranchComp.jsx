@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { logoutAdmin } from "../../redux/adminSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Accordion,
   AccordionButton,
@@ -19,8 +19,13 @@ import {
   FormLabel,
   Grid,
   GridItem,
+  IconButton,
   Image,
   Input,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Modal,
   ModalBody,
   ModalContent,
@@ -52,7 +57,14 @@ import {
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 import Axios from "axios";
-import { DeleteIcon, EditIcon, RepeatIcon } from "@chakra-ui/icons";
+import {
+  AddIcon,
+  DeleteIcon,
+  EditIcon,
+  ExternalLinkIcon,
+  HamburgerIcon,
+  RepeatIcon,
+} from "@chakra-ui/icons";
 import { UpdateProductComp } from "./UpdateProductComp";
 import { UpdateCategoryComp } from "./UpdateCategoryComp";
 
@@ -309,6 +321,8 @@ export const BranchComp = () => {
         bgColor="white"
         h={"844px"}
         w={"390px"}
+        border="2px"
+        // borderColor="black"
         // pos="fixed"
       >
         <Grid
@@ -317,6 +331,41 @@ export const BranchComp = () => {
           templateColumns="repeat(5, 1fr)"
           gap={"10px"}
         >
+          <GridItem>
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                icon={<HamburgerIcon />}
+                variant="outline"
+              />
+              <MenuList>
+                <MenuItem as={Link}>
+                  <ButtonGroup size="sm">
+                    <form encType="multipart/form-data">
+                      <input
+                        type={"file"}
+                        accept="image/*"
+                        name="file"
+                        // size={"100px"}
+                        onChange={(e) => handleChoose2(e)}
+                      ></input>
+                    </form>
+                    <Button
+                      colorScheme="blue"
+                      onClick={handleUpload2}
+                      size="sm"
+                    >
+                      Upload
+                    </Button>
+                  </ButtonGroup>
+                </MenuItem>
+                <MenuItem icon={<ExternalLinkIcon />}>Product</MenuItem>
+                <MenuItem icon={<RepeatIcon />}>Category</MenuItem>
+                <MenuItem icon={<EditIcon />}>Inventory</MenuItem>
+              </MenuList>
+            </Menu>
+          </GridItem>
           <GridItem m={"auto"} rowSpan={2} colSpan={1}>
             <Avatar
               bgColor={"gray.500"}
@@ -393,30 +442,7 @@ export const BranchComp = () => {
 
         <Accordion mb={"30px"} allowToggle>
           <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  Add Picture
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <ButtonGroup size="sm">
-                <form encType="multipart/form-data">
-                  <input
-                    type={"file"}
-                    accept="image/*"
-                    name="file"
-                    // size={"100px"}
-                    onChange={(e) => handleChoose2(e)}
-                  ></input>
-                </form>
-                <Button colorScheme="blue" onClick={handleUpload2} size="sm">
-                  Upload
-                </Button>
-              </ButtonGroup>
-            </AccordionPanel>
+            <AccordionPanel pb={4}></AccordionPanel>
           </AccordionItem>
           <AccordionItem>
             <h2>
@@ -428,59 +454,7 @@ export const BranchComp = () => {
               </AccordionButton>
             </h2>
 
-            <AccordionPanel pb={4}>
-              <Stack spacing={"10px"}>
-                <FormControl>
-                  <FormLabel>Nama Produk</FormLabel>
-                  <Input ref={inputProductName} placeholder="Produk"></Input>
-                </FormControl>
-                <FormLabel>Distributor</FormLabel>
-                <Input ref={inputDistributor} placeholder="Distributor"></Input>
-                <FormControl>
-                  <FormLabel>Category 1</FormLabel>
-                  <Select>
-                    {data2?.map((item) => {
-                      return (
-                        <>
-                          <option>{item.categoryName}</option>
-                        </>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Category 2</FormLabel>
-                  <Select>
-                    {data2?.map((item) => {
-                      return (
-                        <>
-                          <option>{item.categoryName}</option>
-                        </>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-                {/* <FormControl>
-                        <FormLabel>Category 2</FormLabel>
-                        <Select>
-                          <option>{item.categoryName}</option>
-                        </Select>
-                      </FormControl> */}
-                <FormControl>
-                  <FormLabel>Description</FormLabel>
-                  <Textarea ref={inputDescription}></Textarea>
-                </FormControl>
-                <Button onClick={onCreate}>Add Product</Button>
-                {/* <Modal isOpen={isOpen} onClose={onClose}>
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalBody>
-                      <Spinner></Spinner>
-                    </ModalBody>
-                  </ModalContent>
-                </Modal> */}
-              </Stack>
-            </AccordionPanel>
+            <AccordionPanel pb={4}></AccordionPanel>
           </AccordionItem>
           <AccordionItem>
             <h2>

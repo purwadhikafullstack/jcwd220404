@@ -31,9 +31,25 @@ import {
   Th,
   Tbody,
   Td,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  Stack,
+  InputLeftAddon,
+  InputRightAddon,
+  DrawerFooter,
+  Textarea,
 } from "@chakra-ui/react";
 import Axios from "axios";
-import { ChevronDownIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import {
+  AddIcon,
+  ChevronDownIcon,
+  ViewIcon,
+  ViewOffIcon,
+} from "@chakra-ui/icons";
 import Swal from "sweetalert2";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
@@ -164,13 +180,18 @@ export const SuperComp = () => {
               </MenuList>
             </Menu>
           </Box>
-          <Tabs isFitted variant="enclosed">
-            <TabList mb="1em">
-              <Tab>Add Admin</Tab>
-              <Tab>List of Admin</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
+          <Button leftIcon={<AddIcon />} colorScheme="teal" onClick={onOpen}>
+            Create user
+          </Button>
+          <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+            <DrawerOverlay />
+            <DrawerContent>
+              <DrawerCloseButton />
+              <DrawerHeader borderBottomWidth="1px">
+                Create a new account
+              </DrawerHeader>
+
+              <DrawerBody>
                 <Formik
                   initialValues={{
                     username: "",
@@ -318,7 +339,21 @@ export const SuperComp = () => {
                     );
                   }}
                 </Formik>
-              </TabPanel>
+              </DrawerBody>
+
+              <DrawerFooter borderTopWidth="1px">
+                <Button variant="outline" mr={3} onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button colorScheme="blue">Submit</Button>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+          <Tabs isFitted variant="enclosed">
+            <TabList mb="1em">
+              <Tab>List of Admin</Tab>
+            </TabList>
+            <TabPanels>
               <TabPanel>
                 <TableContainer>
                   <Table
