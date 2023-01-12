@@ -31,7 +31,7 @@ export const CartComp = () => {
   }, []);
 
   return (
-    <div>
+    <>
       Cart
       <Box>
         {product?.map((item) => {
@@ -54,6 +54,6 @@ export const CartComp = () => {
           );
         })}
       </Box>
-    </div>
+    </>
   );
 };

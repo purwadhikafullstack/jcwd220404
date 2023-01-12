@@ -12,11 +12,11 @@ export const CarouselComp = () => {
 
   const cards = [
     `${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167323961309566900.webp`,
-    `${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167323967203666499.webp`
+    `${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167323967203666499.webp`,
   ];
 
   return (
-    <div>
+    <>
       <Box
         position={"relative"}
         height={"300px"}
@@ -77,7 +77,7 @@ export const CarouselComp = () => {
           ))}
         </Slider>
       </Box>
-    </div>
+    </>
   );
 };
 

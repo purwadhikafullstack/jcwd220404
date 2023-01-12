@@ -54,6 +54,7 @@ import {
   Tr,
   useColorMode,
   useDisclosure,
+  Center,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 import Axios from "axios";
@@ -107,6 +108,7 @@ export const BranchComp = () => {
       Swal.fire({
         icon: "success",
         text: "Product Added",
+        width: "370px",
       });
       setTimeout(() => {
         window.location.replace("/adminPage");
@@ -129,6 +131,7 @@ export const BranchComp = () => {
       Swal.fire({
         icon: "success",
         text: "Category Added",
+        width: "370px",
       });
 
       setTimeout(() => {
@@ -285,6 +288,7 @@ export const BranchComp = () => {
     Swal.fire({
       icon: "success",
       text: "Success",
+      width: "370px",
     });
 
     window.location.replace("/adminPage");
@@ -295,364 +299,494 @@ export const BranchComp = () => {
   };
 
   return (
-    <div>
-      <Box
-        className="header"
-        w={"390px"}
-        h={"80px"}
-        bgColor="#E5D9B6"
-        display={"flex"}
-        justifyContent="space-between"
-        pt={"10px"}
-        pl={"1px"}
-        pos="fixed"
-        top={"0"}
-        zIndex={"2"}
-      >
-        <Box margin={"auto"} alignItems={"center"} textColor="#285430">
-          <Text as={"b"} fontSize="xl">
-            BRANCH ADMIN
-          </Text>
-        </Box>
-      </Box>
-      <Box
-        mt={"70px"}
-        className="body"
-        bgColor="white"
-        h={"844px"}
-        w={"390px"}
-        border="2px"
-        // borderColor="black"
-        // pos="fixed"
-      >
-        <Grid
-          h="100px"
-          templateRows="repeat(2, 1fr)"
-          templateColumns="repeat(5, 1fr)"
-          gap={"10px"}
-        >
-          <GridItem>
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                aria-label="Options"
-                icon={<HamburgerIcon />}
-                variant="outline"
-              />
-              <MenuList>
-                <MenuItem as={Link}>
-                  <ButtonGroup size="sm">
-                    <form encType="multipart/form-data">
-                      <input
-                        type={"file"}
-                        accept="image/*"
-                        name="file"
-                        // size={"100px"}
-                        onChange={(e) => handleChoose2(e)}
-                      ></input>
-                    </form>
-                    <Button
-                      colorScheme="blue"
-                      onClick={handleUpload2}
-                      size="sm"
-                    >
-                      Upload
-                    </Button>
-                  </ButtonGroup>
-                </MenuItem>
-                <MenuItem icon={<ExternalLinkIcon />}>Product</MenuItem>
-                <MenuItem icon={<RepeatIcon />}>Category</MenuItem>
-                <MenuItem icon={<EditIcon />}>Inventory</MenuItem>
-              </MenuList>
-            </Menu>
-          </GridItem>
-          <GridItem m={"auto"} rowSpan={2} colSpan={1}>
-            <Avatar
-              bgColor={"gray.500"}
-              display={"flex"}
-              size={"lg"}
-              ml="8"
-              mt="3"
-              mb="3"
-              name={username}
-            ></Avatar>
-          </GridItem>
-          <GridItem colSpan={1}>
-            <Badge
-              mt="8"
-              textColor={"#285430"}
-              fontSize="md"
-              ml={"10px"}
-              as="b"
-            >
-              {username}
-            </Badge>
-          </GridItem>
-        </Grid>
-        <Button
+    <>
+      <Box>
+        <Box
+          className="header"
+          w={"390px"}
+          h={"80px"}
+          bgColor="#E5D9B6"
           display={"flex"}
-          bgColor={"#FF0000"}
-          textColor="gray.800"
-          width={"100px"}
-          m="auto"
-          justifyContent={"center"}
-          borderColor="#gray.800"
-          border="2px"
-          onClick={onToggle}
+          justifyContent="space-between"
+          pt={"10px"}
+          pl={"1px"}
+          pos="fixed"
+          top={"0"}
+          zIndex={"2"}
         >
-          LogOut
-        </Button>
-        <Popover
-          returnFocusOnClose={false}
-          isOpen={isOpen}
-          placement="auto-end"
-          closeOnBlur={false}
+          <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+            <Text as={"b"} fontSize="xl">
+              BRANCH ADMIN
+            </Text>
+          </Box>
+        </Box>
+        <Box
+          mt={"70px"}
+          className="body"
+          bgColor="white"
+          color="gray.800"
+          h={"1580px"}
+          w={"390px"}
+          // pos="fixed"
         >
-          <PopoverContent ml="8" mt="275" bgColor={"#E5D9B6"}>
-            <PopoverArrow />
-            <PopoverBody textColor={"#285430"}>
-              Are you sure you want to logout?
-            </PopoverBody>
-            <PopoverFooter display="flex" justifyContent="flex-end">
-              <ButtonGroup size="sm">
+          <Center>
+            <Text mt="5" as="b" color="#285430">
+              Product Management
+            </Text>
+          </Center>
+          <Grid
+            h="100px"
+            templateRows="repeat(2, 1fr)"
+            templateColumns="repeat(5, 1fr)"
+            gap={"10px"}
+          >
+            <GridItem m={"auto"} rowSpan={2} colSpan={1}>
+              <Avatar
+                bgColor={"gray.500"}
+                display={"flex"}
+                size={"lg"}
+                ml="8"
+                mt="3"
+                mb="3"
+                name={username}
+              ></Avatar>
+            </GridItem>
+            <GridItem colSpan={1}>
+              <Badge
+                mt="8"
+                textColor={"#285430"}
+                fontSize="md"
+                ml={"10px"}
+                as="b"
+              >
+                {username}
+              </Badge>
+            </GridItem>
+          </Grid>
+          <Accordion mb={"30px"} allowToggle>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box color="#285430" as="span" flex="1" textAlign="left">
+                    Add Picture
+                  </Box>
+                  <AccordionIcon color="gray.800" />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <ButtonGroup size="sm">
+                  <form encType="multipart/form-data">
+                    <input
+                      type={"file"}
+                      accept="image/*"
+                      name="file"
+                      size={"100px"}
+                      onChange={(e) => handleChoose2(e)}
+                    ></input>
+                  </form>
+                  <Button
+                    mr="120px"
+                    bgColor={"#A4BE7B"}
+                    borderColor="#285430"
+                    border="2px"
+                    color="gray.800"
+                    onClick={handleUpload2}
+                    size="sm"
+                  >
+                    Upload
+                  </Button>
+                </ButtonGroup>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box color="#285430" as="span" flex="1" textAlign="left">
+                    Add Product
+                  </Box>
+                  <AccordionIcon color="gray.800" />
+                </AccordionButton>
+              </h2>
+
+              <AccordionPanel pb={4}>
+                <Stack spacing={"10px"}>
+                  <FormControl>
+                    <FormLabel color="#285430">Nama Produk</FormLabel>
+                    <Input
+                      ref={inputProductName}
+                      placeholder="Produk"
+                      _placeholder={{ color: "#5F8D4E" }}
+                      borderColor="#285430"
+                      textColor="black"
+                    ></Input>
+                  </FormControl>
+                  <FormLabel color="#285430">Distributor</FormLabel>
+                  <Input
+                    ref={inputDistributor}
+                    placeholder="Distributor"
+                    _placeholder={{ color: "#5F8D4E" }}
+                    borderColor="#285430"
+                    textColor="black"
+                  ></Input>
+                  <FormControl>
+                    <FormLabel color="#285430">Category 1</FormLabel>
+                    <Select
+                      color={"#285430"}
+                      borderColor="#285430"
+                      width="100%"
+                    >
+                      {data2?.map((item) => {
+                        return (
+                          <>
+                            <option color="#285430">{item.categoryName}</option>
+                          </>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel color="#285430">Category 2</FormLabel>
+                    <Select
+                      color={"#285430"}
+                      borderColor="#285430"
+                      width="100%"
+                    >
+                      {data2?.map((item) => {
+                        return (
+                          <>
+                            <option>{item.categoryName}</option>
+                          </>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel color={"#285430"}>Description</FormLabel>
+                    <Textarea
+                      textColor="black"
+                      borderColor="#285430"
+                      ref={inputDescription}
+                    ></Textarea>
+                  </FormControl>
+                  <Center>
+                    <Button
+                      bgColor={"#A4BE7B"}
+                      borderColor="#285430"
+                      border="2px"
+                      fontSize="18px"
+                      color="gray.800"
+                      width={"100%"}
+                      justifyContent="center"
+                      onClick={onCreate}
+                    >
+                      Add Product
+                    </Button>
+                  </Center>
+                </Stack>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box color="#285430" as="span" flex="1" textAlign="left">
+                    Add Category
+                  </Box>
+                  <AccordionIcon color="gray.800" />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <Stack spacing={"10px"}>
+                  <FormControl>
+                    <FormLabel color="#285430">Nama Category</FormLabel>
+                    <Input
+                      ref={inputCategoryName}
+                      placeholder="Kategori"
+                      _placeholder={{ color: "#5F8D4E" }}
+                    ></Input>
+                  </FormControl>
+                  <Center>
+                    <Button
+                      bgColor={"#A4BE7B"}
+                      borderColor="#285430"
+                      border="2px"
+                      fontSize="18px"
+                      color="gray.800"
+                      width={"100%"}
+                      justifyContent="center"
+                      onClick={onCreateCategory}
+                    >
+                      Add Category
+                    </Button>
+                  </Center>
+                </Stack>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+
+          {/* <Flex as={"button"} onClick={onRefresh} justifyContent="space-between">
+          <RepeatIcon color="#285430" />
+        </Flex> */}
+
+          <Tabs isFitted variant="enclosed">
+            <TabList mb="1em">
+              <Tab color="#285430" as="b">
+                Product List
+              </Tab>
+              <Tab color="#285430" as="b">
+                Category List
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <Collapse startingHeight={120} in={show}>
+                  <TableContainer>
+                    <Table variant="simple" colorScheme="teal">
+                      <Thead alignContent={"center"}>
+                        <Tr>
+                          <Th color={"#285430"}>Product</Th>
+                          <Th color={"#285430"}>Actions</Th>
+                          <Th color={"#285430"}>Picture</Th>
+                          <Th color={"#285430"}>Distributor</Th>
+                          <Th color={"#285430"}>Description</Th>
+                        </Tr>
+                      </Thead>
+                      <Tbody>
+                        {data?.map((item) => {
+                          return (
+                            <Tr>
+                              <Td color={"#285430"}>{item.productName}</Td>
+                              <Td color={"#285430"}>
+                                <Box
+                                  mr="28px"
+                                  display={"flex"}
+                                  justifyContent="space-evenly"
+                                >
+                                  <Button onClick={() => setEdit(item)}>
+                                    <EditIcon color={"#285430"} />
+                                  </Button>
+                                  <Button onClick={() => onDelete(item.id)}>
+                                    <DeleteIcon color={"#285430"} />
+                                  </Button>
+                                </Box>
+                              </Td>
+
+                              <Td>
+                                <Image
+                                  boxSize={"50px"}
+                                  src={"http://localhost:8000/" + item.picture}
+                                />
+                                <ButtonGroup size="sm">
+                                  <form encType="multipart/form-data">
+                                    <input
+                                      color="#285430"
+                                      type={"file"}
+                                      accept="image/*"
+                                      name="file"
+                                      size={"100px"}
+                                      onChange={(e) => handleChoose(e)}
+                                    ></input>
+                                  </form>
+                                  <Button
+                                    bgColor={"#A4BE7B"}
+                                    borderColor="#285430"
+                                    border="2px"
+                                    fontSize="14px"
+                                    color="gray.800"
+                                    width={"100%"}
+                                    justifyContent="center"
+                                    onClick={handleUpload}
+                                    size="sm"
+                                  >
+                                    Upload
+                                  </Button>
+                                </ButtonGroup>
+                              </Td>
+                              <Td color={"#285430"}>{item.description}</Td>
+                              <Td>{item.distributor}</Td>
+                            </Tr>
+                          );
+                        })}
+                      </Tbody>
+                    </Table>
+                  </TableContainer>
+                </Collapse>
                 <Button
-                  onClick={onClose}
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"
                   fontSize="14px"
                   color="gray.800"
+                  width={"100px"}
+                  justifyContent="center"
+                  size="sm"
+                  onClick={handleToggle}
+                  mt="1rem"
                 >
-                  No
+                  Show {show ? "Less" : "More"}
                 </Button>
+              </TabPanel>
+              <TabPanel>
+                <Collapse startingHeight={100} in={show}>
+                  <TableContainer>
+                    <Table variant="simple" colorScheme="teal">
+                      <Thead>
+                        <Tr>
+                          <Th color={"#285430"}>Category</Th>
+                          <Th color={"#285430"}>Actions</Th>
+                          <Th color={"#285430"}>Picture</Th>
+                        </Tr>
+                      </Thead>
+                      <Tbody>
+                        {data2?.map((item) => {
+                          return (
+                            <Tr>
+                              <Td color={"#285430"} textColor="black">
+                                {item.categoryName}
+                              </Td>
+                              <Td>
+                                <Button onClick={() => setEdit2(item)}>
+                                  <EditIcon color={"#285430"} />
+                                </Button>
+                                <Button
+                                  onClick={() => onDeleteCategory(item.id)}
+                                >
+                                  <DeleteIcon color={"#285430"} />
+                                </Button>
+                              </Td>
+                              <Td>
+                                <Image
+                                  boxSize={"50px"}
+                                  src={
+                                    "http://localhost:8000/" +
+                                    item.categoryPicture
+                                  }
+                                />
+                                <ButtonGroup size="sm">
+                                  <form encType="multipart/form-data">
+                                    <input
+                                      type={"file"}
+                                      accept="image/*"
+                                      name="file"
+                                      size={"100px"}
+                                      onChange={(e) => handleChoose1(e)}
+                                    ></input>
+                                  </form>
+                                  <Button
+                                    bgColor={"#A4BE7B"}
+                                    borderColor="#285430"
+                                    border="2px"
+                                    fontSize="14px"
+                                    color="gray.800"
+                                    width={"100%"}
+                                    justifyContent="center"
+                                    onClick={handleUpload1}
+                                    size="sm"
+                                  >
+                                    Upload
+                                  </Button>
+                                </ButtonGroup>
+                              </Td>
+                            </Tr>
+                          );
+                        })}
+                      </Tbody>
+                    </Table>
+                  </TableContainer>
+                </Collapse>
                 <Button
-                  onClick={onLogout}
-                  bgColor="#A4BE7B"
+                  bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"
                   fontSize="14px"
                   color="gray.800"
+                  width={"100px"}
+                  justifyContent="center"
+                  size="sm"
+                  onClick={handleToggle}
+                  mt="1rem"
                 >
-                  Yes
+                  Show {show ? "Less" : "More"}
                 </Button>
-              </ButtonGroup>
-            </PopoverFooter>
-          </PopoverContent>
-        </Popover>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
 
-        <Accordion mb={"30px"} allowToggle>
-          <AccordionItem>
-            <AccordionPanel pb={4}></AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  Add Product
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-
-            <AccordionPanel pb={4}></AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  Add Category
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <Stack spacing={"10px"}>
-                <FormControl>
-                  <FormLabel>Nama Category</FormLabel>
-                  <Input ref={inputCategoryName} placeholder="Kategori"></Input>
-                </FormControl>
-                <Button onClick={onCreateCategory}>Add Category</Button>
-              </Stack>
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
-
-        <Flex as={"button"} onClick={onRefresh} justifyContent={"right"}>
-          <RepeatIcon />
-        </Flex>
-
-        <Tabs isFitted variant="enclosed">
-          <TabList mb="1em">
-            <Tab>Product List</Tab>
-            <Tab>Category List</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <Collapse startingHeight={120} in={show}>
-                <TableContainer>
-                  <Table variant="simple" colorScheme="teal">
-                    <Thead alignContent={"center"}>
-                      <Tr>
-                        <Th color={"#285430"}>Product</Th>
-                        <Th color={"#285430"}>Actions</Th>
-                        <Th color={"#285430"}>Picture</Th>
-                        <Th color={"#285430"}>Distributor</Th>
-                        <Th color={"#285430"}>Description</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {data?.map((item) => {
-                        return (
-                          <Tr>
-                            <Td color={"#285430"}>{item.productName}</Td>
-                            <Td color={"#285430"}>
-                              <Box
-                                mr="28px"
-                                display={"flex"}
-                                justifyContent="space-evenly"
-                              >
-                                <Button onClick={() => onDelete(item.id)}>
-                                  <DeleteIcon color={"#285430"} />
-                                </Button>
-                                <Button onClick={() => setEdit(item)}>
-                                  <EditIcon color={"#285430"} />
-                                </Button>
-                              </Box>
-                            </Td>
-
-                            <Td>
-                              <Image
-                                boxSize={"50px"}
-                                src={"http://localhost:8000/" + item.picture}
-                              />
-                              <ButtonGroup size="sm">
-                                <form encType="multipart/form-data">
-                                  <input
-                                    type={"file"}
-                                    accept="image/*"
-                                    name="file"
-                                    size={"100px"}
-                                    onChange={(e) => handleChoose(e)}
-                                  ></input>
-                                </form>
-                                <Button
-                                  colorScheme="blue"
-                                  onClick={handleUpload}
-                                  size="sm"
-                                >
-                                  Upload
-                                </Button>
-                              </ButtonGroup>
-                            </Td>
-                            <Td color={"#285430"}>{item.description}</Td>
-                            <Td>{item.distributor}</Td>
-                          </Tr>
-                        );
-                      })}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </Collapse>
-              <Button size="sm" onClick={handleToggle} mt="1rem">
-                Show {show ? "Less" : "More"}
-              </Button>
-            </TabPanel>
-            <TabPanel>
-              <Collapse startingHeight={100} in={show}>
-                <TableContainer>
-                  <Table variant="simple" colorScheme="teal">
-                    <Thead>
-                      <Tr>
-                        <Th>Category</Th>
-                        <Th>Actions</Th>
-                        <Th>Picture</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {data2?.map((item) => {
-                        return (
-                          <Tr>
-                            <Td color={"#285430"}>{item.categoryName}</Td>
-                            <Td>
-                              <Button onClick={() => onDeleteCategory(item.id)}>
-                                <DeleteIcon color={"#285430"} />
-                              </Button>
-                              <Button onClick={() => setEdit2(item)}>
-                                <EditIcon color={"#285430"} />
-                              </Button>
-                            </Td>
-                            <Td>
-                              <Image
-                                boxSize={"50px"}
-                                src={
-                                  "http://localhost:8000/" +
-                                  item.categoryPicture
-                                }
-                              />
-                              <ButtonGroup size="sm">
-                                <form encType="multipart/form-data">
-                                  <input
-                                    type={"file"}
-                                    accept="image/*"
-                                    name="file"
-                                    size={"100px"}
-                                    onChange={(e) => handleChoose1(e)}
-                                  ></input>
-                                </form>
-                                <Button
-                                  colorScheme="blue"
-                                  onClick={handleUpload1}
-                                  size="sm"
-                                >
-                                  Upload
-                                </Button>
-                              </ButtonGroup>
-                            </Td>
-                            {/* <Popover
-                                returnFocusOnClose={false}
-                                isOpen={isOpen}
-                                onClose={onClose}
-                                placement="right"
-                                closeOnBlur={false}
-                              >
-                                <PopoverContent>
-                                  <PopoverHeader fontWeight="semibold">
-                                    Edit Category
-                                  </PopoverHeader>
-                                  <PopoverArrow />
-                                  <PopoverCloseButton />
-                                  <PopoverBody></PopoverBody>
-                                </PopoverContent>
-                              </Popover> */}
-                          </Tr>
-                        );
-                      })}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </Collapse>
-              <Button size="sm" onClick={handleToggle} mt="1rem">
-                Show {show ? "Less" : "More"}
-              </Button>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-
-        <Tabs isFitted variant="enclosed">
-          <TabList mb="1em">
-            <Tab>Edit Product</Tab>
-            <Tab>Edit Category</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <UpdateProductComp data={edit} />
-            </TabPanel>
-            <TabPanel>
-              <UpdateCategoryComp data={edit2} />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+          <Tabs isFitted variant="enclosed">
+            <TabList mb="1em">
+              <Tab color="#285430" as="b">
+                Edit Product
+              </Tab>
+              <Tab color="#285430" as="b">
+                Edit Category
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <UpdateProductComp data={edit} />
+              </TabPanel>
+              <TabPanel>
+                <UpdateCategoryComp data={edit2} />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+          <Button
+            display={"flex"}
+            bgColor={"#FF0000"}
+            textColor="gray.800"
+            width={"100px"}
+            m="auto"
+            justifyContent={"center"}
+            borderColor="#gray.800"
+            border="2px"
+            onClick={onToggle}
+          >
+            LogOut
+          </Button>
+          <Popover
+            returnFocusOnClose={false}
+            isOpen={isOpen}
+            placement="auto-end"
+            closeOnBlur={false}
+          >
+            <PopoverContent
+              ml="560"
+              mt="280"
+              borderColor="#285430"
+              border="2px"
+              bgColor={"#E5D9B6"}
+            >
+              <PopoverArrow />
+              <PopoverBody textColor={"#285430"}>
+                Are you sure you want to logout?
+              </PopoverBody>
+              <PopoverFooter display="flex" justifyContent="flex-end">
+                <ButtonGroup size="sm">
+                  <Button
+                    onClick={onClose}
+                    bgColor={"#A4BE7B"}
+                    borderColor="#285430"
+                    border="2px"
+                    fontSize="14px"
+                    color="gray.800"
+                  >
+                    No
+                  </Button>
+                  <Button
+                    onClick={onLogout}
+                    bgColor="#A4BE7B"
+                    borderColor="#285430"
+                    border="2px"
+                    fontSize="14px"
+                    color="gray.800"
+                  >
+                    Yes
+                  </Button>
+                </ButtonGroup>
+              </PopoverFooter>
+            </PopoverContent>
+          </Popover>
+        </Box>
       </Box>
-    </div>
+    </>
   );
 };

@@ -19,6 +19,7 @@ import { loginUser } from "../../redux/userSlice";
 import { ForgotPasswordPage } from "../../pages/user/ForgotPassPage";
 import Swal from "sweetalert2";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { LogoComp } from "./LogoComp";
 
 export const EnterComp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,62 +28,62 @@ export const EnterComp = () => {
   const inputPass = useRef("");
   const navigate = useNavigate();
 
-  const onLogin = async (
+  const onLogin = async () =>
     // data
-    ) => {
-    try {
-      const user = {
-        phoneEmail: inputPhoneEmail.current.value,
-        password: inputPass.current.value,
-      };
+    {
+      try {
+        const user = {
+          phoneEmail: inputPhoneEmail.current.value,
+          password: inputPass.current.value,
+        };
 
-      // if (data.isVerified === 0) {
-      //   return Swal.fire({
-      //     icon: "error",
-      //     // title: "Oooops ...",
-      //     text: "You have to verify your Account",
-      //     timer: 2000,
-      //     customClass: {
-      //       container: "my-swal",
-      //     },
-      //   });
-      // }
-      // const result1 = await Axios.post(
-      //   `${process.env.REACT_APP_API_BASE_URL}/user/login`,
-      //   user
-      // );
-      // setTimeout(() => navigate(`/verification/${result1.data.token}`), 8000);
+        // if (data.isVerified === 0) {
+        //   return Swal.fire({
+        //     icon: "error",
+        //     // title: "Oooops ...",
+        //     text: "You have to verify your Account",
+        //     timer: 2000,
+        //     customClass: {
+        //       container: "my-swal",
+        //     },
+        //   });
+        // }
+        // const result1 = await Axios.post(
+        //   `${process.env.REACT_APP_API_BASE_URL}/user/login`,
+        //   user
+        // );
+        // setTimeout(() => navigate(`/verification/${result1.data.token}`), 8000);
 
-      const result = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/user/login`,
-        user
-      );
+        const result = await Axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/user/login`,
+          user
+        );
 
-      dispatch(
-        loginUser({
-          phoneNumber: result.data.isAccountExist.phoneNumber,
-          name: result.data.isAccountExist.name,
-          email: result.data.isAccountExist.email,
-          id: result.data.isAccountExist.id,
-          // isVerified: result.data.isAccountExist,
-        })
-      );
-      localStorage.setItem("tokenUser", result.data.token);
-      navigate("/");
-    } catch (err) {
-      Swal.fire({
-        icon: "error",
-        text: "User Not Found or Password Incorrect",
-        customClass: {
-          container: "my-swal",
-        },
-      });
-      console.log(err);
-    }
-  };
+        dispatch(
+          loginUser({
+            phoneNumber: result.data.isAccountExist.phoneNumber,
+            name: result.data.isAccountExist.name,
+            email: result.data.isAccountExist.email,
+            id: result.data.isAccountExist.id,
+            // isVerified: result.data.isAccountExist,
+          })
+        );
+        localStorage.setItem("tokenUser", result.data.token);
+        navigate("/");
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          text: "User Not Found or Password Incorrect",
+          customClass: {
+            container: "my-swal",
+          },
+        });
+        console.log(err);
+      }
+    };
 
   return (
-    <div>
+    <>
       <Center>
         <Box
           className="body"
@@ -93,7 +94,7 @@ export const EnterComp = () => {
           h={"850px"}
         >
           <Image
-            // src={OnlyFreshLogo}
+            src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`}
             height="150px"
             w={"auto"}
             ml={"70px"}
@@ -182,6 +183,6 @@ export const EnterComp = () => {
           </Stack>
         </Box>
       </Center>
-    </div>
+    </>
   );
 };

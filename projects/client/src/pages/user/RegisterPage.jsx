@@ -111,32 +111,29 @@ export const RegisterPage = () => {
         customClass: {
           container: "my-swal",
         },
+        width: "370px",
       });
     }
   };
 
   return (
     <>
-      <Center py={6}>
-        <Box className="body" bgColor="#E5D9B6" h={"820px"} w={"390px"}>
-          <Flex align={"center"} justify={"center"}>
-            <Box mt="40px">
-              <Flex justify={"center"}>
-                <Box h={120}>
-                  {/* <Image
-                    h="100%"
-                    w={"390px"}
-                    src={LogoHeader}
-                    objectFit={"cover"}
-                    top="0"
-                    pos="fixed"
-                  /> */}
-                  <Image src={OnlyFreshLogo} height="100%" />
-                </Box>
-              </Flex>
-              {/* <Flex justify={"center"} mt={-12}>
-                <Box h={100} w={100} borderWidth="2px"></Box>
-              </Flex> */}
+      <Box>
+        <Center py={6}>
+          <Box
+            px={3}
+            py={3}
+            className="body"
+            bgColor="#E5D9B6"
+            h={"100%"}
+            w={"390px"}
+          >
+            <Flex align={"center"} justify={"center"}>
+              <Image
+                src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`}
+                height="100%"
+              />
+
               <Stack mx={"auto"} maxW={"auto"} py={10} px={6}>
                 <Stack align={"center"}>
                   <Heading mt="-6" textColor={"#285430"} fontSize={"2xl"}>
@@ -169,14 +166,23 @@ export const RegisterPage = () => {
                       return (
                         <>
                           <Form>
-                            <VStack spacing={4} align="flex-start">
+                            <VStack spacing={"8px"} align="center">
                               <FormControl isRequired>
-                                <FormLabel htmlFor="name">Name</FormLabel>
+                                <FormLabel textColor={"#285430"} htmlFor="name">
+                                  Name
+                                </FormLabel>
                                 <Field
                                   as={Input}
                                   type="text"
                                   name="name"
                                   variant="filled"
+                                  placeholder="Your Name"
+                                  _placeholder={{ color: "#5F8D4E" }}
+                                  bgColor={"white"}
+                                  textColor="#285430"
+                                  borderColor={"#285430"}
+                                  border={"2px"}
+                                  w={"340px"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -185,7 +191,7 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="name">
+                                <FormLabel textColor={"#285430"} htmlFor="name">
                                   Phone Number
                                 </FormLabel>
                                 <Field
@@ -193,6 +199,13 @@ export const RegisterPage = () => {
                                   type="text"
                                   name="phoneNumber"
                                   variant="filled"
+                                  placeholder="Your Name"
+                                  _placeholder={{ color: "#5F8D4E" }}
+                                  bgColor={"white"}
+                                  textColor="#285430"
+                                  borderColor={"#285430"}
+                                  border={"2px"}
+                                  w={"340px"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -201,12 +214,24 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="email">Email</FormLabel>
+                                <FormLabel
+                                  textColor={"#285430"}
+                                  htmlFor="email"
+                                >
+                                  Email
+                                </FormLabel>
                                 <Field
                                   as={Input}
                                   type="email"
                                   name="email"
                                   variant="filled"
+                                  placeholder="Your Name"
+                                  _placeholder={{ color: "#5F8D4E" }}
+                                  bgColor={"white"}
+                                  textColor="#285430"
+                                  borderColor={"#285430"}
+                                  border={"2px"}
+                                  w={"340px"}
                                 />
                                 <ErrorMessage
                                   style={{ color: "red" }}
@@ -215,7 +240,10 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="password">
+                                <FormLabel
+                                  textColor={"#285430"}
+                                  htmlFor="password"
+                                >
                                   Password
                                 </FormLabel>
                                 <InputGroup>
@@ -224,6 +252,13 @@ export const RegisterPage = () => {
                                     type={showPassword ? "text" : "password"}
                                     name="password"
                                     variant="filled"
+                                    placeholder="Your Name"
+                                    _placeholder={{ color: "#5F8D4E" }}
+                                    bgColor={"white"}
+                                    textColor="#285430"
+                                    borderColor={"#285430"}
+                                    border={"2px"}
+                                    w={"340px"}
                                   />
 
                                   <InputRightElement h={"full"}>
@@ -250,7 +285,10 @@ export const RegisterPage = () => {
                                 />
                               </FormControl>
                               <FormControl isRequired>
-                                <FormLabel htmlFor="password_confirmation">
+                                <FormLabel
+                                  textColor={"#285430"}
+                                  htmlFor="password_confirmation"
+                                >
                                   Confirm Password
                                 </FormLabel>
                                 <InputGroup>
@@ -261,6 +299,13 @@ export const RegisterPage = () => {
                                     }
                                     name="password_confirmation"
                                     variant="filled"
+                                    placeholder="Your Name"
+                                    _placeholder={{ color: "#5F8D4E" }}
+                                    bgColor={"white"}
+                                    textColor="#285430"
+                                    borderColor={"#285430"}
+                                    border={"2px"}
+                                    w={"340px"}
                                   />
                                   <InputRightElement h={"full"}>
                                     <Button
@@ -323,10 +368,11 @@ export const RegisterPage = () => {
                   </Formik>
                 </Box>
               </Stack>
-            </Box>
-          </Flex>
-        </Box>
-      </Center>
+              {/* </Box> */}
+            </Flex>
+          </Box>
+        </Center>
+      </Box>
     </>
   );
 };

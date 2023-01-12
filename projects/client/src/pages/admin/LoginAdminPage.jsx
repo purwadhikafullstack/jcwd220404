@@ -73,78 +73,88 @@ export const LoginAdminPage = () => {
 
   return (
     <>
-      <Center py={6}>
-        <Box ml="8" py={10} px={6} bgColor="#E5D9B6" w={"390px"} h={"850px"}>
-          <Box w={"full"} boxShadow={"2xl"} rounded={"md"} overflow={"hidden"}>
-            <Image src={OnlyFreshLogo} height="150px" w={"auto"} ml={"70px"} />
-            {/* <Flex justify={"center"} mt={-12}>
-              <Box h={100} w={100} borderWidth="2px">
-                <Image src={OnlyFreshLogo} height="100%" />
-              </Box>
-            </Flex> */}
-            <Stack mt={"20px"} spacing={"8px"}>
-              <Text textColor={"#285430"} justifyContent="space-between">
-                Username or Email
-              </Text>
-              <Box rounded={"lg"} boxShadow={"lg"} p={8}>
-                <Stack spacing={4}>
-                  <FormControl>
-                    <FormLabel textColor={"#285430"} htmlFor="username">
-                      Username or Email
-                    </FormLabel>
+      <Center>
+        <Box py={3} px={3} bgColor="#E5D9B6" w={"390px"} h={"100%"}>
+          <Image src={OnlyFreshLogo} height="160px" w={"auto"} ml={"75px"} />
+          <Stack align={"center"}>
+            <Heading mt={"10px"} size={"lg"} textColor="#285430">
+              Sign in to Admin
+            </Heading>
+          </Stack>
+          <Center>
+            <Stack mt={"20px"} spacing={"2px"} align={"center"}>
+              <FormControl isRequired>
+                <FormLabel htmlFor="username" textColor={"#285430"}>
+                  <b> Username or Email </b>
+                </FormLabel>
+                <Input
+                  placeholder="Username or Your Email"
+                  _placeholder={{ color: "#5F8D4E" }}
+                  bgColor={"white"}
+                  textColor="black"
+                  borderColor={"#285430"}
+                  border={"2px"}
+                  w={"340px"}
+                  ref={inputUsernameEmail}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel htmlFor="password" textColor={"#285430"}>
+                  <b> Password</b>
+                </FormLabel>
+                <InputGroup>
+                  <Flex justifyContent={"end"}>
                     <Input
-                      type="text"
-                      name="username"
-                      variant="filled"
-                      ref={inputUsernameEmail}
-                      placeholder="Username or Your Email"
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      placeholder="Your Password"
+                      ref={inputPass}
                       _placeholder={{ color: "#5F8D4E" }}
                       bgColor={"white"}
                       textColor="black"
                       borderColor={"#285430"}
                       border={"2px"}
                       w={"340px"}
+                      zIndex="1"
                     />
-                  </FormControl>
-                  <FormControl id="password" isRequired>
-                    <FormLabel textColor={"#285430"}>Password</FormLabel>
-                    <InputGroup>
-                      <Input
-                        type={showPassword ? "text" : "password"}
-                        ref={inputPass}
-                      />
-                      <InputRightElement h={"full"}>
-                        <Button
-                          variant={"ghost"}
-                          onClick={() =>
-                            setShowPassword((showPassword) => !showPassword)
-                          }
-                        >
-                          {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  </FormControl>
-                  <Stack spacing={10}>
                     <Button
-                      onClick={onLogin}
-                      _hover={{
-                        bg: "#E5D9B6",
-                      }}
-                      bgColor={"#A4BE7B"}
-                      borderColor="#285430"
-                      border="2px"
-                      fontSize="18px"
-                      color="gray.800"
-                      w={"90px"}
-                      alignItems="center"
+                      color={"black"}
+                      onClick={() =>
+                        setShowPassword((showPassword) => !showPassword)
+                      }
+                      pos="absolute"
+                      zIndex="2"
                     >
-                      Sign in
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                     </Button>
-                  </Stack>
-                </Stack>
+                  </Flex>
+                </InputGroup>
+              </FormControl>
+              <Box py={6} px={6}>
+                <Button
+                  onClick={onLogin}
+                  _hover={{
+                    bg: "#E5D9B6",
+                  }}
+                  bgColor={"#A4BE7B"}
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="18px"
+                  color="gray.800"
+                  w={"90px"}
+                  alignItems="center"
+                >
+                  <b>Sign In</b>
+                </Button>
               </Box>
             </Stack>
+          </Center>
+          <Box justifyContent="center">
+            <img
+              src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif"
+              width="100%"
+              height="200px"
+            ></img>
           </Box>
         </Box>
       </Center>

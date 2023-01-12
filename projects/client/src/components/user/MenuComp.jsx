@@ -65,7 +65,7 @@ export const MenuComp = () => {
   };
 
   return (
-    <div>
+    <>
       <Center>
         <Flex
           flexWrap="wrap"
@@ -127,6 +127,6 @@ export const MenuComp = () => {
           })}
         </SimpleGrid>
       </Box>
-    </div>
+    </>
   );
 };

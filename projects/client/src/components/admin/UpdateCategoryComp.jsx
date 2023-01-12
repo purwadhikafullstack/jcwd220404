@@ -39,17 +39,31 @@ export const UpdateCategoryComp = ({ data }) => {
   };
 
   return (
-    <div>
+    <>
       <Stack spacing={"10px"}>
         <FormControl>
-          <FormLabel>Nama Category</FormLabel>
+          <FormLabel color="#285430">Nama Category</FormLabel>
           <Input
+            _placeholder={{ color: "#5F8D4E" }}
+            borderColor="#285430"
+            textColor="black"
             defaultValue={data?.categoryName}
             ref={inputCategoryName}
           ></Input>
         </FormControl>
-        <Button onClick={() => onUpdate(data.id)}>Edit </Button>
+        <Button
+          bgColor={"#A4BE7B"}
+          borderColor="#285430"
+          border="2px"
+          fontSize="18px"
+          color="gray.800"
+          width={"100%"}
+          justifyContent="center"
+          onClick={() => onUpdate(data.id)}
+        >
+          Edit{" "}
+        </Button>
       </Stack>
-    </div>
+    </>
   );
 };

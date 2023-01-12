@@ -151,7 +151,7 @@ export const UpdateAddressPage = () => {
   };
 
   return (
-    <div>
+    <>
       <Box>
         <Center>
           <Box
@@ -167,9 +167,9 @@ export const UpdateAddressPage = () => {
             top={"0"}
             zIndex={"2"}
           >
-            <Box as="button" onClick={onRefresh} mt="0.5">
+            <Box as="button" onClick={onRefresh}>
               <ArrowBackIcon
-                mt={"10px"}
+                mt={"-15px"}
                 ml={"20px"}
                 pos={"fixed"}
                 color="#285430"
@@ -190,7 +190,7 @@ export const UpdateAddressPage = () => {
             h={"850px"}
             w={"390px"}
           >
-            <Stack spacing={"10px"} mt={"20px"} textColor="#285430">
+            <Stack spacing={"10px"} mt={"10px"} textColor="#285430">
               <FormControl>
                 <FormLabel ml={"20px"}>Alamat</FormLabel>
                 <Input
@@ -204,10 +204,10 @@ export const UpdateAddressPage = () => {
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel>Kecamatan</FormLabel>
+                <FormLabel ml={"20px"}>Kecamatan</FormLabel>
                 <Input
                   ref={inputDistrict}
-                  ml="20px"
+                  ml={"20px"}
                   width="340px"
                   border="2px"
                   borderColor="#285430"
@@ -215,137 +215,120 @@ export const UpdateAddressPage = () => {
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel>Provinsi</FormLabel>
-                <Text>{data?.province}</Text>
+                <FormLabel ml={"20px"}>Province</FormLabel>
                 <Select
                   placeholder="Select Province"
                   onChange={provinceHandler}
+                  ml={"20px"}
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
                 >
                   {renderProvince()}
                 </Select>
-                {/* <Select ref={inputProvince}>
-                  <option selected={data?.province === ""} value="">
-                    Pilih Provinsi
-                  </option>
-                  <option value="6" selected={data?.province === "6"}>
-                    DKI Jakarta
-                  </option>
-                  <option value="9" selected={data?.province === "9"}>
-                    Jawa Barat
-                  </option>
-                  <option value="3" selected={data?.province === "3"}>
-                    Banten
-                  </option>
-                </Select> */}
               </FormControl>
               <FormControl>
-                <FormLabel>Kota/Kabupaten</FormLabel>
-                <Text>{data?.city}</Text>
-                <Select placeholder="Select City" onChange={cityHandler}>
+                <FormLabel ml={"20px"}>City</FormLabel>
+                <Select
+                  placeholder="Select City"
+                  onChange={cityHandler}
+                  ml={"20px"}
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
+                >
                   {renderCity()}
                 </Select>
-                {/* <Select ref={inputCity} defaultValue={data?.city}>
-                  <option selected={data?.city === ""} value="">
-                    Pilih Kota/Kabupaten
-                  </option>
-                  <option value="154" selected={data?.city === "154"}>
-                    Jakarta Timur
-                  </option>
-                  <option value="55" selected={data?.city === "55"}>
-                    Kota Bekasi
-                  </option>
-                  <option value="457" selected={data?.city === "457"}>
-                    Kota Tangerang Selatan
-                  </option>
-                  <option value="153" selected={data?.city === "153"}>
-                    Kota Jakarta Selatan
-                  </option>
-                  <option value="151" selected={data?.city === "151"}>
-                    Kota Jakarta Barat
-                  </option>
-                  <option value="152" selected={data?.city === "152"}>
-                    Kota Jakarta Pusat
-                  </option>
-                  <option value="79" selected={data?.city === "79"}>
-                    Kota Bogor
-                  </option>
-                  <option value="155" selected={data?.city === "155"}>
-                    Kota Jakarta Utara
-                  </option>
-                </Select> */}
               </FormControl>
-
               <FormControl>
-                <FormLabel>Kode Pos</FormLabel>
+                <FormLabel ml={"20px"}>Kode Pos</FormLabel>
                 <Input
-                  // ref={renderCity()}
+                  ref={inputPostalCode}
+                  ml={"20px"}
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
                   defaultValue={data?.postalCode}
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel>Detail Alamat</FormLabel>
+                <FormLabel ml={"20px"}>Detail Alamat</FormLabel>
                 <Textarea
                   ref={inputDetail}
                   placeholder="e.g. Blok/Lantai"
+                  ml={"20px"}
+                  width="340px"
+                  border="2px"
+                  borderColor="#285430"
                   defaultValue={data?.detail}
                 ></Textarea>
-                <Checkbox mb={"20px"}>Set as Default Address</Checkbox>
+                <Checkbox
+                  iconColor="#285430"
+                  iconSize="1rem"
+                  mt="10px"
+                  mb={"10px"}
+                  ml={"20px"}
+                >
+                  Set as Default Address
+                </Checkbox>
                 <FormControl>
-                  <FormLabel>Nama Penerima</FormLabel>
+                  <FormLabel ml={"20px"}>Nama Penerima</FormLabel>
                   <Flex>
                     <Input
                       ref={inputReceiverName}
-                      defaultValue={data?.receiverName}
-                      placeholder="Name"
-                      ml="20px"
+                      ml={"20px"}
                       width="340px"
                       border="2px"
                       borderColor="#285430"
+                      defaultValue={data?.receiverName}
+                      placeholder="Name"
                     ></Input>
                   </Flex>
                 </FormControl>
                 <FormControl>
-                  <FormLabel>No. Telepon Penerima</FormLabel>
+                  <FormLabel ml={"20px"}>No. Telepon Penerima</FormLabel>
                   <Input
                     ref={inputReceiverPhone}
                     placeholder="08xxx"
-                    type={"text"}
-                    defaultValue={data?.receiverPhone}
-                    ml="20px"
+                    ml={"20px"}
                     width="340px"
                     border="2px"
                     borderColor="#285430"
+                    type={"text"}
+                    defaultValue={data?.receiverPhone}
                   ></Input>
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Email Penerima</FormLabel>
+                  <FormLabel ml={"20px"}>Email Penerima</FormLabel>
                   <Input
                     ref={inputReceiverEmail}
                     placeholder="yourname@example.com"
-                    defaultValue={data?.receiverEmail}
-                    ml="20px"
+                    ml={"20px"}
                     width="340px"
                     border="2px"
                     borderColor="#285430"
+                    defaultValue={data?.receiverEmail}
                   ></Input>
                 </FormControl>
               </FormControl>
-              <Button
-                bgColor={"#A4BE7B"}
-                borderColor="#285430"
-                border="2px"
-                fontSize="18px"
-                color="gray.800"
-                width={"160px"}
-                justifyContent="center"
-                onClick={() => onUpdate(data.id)}
-              >
-                Confirm
-              </Button>
+              <Center>
+                <Button
+                  onClick={() => onUpdate(data.id)}
+                  bgColor={"#A4BE7B"}
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="18px"
+                  color="gray.800"
+                  width={"160px"}
+                  justifyContent="center"
+                >
+                  Confirm
+                </Button>
+              </Center>
             </Stack>
           </Box>
         </Center>
       </Box>
-    </div>
+    </>
   );
 };

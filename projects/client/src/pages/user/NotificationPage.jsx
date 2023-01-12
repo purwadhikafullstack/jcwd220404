@@ -3,9 +3,9 @@ import { NavbarComp } from "../../components/user/NavbarComp";
 
 export const NotificationPage = () => {
   return (
-    <div>
-      <Center>
-        <Box>
+    <>
+      <Box>
+        <Center>
           <Box
             className="header"
             w={"390px"}
@@ -28,8 +28,8 @@ export const NotificationPage = () => {
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>
-        </Box>
-      </Center>
-    </div>
+        </Center>
+      </Box>
+    </>
   );
 };

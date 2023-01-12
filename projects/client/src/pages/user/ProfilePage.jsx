@@ -123,133 +123,135 @@ export const ProfilePage = () => {
   };
 
   return (
-    <div>
-      <Center>
-        <Box w={"390px"} h={"844px"} bgColor="white">
-          <Box as={Link} to={"/account"}>
-            <ArrowBackIcon mt={"20px"} pos={"fixed"} />
-          </Box>
-          <Box
-            mt={"60px"}
-            className="body"
-            bgColor="white"
-            h={"1750px"}
-            w={"390px"}
-            zIndex={2}
-          >
-            <Center>
-              <Box>
-                <Avatar
-                  src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}
-                  size={"lg"}
-                  bg="teal.500"
-                />
-                <Tag mt={"20px"} as={"button"} ml={"10px"} onClick={onToggle}>
-                  <ArrowUpIcon mr={"5px"} /> Update Picture
-                </Tag>
-                <Popover
-                  returnFocusOnClose={false}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  // placement="auto-end"
-                  closeOnBlur={false}
-                >
-                  <PopoverContent w={"400px"}>
-                    <PopoverBody>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <ButtonGroup size="sm">
-                        <form encType="multipart/form-data">
-                          <input
-                            type={"file"}
-                            accept="image/*"
-                            name="file"
-                            onChange={(e) => handleChoose(e)}
-                          ></input>
-                        </form>
-                        <Button colorScheme="blue" onClick={handleUpload}>
-                          Upload
-                        </Button>
-                      </ButtonGroup>
-                    </PopoverBody>
-                  </PopoverContent>
-                </Popover>
-              </Box>
-            </Center>
-            <Heading mt={"20px"} size={"md"}>
-              Personal Data
-            </Heading>
+    <>
+      <Box>
+        <Center>
+          <Box w={"390px"} h={"844px"} bgColor="white">
+            <Box as={Link} to={"/account"}>
+              <ArrowBackIcon mt={"20px"} pos={"fixed"} />
+            </Box>
+            <Box
+              mt={"60px"}
+              className="body"
+              bgColor="white"
+              h={"1750px"}
+              w={"390px"}
+              zIndex={2}
+            >
+              <Center>
+                <Box>
+                  <Avatar
+                    src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}
+                    size={"lg"}
+                    bg="teal.500"
+                  />
+                  <Tag mt={"20px"} as={"button"} ml={"10px"} onClick={onToggle}>
+                    <ArrowUpIcon mr={"5px"} /> Update Picture
+                  </Tag>
+                  <Popover
+                    returnFocusOnClose={false}
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    // placement="auto-end"
+                    closeOnBlur={false}
+                  >
+                    <PopoverContent w={"400px"}>
+                      <PopoverBody>
+                        <PopoverArrow />
+                        <PopoverCloseButton />
+                        <ButtonGroup size="sm">
+                          <form encType="multipart/form-data">
+                            <input
+                              type={"file"}
+                              accept="image/*"
+                              name="file"
+                              onChange={(e) => handleChoose(e)}
+                            ></input>
+                          </form>
+                          <Button colorScheme="blue" onClick={handleUpload}>
+                            Upload
+                          </Button>
+                        </ButtonGroup>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                </Box>
+              </Center>
+              <Heading mt={"20px"} size={"md"}>
+                Personal Data
+              </Heading>
 
-            <Stack spacing={"20px"} mt={"20px"}>
-              <FormControl>
-                <FormLabel>Name</FormLabel>
-                <Flex>
+              <Stack spacing={"20px"} mt={"20px"}>
+                <FormControl>
+                  <FormLabel>Name</FormLabel>
+                  <Flex>
+                    <Input
+                      ref={inputName}
+                      placeholder="Name"
+                      defaultValue={data.name}
+                    ></Input>
+                  </Flex>
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Birthdate</FormLabel>
                   <Input
-                    ref={inputName}
-                    placeholder="Name"
-                    defaultValue={data.name}
-                  ></Input>
-                </Flex>
-              </FormControl>
-              <FormControl>
-                <FormLabel>Birthdate</FormLabel>
-                <Input
-                  placeholder="Select Date and Time"
-                  size="md"
-                  type="date"
-                  defaultValue={data.Profile?.birthDate}
-                  onChange={(event) => setDate(event.target.value)}
-                  ref={inputBirthDate}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Gender</FormLabel>
+                    placeholder="Select Date and Time"
+                    size="md"
+                    type="date"
+                    defaultValue={data.Profile?.birthDate}
+                    onChange={(event) => setDate(event.target.value)}
+                    ref={inputBirthDate}
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Gender</FormLabel>
 
-                <Select ref={inputGender}>
-                  <option selected={data.Profile?.gender === ""} value="">
-                    Select Gender
-                  </option>
-                  <option
-                    selected={data.Profile?.gender === "male"}
-                    value="male"
-                  >
-                    Male
-                  </option>
-                  <option
-                    selected={data.Profile?.gender === "female"}
-                    value="female"
-                  >
-                    Female
-                  </option>
-                </Select>
-              </FormControl>
-              <Button onClick={() => updateData(data.id)}>Save</Button>
-            </Stack>
-            <Heading mt={"20px"} mb={"20px"} size={"md"}>
-              Account Information
-            </Heading>
-            <Stack spacing={"20px"}>
-              <Box display={"flex"} justifyContent="space-between">
-                <Text>Phone Number</Text>
-              </Box>
-              <Text as={"u"}>{data.phoneNumber}</Text>
-              <Box display={"flex"} justifyContent="space-between">
-                <Text>Email</Text>
-                <Box as="button" onClick={toEmail}>
-                  <EditIcon />
+                  <Select ref={inputGender}>
+                    <option selected={data.Profile?.gender === ""} value="">
+                      Select Gender
+                    </option>
+                    <option
+                      selected={data.Profile?.gender === "male"}
+                      value="male"
+                    >
+                      Male
+                    </option>
+                    <option
+                      selected={data.Profile?.gender === "female"}
+                      value="female"
+                    >
+                      Female
+                    </option>
+                  </Select>
+                </FormControl>
+                <Button onClick={() => updateData(data.id)}>Save</Button>
+              </Stack>
+              <Heading mt={"20px"} mb={"20px"} size={"md"}>
+                Account Information
+              </Heading>
+              <Stack spacing={"20px"}>
+                <Box display={"flex"} justifyContent="space-between">
+                  <Text>Phone Number</Text>
                 </Box>
-              </Box>
-              <Text as={"u"}>{data.email}</Text>
-              <Box display={"flex"} justifyContent="space-between">
-                <Text>Password</Text>
-                <Box as="button" onClick={toPass}>
-                  <EditIcon />
+                <Text as={"u"}>{data.phoneNumber}</Text>
+                <Box display={"flex"} justifyContent="space-between">
+                  <Text>Email</Text>
+                  <Box as="button" onClick={toEmail}>
+                    <EditIcon />
+                  </Box>
                 </Box>
-              </Box>
-            </Stack>
+                <Text as={"u"}>{data.email}</Text>
+                <Box display={"flex"} justifyContent="space-between">
+                  <Text>Password</Text>
+                  <Box as="button" onClick={toPass}>
+                    <EditIcon />
+                  </Box>
+                </Box>
+              </Stack>
+            </Box>
           </Box>
-        </Box>
-      </Center>
-    </div>
+        </Center>
+      </Box>
+    </>
   );
 };

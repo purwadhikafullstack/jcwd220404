@@ -40,6 +40,7 @@ export const ForgotPasswordPage = () => {
         customClass: {
           container: "my-swal",
         },
+        width: "370px",
       });
     }
   };
@@ -49,7 +50,12 @@ export const ForgotPasswordPage = () => {
       <Button onClick={onOpen} as="u" variant={"unstyled"} color="#5F8D4E">
         Click Here
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose} colorScheme={"#5F8D4E"}>
+      <Modal
+        colorScheme={"#5F8D4E"}
+        isOpen={isOpen}
+        onClose={onClose}
+        size={"xs"}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
@@ -66,26 +72,21 @@ export const ForgotPasswordPage = () => {
             >
               <Heading
                 textColor={"#5F8D4E"}
-                lineHeight={1.1}
-                fontSize={{ base: "2xl", md: "3xl" }}
+                fontSize={{ base: "xl", md: "xl" }}
               >
                 Forgot your password?
               </Heading>
-              <Text
-                fontSize={{ base: "sm", sm: "md" }}
-                color={useColorModeValue("gray.800", "gray.400")}
-                textColor={"#285430"}
-              >
+              <Text fontSize={{ base: "sm", sm: "md" }} textColor={"#285430"}>
                 You&apos;ll get an email with a reset link
               </Text>
               <FormControl id="email">
                 <Input
                   placeholder="your-email@example.com"
                   _placeholder={{ color: "#5F8D4E" }}
-                  type="email"
                   bgColor={"white"}
                   textColor="#285430"
                   borderColor={"#285430"}
+                  type="email"
                 />
               </FormControl>
               <Stack spacing={6}>

@@ -65,9 +65,9 @@ export const ListAddressPage = () => {
   };
 
   return (
-    <div>
-      <Center>
-        <Box w={"390px"} h={"844px"} bgColor="white">
+    <>
+      <Box w={"390px"} h={"844px"} bgColor="white">
+        <Center>
           <Box
             className="header"
             w={"390px"}
@@ -82,37 +82,59 @@ export const ListAddressPage = () => {
             zIndex={"2"}
           >
             <Box as={Link} to={"/account"}>
-              <ArrowBackIcon mt={"20px"} pos={"fixed"} />
+              <ArrowBackIcon
+                mt={"20px"}
+                ml={"20px"}
+                pos={"fixed"}
+                color="#285430"
+                fontSize={"25px"}
+              />
             </Box>
-            <Box margin={"auto"} alignItems={"center"} textColor="black">
-              Account
+            <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+              <Text as={"b"} fontSize="xl">
+                MY ADDRESS
+              </Text>
             </Box>
           </Box>
           <Box
-            mt={"100px"}
+            mt={"80px"}
+            pt={"3px"}
             className="body"
             bgColor="white"
-            h={"1750px"}
+            h={"740px"}
             w={"390px"}
           >
             {data?.map((item) => {
               return (
-                <Box border={"2px"} borderColor={"black"}>
+                <Box
+                  ml="8px"
+                  mr="8px"
+                  mt="8px"
+                  p="4"
+                  border={"2px"}
+                  borderColor={"#285430"}
+                  borderRadius="xl"
+                >
                   <Flex justifyContent={"space-between"}>
-                    <Text>{item.receiverName}</Text>
-                    <Text>{item.receiverPhone}</Text>
-                    <Menu>
+                    <Text color={"#285430"}>{item.receiverName}</Text>
+                    <Text color={"#285430"}>{item.receiverPhone}</Text>
+                    <Menu theme={{ direction: "rtl" }}>
                       <MenuButton
+                        color={"#285430"}
                         as={IconButton}
                         aria-label="Options"
                         icon={<HamburgerIcon />}
                         variant="ghost"
                       />
-                      <MenuList>
+                      <MenuList bgColor="#E5D9B6">
                         <MenuItem
                           as={"button"}
                           onClick={() => toUpdate(item.id)}
                           icon={<EditIcon />}
+                          bgColor="#E5D9B6"
+                          textColor={"#285430"}
+                          placement="bottom"
+                          direction="ltr"
                         >
                           Edit Address
                         </MenuItem>
@@ -120,29 +142,44 @@ export const ListAddressPage = () => {
                           as={"button"}
                           onClick={() => onDelete(item.id)}
                           icon={<DeleteIcon />}
+                          bgColor="#E5D9B6"
+                          textColor={"#285430"}
                         >
                           Delete Address
                         </MenuItem>
                       </MenuList>
                     </Menu>
                   </Flex>
-                  <Text>{item.addressLine}</Text>
+
+                  <Text color={"#285430"}>{item.addressLine}</Text>
                   <Flex>
-                    <Text>{item.district},</Text>
-                    <Text>{item.city},</Text>
-                    <Text>{item.province}</Text>
+                    <Text color={"#285430"}>{item.district},</Text>
+                    <Text color={"#285430"}>{item.city},</Text>
+                    <Text color={"#285430"}>{item.province}</Text>
                   </Flex>
-                  <Text>{item.detail}</Text>
-                  <Text>Alamat Utama?</Text>
+                  <Text color={"#285430"}>{item.detail}</Text>
+                  <Text color={"#285430"}>Alamat Utama?</Text>
                 </Box>
               );
-            })}
-            <Button onClick={toAddAddress} mt={"20px"} w={"100%"}>
-              Tambah Alamat
-            </Button>
+            })}{" "}
+            <Center>
+              <Button
+                mt="8"
+                onClick={toAddAddress}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="18px"
+                color="gray.800"
+                width={"160px"}
+                justifyContent="center"
+              >
+                Tambah Alamat
+              </Button>
+            </Center>
           </Box>
-        </Box>
-      </Center>
-    </div>
+        </Center>
+      </Box>
+    </>
   );
 };

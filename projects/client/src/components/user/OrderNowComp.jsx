@@ -10,13 +10,13 @@ export const OrderNowComp = () => {
   };
 
   return (
-    <div>
+    <>
       <Box>
         <Image
           src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167331034678635995.png`}
         ></Image>
         <Button onClick={toLandingPage}>Order Now</Button>
       </Box>
-    </div>
+    </>
   );
 };

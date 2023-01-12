@@ -19,7 +19,7 @@ export const WindowComp = () => {
     navigate("/loginUser");
   };
   return (
-    <div>
+    <>
       <Flex
         w={"full"}
         h={"100vh"}
@@ -75,6 +75,6 @@ export const WindowComp = () => {
           </Stack>
         </VStack>
       </Flex>
-    </div>
+    </>
   );
 };

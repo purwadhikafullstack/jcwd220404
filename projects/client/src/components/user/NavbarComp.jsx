@@ -56,7 +56,7 @@ export const NavbarComp = () => {
   };
 
   return (
-    <div>
+    <>
       <Center>
         <Flex
           w={[300, 350, 390]}
@@ -108,6 +108,6 @@ export const NavbarComp = () => {
           </Flex>
         </Flex>
       </Center>
-    </div>
+    </>
   );
 };
