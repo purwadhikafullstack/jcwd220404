@@ -66,8 +66,8 @@ export const ListAddressPage = () => {
 
   return (
     <>
-      <Box w={"390px"} h={"844px"} bgColor="white">
-        <Center>
+      <Center>
+        <Box w={"390px"} h={"844px"} bgColor="white">
           <Box
             className="header"
             w={"390px"}
@@ -178,8 +178,8 @@ export const ListAddressPage = () => {
               </Button>
             </Center>
           </Box>
-        </Center>
-      </Box>
+        </Box>
+      </Center>
     </>
   );
 };

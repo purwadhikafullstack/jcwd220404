@@ -8,7 +8,7 @@ export const AccountPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
 
   return (
-    <div>
+    <>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
           {tokenLocalStorage ? <AccountComp /> : <WindowComp />}
@@ -18,6 +18,6 @@ export const AccountPage = () => {
           </Box>
         </Box>
       </Center>
-    </div>
+    </>
   );
 };

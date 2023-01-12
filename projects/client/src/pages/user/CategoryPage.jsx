@@ -23,9 +23,9 @@ export const CategoryPage = () => {
   }, []);
 
   return (
-    <div>
-      <Center>
-        <Box>
+    <>
+      <Box>
+        <Center>
           <Box
             className="header"
             w={"390px"}
@@ -81,8 +81,8 @@ export const CategoryPage = () => {
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>
-        </Box>
-      </Center>
-    </div>
+        </Center>
+      </Box>
+    </>
   );
 };

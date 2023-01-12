@@ -8,8 +8,8 @@ export const TransactionPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
   return (
     <>
-      <Box>
-        <Center>
+      <Center>
+        <Box>
           <Box
             className="header"
             w={"390px"}
@@ -38,8 +38,8 @@ export const TransactionPage = () => {
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>
-        </Center>
-      </Box>
+        </Box>
+      </Center>
     </>
   );
 };

@@ -8,9 +8,9 @@ export const NotFoundPage = () => {
     navigate("/");
   };
   return (
-    <div>
-      <Center>
-        <Box>
+    <>
+      <Box>
+        <Center>
           <Box
             textAlign="center"
             py={10}
@@ -51,8 +51,8 @@ export const NotFoundPage = () => {
               />
             </Box>
           </Box>
-        </Box>
-      </Center>
-    </div>
+        </Center>
+      </Box>
+    </>
   );
 };

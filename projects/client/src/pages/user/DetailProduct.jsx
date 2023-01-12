@@ -38,7 +38,7 @@ export const DetailProduct = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <Container maxW={"7xl"}>
         <SimpleGrid
           columns={{ base: 1, lg: 2 }}
@@ -159,6 +159,6 @@ export const DetailProduct = () => {
           </Stack>
         </SimpleGrid>
       </Container>
-    </div>
+    </>
   );
 };

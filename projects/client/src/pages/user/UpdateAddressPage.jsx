@@ -152,8 +152,8 @@ export const UpdateAddressPage = () => {
 
   return (
     <>
-      <Box>
-        <Center>
+      <Center>
+        <Box>
           <Box
             className="header"
             w={"390px"}
@@ -327,8 +327,8 @@ export const UpdateAddressPage = () => {
               </Center>
             </Stack>
           </Box>
-        </Center>
-      </Box>
+        </Box>
+      </Center>
     </>
   );
 };

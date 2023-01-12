@@ -8,18 +8,20 @@ export const AdminPage = () => {
   const tokenLocalStorage2 = localStorage.getItem("tokenBranch");
 
   return (
-    <div>
-      <Center>
-        <Box w={"390px"} h={"844px"} bgColor="white">
-          {tokenLocalStorage ? (
-            <SuperComp />
-          ) : tokenLocalStorage2 ? (
-            <BranchComp />
-          ) : (
-            <RestrictedPage />
-          )}
-        </Box>
-      </Center>
-    </div>
+    <>
+      <Box>
+        <Center>
+          <Box w={"390px"} h={"844px"} bgColor="white">
+            {tokenLocalStorage ? (
+              <SuperComp />
+            ) : tokenLocalStorage2 ? (
+              <BranchComp />
+            ) : (
+              <RestrictedPage />
+            )}
+          </Box>
+        </Center>
+      </Box>
+    </>
   );
 };

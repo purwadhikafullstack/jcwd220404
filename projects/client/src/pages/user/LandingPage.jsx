@@ -9,8 +9,8 @@ import { MenuComp } from "../../components/user/MenuComp";
 export const LandingPage = () => {
   return (
     <>
-        <Box>
       <Center>
+        <Box>
           <Box
             className="header"
             w={"390px"}
@@ -36,8 +36,8 @@ export const LandingPage = () => {
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>
-      </Center>
         </Box>
+      </Center>
     </>
   );
 };

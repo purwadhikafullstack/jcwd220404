@@ -316,7 +316,7 @@ export const BranchComp = () => {
         >
           <Box margin={"auto"} alignItems={"center"} textColor="#285430">
             <Text as={"b"} fontSize="xl">
-              BRANCH ADMIN
+              Product Management
             </Text>
           </Box>
         </Box>
@@ -329,11 +329,7 @@ export const BranchComp = () => {
           w={"390px"}
           // pos="fixed"
         >
-          <Center>
-            <Text mt="5" as="b" color="#285430">
-              Product Management
-            </Text>
-          </Center>
+          <Center></Center>
           <Grid
             h="100px"
             templateRows="repeat(2, 1fr)"
@@ -529,10 +525,10 @@ export const BranchComp = () => {
 
           <Tabs isFitted variant="enclosed">
             <TabList mb="1em">
-              <Tab color="#285430" as="b">
+              <Tab color="#285430" as="button">
                 Product List
               </Tab>
-              <Tab color="#285430" as="b">
+              <Tab color="#285430" as="button">
                 Category List
               </Tab>
             </TabList>
@@ -713,10 +709,10 @@ export const BranchComp = () => {
 
           <Tabs isFitted variant="enclosed">
             <TabList mb="1em">
-              <Tab color="#285430" as="b">
+              <Tab color="#285430" as="button">
                 Edit Product
               </Tab>
-              <Tab color="#285430" as="b">
+              <Tab color="#285430" as="button">
                 Edit Category
               </Tab>
             </TabList>

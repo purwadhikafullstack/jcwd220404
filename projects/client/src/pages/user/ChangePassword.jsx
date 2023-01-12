@@ -52,9 +52,9 @@ export const ChangePassword = (data) => {
   };
 
   return (
-    <div>
-      <Center>
-        <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
+    <>
+      <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
+        <Center>
           <Box as={Link} to={`/account/profile/${id}`}>
             <ArrowBackIcon
               mt={"20px"}
@@ -145,8 +145,8 @@ export const ChangePassword = (data) => {
               </Button>
             </Stack>
           </Box>
-        </Box>
-      </Center>
-    </div>
+        </Center>
+      </Box>
+    </>
   );
 };

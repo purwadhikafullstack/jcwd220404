@@ -129,13 +129,12 @@ export const RegisterPage = () => {
             w={"390px"}
           >
             <Flex align={"center"} justify={"center"}>
-              <Image
-                src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`}
-                height="100%"
-              />
-
               <Stack mx={"auto"} maxW={"auto"} py={10} px={6}>
                 <Stack align={"center"}>
+                  <Image
+                    src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`}
+                    height="100px"
+                  />
                   <Heading mt="-6" textColor={"#285430"} fontSize={"2xl"}>
                     Create your account
                   </Heading>

@@ -98,7 +98,7 @@ export const ProfilePage = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/user/single-uploaded/${id}`,
+      `${process.env.REACT_APP_API_BASE_URL}/user/single-uploaded/6`,
       data,
       {
         headers: {

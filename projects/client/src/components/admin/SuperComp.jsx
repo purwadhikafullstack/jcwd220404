@@ -49,7 +49,7 @@ import {
   PopoverBody,
   PopoverContent,
   Flex,
-  Center
+  Center,
 } from "@chakra-ui/react";
 import Axios from "axios";
 import {
@@ -374,10 +374,10 @@ export const SuperComp = () => {
             </Drawer> */}
             <Tabs isFitted variant="enclosed">
               <TabList mb="1em">
-                <Tab as="b" color="#285430">
+                <Tab as="button" color="#285430">
                   Add Admin
                 </Tab>
-                <Tab as="b" color="#285430">
+                <Tab as="button" color="#285430">
                   List of Admin
                 </Tab>
               </TabList>
@@ -519,6 +519,7 @@ export const SuperComp = () => {
                                           (showPassword) => !showPassword
                                         )
                                       }
+                                      variant="ghost"
                                     >
                                       {showPassword ? (
                                         <ViewIcon />
@@ -570,6 +571,7 @@ export const SuperComp = () => {
                                             !showConfirmPassword
                                         )
                                       }
+                                      variant="ghost"
                                     >
                                       {showConfirmPassword ? (
                                         <ViewIcon />

@@ -140,6 +140,7 @@ export const EnterComp = () => {
                     }
                     pos="absolute"
                     zIndex="2"
+                    variant="ghost"
                   >
                     {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                   </Button>
