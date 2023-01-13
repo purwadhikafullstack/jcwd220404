@@ -1,3 +1,8 @@
+import Axios from "axios";
+import * as Yup from "yup";
+import { Link, useNavigate } from "react-router-dom";
+import { Field, ErrorMessage, Formik, Form } from "formik";
+import Swal from "sweetalert2";
 import { useState } from "react";
 import {
   Heading,
@@ -16,13 +21,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import OnlyFreshLogo from "../../OnlyFresh.jpg";
-import LogoHeader from "../../logoheader.jpg";
-import Axios from "axios";
-import * as Yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
-import { Field, ErrorMessage, Formik, Form } from "formik";
-import Swal from "sweetalert2";
 
 export const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);

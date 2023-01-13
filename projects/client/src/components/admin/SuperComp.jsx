@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { Formik, Form, ErrorMessage, Field } from "formik";
+import * as Yup from "yup";
 import {
   Button,
   useDisclosure,
@@ -58,9 +61,7 @@ import {
   ViewIcon,
   ViewOffIcon,
 } from "@chakra-ui/icons";
-import Swal from "sweetalert2";
-import { Formik, Form, ErrorMessage, Field } from "formik";
-import * as Yup from "yup";
+
 import { logoutAdmin } from "../../redux/adminSlice";
 
 export const SuperComp = () => {

@@ -1,3 +1,7 @@
+import { Navigate, useParams } from "react-router-dom";
+import Axios from "axios";
+import { useState } from "react";
+import Swal from "sweetalert2";
 import {
   Button,
   Flex,
@@ -7,10 +11,6 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
-import { Navigate, useParams } from "react-router-dom";
-import Axios from "axios";
-import { useState } from "react";
-import Swal from "sweetalert2";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export const ResetPassPage = () => {

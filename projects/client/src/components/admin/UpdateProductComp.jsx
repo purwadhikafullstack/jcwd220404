@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Axios from "axios";
+import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import {
   Button,
@@ -11,8 +12,6 @@ import {
   useDisclosure,
   Center,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import Swal from "sweetalert2";
 import { ArrowUpIcon } from "@chakra-ui/icons";
 
 export const UpdateProductComp = ({ data }) => {

@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Center,
@@ -13,9 +15,6 @@ import {
   Button,
   Image,
 } from "@chakra-ui/react";
-import Axios from "axios";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { AddIcon } from "@chakra-ui/icons";
 
 export const MenuComp = () => {
@@ -69,7 +68,7 @@ export const MenuComp = () => {
       <Center>
         <Flex
           flexWrap="wrap"
-          mt="-12"
+          mt="-110"
           w={[330, 330, 380]}
           justifyContent="center"
         >

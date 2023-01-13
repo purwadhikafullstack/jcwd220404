@@ -1,4 +1,7 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import Axios from "axios";
+import Swal from "sweetalert2";
 import {
   Box,
   Center,
@@ -13,11 +16,7 @@ import {
   Textarea,
   Text,
 } from "@chakra-ui/react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import Axios from "axios";
-import Swal from "sweetalert2";
-import { useState } from "react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const AddressPage = () => {
   const [province, setProvince] = useState([]);

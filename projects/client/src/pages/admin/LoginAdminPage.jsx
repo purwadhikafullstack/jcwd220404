@@ -20,7 +20,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginAdmin } from "../../redux/adminSlice";
 import Swal from "sweetalert2";
-import OnlyFreshLogo from "../../OnlyFresh.jpg";
 
 export const LoginAdminPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -67,7 +66,6 @@ export const LoginAdminPage = () => {
           container: "my-swal",
         },
       });
-      // navigate("/restricted");
     }
   };
 
@@ -75,7 +73,12 @@ export const LoginAdminPage = () => {
     <>
       <Center>
         <Box py={3} px={3} bgColor="#E5D9B6" w={"390px"} h={"100%"}>
-          <Image src={OnlyFreshLogo} height="160px" w={"auto"} ml={"75px"} />
+          <Image
+            src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`}
+            height="160px"
+            w={"auto"}
+            ml={"75px"}
+          />
           <Stack align={"center"}>
             <Heading mt={"10px"} size={"lg"} textColor="#285430">
               Sign in to Admin
@@ -150,11 +153,11 @@ export const LoginAdminPage = () => {
             </Stack>
           </Center>
           <Box justifyContent="center">
-            <img
-              src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif"
+            <Image
+              src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358160512169392.gif`}
               width="100%"
-              height="200px"
-            ></img>
+              height="250px"
+            ></Image>
           </Box>
         </Box>
       </Center>

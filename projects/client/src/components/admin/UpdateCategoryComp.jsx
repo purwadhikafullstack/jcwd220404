@@ -1,3 +1,5 @@
+import Axios from "axios";
+import Swal from "sweetalert2";
 import {
   Button,
   ButtonGroup,
@@ -8,8 +10,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
-import Axios from "axios";
-import Swal from "sweetalert2";
+
 
 export const UpdateCategoryComp = ({ data }) => {
   const [image, setImage] = useState("");

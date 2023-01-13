@@ -1,4 +1,8 @@
-import { ArrowBackIcon, ArrowUpIcon, EditIcon } from "@chakra-ui/icons";
+import { useRef, useState, useEffect } from "react";
+import Axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import {
   Avatar,
   Box,
@@ -21,15 +25,7 @@ import {
   PopoverBody,
   ButtonGroup,
 } from "@chakra-ui/react";
-import { useRef } from "react";
-import Axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser, syncData, updateUser } from "../../redux/userSlice";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import React from "react";
-import Swal from "sweetalert2";
+import { ArrowBackIcon, ArrowUpIcon, EditIcon } from "@chakra-ui/icons";
 
 export const ProfilePage = () => {
   const [data, setData] = useState([]);

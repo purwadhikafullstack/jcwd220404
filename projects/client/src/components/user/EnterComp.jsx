@@ -1,3 +1,8 @@
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import Axios from "axios";
+import Swal from "sweetalert2";
 import {
   Box,
   Button,
@@ -11,15 +16,10 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import Axios from "axios";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { loginUser } from "../../redux/userSlice";
 import { ForgotPasswordPage } from "../../pages/user/ForgotPassPage";
-import Swal from "sweetalert2";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { LogoComp } from "./LogoComp";
+
 
 export const EnterComp = () => {
   const [showPassword, setShowPassword] = useState(false);

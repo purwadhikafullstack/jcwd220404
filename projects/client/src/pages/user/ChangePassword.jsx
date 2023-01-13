@@ -1,3 +1,8 @@
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Axios from "axios";
+import { useState, useRef } from "react";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import {
   Box,
   Button,
@@ -9,13 +14,7 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
-import { useRef } from "react";
-import Swal from "sweetalert2";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Axios from "axios";
-import { useState } from "react";
 import { ArrowBackIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { useSelector } from "react-redux";
 
 export const ChangePassword = (data) => {
   const [move, setMove] = useState(false);

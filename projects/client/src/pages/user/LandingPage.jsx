@@ -5,6 +5,7 @@ import { SearchComp } from "../../components/user/SearchComp";
 import { NavbarComp } from "../../components/user/NavbarComp";
 import { CarouselComp } from "../../components/user/CarouselComp";
 import { MenuComp } from "../../components/user/MenuComp";
+import { DefaultAddress } from "../../components/user/DefaultAddress";
 
 export const LandingPage = () => {
   return (
@@ -27,6 +28,7 @@ export const LandingPage = () => {
             <SearchComp />
             <NotificationComp />
           </Box>
+          <DefaultAddress />
           <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
             <VStack>
               <CarouselComp />

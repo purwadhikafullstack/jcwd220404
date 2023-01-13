@@ -1,6 +1,5 @@
 import { Box, Center } from "@chakra-ui/react";
 import { AccountComp } from "../../components/user/AccountComp";
-import { EnterComp } from "../../components/user/EnterComp";
 import { NavbarComp } from "../../components/user/NavbarComp";
 import { WindowComp } from "../../components/user/WindowComp";
 

@@ -1,8 +1,7 @@
-import React from "react";
+import { useState } from "react";
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
-import { useState } from "react";
 
 export const CarouselComp = () => {
   const [slider, setSlider] = useState(null);
@@ -22,7 +21,7 @@ export const CarouselComp = () => {
         height={"300px"}
         width={"375px"}
         overflow={"hidden"}
-        pt={"88px"}
+        mt={"30px"}
       >
         <link
           rel="stylesheet"
@@ -41,7 +40,7 @@ export const CarouselComp = () => {
           background={"transparent"}
           left={side}
           top={top}
-          transform={"translate(0%, -50%)"}
+          transform={"translate(0%, -220%)"}
           zIndex={1}
           onClick={() => slider?.slickPrev()}
           variant="unstyled"
@@ -54,7 +53,7 @@ export const CarouselComp = () => {
           position="absolute"
           right={side}
           top={top}
-          transform={"translate(50%, -50%)"}
+          transform={"translate(50%, -220%)"}
           zIndex={1}
           onClick={() => slider?.slickNext()}
           variant="unstyled"

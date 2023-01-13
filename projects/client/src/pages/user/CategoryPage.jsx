@@ -1,7 +1,7 @@
-import { Avatar, Box, Center, Flex, Text } from "@chakra-ui/react";
-import { NavbarComp } from "../../components/user/NavbarComp";
 import Axios from "axios";
 import { useEffect, useState } from "react";
+import { Avatar, Box, Center, Flex, Text } from "@chakra-ui/react";
+import { NavbarComp } from "../../components/user/NavbarComp";
 
 export const CategoryPage = () => {
   const [data, setData] = useState([]);
@@ -69,7 +69,10 @@ export const CategoryPage = () => {
                         mt="3"
                         size="md"
                         name="Grocery"
-                        src={"http://localhost:8000/" + item.categoryPicture}
+                        src={
+                          `${process.env.REACT_APP_API_BASE_URL}/` +
+                          item.categoryPicture
+                        }
                       ></Avatar>
                       <Text>{item.categoryName}</Text>
                     </div>

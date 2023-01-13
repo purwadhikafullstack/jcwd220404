@@ -1,3 +1,4 @@
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   IoHomeOutline,
   IoHome,
@@ -12,7 +13,6 @@ import {
 } from "react-icons/io5";
 import { Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
 import "../../components/user/NavbarComp";
-import { useNavigate, useLocation } from "react-router-dom";
 
 export const NavbarComp = () => {
   const location = useLocation();

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Flex,
@@ -6,8 +7,6 @@ import {
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
-import { useNavigate } from "react-router-dom";
 
 export const WindowComp = () => {
   const navigate = useNavigate();
@@ -23,9 +22,7 @@ export const WindowComp = () => {
       <Flex
         w={"full"}
         h={"100vh"}
-        backgroundImage={
-          "url(https://media.istockphoto.com/id/467970412/vector/groceries.jpg?s=612x612&w=0&k=20&c=tH30XMv3C-OnoxGIvN3sWmjbmtbdOJMuffd_dR9L5Z8=)"
-        }
+        backgroundImage={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358083219244234.jpeg`}
         backgroundSize={"cover"}
         backgroundPosition={"center center"}
       >

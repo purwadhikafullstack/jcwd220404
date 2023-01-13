@@ -1,3 +1,8 @@
+import Axios from "axios";
+import { useRef } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -9,12 +14,6 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
-import Axios from "axios";
-import React from "react";
-import { useRef } from "react";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 
 export const ChangeEmail = (data) => {
   const inputEmail = useRef("");

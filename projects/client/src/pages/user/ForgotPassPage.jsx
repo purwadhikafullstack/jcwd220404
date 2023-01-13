@@ -1,4 +1,5 @@
 import Axios from "axios";
+import Swal from "sweetalert2";
 import {
   Input,
   Button,
@@ -14,7 +15,6 @@ import {
   Heading,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Swal from "sweetalert2";
 
 export const ForgotPasswordPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

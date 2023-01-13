@@ -1,11 +1,19 @@
-import { Box, Center, Heading } from "@chakra-ui/react";
-import { Button, FormControl, Flex, Stack, HStack } from "@chakra-ui/react";
-import { PinInput, PinInputField } from "@chakra-ui/react";
-import { Navigate, useParams } from "react-router-dom";
 import Axios from "axios";
-import { useState } from "react";
-import { useRef } from "react";
+import { useState, useRef } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import {
+  Button,
+  FormControl,
+  Flex,
+  Stack,
+  HStack,
+  Box,
+  Center,
+  Heading,
+  PinInput,
+  PinInputField,
+} from "@chakra-ui/react";
 
 export const VerificationPage = () => {
   const params = useParams();

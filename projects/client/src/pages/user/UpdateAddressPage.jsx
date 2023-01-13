@@ -1,3 +1,8 @@
+import { useRef, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import Axios from "axios";
+import Swal from "sweetalert2";
 import {
   Box,
   Button,
@@ -12,13 +17,8 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { useRef, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Axios from "axios";
-import Swal from "sweetalert2";
-import { syncData } from "../../redux/addressSlice";
-import { useNavigate, useParams } from "react-router-dom";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import { syncData } from "../../redux/addressSlice";
 
 export const UpdateAddressPage = () => {
   const [province, setProvince] = useState([]);

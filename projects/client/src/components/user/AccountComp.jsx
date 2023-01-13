@@ -1,4 +1,7 @@
-import { EditIcon } from "@chakra-ui/icons";
+import Axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Stack,
   Button,
@@ -19,13 +22,8 @@ import {
   PopoverContent,
   Popover,
 } from "@chakra-ui/react";
-import Axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { EditIcon } from "@chakra-ui/icons";
 import { logoutUser } from "../../redux/userSlice";
-import { LogoComp } from "./LogoComp";
 
 export const AccountComp = () => {
   const { name, id } = useSelector((state) => state.userSlice.value);

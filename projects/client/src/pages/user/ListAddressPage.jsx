@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Button,
@@ -16,10 +20,6 @@ import {
   EditIcon,
   HamburgerIcon,
 } from "@chakra-ui/icons";
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/addressSlice";
 
 export const ListAddressPage = () => {

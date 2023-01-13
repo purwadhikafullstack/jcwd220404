@@ -1,5 +1,4 @@
 import { Image } from "@chakra-ui/react";
-import OnlyFreshLogo from ".././OnlyFreshLogo.png";
 
 export const LogoComp = () => {
   return (

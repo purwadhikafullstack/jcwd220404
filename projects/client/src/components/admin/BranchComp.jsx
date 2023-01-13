@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { logoutAdmin } from "../../redux/adminSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import Axios from "axios";
 import {
   Accordion,
   AccordionButton,
@@ -56,8 +58,7 @@ import {
   useDisclosure,
   Center,
 } from "@chakra-ui/react";
-import Swal from "sweetalert2";
-import Axios from "axios";
+
 import {
   AddIcon,
   DeleteIcon,
@@ -241,6 +242,7 @@ export const BranchComp = () => {
 
     console.log(image);
     console.log(profile);
+    window.location.replace("/adminPage");
   };
 
   const handleUpload1 = async (id) => {
@@ -263,6 +265,7 @@ export const BranchComp = () => {
     setImage2({ images: "" });
     console.log(image2);
     console.log(profile2);
+    window.location.replace("/adminPage");
   };
 
   const handleUpload2 = async () => {

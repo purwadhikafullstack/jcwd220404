@@ -1,6 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { Box, Badge } from "@chakra-ui/react";
 import { IoNotifications } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
 
 export const NotificationComp = () => {
   const navigate = useNavigate();

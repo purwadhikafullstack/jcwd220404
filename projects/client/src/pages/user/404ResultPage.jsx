@@ -1,6 +1,5 @@
-import { Box, Heading, Text, Button, Center, Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import NotFoundIcon from "../../NotFoundIcon.png";
+import { Box, Heading, Text, Button, Center, Image } from "@chakra-ui/react";
 
 export const NotFoundPage = () => {
   const navigate = useNavigate();
