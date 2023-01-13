@@ -94,7 +94,7 @@ export const ProfilePage = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/user/single-uploaded/6`,
+      `${process.env.REACT_APP_API_BASE_URL}/user/single-uploaded/${id}`,
       data,
       {
         headers: {
@@ -148,7 +148,6 @@ export const ProfilePage = () => {
                     returnFocusOnClose={false}
                     isOpen={isOpen}
                     onClose={onClose}
-                    // placement="auto-end"
                     closeOnBlur={false}
                   >
                     <PopoverContent w={"400px"}>

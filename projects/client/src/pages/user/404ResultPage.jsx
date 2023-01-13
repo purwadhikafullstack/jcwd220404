@@ -6,6 +6,7 @@ export const NotFoundPage = () => {
   const toHome = () => {
     navigate("/");
   };
+  
   return (
     <>
       <Box>

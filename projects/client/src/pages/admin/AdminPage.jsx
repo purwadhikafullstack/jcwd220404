@@ -1,6 +1,6 @@
 import { Box, Center } from "@chakra-ui/react";
-import { BranchComp } from "../../components/admin/BranchComp";
-import { SuperComp } from "../../components/admin/SuperComp";
+import { BranchComp } from "../../pages/admin/BranchComp";
+import { SuperComp } from "../../pages/admin/SuperComp";
 import { RestrictedPage } from "../403ResultPage";
 
 export const AdminPage = () => {

@@ -24,7 +24,7 @@ export const DetailProduct = () => {
   const getData = async () => {
     try {
       const result = await Axios.get(
-        `http://localhost:8000/product/list/${params.id}`
+        `${process.env.REACT_APP_API_BASE_URL}/product/list/${params.id}`
       );
       console.log(result.data);
       setData(result.data);

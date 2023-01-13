@@ -8,9 +8,11 @@ import {
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const UpdateCategoryComp = ({ data }) => {
+  const [data2, setData2] = useState([]);
+  const [edit2, setEdit2] = useState({});
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const inputCategoryName = useRef("");
 
@@ -29,11 +31,27 @@ export const UpdateCategoryComp = ({ data }) => {
         icon: "success",
         text: "Data Updated",
       });
-      setTimeout(() => window.location.replace("/admin-page"), 900);
+      setTimeout(() => window.location.replace("/admin"), 900);
     } catch (err) {
       console.log(err);
     }
   };
+
+  // const getCategory = async () => {
+  //   try {
+  //     const res = await Axios.get(
+  //       `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
+  //     );
+  //     console.log(res.data);
+  //     setData2(res.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getCategory();
+  // }, [edit2]);
 
   return (
     <>

@@ -59,6 +59,7 @@ export const AddProduct = () => {
   useEffect(() => {
     getCategory();
   }, [edit2]);
+  
   return (
     <>
       <Stack spacing={"10px"}>

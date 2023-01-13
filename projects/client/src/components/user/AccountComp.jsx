@@ -59,7 +59,6 @@ export const AccountComp = () => {
     navigate(`/account/profile/${id}`);
   };
   const toAddress = () => {
-    // navigate(`/account/address/`);
     navigate(`/account/address/${id}`);
   };
 

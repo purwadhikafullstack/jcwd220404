@@ -137,7 +137,7 @@ export const EnterComp = () => {
                     }
                     pos="absolute"
                     zIndex="2"
-                    variant="ghost"
+                    variant="unstyled"
                   >
                     {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                   </Button>
@@ -168,10 +168,6 @@ export const EnterComp = () => {
               <ForgotPasswordPage />
             </Box>
 
-            {/* <Text textAlign={"center"}>Don't have an account?</Text>
-            <Link href="/register" textAlign={"center"} color={"blue"}>
-              Register here
-            </Link> */}
             <Text textAlign={"center"} textColor="gray.800">
               Don't have an account?
             </Text>
