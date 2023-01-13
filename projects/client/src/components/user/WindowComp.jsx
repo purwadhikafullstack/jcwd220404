@@ -15,7 +15,7 @@ export const WindowComp = () => {
     navigate("/register");
   };
   const toLogin = () => {
-    navigate("/loginUser");
+    navigate("/login-user");
   };
   return (
     <>

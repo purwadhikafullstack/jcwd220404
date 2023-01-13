@@ -6,6 +6,7 @@ import { AccountPage } from "./AccountPage";
 
 export const TransactionPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
+  
   return (
     <>
       <Center>

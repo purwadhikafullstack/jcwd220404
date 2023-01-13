@@ -129,7 +129,7 @@ function App() {
           path="/verification/:token"
           element={<VerificationPage />}
         ></Route>
-        <Route path="/loginUser" element={<EnterComp />}></Route>
+        <Route path="/login-user" element={<EnterComp />}></Route>
         <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/account/profile/:id" element={<ProfilePage />}></Route>
         <Route
@@ -143,18 +143,18 @@ function App() {
         ></Route>
         <Route path="/account/address" element={<ListAddressPage />}></Route>
         <Route
-          path="/account/address/addAddress/:id"
+          path="/account/address/add/:id"
           element={<AddressPage />}
         ></Route>
         <Route
-          path="/account/address/updateAddress/:id"
+          path="/account/address/update/:id"
           element={<UpdateAddressPage />}
         ></Route>
-        <Route path="/forgotPassword" element={<ForgotPasswordPage />}></Route>
-        <Route path="/resetPassword/:token" element={<ResetPassPage />}></Route>
+        <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
+        <Route path="/reset-password/:token" element={<ResetPassPage />}></Route>
         <Route path="/restricted" element={<RestrictedPage />}></Route>
-        <Route path="/loginAdmin" element={<LoginAdminPage />}></Route>
-        <Route path="/adminPage" element={<AdminPage />}></Route>
+        <Route path="/login-admin" element={<LoginAdminPage />}></Route>
+        <Route path="/admin" element={<AdminPage />}></Route>
         <Route path="/*" element={<NotFoundPage />}></Route>
       </Routes>
     </div>

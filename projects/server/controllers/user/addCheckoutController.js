@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const db = require("../models");
+const db = require("../../models");
 const address = db.Address;
 const rajaOngkirKey = process.env.RAJA_KEY;
 const openCageKey = process.env.GEO_KEY;

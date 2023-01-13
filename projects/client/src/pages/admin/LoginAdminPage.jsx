@@ -55,7 +55,7 @@ export const LoginAdminPage = () => {
       } else if (!result.data.isUserExist.isSuper) {
         localStorage.setItem("tokenUser", result.data.token);
       }
-      navigate("/adminPage");
+      navigate("/admin");
     } catch (err) {
       Swal.fire({
         icon: "error",

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Axios from "axios";
 import Swal from "sweetalert2";
-import { useSelector } from "react-redux";
 import {
   Button,
   FormControl,
@@ -12,16 +11,12 @@ import {
   useDisclosure,
   Center,
 } from "@chakra-ui/react";
-import { ArrowUpIcon } from "@chakra-ui/icons";
 
 export const UpdateProductComp = ({ data }) => {
-  const [image, setImage] = useState("");
-  const [profile, setProfile] = useState("upload");
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const inputProductName = useRef("");
   const inputDescription = useRef("");
   const inputDistributor = useRef("");
-  const inputCategoryName = useRef("");
 
   const onUpdate = async (id) => {
     try {
@@ -41,7 +36,7 @@ export const UpdateProductComp = ({ data }) => {
         text: "Product Updated",
         width: "370px",
       });
-      setTimeout(() => window.location.replace("/adminPage"), 900);
+      setTimeout(() => window.location.replace("/admin-page"), 900);
     } catch (err) {
       console.log(err);
     }

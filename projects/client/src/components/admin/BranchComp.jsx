@@ -16,133 +16,44 @@ import {
   Button,
   ButtonGroup,
   Collapse,
-  Flex,
-  FormControl,
-  FormLabel,
   Grid,
   GridItem,
-  IconButton,
-  Image,
-  Input,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
   PopoverFooter,
-  Select,
-  Spinner,
-  Stack,
   Tab,
-  Table,
-  TableContainer,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  Tbody,
-  Td,
   Text,
-  Textarea,
-  Th,
-  Thead,
-  Tr,
   useColorMode,
   useDisclosure,
   Center,
 } from "@chakra-ui/react";
-
-import {
-  AddIcon,
-  DeleteIcon,
-  EditIcon,
-  ExternalLinkIcon,
-  HamburgerIcon,
-  RepeatIcon,
-} from "@chakra-ui/icons";
 import { UpdateProductComp } from "./UpdateProductComp";
 import { UpdateCategoryComp } from "./UpdateCategoryComp";
+import { AddProduct } from "./AddProduct";
+import { AddCategory } from "./AddCategory";
+import { ListProduct } from "./ListProduct";
+import { ListCategory } from "./ListCategory";
 
 export const BranchComp = () => {
-  const [data, setData] = useState([]);
-  const [data2, setData2] = useState([]);
   const [edit, setEdit] = useState({});
   const [edit2, setEdit2] = useState({});
-  const [image, setImage] = useState("");
-  const [profile, setProfile] = useState("upload");
-  const [image2, setImage2] = useState("");
   const [profile3, setProfile3] = useState("upload");
   const [image3, setImage3] = useState("");
-  const [profile2, setProfile2] = useState("upload");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const { username } = useSelector((state) => state.adminSlice.value);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const dispatch = useDispatch();
-  const inputProductName = useRef("");
-  const inputDescription = useRef("");
-  const inputDistributor = useRef("");
-  const inputCategoryName = useRef("");
   const handleToggle = () => setShow(!show);
   const navigate = useNavigate();
   const params = useParams();
-
-  const onCreate = async () => {
-    try {
-      const addProduct = {
-        productName: inputProductName.current.value,
-        description: inputDescription.current.value,
-        distributor: inputDistributor.current.value,
-      };
-      const res = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/product/create`,
-        addProduct
-      );
-      Swal.fire({
-        icon: "success",
-        text: "Product Added",
-        width: "370px",
-      });
-      setTimeout(() => {
-        window.location.replace("/adminPage");
-      }, 900);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const onCreateCategory = async () => {
-    try {
-      const addProduct = {
-        categoryName: inputCategoryName.current.value,
-      };
-      const res = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/product/createCategory`,
-        addProduct
-      );
-      Swal.fire({
-        icon: "success",
-        text: "Category Added",
-        width: "370px",
-      });
-
-      setTimeout(() => {
-        window.location.replace("/adminPage");
-      }, 900);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const onLogout = () => {
     dispatch(logoutAdmin());
@@ -150,122 +61,9 @@ export const BranchComp = () => {
     navigate("/loginAdmin");
   };
 
-  const getData = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/list`
-      );
-      console.log(res.data);
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, [edit]);
-
-  const getCategory = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
-      );
-      console.log(res.data);
-      setData2(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getCategory();
-  }, [edit2]);
-
-  const onDelete = async (id) => {
-    try {
-      const res = await Axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
-      );
-      console.log(res);
-      getData();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const onDeleteCategory = async (id) => {
-    try {
-      const res = await Axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/product/removeCategory/${id}`
-      );
-      console.log(res);
-      getData();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage(e.target.files[0]);
-  };
-
-  const handleChoose1 = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage2(e.target.files[0]);
-  };
-
   const handleChoose2 = (e) => {
     console.log("e.target.files", e.target.files);
     setImage3(e.target.files[0]);
-  };
-
-  const handleUpload = async (id) => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile(resultImage.data.picture);
-    setImage({ images: "" });
-
-    console.log(image);
-    console.log(profile);
-    window.location.replace("/adminPage");
-  };
-
-  const handleUpload1 = async (id) => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image2);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded-category/${id}`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile2(resultImage.data.categoryPicture);
-    setImage2({ images: "" });
-    console.log(image2);
-    console.log(profile2);
-    window.location.replace("/adminPage");
   };
 
   const handleUpload2 = async () => {
@@ -294,11 +92,11 @@ export const BranchComp = () => {
       width: "370px",
     });
 
-    window.location.replace("/adminPage");
+    window.location.replace("/admin-page");
   };
 
   const onRefresh = () => {
-    window.location.replace("/adminPage");
+    window.location.replace("/admin-page");
   };
 
   return (
@@ -332,7 +130,6 @@ export const BranchComp = () => {
           w={"390px"}
           // pos="fixed"
         >
-          <Center></Center>
           <Grid
             h="100px"
             templateRows="repeat(2, 1fr)"
@@ -408,80 +205,7 @@ export const BranchComp = () => {
               </h2>
 
               <AccordionPanel pb={4}>
-                <Stack spacing={"10px"}>
-                  <FormControl>
-                    <FormLabel color="#285430">Nama Produk</FormLabel>
-                    <Input
-                      ref={inputProductName}
-                      placeholder="Produk"
-                      _placeholder={{ color: "#5F8D4E" }}
-                      borderColor="#285430"
-                      textColor="black"
-                    ></Input>
-                  </FormControl>
-                  <FormLabel color="#285430">Distributor</FormLabel>
-                  <Input
-                    ref={inputDistributor}
-                    placeholder="Distributor"
-                    _placeholder={{ color: "#5F8D4E" }}
-                    borderColor="#285430"
-                    textColor="black"
-                  ></Input>
-                  <FormControl>
-                    <FormLabel color="#285430">Category 1</FormLabel>
-                    <Select
-                      color={"#285430"}
-                      borderColor="#285430"
-                      width="100%"
-                    >
-                      {data2?.map((item) => {
-                        return (
-                          <>
-                            <option color="#285430">{item.categoryName}</option>
-                          </>
-                        );
-                      })}
-                    </Select>
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel color="#285430">Category 2</FormLabel>
-                    <Select
-                      color={"#285430"}
-                      borderColor="#285430"
-                      width="100%"
-                    >
-                      {data2?.map((item) => {
-                        return (
-                          <>
-                            <option>{item.categoryName}</option>
-                          </>
-                        );
-                      })}
-                    </Select>
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel color={"#285430"}>Description</FormLabel>
-                    <Textarea
-                      textColor="black"
-                      borderColor="#285430"
-                      ref={inputDescription}
-                    ></Textarea>
-                  </FormControl>
-                  <Center>
-                    <Button
-                      bgColor={"#A4BE7B"}
-                      borderColor="#285430"
-                      border="2px"
-                      fontSize="18px"
-                      color="gray.800"
-                      width={"100%"}
-                      justifyContent="center"
-                      onClick={onCreate}
-                    >
-                      Add Product
-                    </Button>
-                  </Center>
-                </Stack>
+                <AddProduct />
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -494,30 +218,7 @@ export const BranchComp = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <Stack spacing={"10px"}>
-                  <FormControl>
-                    <FormLabel color="#285430">Nama Category</FormLabel>
-                    <Input
-                      ref={inputCategoryName}
-                      placeholder="Kategori"
-                      _placeholder={{ color: "#5F8D4E" }}
-                    ></Input>
-                  </FormControl>
-                  <Center>
-                    <Button
-                      bgColor={"#A4BE7B"}
-                      borderColor="#285430"
-                      border="2px"
-                      fontSize="18px"
-                      color="gray.800"
-                      width={"100%"}
-                      justifyContent="center"
-                      onClick={onCreateCategory}
-                    >
-                      Add Category
-                    </Button>
-                  </Center>
-                </Stack>
+                <AddCategory />
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
@@ -538,76 +239,7 @@ export const BranchComp = () => {
             <TabPanels>
               <TabPanel>
                 <Collapse startingHeight={120} in={show}>
-                  <TableContainer>
-                    <Table variant="simple" colorScheme="teal">
-                      <Thead alignContent={"center"}>
-                        <Tr>
-                          <Th color={"#285430"}>Product</Th>
-                          <Th color={"#285430"}>Actions</Th>
-                          <Th color={"#285430"}>Picture</Th>
-                          <Th color={"#285430"}>Distributor</Th>
-                          <Th color={"#285430"}>Description</Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        {data?.map((item) => {
-                          return (
-                            <Tr>
-                              <Td color={"#285430"}>{item.productName}</Td>
-                              <Td color={"#285430"}>
-                                <Box
-                                  mr="28px"
-                                  display={"flex"}
-                                  justifyContent="space-evenly"
-                                >
-                                  <Button onClick={() => setEdit(item)}>
-                                    <EditIcon color={"#285430"} />
-                                  </Button>
-                                  <Button onClick={() => onDelete(item.id)}>
-                                    <DeleteIcon color={"#285430"} />
-                                  </Button>
-                                </Box>
-                              </Td>
-
-                              <Td>
-                                <Image
-                                  boxSize={"50px"}
-                                  src={"http://localhost:8000/" + item.picture}
-                                />
-                                <ButtonGroup size="sm">
-                                  <form encType="multipart/form-data">
-                                    <input
-                                      color="#285430"
-                                      type={"file"}
-                                      accept="image/*"
-                                      name="file"
-                                      size={"100px"}
-                                      onChange={(e) => handleChoose(e)}
-                                    ></input>
-                                  </form>
-                                  <Button
-                                    bgColor={"#A4BE7B"}
-                                    borderColor="#285430"
-                                    border="2px"
-                                    fontSize="14px"
-                                    color="gray.800"
-                                    width={"100%"}
-                                    justifyContent="center"
-                                    onClick={handleUpload}
-                                    size="sm"
-                                  >
-                                    Upload
-                                  </Button>
-                                </ButtonGroup>
-                              </Td>
-                              <Td color={"#285430"}>{item.description}</Td>
-                              <Td>{item.distributor}</Td>
-                            </Tr>
-                          );
-                        })}
-                      </Tbody>
-                    </Table>
-                  </TableContainer>
+                  <ListProduct />
                 </Collapse>
                 <Button
                   bgColor={"#A4BE7B"}
@@ -625,73 +257,8 @@ export const BranchComp = () => {
                 </Button>
               </TabPanel>
               <TabPanel>
-                <Collapse startingHeight={100} in={show}>
-                  <TableContainer>
-                    <Table variant="simple" colorScheme="teal">
-                      <Thead>
-                        <Tr>
-                          <Th color={"#285430"}>Category</Th>
-                          <Th color={"#285430"}>Actions</Th>
-                          <Th color={"#285430"}>Picture</Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        {data2?.map((item) => {
-                          return (
-                            <Tr>
-                              <Td color={"#285430"} textColor="black">
-                                {item.categoryName}
-                              </Td>
-                              <Td>
-                                <Button onClick={() => setEdit2(item)}>
-                                  <EditIcon color={"#285430"} />
-                                </Button>
-                                <Button
-                                  onClick={() => onDeleteCategory(item.id)}
-                                >
-                                  <DeleteIcon color={"#285430"} />
-                                </Button>
-                              </Td>
-                              <Td>
-                                <Image
-                                  boxSize={"50px"}
-                                  src={
-                                    "http://localhost:8000/" +
-                                    item.categoryPicture
-                                  }
-                                />
-                                <ButtonGroup size="sm">
-                                  <form encType="multipart/form-data">
-                                    <input
-                                      type={"file"}
-                                      accept="image/*"
-                                      name="file"
-                                      size={"100px"}
-                                      onChange={(e) => handleChoose1(e)}
-                                    ></input>
-                                  </form>
-                                  <Button
-                                    bgColor={"#A4BE7B"}
-                                    borderColor="#285430"
-                                    border="2px"
-                                    fontSize="14px"
-                                    color="gray.800"
-                                    width={"100%"}
-                                    justifyContent="center"
-                                    onClick={handleUpload1}
-                                    size="sm"
-                                  >
-                                    Upload
-                                  </Button>
-                                </ButtonGroup>
-                              </Td>
-                            </Tr>
-                          );
-                        })}
-                      </Tbody>
-                    </Table>
-                  </TableContainer>
-                </Collapse>
+                <Collapse startingHeight={100} in={show}></Collapse>
+                <ListCategory />
                 <Button
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"

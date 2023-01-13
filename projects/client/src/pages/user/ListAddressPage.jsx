@@ -57,11 +57,11 @@ export const ListAddressPage = () => {
   };
 
   const toAddAddress = () => {
-    navigate(`/account/address/addAddress/${id}`);
+    navigate(`/account/address/add/${id}`);
   };
 
   const toUpdate = (addressId) => {
-    navigate(`/account/address/updateAddress/${addressId}`);
+    navigate(`/account/address/update/${addressId}`);
   };
 
   return (

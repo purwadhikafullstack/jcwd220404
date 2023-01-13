@@ -23,10 +23,6 @@ import {
   TabPanels,
   TabPanel,
   Avatar,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   TableContainer,
   Table,
   Thead,
@@ -34,17 +30,6 @@ import {
   Th,
   Tbody,
   Td,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  Stack,
-  InputLeftAddon,
-  InputRightAddon,
-  DrawerFooter,
-  Textarea,
   Popover,
   PopoverArrow,
   ButtonGroup,
@@ -55,12 +40,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import Axios from "axios";
-import {
-  AddIcon,
-  ChevronDownIcon,
-  ViewIcon,
-  ViewOffIcon,
-} from "@chakra-ui/icons";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 import { logoutAdmin } from "../../redux/adminSlice";
 
@@ -79,7 +59,7 @@ export const SuperComp = () => {
   const onLogout = () => {
     dispatch(logoutAdmin());
     localStorage.removeItem("tokenSuper");
-    navigate("/loginAdmin");
+    navigate("/login-admin");
   };
 
   const registerSchema = Yup.object().shape({
