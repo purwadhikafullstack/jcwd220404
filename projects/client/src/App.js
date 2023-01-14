@@ -26,6 +26,7 @@ import { UpdateAddressPage } from "./pages/user/UpdateAddressPage";
 import { NotFoundPage } from "./pages/user/404ResultPage";
 import { WindowComp } from "./components/user/WindowComp";
 import { EnterComp } from "./components/user/EnterComp";
+import { Checkout } from "./pages/user/Checkout";
 
 function App() {
   const dispatch = useDispatch();
@@ -124,6 +125,7 @@ function App() {
         <Route path="/transaction" element={<TransactionPage />}></Route>
         <Route path="/category" element={<CategoryPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
+        <Route path="/checkout" element={<Checkout />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route
           path="/verification/:token"
@@ -151,7 +153,10 @@ function App() {
           element={<UpdateAddressPage />}
         ></Route>
         <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
-        <Route path="/reset-password/:token" element={<ResetPassPage />}></Route>
+        <Route
+          path="/reset-password/:token"
+          element={<ResetPassPage />}
+        ></Route>
         <Route path="/restricted" element={<RestrictedPage />}></Route>
         <Route path="/login-admin" element={<LoginAdminPage />}></Route>
         <Route path="/admin" element={<AdminPage />}></Route>

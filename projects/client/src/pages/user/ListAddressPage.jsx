@@ -161,7 +161,8 @@ export const ListAddressPage = () => {
                   <Text color={"#285430"}>Alamat Utama?</Text>
                 </Box>
               );
-            })}{" "}
+            })}
+            {" "}
             <Center>
               <Button
                 mt="8"

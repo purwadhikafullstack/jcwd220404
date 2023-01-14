@@ -63,7 +63,7 @@ module.exports = {
         district,
         lattitude,
         longitude,
-        defaultAddress: true,
+        defaultAddress: false,
         UserId: req.params.id,
       });
       res.status(200).json({

@@ -5,7 +5,7 @@ import { SearchComp } from "../../components/user/SearchComp";
 import { NavbarComp } from "../../components/user/NavbarComp";
 import { CarouselComp } from "../../components/user/CarouselComp";
 import { MenuComp } from "../../components/user/MenuComp";
-import { DefaultAddress } from "../../components/user/DefaultAddress";
+import { DefaultAddress } from "../../components/DefaultAddress";
 
 export const LandingPage = () => {
   return (

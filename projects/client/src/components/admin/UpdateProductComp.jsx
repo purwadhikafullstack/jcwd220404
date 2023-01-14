@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 
 export const UpdateProductComp = ({ data }) => {
-  // const [data, setData] = useState([]);
   const [edit, setEdit] = useState({});
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const inputProductName = useRef("");
@@ -43,22 +42,6 @@ export const UpdateProductComp = ({ data }) => {
       console.log(err);
     }
   };
-
-  // const getData = async () => {
-  //   try {
-  //     const res = await Axios.get(
-  //       `${process.env.REACT_APP_API_BASE_URL}/product/list`
-  //     );
-  //     console.log(res.data);
-  //     setData(res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, [edit]);
 
   return (
     <div>

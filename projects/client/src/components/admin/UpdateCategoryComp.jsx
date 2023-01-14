@@ -37,22 +37,6 @@ export const UpdateCategoryComp = ({ data }) => {
     }
   };
 
-  // const getCategory = async () => {
-  //   try {
-  //     const res = await Axios.get(
-  //       `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
-  //     );
-  //     console.log(res.data);
-  //     setData2(res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getCategory();
-  // }, [edit2]);
-
   return (
     <>
       <Stack spacing={"10px"}>

@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   Price.init(
     {
       productPrice: DataTypes.INTEGER,
-      startDate: DataTypes.DATE,
-      endDate: DataTypes.DATE,
+      startDate: DataTypes.DATEONLY,
+      endDate: DataTypes.DATEONLY,
     },
     {
       sequelize,

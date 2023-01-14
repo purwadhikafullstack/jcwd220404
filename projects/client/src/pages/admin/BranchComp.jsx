@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
-import { logoutAdmin } from "../../redux/adminSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 import Axios from "axios";
 import {
   Accordion,
-  AccordionButton,
-  AccordionIcon,
   AccordionItem,
-  AccordionPanel,
   Avatar,
   Badge,
   Box,
@@ -18,11 +12,6 @@ import {
   Collapse,
   Grid,
   GridItem,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverFooter,
   Tab,
   TabList,
   TabPanel,
@@ -31,7 +20,6 @@ import {
   Text,
   useColorMode,
   useDisclosure,
-  Center,
   Table,
   TableContainer,
   Thead,
@@ -45,9 +33,9 @@ import { UpdateProductComp } from "../../components/admin/UpdateProductComp";
 import { UpdateCategoryComp } from "../../components/admin/UpdateCategoryComp";
 import { AddProduct } from "../../components/admin/AddProduct";
 import { AddCategory } from "../../components/admin/AddCategory";
-import { ListProduct } from "../../components/admin/ListProduct";
-import { ListCategory } from "../../components/admin/ListCategory";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { LogoutBranch } from "../../components/LogoutBranch";
+import { AddPicWeb } from "../../components/admin/AddPicWeb";
 
 export const BranchComp = () => {
   const [data, setData] = useState([]);
@@ -58,23 +46,12 @@ export const BranchComp = () => {
   const [data2, setData2] = useState([]);
   const [image2, setImage2] = useState("");
   const [profile2, setProfile2] = useState("upload");
-  const [profile3, setProfile3] = useState("upload");
-  const [image3, setImage3] = useState("");
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const { username } = useSelector((state) => state.adminSlice.value);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
-  const dispatch = useDispatch();
   const handleToggle = () => setShow(!show);
-  const navigate = useNavigate();
-  const params = useParams();
-
-  const onLogout = () => {
-    dispatch(logoutAdmin());
-    localStorage.removeItem("tokenBranch");
-    navigate("/login-admin");
-  };
 
   const getData = async () => {
     try {
@@ -188,40 +165,6 @@ export const BranchComp = () => {
     window.location.replace("/admin");
   };
 
-  const handleChoose2 = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage3(e.target.files[0]);
-  };
-
-  const handleUpload2 = async () => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image3);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/picture/single-uploaded-picture`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile3(resultImage.data.pictureName);
-    setImage3({ images: "" });
-    console.log(image3);
-    console.log(profile3);
-    Swal.fire({
-      icon: "success",
-      text: "Success",
-      width: "370px",
-    });
-
-    window.location.replace("/admin");
-  };
-
   const onRefresh = () => {
     window.location.replace("/admin");
   };
@@ -287,65 +230,13 @@ export const BranchComp = () => {
         </Grid>
         <Accordion mb={"30px"} allowToggle>
           <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box color="#285430" as="span" flex="1" textAlign="left">
-                  Add Picture
-                </Box>
-                <AccordionIcon color="gray.800" />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <ButtonGroup size="sm">
-                <form encType="multipart/form-data">
-                  <input
-                    type={"file"}
-                    accept="image/*"
-                    name="file"
-                    size={"100px"}
-                    onChange={(e) => handleChoose2(e)}
-                  ></input>
-                </form>
-                <Button
-                  mr="120px"
-                  bgColor={"#A4BE7B"}
-                  borderColor="#285430"
-                  border="2px"
-                  color="gray.800"
-                  onClick={handleUpload2}
-                  size="sm"
-                >
-                  Upload
-                </Button>
-              </ButtonGroup>
-            </AccordionPanel>
+            <AddPicWeb />
           </AccordionItem>
           <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box color="#285430" as="span" flex="1" textAlign="left">
-                  Add Product
-                </Box>
-                <AccordionIcon color="gray.800" />
-              </AccordionButton>
-            </h2>
-
-            <AccordionPanel pb={4}>
-              <AddProduct />
-            </AccordionPanel>
+            <AddProduct />
           </AccordionItem>
           <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box color="#285430" as="span" flex="1" textAlign="left">
-                  Add Category
-                </Box>
-                <AccordionIcon color="gray.800" />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <AddCategory />
-            </AccordionPanel>
+            <AddCategory />
           </AccordionItem>
         </Accordion>
 
@@ -551,62 +442,7 @@ export const BranchComp = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
-        <Button
-          display={"flex"}
-          bgColor={"#FF0000"}
-          textColor="gray.800"
-          width={"100px"}
-          m="auto"
-          justifyContent={"center"}
-          borderColor="#gray.800"
-          border="2px"
-          onClick={onToggle}
-        >
-          LogOut
-        </Button>
-        <Popover
-          returnFocusOnClose={false}
-          isOpen={isOpen}
-          placement="auto-end"
-          closeOnBlur={false}
-        >
-          <PopoverContent
-            ml="560"
-            mt="280"
-            borderColor="#285430"
-            border="2px"
-            bgColor={"#E5D9B6"}
-          >
-            <PopoverArrow />
-            <PopoverBody textColor={"#285430"}>
-              Are you sure you want to logout?
-            </PopoverBody>
-            <PopoverFooter display="flex" justifyContent="flex-end">
-              <ButtonGroup size="sm">
-                <Button
-                  onClick={onClose}
-                  bgColor={"#A4BE7B"}
-                  borderColor="#285430"
-                  border="2px"
-                  fontSize="14px"
-                  color="gray.800"
-                >
-                  No
-                </Button>
-                <Button
-                  onClick={onLogout}
-                  bgColor="#A4BE7B"
-                  borderColor="#285430"
-                  border="2px"
-                  fontSize="14px"
-                  color="gray.800"
-                >
-                  Yes
-                </Button>
-              </ButtonGroup>
-            </PopoverFooter>
-          </PopoverContent>
-        </Popover>
+        <LogoutBranch />
       </Box>
     </>
   );

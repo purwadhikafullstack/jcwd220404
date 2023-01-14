@@ -1,5 +1,6 @@
 import { Box, Center } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { PopoutCheckout } from "../../components/PopoutCheckout";
 import { CartComp } from "../../components/user/CartComp";
 import { NavbarComp } from "../../components/user/NavbarComp";
 import { OrderNowComp } from "../../components/user/OrderNowComp";
@@ -31,14 +32,18 @@ export const CartPage = () => {
           </Box>
           <Box
             mt={"100px"}
+            mb={"100px"}
             className="body"
             bgColor="white"
             h={"1750px"}
             w={"390px"}
           >
             {tokenLocalStorage ? <CartComp /> : <OrderNowComp />}
+
           </Box>
+
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
+            <PopoutCheckout />
             <NavbarComp />
           </Box>
         </Box>
