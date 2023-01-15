@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Center,

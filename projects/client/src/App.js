@@ -28,6 +28,7 @@ import { WindowComp } from "./components/user/WindowComp";
 import { EnterComp } from "./components/user/EnterComp";
 import { Checkout } from "./pages/user/Checkout";
 import { ListCheckoutAddress } from "./pages/user/ListCheckoutAddress";
+import { PaymentMethod } from "./pages/user/PaymentMethod";
 
 function App() {
   const dispatch = useDispatch();
@@ -131,6 +132,7 @@ function App() {
           path="/checkout/address"
           element={<ListCheckoutAddress />}
         ></Route>
+        <Route path="/checkout/payment" element={<PaymentMethod />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route
           path="/verification/:token"

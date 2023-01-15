@@ -21,7 +21,7 @@ export const ListCheckoutAddress = () => {
             top={"0"}
             zIndex={"2"}
           >
-            <Box as={Link} to={"/account"}>
+            <Box as={Link} to={"/checkout"}>
               <ArrowBackIcon
                 mt={"20px"}
                 ml={"20px"}
