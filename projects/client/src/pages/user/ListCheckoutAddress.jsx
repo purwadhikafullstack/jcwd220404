@@ -1,19 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Box, Button, Center, Text } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Box, Center, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { ListAddress } from "../../components/user/ListAddress";
 
-export const ListAddressPage = () => {
-  const { id } = useSelector((state) => state.userSlice.value);
-  const navigate = useNavigate();
-
-  const toAddAddress = () => {
-    navigate(`/account/address/add/${id}`);
-  };
-
+export const ListCheckoutAddress = () => {
   return (
-    <>
+    <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
           <Box
@@ -53,24 +45,9 @@ export const ListAddressPage = () => {
             w={"390px"}
           >
             <ListAddress />
-            <Center>
-              <Button
-                mt="8"
-                onClick={toAddAddress}
-                bgColor={"#A4BE7B"}
-                borderColor="#285430"
-                border="2px"
-                fontSize="18px"
-                color="gray.800"
-                width={"160px"}
-                justifyContent="center"
-              >
-                Tambah Alamat
-              </Button>
-            </Center>
           </Box>
         </Box>
       </Center>
-    </>
+    </div>
   );
 };

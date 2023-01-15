@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -8,13 +8,10 @@ import {
   Input,
   Stack,
   Textarea,
-  useDisclosure,
   Center,
 } from "@chakra-ui/react";
 
 export const UpdateProductComp = ({ data }) => {
-  const [edit, setEdit] = useState({});
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const inputProductName = useRef("");
   const inputDescription = useRef("");
   const inputDistributor = useRef("");

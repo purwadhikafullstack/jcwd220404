@@ -1,14 +1,13 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Stack,
   Button,
   Text,
   Box,
   StackDivider,
-  useDisclosure,
   Avatar,
   Badge,
   Grid,
@@ -23,8 +22,6 @@ export const AccountComp = () => {
   const { name, id } = useSelector((state) => state.userSlice.value);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-  const params = useParams();
-  const { isOpen, onToggle, onClose } = useDisclosure();
 
   const getData = async () => {
     try {

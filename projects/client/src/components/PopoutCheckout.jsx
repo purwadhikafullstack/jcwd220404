@@ -1,6 +1,13 @@
 import { Box, Button, Center, Flex, Grid, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export const PopoutCheckout = () => {
+  const navigate = useNavigate();
+
+  const toCheckout = () => {
+    navigate("/checkout");
+  };
+
   return (
     <div>
       <Center>
@@ -20,7 +27,7 @@ export const PopoutCheckout = () => {
           >
             <Flex justify={"space-between"}>
               <Text>Total: </Text>
-              <Button>Checkout</Button>
+              <Button onClick={toCheckout}>Checkout</Button>
             </Flex>
           </Flex>
         </Flex>

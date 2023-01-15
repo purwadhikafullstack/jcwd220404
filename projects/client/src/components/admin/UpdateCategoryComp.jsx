@@ -1,19 +1,9 @@
 import Axios from "axios";
 import Swal from "sweetalert2";
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Stack,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
+import { useRef } from "react";
 
 export const UpdateCategoryComp = ({ data }) => {
-  const [data2, setData2] = useState([]);
-  const [edit2, setEdit2] = useState({});
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const inputCategoryName = useRef("");
 
   const onUpdate = async (id) => {

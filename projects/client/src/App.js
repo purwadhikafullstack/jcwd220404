@@ -27,6 +27,7 @@ import { NotFoundPage } from "./pages/user/404ResultPage";
 import { WindowComp } from "./components/user/WindowComp";
 import { EnterComp } from "./components/user/EnterComp";
 import { Checkout } from "./pages/user/Checkout";
+import { ListCheckoutAddress } from "./pages/user/ListCheckoutAddress";
 
 function App() {
   const dispatch = useDispatch();
@@ -126,6 +127,10 @@ function App() {
         <Route path="/category" element={<CategoryPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
+        <Route
+          path="/checkout/address"
+          element={<ListCheckoutAddress />}
+        ></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route
           path="/verification/:token"

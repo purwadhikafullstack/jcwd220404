@@ -6,8 +6,8 @@ import { AddAddress } from "../../components/user/AddAddress";
 export const AddressPage = () => {
   return (
     <>
-      <Box>
-        <Center>
+      <Center>
+        <Box w={"390px"} h={"844px"} bgColor="white">
           <Box
             className="header"
             w={"390px"}
@@ -17,7 +17,7 @@ export const AddressPage = () => {
             justifyContent="space-between"
             pt={"10px"}
             pl={"1px"}
-            // pos="fixed"
+            pos="fixed"
             top={"0"}
             zIndex={"2"}
           >
@@ -35,12 +35,18 @@ export const AddressPage = () => {
                 </Text>
               </Box>
             </Box>
-            <Box className="body" bgColor="white" h={"850px"} w={"390px"}>
-              <AddAddress />
-            </Box>
           </Box>
-        </Center>
-      </Box>
+          <Box
+            mt={"100px"}
+            className="body"
+            bgColor="white"
+            h={"844px"}
+            w={"390px"}
+          >
+            <AddAddress />
+          </Box>
+        </Box>
+      </Center>
     </>
   );
 };
