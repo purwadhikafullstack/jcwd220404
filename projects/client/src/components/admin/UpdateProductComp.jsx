@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -9,12 +9,29 @@ import {
   Stack,
   Textarea,
   Center,
+  Modal,
+  ModalContent,
+  ModalCloseButton,
+  ModalBody,
+  Text,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+  ModalOverlay,
 } from "@chakra-ui/react";
 
 export const UpdateProductComp = ({ data }) => {
   const inputProductName = useRef("");
   const inputDescription = useRef("");
   const inputDistributor = useRef("");
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
+    />
+  );
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [overlay, setOverlay] = useState(<OverlayOne />);
 
   const onUpdate = async (id) => {
     try {
@@ -80,10 +97,29 @@ export const UpdateProductComp = ({ data }) => {
             color="gray.800"
             width={"100%"}
             justifyContent="center"
-            onClick={() => onUpdate(data.id)}
+            onClick={
+              () => {
+                // setOverlay(<OverlayOne />);
+                // onOpen();
+                onUpdate(data.id)
+              }
+            }
           >
             Edit Product
           </Button>
+          {/* <Modal isCentered isOpen={isOpen} onClose={onClose}>
+            {overlay}
+            <ModalContent>
+              <ModalHeader>Modal Title</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Text>Custom backdrop filters!</Text>
+              </ModalBody>
+              <ModalFooter>
+                <Button onClick={onClose}>Close</Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal> */}
         </Center>
       </Stack>
     </div>

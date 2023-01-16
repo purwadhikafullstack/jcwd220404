@@ -11,11 +11,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Product_Cart.belongsTo(models.Cart);
       Product_Cart.belongsTo(models.Product);
+      Product_Cart.belongsTo(models.User)
     }
   }
   Product_Cart.init(
     {
       description: DataTypes.STRING,
+      qty: DataTypes.INTEGER
     },
     {
       sequelize,

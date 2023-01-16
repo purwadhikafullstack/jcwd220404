@@ -12,8 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Profile);
       User.hasMany(models.Address);
       User.hasMany(models.Transaction);
-      User.hasOne(models.Cart);
+      // User.hasMany(models.Cart);
       User.hasMany(models.Voucher);
+      User.hasMany(models.Product_Cart)
     }
   }
   User.init(

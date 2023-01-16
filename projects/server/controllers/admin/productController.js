@@ -9,11 +9,13 @@ module.exports = {
     try {
       const { productName, distributor, description } = req.body;
 
-      if (!productName && !distributor && !description) throw "required field";
+      if (!productName && 
+        // !distributor && 
+        !description) throw "required field";
 
       await product.create({
         productName,
-        distributor,
+        // distributor,
         description,
       });
       res.status(200).send({
@@ -45,7 +47,7 @@ module.exports = {
         attributes: [
           "id",
           "productName",
-          "distributor",
+          // "distributor",
           "description",
           "picture",
         ],

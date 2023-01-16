@@ -15,14 +15,18 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Calculator } from "../Calculator";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export const CartComp = () => {
   const [product, setProduct] = useState();
+  const { id } = useSelector((state) => state.userSlice.value);
+  const params = useParams();
 
   const getData = async () => {
     try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/list`
+      const res = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findAll/${params.id}`
       );
       console.log(res.data);
       setProduct(res.data);
@@ -72,7 +76,7 @@ export const CartComp = () => {
                       ></Image>
                     </GridItem>
                     <GridItem fontSize={"small"} pl="1" area={"main"}>
-                      {item.productName}
+                      {item.ProductId}
                     </GridItem>
                     <GridItem fontSize={"small"} pl="1" area={"footer"}>
                       price

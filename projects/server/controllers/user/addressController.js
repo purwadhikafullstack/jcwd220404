@@ -221,4 +221,25 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  findDefault: async (req, res) => {
+    try {
+      const defaultAdd = await address.findOne({
+        where: {
+          defaultAddress: 1,
+          UserId: req.params.id,
+        },
+        raw: true,
+      });
+      res.status(200).json({
+        message: "Default Address Found",
+        defaultAdd,
+      });
+    } catch (err) {
+      res.status(400).json({
+        message: "Process Error",
+        err,
+      });
+    }
+  },
 };

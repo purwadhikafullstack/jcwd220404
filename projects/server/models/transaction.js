@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Transaction.belongsTo(models.User);
       Transaction.belongsTo(models.Admin);
-      Transaction.belongsTo(models.Branch);
+      // Transaction.belongsTo(models.Branch);
+      Transaction.belongsTo(models.Inventory)
       Transaction.belongsTo(models.Payment);
       Transaction.hasOne(models.Transaction_Detail);
       Transaction.hasMany(models.Voucher);

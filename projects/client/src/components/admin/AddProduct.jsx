@@ -21,14 +21,14 @@ export const AddProduct = () => {
   const [edit2, setEdit2] = useState({});
   const inputProductName = useRef("");
   const inputDescription = useRef("");
-  const inputDistributor = useRef("");
+  // const inputDistributor = useRef("");
 
   const onCreate = async () => {
     try {
       const addProduct = {
         productName: inputProductName.current.value,
         description: inputDescription.current.value,
-        distributor: inputDistributor.current.value,
+        // distributor: inputDistributor.current.value,
       };
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/product/create`,
@@ -88,7 +88,7 @@ export const AddProduct = () => {
           </FormControl>
           <FormLabel color="#285430">Distributor</FormLabel>
           <Input
-            ref={inputDistributor}
+            // ref={inputDistributor}
             placeholder="Distributor"
             _placeholder={{ color: "#5F8D4E" }}
             borderColor="#285430"

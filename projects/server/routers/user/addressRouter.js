@@ -5,6 +5,7 @@ require("dotenv/config");
 
 router.post("/create/:id", addressController.newAddress);
 router.get("/addressById/:id", addressController.addressById);
+router.get("/findDefault/:id", addressController.findDefault);
 router.post("/findById/:id", addressController.findAddressById);
 router.patch("/updateAddress/:id", addressController.updateAddress);
 router.patch("/setDefault/:id", addressController.setDefault);

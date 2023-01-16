@@ -93,11 +93,11 @@ export const Checkout = () => {
                 color="#285430"
                 fontSize={"25px"}
               />
-              <Box margin={"auto"} alignItems={"center"} textColor="#285430">
-                <Text m="100px" as={"b"} fontSize="xl">
-                  ADD ADDRESS
-                </Text>
-              </Box>
+            </Box>
+            <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+              <Text m="100px" as={"b"} fontSize="xl">
+                CHECKOUT
+              </Text>
             </Box>
           </Box>
           <Box
@@ -155,7 +155,6 @@ export const Checkout = () => {
                       <Text>Cost</Text>
                     </Radio>
                   </Box>
-
                   <Box border={"2px"}>
                     <Radio value="2">
                       <Text>JNE Yes</Text>

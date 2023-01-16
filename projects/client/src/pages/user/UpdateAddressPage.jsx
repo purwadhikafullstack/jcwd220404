@@ -85,6 +85,22 @@ export const UpdateAddressPage = () => {
     getData();
   }, [id]);
 
+  const setDefault = async () => {
+    try {
+      const updateDefault = {
+        defaultAddress: inputDefaultAddress.current.value,
+      };
+      const result = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/address/setDefault/${params.id}`,
+        updateDefault
+      );
+      getData();
+      setTimeout(() => window.location.replace("/account/address"), 2000);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const fetchProvince = async () => {
     try {
       const response = await Axios.get(

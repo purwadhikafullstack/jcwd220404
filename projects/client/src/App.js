@@ -29,6 +29,7 @@ import { EnterComp } from "./components/user/EnterComp";
 import { Checkout } from "./pages/user/Checkout";
 import { ListCheckoutAddress } from "./pages/user/ListCheckoutAddress";
 import { PaymentMethod } from "./pages/user/PaymentMethod";
+import { OrderSuccess } from "./pages/user/OrderSuccess";
 
 function App() {
   const dispatch = useDispatch();
@@ -126,13 +127,17 @@ function App() {
         <Route path="/notification" element={<NotificationPage />}></Route>
         <Route path="/transaction" element={<TransactionPage />}></Route>
         <Route path="/category" element={<CategoryPage />}></Route>
-        <Route path="/cart" element={<CartPage />}></Route>
+        <Route path="/cart/:id" element={<CartPage />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route
           path="/checkout/address"
           element={<ListCheckoutAddress />}
         ></Route>
         <Route path="/checkout/payment" element={<PaymentMethod />}></Route>
+        <Route
+          path="/checkout/payment/success"
+          element={<OrderSuccess />}
+        ></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route
           path="/verification/:token"

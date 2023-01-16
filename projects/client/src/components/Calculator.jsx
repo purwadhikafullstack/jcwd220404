@@ -4,7 +4,7 @@ export const Calculator = () => {
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
       step: 1,
-      defaultValue: 0,
+      defaultValue: 1,
       min: 0,
       precision: 0,
     });

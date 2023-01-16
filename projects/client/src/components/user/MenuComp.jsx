@@ -16,10 +16,13 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 
 export const MenuComp = () => {
   const [category, setCategory] = useState();
   const [product, setProduct] = useState();
+  const [address, setAddress] = useState();
+  const { id } = useSelector((state) => state.userSlice.value);
   const navigate = useNavigate();
   const tokenLocalStorage = localStorage.getItem("tokenUser");
 
@@ -59,7 +62,7 @@ export const MenuComp = () => {
     if (!tokenLocalStorage) {
       navigate("/account");
     } else {
-      navigate("/cart");
+      navigate(`/cart/${id}`);
     }
   };
 

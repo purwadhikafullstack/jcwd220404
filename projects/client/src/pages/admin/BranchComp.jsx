@@ -28,6 +28,13 @@ import {
   Tbody,
   Td,
   Image,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  ModalOverlay,
 } from "@chakra-ui/react";
 import { UpdateProductComp } from "../../components/admin/UpdateProductComp";
 import { UpdateCategoryComp } from "../../components/admin/UpdateCategoryComp";
@@ -52,6 +59,14 @@ export const BranchComp = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const handleToggle = () => setShow(!show);
+  const handleToggle1 = () => setShow2(!show2);
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
+    />
+  );
+  const [overlay, setOverlay] = useState(<OverlayOne />);
 
   const getData = async () => {
     try {
@@ -274,7 +289,12 @@ export const BranchComp = () => {
                                 display={"flex"}
                                 justifyContent="space-evenly"
                               >
-                                <Button onClick={() => setEdit(item)}>
+                                <Button
+                                  onClick={() => {
+                                    setEdit(item);
+                                    // console.log("test2")
+                                  }}
+                                >
                                   <EditIcon color={"#285430"} />
                                 </Button>
                                 <Button onClick={() => onDelete(item.id)}>
@@ -342,49 +362,56 @@ export const BranchComp = () => {
               </Button>
             </TabPanel>
             <TabPanel>
-              <Collapse startingHeight={100} in={show}></Collapse>
-              <TableContainer>
-                <Table variant="simple" colorScheme="teal">
-                  <Thead>
-                    <Tr>
-                      <Th color={"#285430"}>Category</Th>
-                      <Th color={"#285430"}>Actions</Th>
-                      <Th color={"#285430"}>Picture</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {data2?.map((item) => {
-                      return (
-                        <Tr>
-                          <Td color={"#285430"} textColor="black">
-                            {item.categoryName}
-                          </Td>
-                          <Td>
-                            <Button onClick={() => setEdit2(item)}>
-                              <EditIcon color={"#285430"} />
-                            </Button>
-                            <Button onClick={() => onDeleteCategory(item.id)}>
-                              <DeleteIcon color={"#285430"} />
-                            </Button>
-                          </Td>
-                          <Td>
-                            <Image
-                              boxSize={"50px"}
-                              src={
-                                `${process.env.REACT_APP_API_BASE_URL}/` +
-                                item.categoryPicture
-                              }
-                            />
-                            <ButtonGroup size="sm">
-                              <form encType="multipart/form-data">
-                                <input
-                                  type={"file"}
-                                  accept="image/*"
-                                  name="file"
-                                  size={"100px"}
-                                  onChange={(e) => handleChoose1(e)}
-                                ></input>
-                              </form>
+              <Collapse startingHeight={100} in={show}>
+                <TableContainer>
+                  <Table variant="simple" colorScheme="teal">
+                    <Thead>
+                      <Tr>
+                        <Th color={"#285430"}>Category</Th>
+                        <Th color={"#285430"}>Actions</Th>
+                        <Th color={"#285430"}>Picture</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {data2?.map((item) => {
+                        return (
+                          <Tr>
+                            <Td color={"#285430"} textColor="black">
+                              {item.categoryName}
+                            </Td>
+                            <Td>
+                              <Button
+                                onClick={() => {
+                                  setEdit2(item);
+                                  setOverlay(<OverlayOne />);
+                                  onOpen();
+                                }}
+                              >
+                                <EditIcon color={"#285430"} />
+                              </Button>
+                              <Button onClick={() => onDeleteCategory(item.id)}>
+                                <DeleteIcon color={"#285430"} />
+                              </Button>
+                            </Td>
+                            <Td>
+                              <Image
+                                boxSize={"50px"}
+                                src={
+                                  `${process.env.REACT_APP_API_BASE_URL}/` +
+                                  item.categoryPicture
+                                }
+                              />
+                              <ButtonGroup size="sm">
+                                <form encType="multipart/form-data">
+                                  <input
+                                    type={"file"}
+                                    accept="image/*"
+                                    name="file"
+                                    size={"100px"}
+                                    onChange={(e) => handleChoose1(e)}
+                                  ></input>
+                                </form>
+                              </ButtonGroup>
                               <Button
                                 bgColor={"#A4BE7B"}
                                 borderColor="#285430"
@@ -398,14 +425,14 @@ export const BranchComp = () => {
                               >
                                 Upload
                               </Button>
-                            </ButtonGroup>
-                          </Td>
-                        </Tr>
-                      );
-                    })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
+                            </Td>
+                          </Tr>
+                        );
+                      })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </Collapse>
               <Button
                 bgColor={"#A4BE7B"}
                 borderColor="#285430"
@@ -423,24 +450,30 @@ export const BranchComp = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
-
         <Tabs isFitted variant="enclosed">
           <TabList mb="1em">
             <Tab color="#285430" as="button">
               Edit Product
-            </Tab>
-            <Tab color="#285430" as="button">
-              Edit Category
             </Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
               <UpdateProductComp data={edit} />
             </TabPanel>
-            <TabPanel>
-              <UpdateCategoryComp data={edit2} />
-            </TabPanel>
           </TabPanels>
+          <Modal isCentered isOpen={isOpen} onClose={onClose}>
+            {overlay}
+            <ModalContent>
+              <ModalHeader>Modal Title</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <UpdateCategoryComp data={edit2} />
+              </ModalBody>
+              <ModalFooter>
+                <Button onClick={onClose}>Close</Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
         </Tabs>
         <LogoutBranch />
       </Box>

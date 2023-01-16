@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { syncData } from "../../redux/addressSlice";
 import Axios from "axios";
 import {
+  Badge,
   Box,
   Flex,
   IconButton,
@@ -109,7 +110,7 @@ export const ListAddress = () => {
               <Text color={"#285430"}>{item.province}</Text>
             </Flex>
             <Text color={"#285430"}>{item.detail}</Text>
-            <Text color={"#285430"}>Alamat Utama?</Text>
+            <Badge color={"#285430"}>Alamat Utama</Badge>
           </Box>
         );
       })}{" "}

@@ -9,13 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Cart.belongsTo(models.User);
+      // Cart.belongsTo(models.User);
+      // Cart.hasMany(models.Product)
       Cart.hasMany(models.Product_Cart);
     }
   }
   Cart.init(
     {
       description: DataTypes.STRING,
+      qty: DataTypes.INTEGER,
     },
     {
       sequelize,

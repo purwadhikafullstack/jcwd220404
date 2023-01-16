@@ -3,15 +3,23 @@ import {
   Box,
   Button,
   Center,
+  Checkbox,
   Flex,
   FormControl,
   FormLabel,
+  Radio,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const PaymentMethod = () => {
+  const navigate = useNavigate();
+
+  const toPayMethod = () => {
+    navigate("/checkout/payment/success");
+  };
+
   return (
     <div>
       <Box>
@@ -37,11 +45,11 @@ export const PaymentMethod = () => {
                 color="#285430"
                 fontSize={"25px"}
               />
-              <Box margin={"auto"} alignItems={"center"} textColor="#285430">
-                <Text m="100px" as={"b"} fontSize="xl">
-                  ADD ADDRESS
-                </Text>
-              </Box>
+            </Box>
+            <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+              <Text m="100px" as={"b"} fontSize="xl">
+                PAYMENT METHOD
+              </Text>
             </Box>
           </Box>
           <Box
@@ -64,6 +72,10 @@ export const PaymentMethod = () => {
                 </Box>
               </Flex>
             </FormControl>
+            <Flex justify={"space-between"}>
+              <Text as={"b"}>Total</Text>
+              <Text as={"b"}>xx.xxx</Text>
+            </Flex>
             <FormControl>
               <FormLabel>Order</FormLabel>
               <Flex>
@@ -72,11 +84,22 @@ export const PaymentMethod = () => {
                 <Text>price</Text>
               </Flex>
             </FormControl>
-            <Flex justify={"space-between"}>
-              <Text as={"b"}>Total</Text>
-              <Text as={"b"}>xx.xxx</Text>
-            </Flex>
-            <Button w={"100%"}>Pay</Button>
+            <FormControl>
+              <FormLabel>Payment Option</FormLabel>
+              <FormControl>
+                <FormLabel>Bank Transfer</FormLabel>
+                <Box variant={"unstyled"}>
+                  <Checkbox value="1">
+                    <Text>Only Fresh Account</Text>
+                    <Text>Transfer ke Rekening OnlyFresh</Text>
+                  </Checkbox>
+                </Box>
+              </FormControl>
+            </FormControl>
+            <Flex justify={"space-between"}></Flex>
+            <Button onClick={toPayMethod} w={"100%"}>
+              Pay
+            </Button>
           </Box>
         </Center>
       </Box>

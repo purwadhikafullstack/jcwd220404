@@ -13,10 +13,12 @@ import {
 } from "react-icons/io5";
 import { Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
 import "../../components/user/NavbarComp";
+import { useSelector } from "react-redux";
 
 export const NavbarComp = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useSelector((state) => state.userSlice.value);
 
   const menuBar = [
     {
@@ -35,7 +37,7 @@ export const NavbarComp = () => {
       icon1: IoCartOutline,
       icon2: IoCart,
       name: "Cart",
-      url: "/cart",
+      url: `/cart/${id}`,
     },
     {
       icon1: IoNewspaperOutline,
