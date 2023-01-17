@@ -347,6 +347,26 @@ module.exports = {
     }
   },
 
+  createPrice: async (req, res) => {
+    try {
+      const { productPrice, startDate, endDate, ProductId } = req.body;
+      await price.create({
+        productPrice,
+        startDate,
+        endDate,
+        ProductId,
+      });
+      res.status(200).json({
+        message: "Success Added",
+      });
+    } catch (err) {
+      res.status(400).json({
+        message: "Process Error",
+        err,
+      });
+    }
+  },
+
   stock: async (req, res) => {
     try {
     } catch (err) {

@@ -17,6 +17,7 @@ const initialState = {
     district: "",
     // isVerified: ""
     cart: 0,
+    checkout: 0,
   },
 };
 
@@ -50,8 +51,28 @@ export const userSlice = createSlice({
       state.value.gender = action.payload.gender;
       state.value.birthDate = action.payload.birthDate;
     },
+    addCart: (state) => {
+      state.value.cart += 1;
+    },
+    delCart: (state) => {
+      state.value.cart -= 1;
+    },
+    addCheckout: (state) => {
+      state.value.checkout = 1;
+    },
+    checkoutList: (state) => {
+      state.value.checkout = 0;
+    },
   },
 });
 
-export const { loginUser, logoutUser, updateUser } = userSlice.actions;
+export const {
+  loginUser,
+  logoutUser,
+  updateUser,
+  addCart,
+  delCart,
+  addCheckout,
+  checkoutList,
+} = userSlice.actions;
 export default userSlice.reducer;

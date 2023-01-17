@@ -16,14 +16,19 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { cartSync } from "../../redux/cartSlice";
+import { addCart } from "../../redux/userSlice";
 
 export const MenuComp = () => {
   const [category, setCategory] = useState();
   const [product, setProduct] = useState();
   const [address, setAddress] = useState();
-  const { id } = useSelector((state) => state.userSlice.value);
+  const [state, setState] = useState("");
+  const { id, cart } = useSelector((state) => state.userSlice.value);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const tokenLocalStorage = localStorage.getItem("tokenUser");
 
   const getCategory = async () => {
@@ -57,6 +62,45 @@ export const MenuComp = () => {
   useEffect(() => {
     getProduct();
   }, []);
+
+  const onAddCart = async (ProductId) => {
+    if (!id) {
+      return Swal.fire({
+        icon: "error",
+        title: "Oooops ...",
+        text: "Login First",
+        timer: 2000,
+        customClass: {
+          container: "my-swal",
+        },
+      });
+    }
+    if (cart >= 5) {
+      return Swal.fire({
+        icon: "error",
+        title: "Oooops ...",
+        text: "Keranjang Penuh",
+        timer: 2000,
+        customClass: {
+          container: "my-swal",
+        },
+      });
+    }
+    const result = await Axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/cart/create`,
+      {
+        UserId: id,
+        ProductId,
+      }
+    );
+    setState(result.data);
+    const res = await Axios.get(
+      `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
+    );
+    dispatch(cartSync(res.data));
+    dispatch(addCart(res.data));
+    getProduct();
+  };
 
   const onNavigate = () => {
     if (!tokenLocalStorage) {
@@ -113,7 +157,9 @@ export const MenuComp = () => {
                   src={`${process.env.REACT_APP_API_BASE_URL}/` + item.picture}
                 />
                 <CardBody>
-                  <Text as={"b"} size="sm">{item.productName}</Text>
+                  <Text as={"b"} size="sm">
+                    {item.productName}
+                  </Text>
                   <Text fontSize={"xs"}>{item.Price?.productPrice}</Text>
                   <Text>Stok</Text>
                 </CardBody>
