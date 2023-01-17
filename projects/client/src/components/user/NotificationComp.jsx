@@ -10,7 +10,7 @@ export const NotificationComp = () => {
   };
   return (
     <>
-      <Box pr={"23px"} pt="5px" as="button" onClick={toNotification} mt="4">
+      <Box pr={"23px"} as="button" onClick={toNotification}>
         <Badge
           ml="1"
           mt="-1"

@@ -112,12 +112,10 @@ export const MenuComp = () => {
                   boxSize={"50px"}
                   src={`${process.env.REACT_APP_API_BASE_URL}/` + item.picture}
                 />
-                <CardHeader>
-                  <Text size="sm">{item.productName}</Text>
-                </CardHeader>
                 <CardBody>
+                  <Text as={"b"} size="sm">{item.productName}</Text>
                   <Text fontSize={"xs"}>{item.Price?.productPrice}</Text>
-                  <Text></Text>
+                  <Text>Stok</Text>
                 </CardBody>
                 <CardFooter>
                   <Button onClick={onNavigate}>

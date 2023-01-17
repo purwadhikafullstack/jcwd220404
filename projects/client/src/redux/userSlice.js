@@ -15,7 +15,8 @@ const initialState = {
     receiverName: "",
     detail: "",
     district: "",
-    // isVerified: 0
+    // isVerified: ""
+    cart: 0,
   },
 };
 
@@ -36,7 +37,7 @@ export const userSlice = createSlice({
       state.value.province = action.payload.province;
       state.value.receiverName = action.payload.receiverName;
       state.value.detail = action.payload.detail;
-      state.value.district = action.payload.district
+      state.value.district = action.payload.district;
       // state.value.isVerified = action.payload.isVerified
     },
     logoutUser: (state, action) => {
