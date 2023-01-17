@@ -1,8 +1,30 @@
 import { Box, Button, Center, Flex, Grid, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
+import { useSelector } from "react-redux";
 
 export const PopoutCheckout = () => {
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const { id } = useSelector((state) => state.userSlice.value);
+
+  const getData = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
+      );
+      console.log(res.data.carts);
+      setData(res.data.carts);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [id]);
 
   const toCheckout = () => {
     navigate("/checkout");
@@ -26,7 +48,10 @@ export const PopoutCheckout = () => {
             w={[300, 350, 390]}
           >
             <Flex justify={"space-between"}>
-              <Text>Total: </Text>
+              <Text>Total:</Text>
+              {data?.map((item) => {
+                return <Text>{item.Product?.Price?.productPrice}</Text>;
+              })}
               <Button onClick={toCheckout}>Checkout</Button>
             </Flex>
           </Flex>

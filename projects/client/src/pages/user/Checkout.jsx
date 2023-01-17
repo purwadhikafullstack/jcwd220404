@@ -19,38 +19,24 @@ import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/addressSlice";
+import { DefaultAddress } from "../../components/DefaultAddress";
+import { CartComp } from "../../components/user/CartComp";
 
 export const Checkout = () => {
   const [value, setValue] = useState("0");
-  const [product, setProduct] = useState();
-  const { data } = useSelector((state) => state.addressSlice.value);
+  const [data, setData] = useState([]);
+  // const { data } = useSelector((state) => state.addressSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const getProduct = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/list`
-      );
-      console.log(res.data);
-      setProduct(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getProduct();
-  }, []);
-
   const getData = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/address/addressById/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
       console.log(result.data);
-      dispatch(syncData(result.data));
+      setData(result.data.defaultAdd);
     } catch (err) {
       console.log(err);
     }
@@ -109,40 +95,13 @@ export const Checkout = () => {
           >
             <FormControl>
               <FormLabel>Delivery Address</FormLabel>
-              {data?.map((item) => {
-                return (
-                  <Box
-                    ml="8px"
-                    mr="8px"
-                    mt="8px"
-                    p="4"
-                    border={"2px"}
-                    borderColor={"#285430"}
-                    borderRadius="xl"
-                  >
-                    <Flex justify={"space-between"}>
-                      <Box>
-                        <Text color={"#285430"}>{item.addressLine}</Text>
-                        <Text color={"#285430"}>{item.receiverName}</Text>
-                        <Text color={"#285430"}>{item.receiverPhone}</Text>
-                      </Box>
-                      <Button
-                        variant={"unstyled"}
-                        as={"button"}
-                        onClick={toListAddress}
-                      >
-                        Edit Address
-                      </Button>
-                    </Flex>
-                    <Flex>
-                      <Text color={"#285430"}>{item.district},</Text>
-                      <Text color={"#285430"}>{item.city},</Text>
-                      <Text color={"#285430"}>{item.province}</Text>
-                    </Flex>
-                    <Text color={"#285430"}>{item.detail}</Text>
-                  </Box>
-                );
-              })}{" "}
+              <Box border={"2px"}>
+                <Text as={"b"}>{data?.receiverName}</Text>
+                <Text>{data?.receiverPhone}</Text>
+                {data?.addressLine},{data?.district},{data?.city},
+                {data?.province}
+                <Text>{data?.detail}</Text>
+              </Box>
             </FormControl>
             <FormControl>
               <FormLabel>Shipping Method</FormLabel>
@@ -167,25 +126,7 @@ export const Checkout = () => {
             </FormControl>
             <FormControl>
               <FormLabel>Order Detail</FormLabel>
-              {product?.map((item) => {
-                return (
-                  <Flex justify={"space-between"}>
-                    <Grid>
-                      <Image
-                        boxSize={"50px"}
-                        alt="picture"
-                        src={
-                          `${process.env.REACT_APP_API_BASE_URL}/` +
-                          item.picture
-                        }
-                      ></Image>
-                      <Text>{item.productName}</Text>
-                      <Text>price</Text>
-                    </Grid>
-                    <Text>qty</Text>
-                  </Flex>
-                );
-              })}
+              <CartComp />
             </FormControl>
             <FormControl>
               <FormLabel>Order Note</FormLabel>

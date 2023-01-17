@@ -9,9 +9,12 @@ module.exports = {
     try {
       const { productName, distributor, description } = req.body;
 
-      if (!productName && 
-        // !distributor && 
-        !description) throw "required field";
+      if (
+        !productName &&
+        // !distributor &&
+        !description
+      )
+        throw "required field";
 
       await product.create({
         productName,
@@ -51,6 +54,7 @@ module.exports = {
           "description",
           "picture",
         ],
+        include: [{ model: price }],
       });
       res.status(200).send(products);
     } catch (err) {

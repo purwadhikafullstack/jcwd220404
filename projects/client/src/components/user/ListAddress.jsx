@@ -110,7 +110,9 @@ export const ListAddress = () => {
               <Text color={"#285430"}>{item.province}</Text>
             </Flex>
             <Text color={"#285430"}>{item.detail}</Text>
-            <Badge color={"#285430"}>Alamat Utama</Badge>
+            <Badge color={"#285430"}>
+              {item.defaultAddress === false ? "" : "Alamat Utama"}
+            </Badge>
           </Box>
         );
       })}{" "}

@@ -62,7 +62,7 @@ export const MenuComp = () => {
     if (!tokenLocalStorage) {
       navigate("/account");
     } else {
-      navigate(`/cart/${id}`);
+      navigate(`/cart`);
     }
   };
 
@@ -116,7 +116,8 @@ export const MenuComp = () => {
                   <Text size="sm">{item.productName}</Text>
                 </CardHeader>
                 <CardBody>
-                  <Text fontSize={"xs"}>Price</Text>
+                  <Text fontSize={"xs"}>{item.Price?.productPrice}</Text>
+                  <Text></Text>
                 </CardBody>
                 <CardFooter>
                   <Button onClick={onNavigate}>

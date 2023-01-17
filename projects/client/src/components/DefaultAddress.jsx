@@ -32,7 +32,6 @@ export const DefaultAddress = () => {
       );
       console.log(result.data);
       setData(result.data.defaultAdd);
-      // dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
     }
@@ -50,7 +49,7 @@ export const DefaultAddress = () => {
           <Button
             _placeholder={{ color: "#5F8D4E" }}
             // bgColor="#E5D9B6"
-            w={"105%"}
+            w={"390px"}
             textColor="black"
             borderColor={"#285430"}
           >
