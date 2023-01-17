@@ -1,5 +1,6 @@
 const db = require("../../models");
-const product = db.Prouct;
+const product = db.Product;
+const price = db.Price;
 const user = db.User;
 const cart = db.Cart;
 const productCart = db.Product_Cart;
@@ -66,13 +67,17 @@ module.exports = {
     }
   },
 
-  findAll: async (req, res) => {
+  findCartBy: async (req, res) => {
     try {
-      const { id } = await cart.findAll({
-        where: {
-          UserId: req.params.id,
-        },
-        raw: true,
+      const carts = await productCart.findAll({
+        where: { UserId: req.params.id },
+        attributes: ["ProductId", "id"],
+        include: [
+          {
+            model: product,
+            include: [{ model: price }],
+          },
+        ],
       });
       res.status(200).json({
         message: "Data retrieved",

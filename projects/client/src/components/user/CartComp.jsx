@@ -19,17 +19,17 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 export const CartComp = () => {
-  const [product, setProduct] = useState();
+  const [data, setData] = useState([]);
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
 
   const getData = async () => {
     try {
-      const res = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/cart/findAll/${params.id}`
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
       );
-      console.log(res.data);
-      setProduct(res.data);
+      console.log(res.data.carts);
+      setData(res.data.carts);
     } catch (err) {
       console.log(err);
     }
@@ -37,7 +37,7 @@ export const CartComp = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
 
   return (
     <>
@@ -48,8 +48,7 @@ export const CartComp = () => {
             Hapus
           </Text>
         </Flex>
-
-        {product?.map((item) => {
+        {data?.map((item) => {
           return (
             <Card margin={"10px"}>
               <Flex mb={"50px"} justify={"space-between"}>
@@ -71,15 +70,15 @@ export const CartComp = () => {
                         boxSize={"50px"}
                         src={
                           `${process.env.REACT_APP_API_BASE_URL}/` +
-                          item.picture
+                          item.Product?.picture
                         }
                       ></Image>
                     </GridItem>
                     <GridItem fontSize={"small"} pl="1" area={"main"}>
-                      {item.ProductId}
+                      {item.Product?.productName}
                     </GridItem>
                     <GridItem fontSize={"small"} pl="1" area={"footer"}>
-                      price
+                      {item.Product?.Price?.productPrice}
                     </GridItem>
                   </>
                 </Grid>

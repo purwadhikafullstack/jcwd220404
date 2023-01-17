@@ -37,7 +37,7 @@ export const NavbarComp = () => {
       icon1: IoCartOutline,
       icon2: IoCart,
       name: "Cart",
-      url: `/cart/${id}`,
+      url: `/cart`,
     },
     {
       icon1: IoNewspaperOutline,

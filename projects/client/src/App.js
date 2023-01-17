@@ -127,7 +127,7 @@ function App() {
         <Route path="/notification" element={<NotificationPage />}></Route>
         <Route path="/transaction" element={<TransactionPage />}></Route>
         <Route path="/category" element={<CategoryPage />}></Route>
-        <Route path="/cart/:id" element={<CartPage />}></Route>
+        <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route
           path="/checkout/address"
