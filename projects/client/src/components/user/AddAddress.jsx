@@ -109,7 +109,7 @@ export const AddAddress = () => {
   const fetchPostal = async () => {
     try {
       const response = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/address/postal/${selectedPostal}`
+        `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
       );
       console.log(response);
       setPostal(response.data.rajaongkir.results);
@@ -121,8 +121,8 @@ export const AddAddress = () => {
   const renderPostal = () => {
     return Array.from(postal).map((val, i) => {
       return (
-        <option value={val.city_id} key={i}>
-          {val.type + " "} {val.postal_code}
+        <option value={val.postal_code} key={i}>
+          {val.postal_code}
         </option>
       );
     });
@@ -154,7 +154,7 @@ export const AddAddress = () => {
   useEffect(() => {
     fetchPostal();
   }, [selectedCity]);
-  
+
   return (
     <div>
       <Stack spacing={"10px"} mt={"20px"} textColor="#285430">
@@ -183,22 +183,37 @@ export const AddAddress = () => {
         </FormControl>
         <FormControl>
           <FormLabel>Province</FormLabel>
-          <Select placeholder="Select Province" onChange={provinceHandler}>
+          <Select
+            value={province?.rajaongkir?.results?.province_id}
+            placeholder="Select Province"
+            onChange={provinceHandler}
+          >
             {renderProvince()}
           </Select>
         </FormControl>
         <FormControl>
           <FormLabel>City</FormLabel>
-          <Select placeholder="Select City" onChange={cityHandler}>
+          <Select
+            value={city?.rajaongkir?.results?.city_id}
+            placeholder="Select City"
+            onChange={cityHandler}
+          >
             {renderCity()}
           </Select>
         </FormControl>
 
         <FormControl>
           <FormLabel>Kode Pos</FormLabel>
-          <Input ml={"20px"} width="340px" border="2px" borderColor="#285430">
-            {/* {renderPostal()} */}
-          </Input>
+          <Select
+            placeholder="Select Postal Code"
+            ml={"20px"}
+            width="340px"
+            border="2px"
+            borderColor="#285430"
+            onChange={postalHandler}
+          >
+            {renderPostal()}
+          </Select>
         </FormControl>
         <FormControl>
           <FormLabel>Detail Alamat</FormLabel>

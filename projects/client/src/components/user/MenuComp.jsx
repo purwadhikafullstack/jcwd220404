@@ -64,42 +64,52 @@ export const MenuComp = () => {
   }, []);
 
   const onAddCart = async (ProductId) => {
-    if (!id) {
-      return Swal.fire({
-        icon: "error",
-        title: "Oooops ...",
-        text: "Login First",
-        timer: 2000,
-        customClass: {
-          container: "my-swal",
-        },
-      });
-    }
-    if (cart >= 5) {
-      return Swal.fire({
-        icon: "error",
-        title: "Oooops ...",
-        text: "Keranjang Penuh",
-        timer: 2000,
-        customClass: {
-          container: "my-swal",
-        },
-      });
-    }
-    const result = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/cart/create`,
-      {
-        UserId: id,
-        ProductId,
+    try {
+      if (!id) {
+        return Swal.fire({
+          icon: "error",
+          title: "Oooops ...",
+          text: "Login First",
+          timer: 2000,
+          customClass: {
+            container: "my-swal",
+          },
+        });
       }
-    );
-    setState(result.data);
-    const res = await Axios.get(
-      `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
-    );
-    dispatch(cartSync(res.data));
-    dispatch(addCart(res.data));
-    getProduct();
+      const result = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/create`,
+        {
+          UserId: id,
+          ProductId,
+        }
+      );
+      setState(result.data);
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
+      );
+      dispatch(cartSync(res.data));
+      dispatch(addCart(res.data));
+      getProduct();
+      Swal.fire({
+        icon: "success",
+        // title: "Good Job",
+        text: `Add to Cart Success`,
+        timer: 2000,
+        customClass: {
+          container: "my-swal",
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        icon: "error",
+        // title: "Oops...",
+        text: `Add Cart Failed`,
+        customClass: {
+          container: "my-swal",
+        },
+      });
+    }
   };
 
   const onNavigate = () => {
@@ -164,7 +174,7 @@ export const MenuComp = () => {
                   <Text>Stok</Text>
                 </CardBody>
                 <CardFooter>
-                  <Button onClick={onNavigate}>
+                  <Button onClick={() => onAddCart(item.id)}>
                     <AddIcon />
                     Cart
                   </Button>

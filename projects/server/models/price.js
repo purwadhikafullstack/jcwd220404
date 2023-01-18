@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Price.belongsTo(models.Admin);
       Price.belongsTo(models.Product);
+      Price.hasMany(models.Product_Cart)
     }
   }
   Price.init(

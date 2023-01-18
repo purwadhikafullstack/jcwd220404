@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Address.belongsTo(models.User);
       // Address.belongsTo(models.City);
+      Address.belongsTo(models.Branch);
     }
   }
   Address.init(

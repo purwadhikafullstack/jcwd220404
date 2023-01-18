@@ -13,7 +13,7 @@ export const PopoutCheckout = () => {
   const getData = async () => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
       );
       console.log(res.data.carts);
       setData(res.data.carts);
@@ -40,7 +40,9 @@ export const PopoutCheckout = () => {
           color="gray.800"
           dropShadow="2xl"
           position="fixed"
-          mb={"200px"}
+          mb={"800px"}
+          // zIndex="2"
+          // pos="fixed"
         >
           <Flex
             justifyContent="space-evenly"
@@ -50,7 +52,7 @@ export const PopoutCheckout = () => {
             <Flex justify={"space-between"}>
               <Text>Total:</Text>
               {data?.map((item) => {
-                return <Text>{item.Product?.Price?.productPrice}</Text>;
+                return <Text>Rp{item.Product?.Price?.productPrice}</Text>;
               })}
               <Button onClick={toCheckout}>Checkout</Button>
             </Flex>

@@ -15,7 +15,7 @@ const initialState = {
     receiverName: "",
     detail: "",
     district: "",
-    // isVerified: ""
+    isVerified: "",
     cart: 0,
     checkout: 0,
   },
@@ -39,7 +39,7 @@ export const userSlice = createSlice({
       state.value.receiverName = action.payload.receiverName;
       state.value.detail = action.payload.detail;
       state.value.district = action.payload.district;
-      // state.value.isVerified = action.payload.isVerified
+      state.value.isVerified = action.payload.isVerified
     },
     logoutUser: (state, action) => {
       state.value.phoneNumber = "";

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Axios from "axios";
 import Swal from "sweetalert2";
@@ -19,8 +19,13 @@ import {
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { loginUser } from "../../redux/userSlice";
 import { ForgotPasswordPage } from "../../pages/user/ForgotPassPage";
+import { cartSync } from "../../redux/cartSlice";
 
 export const EnterComp = () => {
+  const { id, isVerified, profilePic, cart } = useSelector(
+    (state) => state.userSlice.value
+  );
+  const data = useSelector((state) => state.cartSlice.value);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const inputPhoneEmail = useRef("");
@@ -56,13 +61,19 @@ export const EnterComp = () => {
         user
       );
 
+      // const res = await Axios.get(
+      //   `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${result.data.isAccountExist.id}`
+      // );
+      // dispatch(cartSync(res.data));
+
       dispatch(
         loginUser({
           phoneNumber: result.data.isAccountExist.phoneNumber,
           name: result.data.isAccountExist.name,
           email: result.data.isAccountExist.email,
           id: result.data.isAccountExist.id,
-          // isVerified: result.data.isAccountExist,
+          // isVerified: result.data.isAccountExist.isVerified,
+          // cart: res.data.length,
         })
       );
       localStorage.setItem("tokenUser", result.data.token);

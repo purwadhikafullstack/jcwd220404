@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 export const NavbarComp = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { id } = useSelector((state) => state.userSlice.value);
+  const { id, cart } = useSelector((state) => state.userSlice.value);
 
   const menuBar = [
     {
@@ -38,6 +38,7 @@ export const NavbarComp = () => {
       icon2: IoCart,
       name: "Cart",
       url: `/cart`,
+      length: cart,
     },
     {
       icon1: IoNewspaperOutline,

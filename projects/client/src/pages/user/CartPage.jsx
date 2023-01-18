@@ -39,11 +39,9 @@ export const CartPage = () => {
             w={"390px"}
           >
             {tokenLocalStorage ? <CartComp /> : <OrderNowComp />}
-
           </Box>
-
+            
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
-            <PopoutCheckout />
             <NavbarComp />
           </Box>
         </Box>

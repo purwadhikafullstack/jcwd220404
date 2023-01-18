@@ -16,16 +16,20 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Calculator } from "../Calculator";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { DeleteIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
+import { cartSync } from "../../redux/cartSlice";
+import { delCart } from "../../redux/userSlice";
+import { PopoutCheckout } from "../PopoutCheckout";
 
 export const CartComp = () => {
   const [product, setProduct] = useState([]);
   const [data, setData] = useState([]);
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
+  const dispatch = useDispatch();
 
   const getData = async () => {
     try {
@@ -59,19 +63,25 @@ export const CartComp = () => {
     getProduct();
   }, []);
 
-  const onAddCart = async () => {
+  const onDelete = async (id) => {
     try {
-      if (id) {
-        return Swal.fire({
-          icon: "error",
-          title: "Oooops ...",
-          text: "Login First",
-          timer: 2000,
-          customClass: {
-            container: "my-swal",
-          },
-        });
-      }
+      await Axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/remove/${id}`
+      );
+      Swal.fire({
+        icon: "success",
+        text: "Cart Berhasil Dihapus",
+        timer: 2000,
+        customClass: {
+          container: "my-swal",
+        },
+      });
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
+      );
+      dispatch(cartSync(result.data));
+      dispatch(delCart());
+      getData();
     } catch (err) {
       console.log(err);
     }
@@ -111,18 +121,24 @@ export const CartComp = () => {
                     </GridItem>
                     <GridItem fontSize={"small"} pl="1" area={"main"}>
                       {item.Product?.productName}
+                      <GridItem>{item.Product?.weight} g</GridItem>
                     </GridItem>
                     <GridItem fontSize={"small"} pl="1" area={"footer"}>
-                      {item.Product?.Price?.productPrice}
+                      Rp{item.Product?.Price?.productPrice}
                     </GridItem>
                   </Grid>
                 </Checkbox>
-                <Calculator />
-                <DeleteIcon />
+                <Box>
+                  <Button onClick={() => onDelete(item.id)}>
+                    <DeleteIcon />
+                  </Button>
+                  <Calculator />
+                </Box>
               </Flex>
             </Card>
           );
         })}
+        <PopoutCheckout />
       </Box>
       {/* <Heading alignItems={"center"} size={"md"}>
         Recommendation Product
