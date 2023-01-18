@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Axios from "axios";
-import { useSelector } from "react-redux";
 import {
   Button,
   Center,
@@ -9,27 +8,19 @@ import {
   Input,
   Stack,
   Textarea,
-  useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import Swal from "sweetalert2";
-import { ArrowUpIcon } from "@chakra-ui/icons";
 
 export const UpdateProductComp = ({ data }) => {
-  const [image, setImage] = useState("");
-  const [profile, setProfile] = useState("upload");
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const inputProductName = useRef("");
   const inputDescription = useRef("");
-  const inputDistributor = useRef("");
-  const inputCategoryName = useRef("");
+  
 
   const onUpdate = async (id) => {
     try {
       const updateProduct = {
         productName: inputProductName.current.value,
         description: inputDescription.current.value,
-        distributor: inputDistributor.current.value,
       };
 
       const res = await Axios.patch(
@@ -51,7 +42,7 @@ export const UpdateProductComp = ({ data }) => {
     <div>
       <Stack spacing={"10px"}>
         <FormControl>
-          <FormLabel color="#285430">Nama Produk</FormLabel>
+          <FormLabel color="#285430">Product Name</FormLabel>
           <Input
             _placeholder={{ color: "#5F8D4E" }}
             borderColor="#285430"
@@ -60,14 +51,6 @@ export const UpdateProductComp = ({ data }) => {
             defaultValue={data?.productName}
           ></Input>
         </FormControl>
-        <FormLabel color="#285430">Distributor</FormLabel>
-        <Input
-          _placeholder={{ color: "#5F8D4E" }}
-          borderColor="#285430"
-          textColor="black"
-          ref={inputDistributor}
-          defaultValue={data?.distributor}
-        ></Input>
         <FormControl>
           <FormLabel color="#285430">Description</FormLabel>
           <Textarea

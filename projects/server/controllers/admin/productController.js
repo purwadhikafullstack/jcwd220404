@@ -7,13 +7,14 @@ const category = db.Category;
 module.exports = {
   create: async (req, res) => {
     try {
-      const { productName, distributor, description } = req.body;
+      const { productName,
+        description } = req.body;
 
-      if (!productName && !distributor && !description) throw "required field";
+      if (!productName && 
+        !description) throw "required field";
 
       await product.create({
         productName,
-        distributor,
         description,
       });
       res.status(200).send({
@@ -45,7 +46,6 @@ module.exports = {
         attributes: [
           "id",
           "productName",
-          "distributor",
           "description",
           "picture",
         ],
@@ -59,7 +59,6 @@ module.exports = {
   findAllCategory: async (req, res) => {
     try {
       const users = await category.findAll({
-        // attributes: ["id", "categoryName", "categoryPicture"],
       });
       res.status(200).send(users);
     } catch (err) {
@@ -82,12 +81,12 @@ module.exports = {
 
   findBy: async (req, res) => {
     try {
-      const { productName, distributor, description } = req.query;
+      const { productName, 
+        description } = req.query;
       const users = await product.findAll({
         where: {
           [Op.or]: {
             productName: productName ? productName : "",
-            distributor: distributor ? distributor : "",
             description: description ? description : "",
           },
         },
@@ -101,15 +100,15 @@ module.exports = {
 
   searchBy: async (req, res) => {
     try {
-      const { productName, description } = req.query;
+      const { productName, categoryName } = req.query;
       const users = await product.findAll({
         where: {
           [Op.or]: {
             productName: {
               [Op.like]: `%${productName}%`,
             },
-            description: {
-              [Op.like]: `%${description}%`,
+            categoryName: {
+              [Op.like]: `%${categoryName}%`,
             },
           },
         },
@@ -164,12 +163,12 @@ module.exports = {
 
   update: async (req, res) => {
     try {
-      const { productName, distributor, description } = req.body;
+      const { productName, 
+         description } = req.body;
 
       await product.update(
         {
           productName,
-          distributor,
           description,
         },
         {
@@ -273,15 +272,15 @@ module.exports = {
     }
   },
 
-  view2: async (req, res) => {
+  paginationProduct: async (req, res) => {
     try {
-      const { page, limit, search_query, order, order_direction } = req.query;
+      const { page, limit, search_query, order, sort} = req.query;
       const productlist_page = parseInt(page) || 0;
       const list_limit = parseInt(limit) || 5;
       const search = search_query || "";
       const offset = list_limit * productlist_page;
-      const orderby = order || "Title";
-      const direction = order_direction || "ASC";
+      const orderby = order || "productName";
+      const direction = sort || "ASC";
       const totalRows = await product.count({
         where: {
           [Op.or]: [
@@ -300,12 +299,12 @@ module.exports = {
       });
       const totalPage = Math.ceil(totalRows / limit);
       const result = await product.findAll({
-        include: [
-          {
-            model: cart,
-            attributes: ["id"],
-          },
-        ],
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
         where: {
           [Op.or]: [
             {
@@ -323,17 +322,87 @@ module.exports = {
         offset: offset,
         limit: list_limit,
         order: [[orderby, direction]],
-        include: [
-          {
-            model: cart,
-            attributes: ["id"],
-          },
-        ],
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
       });
 
       res.status(200).send({
         result: result,
         page: productlist_page,
+        limit: list_limit,
+        totalRows: totalRows,
+        totalPage: totalPage,
+      });
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  },
+
+  paginationCategory: async (req, res) => {
+    try {
+      const { page, limit, search_query, order, sort } = req.query;
+      const categorylist_page = parseInt(page) || 0;
+      const list_limit = parseInt(limit) || 5;
+      const search = search_query || "";
+      const offset = list_limit * categorylist_page;
+      const orderby = order || "categoryName";
+      const direction = sort || "ASC";
+      const totalRows = await category.count({
+        where: {
+          [Op.or]: [
+            {
+              categoryName: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+            // {
+            //   description: {
+            //     [Op.like]: "%" + search + "%",
+            //   },
+            // },
+          ],
+        },
+      });
+      const totalPage = Math.ceil(totalRows / limit);
+      const result = await category.findAll({
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
+        where: {
+          [Op.or]: [
+            {
+              categoryName: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+            // {
+            //   description: {
+            //     [Op.like]: "%" + search + "%",
+            //   },
+            // },
+          ],
+        },
+        offset: offset,
+        limit: list_limit,
+        order: [[orderby, direction]],
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
+      });
+
+      res.status(200).send({
+        result: result,
+        page: categorylist_page,
         limit: list_limit,
         totalRows: totalRows,
         totalPage: totalPage,

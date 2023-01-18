@@ -136,6 +136,7 @@ function App() {
           path="/verification/:token"
           element={<VerificationPage />}
         ></Route>
+        <Route path=""></Route>
       </Routes>
     </div>
   );

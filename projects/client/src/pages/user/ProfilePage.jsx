@@ -167,7 +167,7 @@ export const ProfilePage = (user) => {
             bg="gray.500"
             ml={"8"}
             mt="5"
-            src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}
+            src={`http://localhost:8000/upload/PIMG-167280588303621324.jpeg`}
           />
           <Tag
             mt={"30px"}

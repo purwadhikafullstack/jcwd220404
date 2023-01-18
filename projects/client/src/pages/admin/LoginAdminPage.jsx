@@ -73,7 +73,7 @@ export const LoginAdminPage = () => {
   return (
     <div>
       <Center>
-        <Box py={3} px={3} bgColor="#E5D9B6" w={"390px"} h={"100%"}>
+        <Box py={3} px={3} bgColor="#E5D9B6" w={"390px"} h={"820px"}>
           <Image src={OnlyFreshLogo} height="160px" w={"auto"} ml={"75px"} />
           <Stack align={"center"}>
             <Heading mt={"10px"} size={"lg"} textColor="#285430">
