@@ -138,8 +138,8 @@ export const CartComp = () => {
             </Card>
           );
         })}
-        <PopoutCheckout />
       </Box>
+      <PopoutCheckout />
       {/* <Heading alignItems={"center"} size={"md"}>
         Recommendation Product
       </Heading>

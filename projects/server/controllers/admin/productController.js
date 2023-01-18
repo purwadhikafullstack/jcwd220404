@@ -3,6 +3,7 @@ const db = require("../../models");
 const product = db.Product;
 const price = db.Price;
 const category = db.Category;
+const productCategory = db.Product_Category;
 
 module.exports = {
   create: async (req, res) => {
@@ -364,13 +365,6 @@ module.exports = {
         message: "Process Error",
         err,
       });
-    }
-  },
-
-  stock: async (req, res) => {
-    try {
-    } catch (err) {
-      res.status(400).send(err);
     }
   },
 };

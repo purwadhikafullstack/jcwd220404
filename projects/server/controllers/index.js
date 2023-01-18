@@ -6,6 +6,7 @@ const productController = require("./admin/productController");
 const pictureController = require("./admin/pictureController");
 const cartController = require("./user/cartController");
 const addCheckoutController = require("./user/addCheckoutController");
+const inventoryController = require("./admin/inventoryController");
 
 module.exports = {
   userController,
@@ -15,5 +16,6 @@ module.exports = {
   productController,
   pictureController,
   cartController,
-  addCheckoutController,
+
+  inventoryController,
 };

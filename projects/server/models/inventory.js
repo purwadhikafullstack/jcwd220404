@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   Inventory.init(
     {
       stockQty: DataTypes.INTEGER,
-      entryDate: DataTypes.DATE,
+      entryDate: DataTypes.DATEONLY,
     },
     {
       sequelize,
