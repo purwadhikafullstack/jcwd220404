@@ -6,6 +6,7 @@ import addressSlice from "./addressSlice";
 import productSlice from "./productSlice";
 import cartSlice from "./cartSlice";
 import checkoutSlice from "./checkoutSlice";
+import inventorySlice from "./inventorySlice";
 
 export default configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export default configureStore({
     productSlice,
     cartSlice,
     checkoutSlice,
+    inventorySlice
   },
 });

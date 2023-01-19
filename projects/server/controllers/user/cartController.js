@@ -15,14 +15,14 @@ module.exports = {
         ProductId,
         UserId,
       });
-      res.status(200).json({
+      res.status(200).send({
         message: "Cart created",
-        data,
+        data: data,
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process Error",
-        err,
+        data: err,
       });
     }
   },
@@ -33,14 +33,14 @@ module.exports = {
       const data = await productCart.destroy({
         where: { id },
       });
-      res.status(200).json({
+      res.status(200).send({
         message: "Delete success",
-        data,
+        data: data,
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process Error",
-        err,
+        data: err,
       });
     }
   },
@@ -61,15 +61,17 @@ module.exports = {
           where: { id },
         }
       );
-      res.status(200).json({
+      res.status(200).send({
         message: "Update success",
-        data,
-        user,
+        data: {
+          data,
+          user,
+        },
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process Error",
-        err,
+        data: err,
       });
     }
   },
@@ -86,14 +88,14 @@ module.exports = {
           },
         ],
       });
-      res.status(200).json({
+      res.status(200).send({
         message: "Data retrieved",
-        carts,
+        data: carts,
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process Error",
-        err,
+        data: err,
       });
     }
   },
@@ -115,13 +117,13 @@ module.exports = {
           where: { id },
         }
       );
-      res.status(200).json({
+      res.status(200).send({
         message: "Update success",
         user,
         data,
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process error",
         err,
       });
@@ -145,12 +147,12 @@ module.exports = {
           },
         ],
       });
-      res.status(200).json({
+      res.status(200).send({
         message: "Data retrieved",
         carts,
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process Error",
         err,
       });
@@ -160,15 +162,20 @@ module.exports = {
   totalCheckout: async (req, res) => {
     try {
       const { qty, price } = req.body;
-      const res = await productCart.update({
+      const response = await productCart.update({
         weight: req.product.weight,
         where: {
           UserId: req.params.id,
         },
       });
+      res.send(200).send({
+        message: "Data retrieved",
+        data: response,
+      });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process error",
+        data: err,
       });
     }
   },
@@ -187,13 +194,14 @@ module.exports = {
           },
         ],
       });
-      res.status(200).json({
+      res.status(200).send({
         message: "Data retrieved",
-        response,
+        data: response,
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process error",
+        data: err,
       });
     }
   },
@@ -210,15 +218,17 @@ module.exports = {
         weight: weight,
         courier: courier,
       });
-      res.status(200).json({
+      res.status(200).send({
         message: "Get Success",
-        generateCost,
-        cost,
+        data: {
+          generateCost,
+          cost,
+        },
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: `Process error`,
-        err,
+        data: err,
       });
     }
   },

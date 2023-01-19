@@ -28,12 +28,17 @@ module.exports = {
       const token = jwt.sign({ username: username, email: email }, "jcwd2204");
 
       res.status(200).send({
-        massage: "Register Succes",
-        data,
-        token,
+        message: "Register Succes",
+        data: {
+          data,
+          token,
+        },
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -62,11 +67,16 @@ module.exports = {
 
       res.status(200).send({
         message: "Login Succes",
-        isUserExist,
-        token,
+        data: {
+          isUserExist,
+          token,
+        },
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -80,9 +90,15 @@ module.exports = {
         raw: true,
       });
 
-      res.status(200).send(result);
+      res.status(200).send({
+        message: "Keep login",
+        data: result,
+      });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -95,9 +111,15 @@ module.exports = {
         attributes: ["username", "email", "isSuper"],
         raw: true,
       });
-      res.status(200).send(admins);
+      res.status(200).send({
+        message: "Data retrieved",
+        data: admins,
+      });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 };

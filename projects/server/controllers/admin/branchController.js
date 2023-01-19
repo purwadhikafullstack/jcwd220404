@@ -19,7 +19,10 @@ module.exports = {
         data: response,
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -53,13 +56,16 @@ module.exports = {
         phoneNumber,
         // UserId: req.user.id,
       });
-      res.status(200).json({
-        message: "New Branch",
+      res.status(200).send({
+        message: "New Branch added",
         data: response,
       });
     } catch (err) {
       console.log(err);
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -98,12 +104,15 @@ module.exports = {
         }
       );
       const findData = await branch.findByPk(id);
-      res.status(200).json({
+      res.status(200).send({
         message: "Branch edited",
         data: findData,
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -119,7 +128,10 @@ module.exports = {
         message: "Address deleted",
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -128,9 +140,15 @@ module.exports = {
       const branches = await branch.findAll({
         attributes: ["id", "branchName"],
       });
-      res.status(200).send(branches);
+      res.status(200).send({
+        message: "Data retrieved",
+        data: branches,
+      });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -147,7 +165,10 @@ module.exports = {
         data: response,
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 };

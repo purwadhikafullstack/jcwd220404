@@ -16,11 +16,14 @@ module.exports = {
         order: [["defaultAddress", "DESC"]],
       });
       return res.status(200).send({
-        message: "Get User Address",
+        message: "User Address retrieved",
         data: response,
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -67,11 +70,14 @@ module.exports = {
         UserId: req.params.id,
       });
       res.status(200).json({
-        message: "New Address",
+        message: "New Address created",
         data: response,
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -122,12 +128,15 @@ module.exports = {
         }
       );
       const findData = await address.findByPk(id);
-      res.status(200).json({
+      res.status(200).send({
         message: "Address edited",
         data: findData,
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -143,7 +152,10 @@ module.exports = {
         message: "Address deleted",
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -197,11 +209,14 @@ module.exports = {
         });
       }
       res.status(200).json({
-        message: "set as default",
+        message: "Address set as default",
         data: findDefault,
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -214,11 +229,14 @@ module.exports = {
         },
       });
       return res.status(200).send({
-        message: "Get User Address",
+        message: "Data retrieved",
         data: response,
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -231,14 +249,14 @@ module.exports = {
         },
         raw: true,
       });
-      res.status(200).json({
+      res.status(200).send({
         message: "Default Address Found",
-        defaultAdd,
+        data: defaultAdd,
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process Error",
-        err,
+        data: err,
       });
     }
   },

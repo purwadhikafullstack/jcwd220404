@@ -22,22 +22,6 @@ export const SuperComp = () => {
   const [data2, setData2] = useState([]);
   const { username } = useSelector((state) => state.adminSlice.value);
 
-  const getBranch = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/branch/findAll`
-      );
-      console.log(res.data);
-      setData2(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getBranch();
-  }, []);
-
   return (
     <>
       <Box>

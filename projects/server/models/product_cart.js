@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Product_Cart.belongsTo(models.Cart);
       Product_Cart.belongsTo(models.Product);
       Product_Cart.belongsTo(models.User);
       Product_Cart.belongsTo(models.Price);
+      // Product_Cart.belongsTo(models.Cart);
     }
   }
   Product_Cart.init(

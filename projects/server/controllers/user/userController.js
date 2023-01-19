@@ -8,6 +8,8 @@ const { Op } = require("sequelize");
 const transporter = require("../../middleware/transporter");
 const fs = require("fs");
 const handlebars = require("handlebars");
+const secretKey = process.env.SECRET_KEY;
+const urlReset = process.env.URL_RESETPASS;
 
 module.exports = {
   register: async (req, res) => {
@@ -41,11 +43,9 @@ module.exports = {
         UserId: data.id,
       });
 
-      const token = jwt.sign(
-        { phoneNumber: phoneNumber },
-        "jcwd2204"
-        // { expiresIn: "1h" }
-      );
+      const token = jwt.sign({ phoneNumber: phoneNumber }, secretKey, {
+        expiresIn: "1h",
+      });
 
       const tempEmail = fs.readFileSync("./template/codeotp.html", "utf-8");
       const tempCompile = handlebars.compile(tempEmail);
@@ -62,13 +62,17 @@ module.exports = {
       });
 
       res.status(200).send({
-        massage: "Register Succes",
-        data,
-        token,
+        message: "Register Succes",
+        data: {
+          data,
+          token,
+        },
       });
     } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -100,7 +104,10 @@ module.exports = {
         data: isAccountExist,
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -129,7 +136,7 @@ module.exports = {
         raw: true,
       });
 
-      const token = jwt.sign({ phoneNumber, email }, "jcwd2204", {
+      const token = jwt.sign({ phoneNumber, email }, secretKey, {
         expiresIn: "1h",
       });
 
@@ -148,12 +155,17 @@ module.exports = {
       });
 
       res.status(200).send({
-        massage: "Please check your Email for OTP Code",
-        data,
-        token,
+        message: "Please check your Email for OTP Code",
+        data: {
+          data,
+          token,
+        },
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -216,7 +228,7 @@ module.exports = {
         id: isAccountExist.id,
         isVerified: isAccountExist.isVerified,
       };
-      const token = jwt.sign(payload, "jcwd2204");
+      const token = jwt.sign(payload, secretKey);
 
       const isValid = await bcrypt.compare(password, isAccountExist.password);
 
@@ -224,17 +236,22 @@ module.exports = {
 
       res.status(200).send({
         message: "Login Succes",
-        isAccountExist,
-        token,
+        data: {
+          isAccountExist,
+          token,
+        },
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
   keepLogin: async (req, res) => {
     try {
-      const verify = jwt.verify(req.token, "jcwd2204");
+      const verify = jwt.verify(req.token, secretKey);
       const result = await user.findOne({
         where: {
           phoneNumber: verify.phoneNumber,
@@ -269,9 +286,14 @@ module.exports = {
           },
         }
       );
-      res.status(200).send("Update Password Success");
+      res.status(200).send({
+        message: "Update Password Success",
+      });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -287,7 +309,7 @@ module.exports = {
       if (isAccountExist === null) throw "Account not found";
       else if (isAccountExist.status === false) throw "Your Account is blocked";
 
-      const token = jwt.sign({ email: isAccountExist.email }, "jcwd2204", {
+      const token = jwt.sign({ email: isAccountExist.email }, secretKey, {
         expiresIn: "1h",
       });
 
@@ -295,7 +317,7 @@ module.exports = {
       const tempCompile = handlebars.compile(tempEmail);
       const tempResult = tempCompile({
         email: isAccountExist.email,
-        link: `http://localhost:3000/resetPassword/${token}`,
+        link: `${urlReset}/resetPassword/${token}`,
       });
 
       await transporter.sendMail({
@@ -305,11 +327,19 @@ module.exports = {
         html: tempResult,
       });
 
-      res
-        .status(200)
-        .send("Send email request reset password succes, open your email");
+      res.status(200).send({
+        message:
+          "Send email request reset password success, please open your email",
+        data: {
+          isAccountExist,
+          token,
+        },
+      });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -336,12 +366,17 @@ module.exports = {
       );
 
       res.status(200).send({
-        message: "success",
-        data,
-        data2,
+        message: "Update success",
+        data: {
+          data,
+          data2,
+        },
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -362,9 +397,15 @@ module.exports = {
         }
       );
 
-      res.status(200).send({ data });
+      res.status(200).send({
+        message: "Update password success",
+        data: data,
+      });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -403,10 +444,15 @@ module.exports = {
       //   subject: "Verifikasi akun",
       //   html: tempResult,
       // });
-      res.status(200).send({ data });
+      res.status(200).send({
+        message: "Update email success",
+        data: data,
+      });
     } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -416,9 +462,15 @@ module.exports = {
         attributes: ["id", "gender", "birthDate"],
         include: user,
       });
-      res.status(200).send(users);
+      res.status(200).send({
+        message: "Data retrieved",
+        data: users,
+      });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -427,9 +479,15 @@ module.exports = {
       const users = await user.findAll({
         attributes: ["email"],
       });
-      res.status(200).send(users);
+      res.status(200).send({
+        message: "Data retrieved",
+        data: users,
+      });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -438,9 +496,15 @@ module.exports = {
       const users = await user.findAll({
         attributes: ["phoneNumber"],
       });
-      res.status(200).send(users);
+      res.status(200).send({
+        message: "Data retrieved",
+        data: users,
+      });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -450,9 +514,15 @@ module.exports = {
         where: { id: req.params.id },
         include: [{ model: profile }],
       });
-      res.status(200).send(users);
+      res.status(200).send({
+        message: "Data retrieved",
+        data: users,
+      });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 
@@ -482,7 +552,10 @@ module.exports = {
         profilePic: getProfile.profilePic,
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        data: err,
+      });
     }
   },
 };

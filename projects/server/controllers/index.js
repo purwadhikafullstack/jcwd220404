@@ -16,6 +16,5 @@ module.exports = {
   productController,
   pictureController,
   cartController,
-
   inventoryController,
 };

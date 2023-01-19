@@ -16,22 +16,22 @@ module.exports = {
         ProductId,
         AdminId,
       });
-      res.status(200).json({
+      res.status(200).send({
         message: "Success added",
-        data,
+        data: data,
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process Error",
-        err,
+        data: err,
       });
     }
   },
 
   findByBranch: async (req, res) => {
     try {
-      const stock = await inventory.findAll({
-        attributes: ["stockQty"],
+      const inventories = await inventory.findAll({
+        // attributes: ["stockQty"],
         where: {
           BranchId: req.params.id,
         },
@@ -42,14 +42,14 @@ module.exports = {
           },
         ],
       });
-      res.status(200).json({
+      res.status(200).send({
         message: "Success retrieved",
-        stock,
+        data: inventories,
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(400).send({
         message: "Process Error",
-        err,
+        data: err,
       });
     }
   },

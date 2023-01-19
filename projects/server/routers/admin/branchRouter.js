@@ -4,9 +4,9 @@ const { branchController } = require("../../controllers/index");
 require("dotenv/config");
 
 router.post("/create", branchController.newBranch);
-router.patch("/updateBranch/:id", branchController.updateBranch);
 router.get("/branchById", branchController.branchById);
 router.get("/findAll", branchController.findAll);
+router.patch("/updateBranch/:id", branchController.updateBranch);
 router.delete("/remove/:id", branchController.deleteBranch);
 
 axios.defaults.baseURL = process.env.BASE_URL_RAJAONGKIR;

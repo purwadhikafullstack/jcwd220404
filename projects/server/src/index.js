@@ -31,7 +31,6 @@ const {
   productRouter,
   pictureRouter,
   cartRouter,
-  addCheckoutRouter,
   inventoryRouter,
 } = require("../routers");
 

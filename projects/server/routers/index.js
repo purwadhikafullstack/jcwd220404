@@ -16,6 +16,5 @@ module.exports = {
   productRouter,
   pictureRouter,
   cartRouter,
-
   inventoryRouter,
 };

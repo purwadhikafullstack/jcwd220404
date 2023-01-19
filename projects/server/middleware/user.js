@@ -16,12 +16,14 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
   checkRole: async (req, res, next) => {
-      if (req.user.isAdmin) return next();
-      res.status(400).send("Lo bukan admin");
+    if (req.user.isAdmin) return next();
+    res.status(400).send("Lo bukan admin");
   },
+
   checkUser: async (req, res, next) => {
-      if (!req.user.isAdmin) return next();
-      res.status(400).send("Lo admin");
-  }
+    if (!req.user.isAdmin) return next();
+    res.status(400).send("Lo admin");
+  },
 };

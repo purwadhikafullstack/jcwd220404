@@ -6,6 +6,8 @@ require("dotenv/config");
 
 router.post("/create", productController.create);
 router.post("/createCategory", productController.createCategory);
+router.post("/createPrice", productController.createPrice);
+router.post("/createMulti", productController.createMultiCategory);
 router.post(
   "/single-uploaded/:id",
   multerUpload.single("file"),
@@ -16,7 +18,6 @@ router.post(
   multerUpload.single("file"),
   productController.uploadCategory
 );
-router.post("/createPrice", productController.createPrice);
 router.patch("/update/:id", productController.update);
 router.patch("/updateCategory/:id", productController.updateCategory);
 router.get("/list", productController.findAll);
