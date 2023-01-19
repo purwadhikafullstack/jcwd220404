@@ -45,6 +45,7 @@ export const LoginAdminPage = () => {
           username: result.data.isUserExist.username,
           email: result.data.isUserExist.email,
           isSuper: result.data.isUserExist.isSuper,
+          BranchId: result.data.isUserExist.BranchId,
         })
       );
 

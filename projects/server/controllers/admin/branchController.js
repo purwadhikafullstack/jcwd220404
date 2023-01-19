@@ -134,23 +134,17 @@ module.exports = {
     }
   },
 
-  findBranchById: async (req, res) => {
+  findAdminByBranch: async (req, res) => {
     try {
       const response = await branch.findOne({
         where: {
-          UserId: req.params.id,
+          AdminId: req.params.id,
           id: req.body.id,
         },
       });
-      return res.status(200).send({
-        message: "Get Branch Address",
-        response,
-      });
+      res.status(200).send(response);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        err,
-      });
+      res.status(400).send(err);
     }
   },
 };

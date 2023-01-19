@@ -56,13 +56,16 @@ export const RegisterAdmin = () => {
       Swal.fire({
         icon: "success",
         title: "Good Job",
-        text: `${result.data.massage}`,
+        text: `${result.data.message}`,
         timer: 2000,
         customClass: {
           container: "my-swal",
         },
         width: "370px",
       });
+      setTimeout(() => {
+        window.location.replace("/admin");
+      }, 900);
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -176,13 +179,13 @@ export const RegisterAdmin = () => {
                       border={"2px"}
                       w={"330px"}
                     >
-                      {/* {data2.map((item) => {
+                      {data2.map((item) => {
                         return (
                           <>
                             <option>{item.branchName}</option>
                           </>
                         );
-                      })} */}
+                      })}
                     </Select>
                   </FormControl>
                   <FormControl isRequired>

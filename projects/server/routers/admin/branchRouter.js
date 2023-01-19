@@ -4,7 +4,8 @@ const { branchController } = require("../../controllers/index");
 require("dotenv/config");
 
 router.post("/create", branchController.newBranch);
-router.get("/branchById", branchController.branchById);
+router.get("/branchById/:id", branchController.branchById);
+router.get("/adminByBranch/:id", branchController.findAdminByBranch);
 router.get("/findAll", branchController.findAll);
 router.patch("/updateBranch/:id", branchController.updateBranch);
 router.delete("/remove/:id", branchController.deleteBranch);

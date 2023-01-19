@@ -43,9 +43,7 @@ export const ListCheckoutAddress = () => {
             bgColor="white"
             h={"740px"}
             w={"390px"}
-          >
-            <ListAddress />
-          </Box>
+          ></Box>
         </Box>
       </Center>
     </div>

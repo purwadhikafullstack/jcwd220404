@@ -25,13 +25,13 @@ export const LandingPage = () => {
             zIndex="2"
           >
             <LogoComp />
-            <SearchComp />
             <NotificationComp />
           </Box>
           <DefaultAddress />
-          <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
+          <Box className="body" bgColor="white" h={"2000px"} w={"390px"}>
             <VStack>
               <CarouselComp />
+              {/* <SearchComp /> */}
               <MenuComp />
             </VStack>
           </Box>

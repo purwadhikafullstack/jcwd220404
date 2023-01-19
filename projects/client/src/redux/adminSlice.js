@@ -6,6 +6,7 @@ const initialState = {
     email: "",
     password: "",
     isSuper: 0,
+    BranchId: 0,
   },
 };
 
@@ -17,11 +18,13 @@ export const adminSlice = createSlice({
       state.value.username = action.payload.username;
       state.value.email = action.payload.email;
       state.value.isSuper = action.payload.isSuper;
+      state.value.BranchId = action.payload.BranchId;
     },
     logoutAdmin: (state, action) => {
       state.value.username = "";
       state.value.email = "";
       state.value.isSuper = 0;
+      state.value.BranchId = 0;
     },
   },
 });
