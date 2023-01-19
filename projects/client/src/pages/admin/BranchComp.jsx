@@ -279,7 +279,7 @@ export const BranchComp = () => {
                       </Tr>
                     </Thead>
                     <Tbody>
-                      {data?.map((item) => {
+                      {/* {data?.map((item) => {
                         return (
                           <Tr>
                             <Td color={"#285430"}>{item.productName}</Td>
@@ -341,7 +341,7 @@ export const BranchComp = () => {
                             <Td>{item.distributor}</Td>
                           </Tr>
                         );
-                      })}
+                      })} */}
                     </Tbody>
                   </Table>
                 </TableContainer>
@@ -373,7 +373,7 @@ export const BranchComp = () => {
                       </Tr>
                     </Thead>
                     <Tbody>
-                      {data2?.map((item) => {
+                      {/* {data2?.map((item) => {
                         return (
                           <Tr>
                             <Td color={"#285430"} textColor="black">
@@ -428,7 +428,7 @@ export const BranchComp = () => {
                             </Td>
                           </Tr>
                         );
-                      })}
+                      })} */}
                     </Tbody>
                   </Table>
                 </TableContainer>

@@ -16,13 +16,10 @@ module.exports = {
       });
       return res.status(200).send({
         message: "Get Branch Address",
-        data: response,
+        response,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -62,10 +59,7 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -109,10 +103,7 @@ module.exports = {
         data: findData,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -128,10 +119,7 @@ module.exports = {
         message: "Address deleted",
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -140,15 +128,9 @@ module.exports = {
       const branches = await branch.findAll({
         attributes: ["id", "branchName"],
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: branches,
-      });
+      res.status(200).send(branches);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -162,12 +144,12 @@ module.exports = {
       });
       return res.status(200).send({
         message: "Get Branch Address",
-        data: response,
+        response,
       });
     } catch (err) {
       res.status(400).send({
         message: "Process error",
-        data: err,
+        err,
       });
     }
   },

@@ -15,8 +15,8 @@ export const PopoutCheckout = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
       );
-      console.log(res.data.carts);
-      setData(res.data.carts);
+      console.log(res.data);
+      setData(res.data);
     } catch (err) {
       console.log(err);
     }

@@ -15,15 +15,9 @@ module.exports = {
         ProductId,
         UserId,
       });
-      res.status(200).send({
-        message: "Cart created",
-        data: data,
-      });
+      res.status(200).send(data);
     } catch (err) {
-      res.status(400).send({
-        message: "Process Error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -35,13 +29,10 @@ module.exports = {
       });
       res.status(200).send({
         message: "Delete success",
-        data: data,
+        data,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process Error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -63,16 +54,12 @@ module.exports = {
       );
       res.status(200).send({
         message: "Update success",
-        data: {
-          data,
-          user,
-        },
+
+        data,
+        user,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process Error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -88,15 +75,9 @@ module.exports = {
           },
         ],
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: carts,
-      });
+      res.status(200).send(carts);
     } catch (err) {
-      res.status(400).send({
-        message: "Process Error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -123,10 +104,7 @@ module.exports = {
         data,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -147,15 +125,9 @@ module.exports = {
           },
         ],
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        carts,
-      });
+      res.status(200).send(carts);
     } catch (err) {
-      res.status(400).send({
-        message: "Process Error",
-        err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -168,15 +140,9 @@ module.exports = {
           UserId: req.params.id,
         },
       });
-      res.send(200).send({
-        message: "Data retrieved",
-        data: response,
-      });
+      res.send(200).send(response);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -194,15 +160,9 @@ module.exports = {
           },
         ],
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: response,
-      });
+      res.status(200).send(response);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -219,17 +179,11 @@ module.exports = {
         courier: courier,
       });
       res.status(200).send({
-        message: "Get Success",
-        data: {
-          generateCost,
-          cost,
-        },
+        generateCost,
+        cost,
       });
     } catch (err) {
-      res.status(400).send({
-        message: `Process error`,
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 };

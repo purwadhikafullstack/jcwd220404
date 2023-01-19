@@ -28,7 +28,7 @@ module.exports = {
     } catch (err) {
       res.status(400).send({
         message: "Process error",
-        data: err,
+        err,
       });
     }
   },
@@ -46,7 +46,7 @@ module.exports = {
     } catch (err) {
       res.status(400).send({
         message: "Process error",
-        data: err,
+        err,
       });
     }
   },
@@ -63,15 +63,9 @@ module.exports = {
         ],
         include: [{ model: price }],
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: products,
-      });
+      res.status(200).send(products);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -80,15 +74,9 @@ module.exports = {
       const categories = await category.findAll({
         attributes: ["id", "categoryName", "categoryPicture"],
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: categories,
-      });
+      res.status(200).send(categories);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -99,15 +87,9 @@ module.exports = {
           id: req.params.id,
         },
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: products,
-      });
+      res.status(200).send(products);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -146,15 +128,9 @@ module.exports = {
         },
         raw: true,
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: products,
-      });
+      res.status(200).send(products);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -163,15 +139,9 @@ module.exports = {
       const products = await product.findAll({
         attributes: [[sequelize.fn("count", sequelize.col(`id`)), "total"]],
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: products,
-      });
+      res.status(200).send(products);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -184,15 +154,9 @@ module.exports = {
       });
       console.log(req.params.id);
       const deleteProduct = await product.findAll();
-      res.status(200).send({
-        message: "Product deleted",
-        data: deleteProduct,
-      });
+      res.status(200).send(deleteProduct);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -205,15 +169,9 @@ module.exports = {
       });
       console.log(req.params.id);
       const deleteCategory = await category.findAll();
-      res.status(200).send({
-        message: "Update deleted",
-        data: this.removeCategory,
-      });
+      res.status(200).send(deleteCategory);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -232,15 +190,9 @@ module.exports = {
         }
       );
       const edit = await product.findOne({ where: { id: req.params.id } });
-      res.status(200).send({
-        message: "Update product success",
-        data: users,
-      });
+      res.status(200).send(edit);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -258,7 +210,7 @@ module.exports = {
       const edit = await category.findOne({ where: { id: req.params.id } });
       res.status(200).send({
         message: "Update success",
-        data: edit,
+        edit,
       });
     } catch (err) {
       res.status(400).send(err);
@@ -271,15 +223,9 @@ module.exports = {
       const products = await product.findAll({
         order: [[data, order]],
       });
-      res.status(200).send({
-        message: "Process success",
-        data: products,
-      });
+      res.status(200).send(products);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -308,10 +254,7 @@ module.exports = {
         picture: getPicture.picture,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -340,10 +283,7 @@ module.exports = {
         categoryPicture: getPicture.categoryPicture,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -413,10 +353,7 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
-      res.status(400).send({
-        message: "Process error",
-        data: error,
-      });
+      res.status(400).send(error);
     }
   },
 
@@ -433,10 +370,7 @@ module.exports = {
         message: "Success Added",
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process Error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -451,10 +385,7 @@ module.exports = {
         message: "Success added",
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 };

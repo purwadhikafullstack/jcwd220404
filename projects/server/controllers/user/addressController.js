@@ -20,10 +20,7 @@ module.exports = {
         data: response,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -74,10 +71,7 @@ module.exports = {
         data: response,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -133,10 +127,7 @@ module.exports = {
         data: findData,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -152,10 +143,7 @@ module.exports = {
         message: "Address deleted",
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -204,19 +192,16 @@ module.exports = {
             },
           }
         );
-        res.status(200).json({
+        res.status(200).send({
           message: "success",
         });
       }
-      res.status(200).json({
+      res.status(200).send({
         message: "Address set as default",
         data: findDefault,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -233,10 +218,7 @@ module.exports = {
         data: response,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -251,13 +233,10 @@ module.exports = {
       });
       res.status(200).send({
         message: "Default Address Found",
-        data: defaultAdd,
+        defaultAdd,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process Error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 };

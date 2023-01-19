@@ -29,16 +29,11 @@ module.exports = {
 
       res.status(200).send({
         message: "Register Succes",
-        data: {
-          data,
-          token,
-        },
+        data,
+        token,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -67,16 +62,11 @@ module.exports = {
 
       res.status(200).send({
         message: "Login Succes",
-        data: {
-          isUserExist,
-          token,
-        },
+        isUserExist,
+        token,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -90,15 +80,9 @@ module.exports = {
         raw: true,
       });
 
-      res.status(200).send({
-        message: "Keep login",
-        data: result,
-      });
+      res.status(200).send(result);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -111,15 +95,9 @@ module.exports = {
         attributes: ["username", "email", "isSuper"],
         raw: true,
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: admins,
-      });
+      res.status(200).send(admins);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 };

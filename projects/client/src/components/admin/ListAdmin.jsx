@@ -41,7 +41,7 @@ export const ListAdmin = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {data?.map((item) => {
+            {/* {data?.map((item) => {
               return (
                 <Tr>
                   <Td color={"#285430"}>{item.username}</Td>
@@ -51,7 +51,7 @@ export const ListAdmin = () => {
                   </Td>
                 </Tr>
               );
-            })}
+            })} */}
           </Tbody>
         </Table>
       </TableContainer>

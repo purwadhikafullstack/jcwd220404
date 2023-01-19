@@ -16,15 +16,9 @@ module.exports = {
         ProductId,
         AdminId,
       });
-      res.status(200).send({
-        message: "Success added",
-        data: data,
-      });
+      res.status(200).send(data);
     } catch (err) {
-      res.status(400).send({
-        message: "Process Error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -42,15 +36,9 @@ module.exports = {
           },
         ],
       });
-      res.status(200).send({
-        message: "Success retrieved",
-        data: inventories,
-      });
+      res.status(200).send(inventories);
     } catch (err) {
-      res.status(400).send({
-        message: "Process Error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 };

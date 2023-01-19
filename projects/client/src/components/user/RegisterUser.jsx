@@ -87,14 +87,13 @@ export const RegisterUser = () => {
       );
       Swal.fire({
         icon: "success",
-        title: "Good Job",
-        text: `${result.data.massage}`,
+        text: `${result.data.message}`,
         timer: 2000,
         customClass: {
           container: "my-swal",
         },
       });
-      setTimeout(() => navigate(`/verification/${result.data.token}`), 8000);
+      setTimeout(() => navigate(`/verification/${result.data.token}`), 2000);
     } catch (err) {
       Swal.fire({
         icon: "error",

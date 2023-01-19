@@ -22,10 +22,7 @@ module.exports = {
         picture: getPicture.pictureName,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 };

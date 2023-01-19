@@ -41,7 +41,7 @@ export const VerificationPage = () => {
 
       Swal.fire({
         icon: "success",
-        title: "Success...",
+
         text: `${res.data.message}`,
         width: "370px",
       });
@@ -49,7 +49,7 @@ export const VerificationPage = () => {
     } catch (err) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+
         text: `${err.response.data}`,
         customClass: {
           container: "my-swal",

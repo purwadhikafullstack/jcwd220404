@@ -62,17 +62,12 @@ module.exports = {
       });
 
       res.status(200).send({
-        message: "Register Succes",
-        data: {
-          data,
-          token,
-        },
+        message: "OTP code sent, please verify your Account",
+        data,
+        token,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -104,10 +99,7 @@ module.exports = {
         data: isAccountExist,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -156,23 +148,18 @@ module.exports = {
 
       res.status(200).send({
         message: "Please check your Email for OTP Code",
-        data: {
-          data,
-          token,
-        },
+        data,
+        token,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
   login: async (req, res) => {
     try {
       const { phoneEmail, password, id, isVerified } = req.body;
-
+      console.log(req.body);
       // if (isVerified === 0) {
       //   const code_otp = Math.floor(100000 + Math.random() * 900000).toString();
       //   const salt = await bcrypt.genSalt(10);
@@ -228,7 +215,7 @@ module.exports = {
         id: isAccountExist.id,
         isVerified: isAccountExist.isVerified,
       };
-      const token = jwt.sign(payload, secretKey);
+      const token = jwt.sign(payload, "jcwd2204");
 
       const isValid = await bcrypt.compare(password, isAccountExist.password);
 
@@ -236,22 +223,17 @@ module.exports = {
 
       res.status(200).send({
         message: "Login Succes",
-        data: {
-          isAccountExist,
-          token,
-        },
+        isAccountExist,
+        token,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
   keepLogin: async (req, res) => {
     try {
-      const verify = jwt.verify(req.token, secretKey);
+      const verify = jwt.verify(req.token, "jcwd2204");
       const result = await user.findOne({
         where: {
           phoneNumber: verify.phoneNumber,
@@ -286,14 +268,9 @@ module.exports = {
           },
         }
       );
-      res.status(200).send({
-        message: "Update Password Success",
-      });
+      res.status(200).send("Update Password Success");
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -327,19 +304,13 @@ module.exports = {
         html: tempResult,
       });
 
-      res.status(200).send({
-        message:
-          "Send email request reset password success, please open your email",
-        data: {
-          isAccountExist,
-          token,
-        },
-      });
+      res
+        .status(200)
+        .send(
+          "Send email request reset password success, please open your email"
+        );
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -367,16 +338,12 @@ module.exports = {
 
       res.status(200).send({
         message: "Update success",
-        data: {
-          data,
-          data2,
-        },
+
+        data,
+        data2,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -398,14 +365,10 @@ module.exports = {
       );
 
       res.status(200).send({
-        message: "Update password success",
-        data: data,
+        data,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -445,14 +408,10 @@ module.exports = {
       //   html: tempResult,
       // });
       res.status(200).send({
-        message: "Update email success",
-        data: data,
+        data,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -462,15 +421,9 @@ module.exports = {
         attributes: ["id", "gender", "birthDate"],
         include: user,
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: users,
-      });
+      res.status(200).send(users);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -479,15 +432,9 @@ module.exports = {
       const users = await user.findAll({
         attributes: ["email"],
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: users,
-      });
+      res.status(200).send(users);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -496,15 +443,9 @@ module.exports = {
       const users = await user.findAll({
         attributes: ["phoneNumber"],
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: users,
-      });
+      res.status(200).send(users);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -514,15 +455,9 @@ module.exports = {
         where: { id: req.params.id },
         include: [{ model: profile }],
       });
-      res.status(200).send({
-        message: "Data retrieved",
-        data: users,
-      });
+      res.status(200).send(users);
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 
@@ -552,10 +487,7 @@ module.exports = {
         profilePic: getProfile.profilePic,
       });
     } catch (err) {
-      res.status(400).send({
-        message: "Process error",
-        data: err,
-      });
+      res.status(400).send(err);
     }
   },
 };

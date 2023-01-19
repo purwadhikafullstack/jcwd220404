@@ -176,13 +176,13 @@ export const RegisterAdmin = () => {
                       border={"2px"}
                       w={"330px"}
                     >
-                      {data2.map((item) => {
+                      {/* {data2.map((item) => {
                         return (
                           <>
                             <option>{item.branchName}</option>
                           </>
                         );
-                      })}
+                      })} */}
                     </Select>
                   </FormControl>
                   <FormControl isRequired>
