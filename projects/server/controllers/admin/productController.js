@@ -86,6 +86,7 @@ module.exports = {
         where: {
           id: req.params.id,
         },
+        include: [{ model: productCategory, include: [{ model: category }] }],
       });
       res.status(200).send(products);
     } catch (err) {
@@ -120,9 +121,6 @@ module.exports = {
           [Op.or]: {
             productName: {
               [Op.like]: `%${productName}%`,
-            },
-            description: {
-              [Op.like]: `%${description}%`,
             },
           },
         },
@@ -289,7 +287,7 @@ module.exports = {
 
   paginationProduct: async (req, res) => {
     try {
-      const { page, limit, search_query, order, sort} = req.query;
+      const { page, limit, search_query, order, sort } = req.query;
       const productlist_page = parseInt(page) || 0;
       const list_limit = parseInt(limit) || 5;
       const search = search_query || "";
@@ -454,6 +452,19 @@ module.exports = {
       res.status(200).send({
         message: "Success added",
       });
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findMultiCategory: async (req, res) => {
+    try {
+      const multiCategory = await productCategory.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+      res.status(200).send(multiCategory);
     } catch (err) {
       res.status(400).send(err);
     }

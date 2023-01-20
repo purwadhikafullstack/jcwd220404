@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsFilterLeft } from "react-icons/bs";
 import { BiReset, BiSearchAlt } from "react-icons/bi";
 import {
@@ -47,6 +47,7 @@ export const MenuComp = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [state2, setState2] = useState(0);
   const [state, setState] = useState("");
+  const data = useSelector((state) => state.productSlice.value);
   const { id, cart } = useSelector((state) => state.userSlice.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -196,68 +197,88 @@ export const MenuComp = () => {
           w={[330, 330, 380]}
           justifyContent="center"
         >
-          <Input
+          {/* <Input
             placeholder="Only Fresh Here..."
             _placeholder={{ color: "#5F8D4E" }}
             bgColor={"white"}
             w={"400px"}
             textColor="black"
             borderColor={"#285430"}
-          />
+          /> */}
           <Center>
             <Flex
               ml="3"
               mr="3"
               flexWrap={"wrap"}
               color={useColorModeValue("#285430")}
-              border="2px"
+              // border="2px"
               borderRadius="xl"
             >
               <Box className="filter">
-                <Box
+                {/* <Box
                   m="10px"
                   mb="20px"
                   borderWidth="2px"
                   boxShadow="md"
                   borderRadius="8px"
                   borderColor="#285430"
+                > */}
+                <Box
+                  alignItems={"center"}
+                  h="50px"
+                  borderTopRadius="8px"
+                  align="center"
+                  // bg="#E5D9B6"
+                  display="flex"
                 >
-                  <Box
-                    alignItems={"center"}
-                    h="50px"
-                    borderTopRadius="8px"
-                    align="center"
-                    bg="#E5D9B6"
-                    display="flex"
-                  >
-                    <Box h="25px" ml="10px">
-                      <Icon color="#285430" boxSize="6" as={BsFilterLeft} />
-                    </Box>
-                    <Box h="25px">
-                      <Text mx="10px" fontWeight="bold" color="#285430">
-                        Filter & Search
-                      </Text>
-                    </Box>
-                    <Icon
-                      color="#285430"
-                      sx={{ _hover: { cursor: "pointer" } }}
-                      boxSize="6"
-                      as={BiReset}
-                      onClick={() => {
-                        async function submit() {
-                          setSearchProduct("");
-                          document.getElementById("search").value = "";
-                          formik.values.searchName = "";
-                        }
-                        submit();
-                      }}
-                    />
+                  <Box h="25px" ml="10px">
+                    {/* <Icon color="#285430" boxSize="6" as={BsFilterLeft} /> */}
                   </Box>
-                  <Flex m={2} wrap="wrap">
+                  <Box h="25px">
+                    {/* <Text mx="10px" fontWeight="bold" color="#285430">
+                        Filter & Search
+                      </Text> */}
+                  </Box>
+                </Box>
+                <Flex m={2} wrap="wrap">
+                  <FormControl w="" m={1}>
+                    <InputGroup>
+                      <Input
+                        placeholder="Only Fresh Here..."
+                        _placeholder={{ color: "#5F8D4E" }}
+                        bgColor={"white"}
+                        w={"400px"}
+                        textColor="black"
+                        borderColor={"#285430"}
+                        border="1px"
+                        fontSize="18px"
+                        color="gray.800"
+                        id="search"
+                        type="text"
+                        onChange={(event) =>
+                          formik.setFieldValue("searchName", event.target.value)
+                        }
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            formik.handleSubmit();
+                          }
+                        }}
+                      />
+                      <InputRightElement>
+                        <Icon
+                          fontSize="xl"
+                          as={BiSearchAlt}
+                          sx={{ _hover: { cursor: "pointer" } }}
+                          onClick={() => formik.handleSubmit()}
+                        />
+                      </InputRightElement>
+                    </InputGroup>
+                    <FormHelperText color="red">
+                      {formik.errors.searchName}
+                    </FormHelperText>
+                  </FormControl>
+                  <Center>
                     <FormControl w="" m={1}>
-                      <FormLabel fontSize="x-small" color="#285430">
-                        Format Sort
-                      </FormLabel>
                       <Select
                         color={"#285430"}
                         borderColor="#285430"
@@ -270,9 +291,6 @@ export const MenuComp = () => {
                       </Select>
                     </FormControl>
                     <FormControl w="" m={1}>
-                      <FormLabel fontSize="x-small" color="#285430">
-                        Show
-                      </FormLabel>
                       <Select
                         color={"#285430"}
                         borderColor="#285430"
@@ -286,53 +304,27 @@ export const MenuComp = () => {
                         <option value="50">50</option>
                       </Select>
                     </FormControl>
-                    <FormControl w="" m={1}>
-                      <FormLabel fontSize="x-small" color="#285430">
-                        Search Product & Category
-                      </FormLabel>
-                      <InputGroup>
-                        <Input
-                          placeholder="Only Fresh Here..."
-                          _placeholder={{ color: "#5F8D4E" }}
-                          bgColor={"white"}
-                          w={"400px"}
-                          textColor="black"
-                          borderColor={"#285430"}
-                          border="1px"
-                          fontSize="18px"
-                          color="gray.800"
-                          id="search"
-                          type="text"
-                          onChange={(event) =>
-                            formik.setFieldValue(
-                              "searchName",
-                              event.target.value
-                            )
-                          }
-                          onKeyDown={(event) => {
-                            if (event.key === "Enter") {
-                              formik.handleSubmit();
-                            }
-                          }}
-                        />
-                        <InputRightElement>
-                          <Icon
-                            fontSize="xl"
-                            as={BiSearchAlt}
-                            sx={{ _hover: { cursor: "pointer" } }}
-                            onClick={() => formik.handleSubmit()}
-                          />
-                        </InputRightElement>
-                      </InputGroup>
-                      <FormHelperText color="red">
-                        {formik.errors.searchName}
-                      </FormHelperText>
-                    </FormControl>
-                  </Flex>
-                </Box>
+                  </Center>
+                  {/* <Icon
+                    color="#285430"
+                    sx={{ _hover: { cursor: "pointer" } }}
+                    boxSize="6"
+                    as={BiReset}
+                    onClick={() => {
+                      async function submit() {
+                        setSearchProduct("");
+                        document.getElementById("search").value = "";
+                        formik.values.searchName = "";
+                      }
+                      submit();
+                    }}
+                  /> */}
+                </Flex>
               </Box>
+              {/* </Box> */}
             </Flex>
           </Center>
+
           {category?.map((item) => {
             return (
               <div>
@@ -359,34 +351,6 @@ export const MenuComp = () => {
         </Flex>
       </Center>
       <Box>
-        <SimpleGrid
-          spacing={4}
-          templateColumns="repeat(auto-fill, minmax(100px, 1fr))"
-        >
-          {product?.map((item) => {
-            return (
-              <Card as={"button"}>
-                <Image
-                  boxSize={"50px"}
-                  src={`${process.env.REACT_APP_API_BASE_URL}/` + item.picture}
-                />
-                <CardBody>
-                  <Text as={"b"} size="sm">
-                    {item.productName}
-                  </Text>
-                  <Text fontSize={"xs"}>{item.Price?.productPrice}</Text>
-                  <Text>Stok</Text>
-                </CardBody>
-                <CardFooter>
-                  <Button onClick={() => onAddCart(item.id)}>
-                    <AddIcon />
-                    Cart
-                  </Button>
-                </CardFooter>
-              </Card>
-            );
-          })}
-        </SimpleGrid>
         <Box display="flex" justifyContent="center" alignContent="center">
           <Button
             onClick={() => {
@@ -437,6 +401,36 @@ export const MenuComp = () => {
             Next
           </Button>
         </Box>
+        <SimpleGrid
+          spacing={4}
+          templateColumns="repeat(auto-fill, minmax(100px, 1fr))"
+        >
+          {data?.map((item) => {
+            return (
+              <Card as={Link} to={`product/${item.id}`}>
+                <CardBody>
+                  <Image
+                    boxSize={"50px"}
+                    src={
+                      `${process.env.REACT_APP_API_BASE_URL}/` + item.picture
+                    }
+                  />
+                  <Text as={"b"} size="sm">
+                    {item.productName}
+                  </Text>
+                  <Text fontSize={"xs"}>{item.Price?.productPrice}</Text>
+                  <Text>Stok</Text>
+                </CardBody>
+                <CardFooter>
+                  <Button onClick={() => onAddCart(item.id)}>
+                    <AddIcon />
+                    Cart
+                  </Button>
+                </CardFooter>
+              </Card>
+            );
+          })}
+        </SimpleGrid>
       </Box>
     </>
   );

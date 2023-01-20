@@ -53,9 +53,8 @@ export const DefaultAddress = () => {
             textColor="black"
             borderColor={"#285430"}
           >
-            <StarIcon />
             <Text color={"#285430"}>
-              {data?.district},{data?.city},{data?.province}
+              Dikirim ke: {data?.city}, {data?.province}
             </Text>
           </Button>
         </Stack>

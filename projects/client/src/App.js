@@ -30,6 +30,7 @@ import { Checkout } from "./pages/user/Checkout";
 import { ListCheckoutAddress } from "./pages/user/ListCheckoutAddress";
 import { PaymentMethod } from "./pages/user/PaymentMethod";
 import { OrderSuccess } from "./pages/user/OrderSuccess";
+import { ProductDetail } from "./pages/user/ProductDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -128,6 +129,7 @@ function App() {
         <Route path="/transaction" element={<TransactionPage />}></Route>
         <Route path="/category" element={<CategoryPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
+        <Route path="/product/:id" element={<ProductDetail />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route
           path="/checkout/address"

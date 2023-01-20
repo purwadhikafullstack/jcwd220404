@@ -35,7 +35,9 @@ export const LandingPage = () => {
               <MenuComp />
             </VStack>
           </Box>
-          <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
+          <Box className="footer" w={"390px"} 
+          pos="fixed" 
+          bottom={"35px"}>
             <NavbarComp />
           </Box>
         </Box>
