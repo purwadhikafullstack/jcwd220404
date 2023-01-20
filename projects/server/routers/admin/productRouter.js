@@ -22,7 +22,7 @@ router.patch("/update/:id", productController.update);
 router.patch("/updateCategory/:id", productController.updateCategory);
 router.get("/list", productController.findAll);
 router.get("/listCategory", productController.findAllCategory);
-router.get("/list/:id", productController.findById);
+router.get("/list/:id", productController.findByProductId);
 router.get("/pagProduct", productController.paginationProduct);
 router.get("/pagCategory", productController.paginationCategory);
 router.get("/list/total", productController.totalProduct);

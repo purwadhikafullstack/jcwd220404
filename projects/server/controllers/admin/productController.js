@@ -80,7 +80,7 @@ module.exports = {
     }
   },
 
-  findById: async (req, res) => {
+  findByProductId: async (req, res) => {
     try {
       const products = await product.findOne({
         where: {
@@ -94,24 +94,19 @@ module.exports = {
     }
   },
 
-  // findBy: async (req, res) => {
-  //   try {
-  //     const { productName, distributor, description } = req.query;
-  //     const users = await product.findAll({
-  //       where: {
-  //         [Op.or]: {
-  //           productName: productName ? productName : "",
-  //           distributor: distributor ? distributor : "",
-  //           description: description ? description : "",
-  //         },
-  //       },
-  //       raw: true,
-  //     });
-  //     res.status(200).send(users);
-  //   } catch (err) {
-  //     res.status(400).send(err);
-  //   }
-  // },
+  findByCategoryId: async (req, res) => {
+    try {
+      const products = await category.findOne({
+        where: {
+          id: req.params.id,
+        },
+        include: [{ model: productCategory, include: [{ model: category }] }],
+      });
+      res.status(200).send(products);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
 
   searchBy: async (req, res) => {
     try {
