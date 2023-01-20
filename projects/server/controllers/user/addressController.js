@@ -234,6 +234,9 @@ module.exports = {
           {
             model: branch,
           },
+          {
+            model: user,
+          },
         ],
         raw: true,
       });

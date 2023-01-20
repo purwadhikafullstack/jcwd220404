@@ -84,18 +84,7 @@ export const PaymentMethod = () => {
                 <Text>price</Text>
               </Flex>
             </FormControl>
-            <FormControl>
-              <FormLabel>Payment Option</FormLabel>
-              <FormControl>
-                <FormLabel>Bank Transfer</FormLabel>
-                <Box variant={"unstyled"}>
-                  <Checkbox value="1">
-                    <Text>Only Fresh Account</Text>
-                    <Text>Transfer ke Rekening OnlyFresh</Text>
-                  </Checkbox>
-                </Box>
-              </FormControl>
-            </FormControl>
+
             <Flex justify={"space-between"}></Flex>
             <Button onClick={toPayMethod} w={"100%"}>
               Pay

@@ -35,29 +35,13 @@ export const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const getData = async () => {
-    try {
-      const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
-      );
-      console.log(result.data);
-      setData(result.data.defaultAdd);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, [id]);
-
   const getProduct = async () => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
       );
-      console.log(res.data.carts);
-      setProduct(res.data.carts);
+      console.log(res.data);
+      setProduct(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +52,7 @@ export const Checkout = () => {
   }, [id]);
 
   const toPayment = () => {
-    navigate("/checkout/payment");
+    navigate("/checkout/payment/success");
   };
 
   return (
@@ -111,29 +95,16 @@ export const Checkout = () => {
             w={"390px"}
           >
             <FormControl>
-              <FormLabel>Delivery Address</FormLabel>
-              <Box border={"2px"}>
-                <Text as={"b"}>{data?.receiverName}</Text>
-                <Text>{data?.receiverPhone}</Text>
-                {data?.addressLine},{data?.district},{data?.city},
-                {data?.province}
-                <Text>{data?.detail}</Text>
-              </Box>
+              <FormLabel>Payment Option</FormLabel>
             </FormControl>
             <FormControl>
-              <FormLabel>Shipping Method</FormLabel>
-              <Select>
-                <option>
-                  <Box border={"2px"}>
-                    <Text>Regular</Text>
-                  </Box>
-                </option>
-                <option>
-                  <Box border={"2px"}>
-                    <Text>One-Day Service</Text>
-                  </Box>
-                </option>
-              </Select>
+              <FormLabel>Bank Transfer</FormLabel>
+              <Box variant={"unstyled"}>
+                <Checkbox value="1">
+                  <Text>Only Fresh Account</Text>
+                  <Text>Transfer ke Rekening OnlyFresh</Text>
+                </Checkbox>
+              </Box>
             </FormControl>
             <FormControl>
               <FormLabel>Order Detail</FormLabel>
@@ -173,48 +144,45 @@ export const Checkout = () => {
                 );
               })}
             </FormControl>
-            <FormControl>
-              <FormLabel>Order Note</FormLabel>
-              <Textarea></Textarea>
-            </FormControl>
+
             <FormControl>
               <FormLabel>Voucher</FormLabel>
               <Button w={"100%"}>Apply Voucher</Button>
             </FormControl>
-            {product?.map((item) => {
-              return (
-                <>
-                  <FormControl>
-                    <FormLabel>Payment Detail</FormLabel>
-                    <Flex justify={"space-between"}>
-                      <Box>
-                        <Text>Subtotal Produk</Text>
-                        <Text>Voucher</Text>
-                      </Box>
-                      <Box>
-                        <Text>{item.Product.Price.productPrice}</Text>
-                        <Text>xx.xxx</Text>
-                      </Box>
-                    </Flex>
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel>Payment Subtotal</FormLabel>
-                    <Flex justify={"space-between"}>
-                      <Text>Total Weight</Text>
-                      <Text>{item.Product.weight}</Text>
-                    </Flex>
-                    <Flex justify={"space-between"}>
-                      <Text>Delivery Charge</Text>
-                      <Text>xx.xxx</Text>
-                    </Flex>
-                  </FormControl>
-                  <Flex justify={"space-between"}>
-                    <Text as={"b"}>Total</Text>
-                    <Text as={"b"}>xx.xxx</Text>
-                  </Flex>
-                </>
-              );
-            })}
+            <FormControl>
+              <FormLabel>Payment Detail</FormLabel>
+              <Flex justify={"space-between"}>
+                <Box>
+                  <Text>Subtotal Produk</Text>
+                  <Text>Voucher</Text>
+                </Box>
+                {/* {product?.map((item) => {
+                  return (
+                    <> */}
+                <Box>
+                  <Text>{product?.Product?.Price?.productPrice}</Text>
+                  <Text>xx.xxx</Text>
+                </Box>
+                {/* </>
+                  );
+                })} */}
+              </Flex>
+            </FormControl>
+            <FormControl>
+              <FormLabel>Payment Subtotal</FormLabel>
+              <Flex justify={"space-between"}>
+                <Text>Total Weight</Text>
+                <Text>{product?.Product?.weight}</Text>
+              </Flex>
+              <Flex justify={"space-between"}>
+                <Text>Delivery Charge</Text>
+                <Text>xx.xxx</Text>
+              </Flex>
+            </FormControl>
+            <Flex justify={"space-between"}>
+              <Text as={"b"}>Total</Text>
+              <Text as={"b"}>xx.xxx</Text>
+            </Flex>
             <Button onClick={toPayment} w={"100%"}>
               Proceed Payment
             </Button>

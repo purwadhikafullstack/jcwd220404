@@ -54,9 +54,7 @@ module.exports = {
       );
       res.status(200).send({
         message: "Update success",
-
         data,
-        user,
       });
     } catch (err) {
       res.status(400).send(err);
@@ -67,7 +65,7 @@ module.exports = {
     try {
       const carts = await productCart.findAll({
         where: { UserId: req.params.id },
-        attributes: ["ProductId", "id"],
+
         include: [
           {
             model: product,
@@ -90,6 +88,7 @@ module.exports = {
       });
 
       const { status, id } = req.body;
+
       const data = await productCart.update(
         {
           status,
@@ -132,14 +131,21 @@ module.exports = {
 
   totalCheckout: async (req, res) => {
     try {
-      const { qty, price } = req.body;
-      const response = await productCart.update({
-        weight: req.product.weight,
+      const response = await productCart.findOne({
         where: {
           UserId: req.params.id,
         },
       });
-      res.send(200).send(response);
+      const { qty, price, id } = req.body;
+      const data = await productCart.update(
+        {
+          qty,
+        },
+        {
+          where: { id },
+        }
+      );
+      res.send(200).send(data);
     } catch (err) {
       res.status(400).send(err);
     }

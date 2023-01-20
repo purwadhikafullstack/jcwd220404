@@ -27,10 +27,6 @@ export const PopoutCheckout = ({ props }) => {
     getData();
   }, [id]);
 
-  const toCheckout = () => {
-    navigate("/checkout");
-  };
-
   return (
     <div>
       <Center>
@@ -40,8 +36,7 @@ export const PopoutCheckout = ({ props }) => {
           bgColor="teal"
           color="gray.800"
           dropShadow="2xl"
-          position="fixed"
-          mb={"800px"}
+          // pb={"1000px"}
           // zIndex="2"
           // pos="fixed"
         >
@@ -54,9 +49,9 @@ export const PopoutCheckout = ({ props }) => {
               <Text>Total:</Text>
               <Text>{props}</Text>
               {data?.map((item) => {
-                return <Text>Rp{item.Product?.Price?.productPrice}</Text>;
+                return <Text>Rp({item.Product?.Price?.productPrice})</Text>;
               })}
-              <Button onClick={toCheckout}>Checkout</Button>
+              {/* <Button onClick={toCheckout}>Checkout</Button> */}
             </Flex>
           </Flex>
         </Flex>
