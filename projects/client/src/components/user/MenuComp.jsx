@@ -341,6 +341,8 @@ export const MenuComp = () => {
                     `${process.env.REACT_APP_API_BASE_URL}/` +
                     item.categoryPicture
                   }
+                  as={Link}
+                  to={`/category/${item.id}`}
                 ></Avatar>
                 <Text fontSize="x-small" color={"#285430"}>
                   {item.categoryName}

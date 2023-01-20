@@ -50,6 +50,16 @@ export const ListAddress = () => {
     }
   };
 
+  const onDefault = async () => {
+    try {
+      const defAddress = await Axios.patch(`${process.env.REACT_APP_API_BASE_URL}/address/`)
+    } catch (err) {
+      console.log(err)
+
+    }
+  }
+
+
   const toUpdate = (addressId) => {
     navigate(`/account/address/update/${addressId}`);
   };
@@ -98,6 +108,15 @@ export const ListAddress = () => {
                     textColor={"#285430"}
                   >
                     Delete Address
+                  </MenuItem>
+                  <MenuItem
+                    as={"button"}
+                    onClick={() => onDelete(item.id)}
+                    icon={<DeleteIcon />}
+                    bgColor="#E5D9B6"
+                    textColor={"#285430"}
+                  >
+                    Set As Default Address
                   </MenuItem>
                 </MenuList>
               </Menu>

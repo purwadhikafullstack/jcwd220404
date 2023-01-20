@@ -100,7 +100,6 @@ module.exports = {
       );
       res.status(200).send({
         message: "Update success",
-        user,
         data,
       });
     } catch (err) {

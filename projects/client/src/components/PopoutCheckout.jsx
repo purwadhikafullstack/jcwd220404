@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { useSelector } from "react-redux";
 
-export const PopoutCheckout = () => {
+export const PopoutCheckout = ({ props }) => {
+  console.log(props);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const { id } = useSelector((state) => state.userSlice.value);
@@ -51,6 +52,7 @@ export const PopoutCheckout = () => {
           >
             <Flex justify={"space-between"}>
               <Text>Total:</Text>
+              <Text>{props}</Text>
               {data?.map((item) => {
                 return <Text>Rp{item.Product?.Price?.productPrice}</Text>;
               })}

@@ -24,7 +24,7 @@ import { useParams } from "react-router-dom";
 export const ProductDetail = () => {
   const [data, setData] = useState([]);
   const params = useParams();
-  console.log(data);
+  
 
   const getProduct = async () => {
     try {

@@ -3,6 +3,7 @@ const axios = require("axios");
 const db = require("../../models");
 const address = db.Address;
 const user = db.User;
+const branch = db.Branch;
 const rajaOngkirKey = process.env.RAJA_KEY;
 const openCageKey = process.env.GEO_KEY;
 
@@ -229,6 +230,11 @@ module.exports = {
           defaultAddress: 1,
           UserId: req.params.id,
         },
+        include: [
+          {
+            model: branch,
+          },
+        ],
         raw: true,
       });
       res.status(200).send({

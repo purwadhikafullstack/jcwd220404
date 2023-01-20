@@ -3,6 +3,7 @@ const db = require("../../models");
 const inventory = db.Inventory;
 const product = db.Product;
 const price = db.Price;
+const branch = db.Branch;
 const category = db.Category;
 
 module.exports = {
@@ -25,14 +26,16 @@ module.exports = {
   findByBranch: async (req, res) => {
     try {
       const inventories = await inventory.findAll({
-        // attributes: ["stockQty"],
-        where: {
-          BranchId: req.params.id,
-        },
         include: [
           {
             model: product,
             include: [{ model: price }],
+          },
+          {
+            model: branch,
+            where: {
+              longitude: { [Op.between]: [req.params.from, req.params.to] },
+            },
           },
         ],
       });

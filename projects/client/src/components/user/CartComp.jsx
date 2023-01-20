@@ -27,9 +27,12 @@ import { PopoutCheckout } from "../PopoutCheckout";
 export const CartComp = () => {
   const [product, setProduct] = useState([]);
   const [data, setData] = useState([]);
+  const [checkout, setCheckout] = useState(false);
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
   const dispatch = useDispatch();
+
+  console.log(checkout);
 
   const getData = async () => {
     try {
@@ -46,6 +49,22 @@ export const CartComp = () => {
   useEffect(() => {
     getData();
   }, [id]);
+
+  const onCheckout = async () => {
+    try {
+      const res = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/cartUpdate/${id}`,
+        {
+          status: 1,
+          id: 3,
+        }
+      );
+      setCheckout(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const getProduct = async () => {
     try {
@@ -100,7 +119,7 @@ export const CartComp = () => {
           return (
             <Card margin={"10px"}>
               <Flex mb={"50px"} justify={"space-between"}>
-                <Checkbox>
+                <Checkbox onChange={() => onCheckout(true)}>
                   <Grid
                     templateAreas={`"nav main""nav footer"`}
                     gridTemplateRows={"50px 1fr 30px"}
@@ -139,7 +158,7 @@ export const CartComp = () => {
           );
         })}
       </Box>
-      <PopoutCheckout />
+      <PopoutCheckout props={checkout} />
       {/* <Heading alignItems={"center"} size={"md"}>
         Recommendation Product
       </Heading>

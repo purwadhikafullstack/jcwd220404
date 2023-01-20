@@ -96,11 +96,25 @@ module.exports = {
 
   findByCategoryId: async (req, res) => {
     try {
-      const products = await category.findOne({
+      const products = await category.findAll({
         where: {
           id: req.params.id,
         },
-        include: [{ model: productCategory, include: [{ model: category }] }],
+        include: [
+          {
+            model: productCategory,
+            include: [
+              {
+                model: product,
+                include: [
+                  {
+                    model: price,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       });
       res.status(200).send(products);
     } catch (err) {
