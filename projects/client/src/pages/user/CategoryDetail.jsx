@@ -11,10 +11,16 @@ import {
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { syncData } from "../../redux/productSlice";
+import { syncCategory } from "../../redux/categorySlice";
 
 export const CategoryDetail = () => {
-  const [data, setData] = useState([]);
+  const data = useSelector((state) => state.categorySlice.value);
+  // const [data, setData] = useState([]);
   const params = useParams();
+  const dispatch = useDispatch();
+  console.log(data);
 
   const getCategory = async () => {
     try {
@@ -22,7 +28,8 @@ export const CategoryDetail = () => {
         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory/${params.id}`
       );
       console.log(result.data);
-      setData(result.data);
+      // setData(result.data);
+      dispatch(syncCategory(result.data));
     } catch (err) {
       console.log(err);
     }
@@ -38,16 +45,18 @@ export const CategoryDetail = () => {
         {data?.map((item) => {
           return (
             <Card w={"200px"}>
-              <CardHeader>
-                <Text size="sm">
-                  {item.Product_Categories?.Product?.productName}
-                </Text>
-              </CardHeader>
+              <CardHeader></CardHeader>
               <CardBody>
+                <Text size="sm">
+                  {item?.Product_Categories?.Product?.Price?.productPrice}
+                </Text>
                 <Text fontSize={"xs"}>Price</Text>
                 <Image
                   boxSize={"50px"}
-                  src={`${process.env.REACT_APP_API_BASE_URL}/` + item.picture}
+                  src={
+                    `${process.env.REACT_APP_API_BASE_URL}/` +
+                    item?.Product_Categories?.Product?.picture
+                  }
                 />
               </CardBody>
               <CardFooter>

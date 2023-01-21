@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { BsFilterLeft } from "react-icons/bs";
 import { BiReset, BiSearchAlt } from "react-icons/bi";
 import {
@@ -33,6 +33,7 @@ import { cartSync } from "../../redux/cartSlice";
 import { addCart } from "../../redux/userSlice";
 import { useFormik } from "formik";
 import { syncData } from "../../redux/productSlice";
+import { syncInventory } from "../../redux/inventorySlice";
 import * as Yup from "yup";
 
 export const MenuComp = () => {
@@ -47,11 +48,14 @@ export const MenuComp = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [state2, setState2] = useState(0);
   const [state, setState] = useState("");
-  const data = useSelector((state) => state.productSlice.value);
+  // const data = useSelector((state) => state.productSlice.value);
+  const data = useSelector((state) => state.inventorySlice.value);
   const { id, cart } = useSelector((state) => state.userSlice.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const params = useParams();
   const tokenLocalStorage = localStorage.getItem("tokenUser");
+  console.log(data);
 
   const getCategory = async () => {
     try {
@@ -72,9 +76,10 @@ export const MenuComp = () => {
   const getProduct = async () => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/list`
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/findByBranch/106.8158371/106.8158371`
       );
-      setProduct(res.data);
+      // setProduct(res.data);
+      dispatch(syncInventory(res.data));
       console.log(res.data);
     } catch (err) {
       console.log(err);
@@ -147,13 +152,13 @@ export const MenuComp = () => {
       const res = await Axios.get(
         `${
           process.env.REACT_APP_API_BASE_URL
-        }/product/pagProduct?search_query=${searchProduct}&page=${
+        }/inventory/pagProduct?search_query=${searchProduct}&page=${
           page - 1
         }&limit=${limit}&order=${order ? order : `productName`}&sort=${
           sort ? sort : "ASC"
         }`
       );
-      dispatch(syncData(res.data.result));
+      dispatch(syncInventory(res.data.result));
       console.log(res.data.result);
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
@@ -409,22 +414,23 @@ export const MenuComp = () => {
         >
           {data?.map((item) => {
             return (
-              <Card as={Link} to={`product/${item.id}`}>
-                <CardBody>
+              <Card>
+                <CardBody as={Link} to={`product/${item.Product?.id}`}>
                   <Image
                     boxSize={"50px"}
                     src={
-                      `${process.env.REACT_APP_API_BASE_URL}/` + item.picture
+                      `${process.env.REACT_APP_API_BASE_URL}/` +
+                      item.Product.picture
                     }
                   />
                   <Text as={"b"} size="sm">
-                    {item.productName}
+                    {item.Product.productName}
                   </Text>
-                  <Text fontSize={"xs"}>{item.Price?.productPrice}</Text>
-                  <Text>Stok</Text>
+                  <Text fontSize={"xs"}>{item.Product.Price.productPrice}</Text>
+                  <Text>{item.stockQty}</Text>
                 </CardBody>
                 <CardFooter>
-                  <Button onClick={() => onAddCart(item.id)}>
+                  <Button onClick={() => onAddCart(item.Product.id)}>
                     <AddIcon />
                     Cart
                   </Button>

@@ -118,14 +118,14 @@ export const CartComp = () => {
       await Axios.delete(
         `${process.env.REACT_APP_API_BASE_URL}/cart/remove/${id}`
       );
-      Swal.fire({
-        icon: "success",
-        text: "Cart Berhasil Dihapus",
-        timer: 2000,
-        customClass: {
-          container: "my-swal",
-        },
-      });
+      // Swal.fire({
+      //   icon: "success",
+      //   text: "Cart Berhasil Dihapus",
+      //   timer: 2000,
+      //   customClass: {
+      //     container: "my-swal",
+      //   },
+      // });
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
       );
@@ -147,10 +147,10 @@ export const CartComp = () => {
         <FormControl>
           <FormLabel>Products</FormLabel>
           <Flex justify={"space-between"}>
-            <Checkbox>Select All</Checkbox>
-            <Text as={"button"} variant="ghost">
+            {/* <Checkbox>Select All</Checkbox> */}
+            {/* <Text align="end" as={"button"} variant="ghost">
               Hapus
-            </Text>
+            </Text> */}
           </Flex>
           {data?.map((item) => {
             return (

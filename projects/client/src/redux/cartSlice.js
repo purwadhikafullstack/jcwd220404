@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  name: "cart",
+  value: [],
+};
+
 export const cartSlice = createSlice({
-  name: "carts",
+  name: "cart",
   initialState: {
     value: [],
   },

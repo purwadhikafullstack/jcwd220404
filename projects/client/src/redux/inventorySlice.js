@@ -9,13 +9,13 @@ export const inventorySlice = createSlice({
   name: "inventory",
   initialState,
   reducers: {
-    syncData: (state, action) => {
+    syncInventory: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { syncData } = inventorySlice.actions;
+export const { syncInventory } = inventorySlice.actions;
 
 export default inventorySlice.reducer;

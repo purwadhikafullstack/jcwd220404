@@ -11,14 +11,34 @@ import {
   IoPersonOutline,
   IoPerson,
 } from "react-icons/io5";
-import { Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import { Badge, Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
 import "../../components/user/NavbarComp";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import Axios from "axios";
+import { cartSync } from "../../redux/cartSlice";
 
 export const NavbarComp = () => {
+  // const [data, setData] = useState();
+  const data = useSelector((state) => state.cartSlice.value);
   const location = useLocation();
   const navigate = useNavigate();
   const { id, cart } = useSelector((state) => state.userSlice.value);
+  const dispatch = useDispatch();
+  console.log(data);
+
+  const getData = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
+      );
+      console.log(res.data);
+      dispatch(cartSync(res.data));
+      // setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const menuBar = [
     {
@@ -38,7 +58,6 @@ export const NavbarComp = () => {
       icon2: IoCart,
       name: "Cart",
       url: `/cart`,
-      length: cart,
     },
     {
       icon1: IoNewspaperOutline,
@@ -60,6 +79,11 @@ export const NavbarComp = () => {
 
   return (
     <>
+      <Center>
+        <Badge zIndex={2} borderRadius="2xl" mb={"10px"}>
+          0
+        </Badge>
+      </Center>
       <Center>
         <Flex
           w={[300, 350, 390]}
