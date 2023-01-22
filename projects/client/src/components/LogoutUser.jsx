@@ -20,7 +20,8 @@ export const LogoutUser = () => {
   const onLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("tokenUser");
-    navigate("/");
+    // navigate("/");
+    window.location.replace("/", 2000);
   };
 
   return (

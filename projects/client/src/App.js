@@ -150,11 +150,8 @@ function App() {
         <Route path="/login-user" element={<EnterComp />}></Route>
         <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/account/profile/:id" element={<ProfilePage />}></Route>
-        <Route
-          path="/account/profile/password"
-          element={<ChangePassword />}
-        ></Route>
         <Route path="/account/profile/email" element={<ChangeEmail />}></Route>
+        <Route path="/account/profile/password" element={<ChangePassword />}></Route>
         <Route
           path="/account/address/:id"
           element={<ListAddressPage />}

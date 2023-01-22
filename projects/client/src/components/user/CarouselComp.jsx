@@ -21,7 +21,7 @@ export const CarouselComp = () => {
         height={"300px"}
         width={"375px"}
         overflow={"hidden"}
-        mt={"30px"}
+        mt={"85px"}
       >
         <link
           rel="stylesheet"

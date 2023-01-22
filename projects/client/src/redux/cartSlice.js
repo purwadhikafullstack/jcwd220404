@@ -7,9 +7,7 @@ const initialState = {
 
 export const cartSlice = createSlice({
   name: "cart",
-  initialState: {
-    value: [],
-  },
+  initialState,
   reducers: {
     cartSync: (state, action) => {
       state.value = action.payload;

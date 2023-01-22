@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import {
   Box,
@@ -15,6 +15,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { logoutUser } from "../../redux/userSlice";
 
 export const ChangePassword = (data) => {
   const [move, setMove] = useState(false);
@@ -23,6 +24,8 @@ export const ChangePassword = (data) => {
   const { id } = useSelector((state) => state.userSlice.value);
   const inputPass = useRef("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const params = useParams();
 
   const updatePass = async () => {
     try {
@@ -41,10 +44,12 @@ export const ChangePassword = (data) => {
       console.log(res);
       Swal.fire({
         icon: "success",
-        text: "Password has changed",
+        text: "Password has changed, please Login again",
         // text: `${result.data}`,
       });
-      navigate("/account/profile");
+      dispatch(logoutUser());
+      localStorage.removeItem("tokenUser");
+      navigate("/login-user");
     } catch (err) {
       console.log(err);
     }
@@ -52,8 +57,8 @@ export const ChangePassword = (data) => {
 
   return (
     <>
-      <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
-        <Center>
+      <Center>
+        <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
           <Box as={Link} to={`/account/profile/${id}`}>
             <ArrowBackIcon
               mt={"20px"}
@@ -100,6 +105,7 @@ export const ChangePassword = (data) => {
                     pos="relative"
                     ml={"181px"}
                     zIndex="1"
+                    variant={"unstyled"}
                   >
                     {currentPassword ? <ViewIcon /> : <ViewOffIcon />}
                   </Button>
@@ -126,6 +132,7 @@ export const ChangePassword = (data) => {
                   pos="relative"
                   ml={"181px"}
                   zIndex="1"
+                  variant={"unstyled"}
                 >
                   {newPassword ? <ViewIcon /> : <ViewOffIcon />}
                 </Button>
@@ -144,8 +151,8 @@ export const ChangePassword = (data) => {
               </Button>
             </Stack>
           </Box>
-        </Center>
-      </Box>
+        </Box>
+      </Center>
     </>
   );
 };

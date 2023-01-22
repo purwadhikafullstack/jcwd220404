@@ -122,35 +122,7 @@ module.exports = {
     }
   },
 
-  searchBy: async (req, res) => {
-    try {
-      const { productName, description } = req.query;
-      const products = await product.findAll({
-        where: {
-          [Op.or]: {
-            productName: {
-              [Op.like]: `%${productName}%`,
-            },
-          },
-        },
-        raw: true,
-      });
-      res.status(200).send(products);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
-
-  totalProduct: async (req, res) => {
-    try {
-      const products = await product.findAll({
-        attributes: [[sequelize.fn("count", sequelize.col(`id`)), "total"]],
-      });
-      res.status(200).send(products);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
+  
 
   remove: async (req, res) => {
     try {
@@ -224,17 +196,7 @@ module.exports = {
     }
   },
 
-  sortBy: async (req, res) => {
-    try {
-      const { data, order } = req.query;
-      const products = await product.findAll({
-        order: [[data, order]],
-      });
-      res.status(200).send(products);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
+  
 
   uploadFile: async (req, res) => {
     try {

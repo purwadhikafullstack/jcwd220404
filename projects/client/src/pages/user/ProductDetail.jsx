@@ -2,6 +2,7 @@ import {
   Badge,
   Box,
   Button,
+  Center,
   Container,
   Flex,
   Heading,
@@ -24,7 +25,6 @@ import { useParams } from "react-router-dom";
 export const ProductDetail = () => {
   const [data, setData] = useState([]);
   const params = useParams();
-  
 
   const getProduct = async () => {
     try {
@@ -45,107 +45,118 @@ export const ProductDetail = () => {
   return (
     <>
       <Box>
-        <Container maxW={"7xl"}>
-          <SimpleGrid
-            columns={{ base: 1, lg: 2 }}
-            spacing={{ base: 8, md: 10 }}
-            py={{ base: 18, md: 24 }}
+        <Center>
+          <Box
+            mt={"80px"}
+            pt={"3px"}
+            className="body"
+            bgColor="white"
+            h={"740px"}
+            w={"390px"}
+            border="2px"
           >
-            <Flex>
-              <Image
-                rounded={"md"}
-                alt={data?.productName}
-                src={`${process.env.REACT_APP_API_BASE_URL}/` + data?.picture}
-                fit={"cover"}
-                align={"center"}
-                boxSize="300px"
-                h={{ base: "100%", sm: "400px", lg: "500px" }}
-              />
-            </Flex>
-            <Stack spacing={{ base: 6, md: 10 }}>
-              <Box as={"header"}>
-                <Heading
-                  lineHeight={1.1}
-                  fontWeight={600}
-                  fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
-                >
-                  {data?.productName}
-                </Heading>
-                <Text>Berat: {data?.weight} g</Text>
-                <Text
-                  color={useColorModeValue("gray.900", "gray.400")}
-                  fontWeight={300}
-                  fontSize={"2xl"}
-                ></Text>
-              </Box>
-
-              <Stack
-                spacing={{ base: 4, sm: 6 }}
-                direction={"column"}
-                divider={
-                  <StackDivider
-                    borderColor={useColorModeValue("gray.200", "gray.600")}
+            <Container maxW={"7xl"}>
+              <Box>
+                <Flex>
+                  <Image
+                    rounded={"md"}
+                    alt={data?.productName}
+                    src={
+                      `${process.env.REACT_APP_API_BASE_URL}/` + data?.picture
+                    }
+                    fit={"fill"}
+                    align={"center"}
+                    boxSize="100px"
+                    // h={{ base: "100%", sm: "400px", lg: "500px" }}
                   />
-                }
+                </Flex>
+                <Stack spacing={{ base: 6, md: 10 }}>
+                  <Heading
+                    lineHeight={1.1}
+                    fontWeight={600}
+                    fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+                  >
+                    {data?.productName}
+                  </Heading>
+                  <Text>Berat: {data?.weight} g</Text>
+                  <Text
+                    color={useColorModeValue("gray.900", "gray.400")}
+                    fontWeight={300}
+                    fontSize={"2xl"}
+                  ></Text>
+                  <Stack
+                    spacing={{ base: 4, sm: 6 }}
+                    direction={"column"}
+                    divider={
+                      <StackDivider
+                        borderColor={useColorModeValue("gray.200", "gray.600")}
+                      />
+                    }
+                  >
+                    <Box>
+                      <Text
+                        fontSize={{ base: "16px", lg: "18px" }}
+                        color={useColorModeValue("yellow.500", "yellow.300")}
+                        fontWeight={"500"}
+                        textTransform={"uppercase"}
+                        mb={"4"}
+                      >
+                        Description
+                      </Text>
+
+                      {/* <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}> */}
+                      <List spacing={2}>
+                        <ListItem>{data?.description}</ListItem>
+                      </List>
+                      {/* </SimpleGrid> */}
+                      <Text
+                        fontSize={{ base: "16px", lg: "18px" }}
+                        color={useColorModeValue("yellow.500", "yellow.300")}
+                        fontWeight={"500"}
+                        textTransform={"uppercase"}
+                        mb={"4"}
+                      >
+                        Categories
+                      </Text>
+
+                      {/* <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}> */}
+                      <List spacing={2}>
+                        <ListItem>
+                          <Badge>{data?.Product_Categories?.length}</Badge>
+                        </ListItem>
+                      </List>
+                      {/* </SimpleGrid> */}
+                    </Box>
+                    <Box>
+                      <Text
+                        fontSize={{ base: "16px", lg: "18px" }}
+                        color={useColorModeValue("yellow.500", "yellow.300")}
+                        fontWeight={"500"}
+                        textTransform={"uppercase"}
+                        mb={"4"}
+                      >
+                        Distributor
+                      </Text>
+
+                      <List spacing={2}>
+                        <ListItem>
+                          <Text as={"span"} fontWeight={"bold"}>
+                            {data?.distributor}
+                          </Text>{" "}
+                        </ListItem>
+                      </List>
+                    </Box>
+                  </Stack>
+                </Stack>
+              </Box>
+              <SimpleGrid
+                columns={{ base: 1, lg: 2 }}
+                spacing={{ base: 8, md: 10 }}
+                py={{ base: 18, md: 24 }}
               >
-                <Box>
-                  <Text
-                    fontSize={{ base: "16px", lg: "18px" }}
-                    color={useColorModeValue("yellow.500", "yellow.300")}
-                    fontWeight={"500"}
-                    textTransform={"uppercase"}
-                    mb={"4"}
-                  >
-                    Description
-                  </Text>
+                <Box as={"header"}></Box>
 
-                  <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                    <List spacing={2}>
-                      <ListItem>{data?.description}</ListItem>
-                    </List>
-                  </SimpleGrid>
-                  <Text
-                    fontSize={{ base: "16px", lg: "18px" }}
-                    color={useColorModeValue("yellow.500", "yellow.300")}
-                    fontWeight={"500"}
-                    textTransform={"uppercase"}
-                    mb={"4"}
-                  >
-                    Categories
-                  </Text>
-
-                  <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                    <List spacing={2}>
-                      <ListItem>
-                        <Badge>
-                          {data?.Product_Categories?.Category?.categoryName}
-                        </Badge>
-                      </ListItem>
-                    </List>
-                  </SimpleGrid>
-                </Box>
-                <Box>
-                  <Text
-                    fontSize={{ base: "16px", lg: "18px" }}
-                    color={useColorModeValue("yellow.500", "yellow.300")}
-                    fontWeight={"500"}
-                    textTransform={"uppercase"}
-                    mb={"4"}
-                  >
-                    Distributor
-                  </Text>
-
-                  <List spacing={2}>
-                    <ListItem>
-                      <Text as={"span"} fontWeight={"bold"}>
-                        {data?.distributor}
-                      </Text>{" "}
-                    </ListItem>
-                  </List>
-                </Box>
-              </Stack>
-
-              <Button
+                {/* <Button
                 rounded={"none"}
                 w={"full"}
                 mt={8}
@@ -160,18 +171,19 @@ export const ProductDetail = () => {
                 }}
               >
                 Borrow
-              </Button>
+              </Button> */}
 
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent={"center"}
-              >
-                <Text>2-3 business days delivery</Text>
-              </Stack>
-            </Stack>
-          </SimpleGrid>
-        </Container>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent={"center"}
+                >
+                  {/* <Text>2-3 business days delivery</Text> */}
+                </Stack>
+              </SimpleGrid>
+            </Container>
+          </Box>
+        </Center>
       </Box>
     </>
   );

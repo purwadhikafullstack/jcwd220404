@@ -33,9 +33,10 @@ import { PopoutCheckout } from "../PopoutCheckout";
 
 export const CartComp = () => {
   const [product, setProduct] = useState([]);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [checkout, setCheckout] = useState(false);
+  const data = useSelector((state) => state.cartSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
   const dispatch = useDispatch();
@@ -55,10 +56,11 @@ export const CartComp = () => {
   const getData = async () => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
       );
       console.log(res.data);
-      setData(res.data);
+      dispatch(cartSync(res.data));
+      // setData(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -158,7 +160,13 @@ export const CartComp = () => {
                 <Flex mb={"50px"} justify={"space-between"}>
                   <Checkbox
                     defaultChecked={item.status ? true : false}
-                    onChange={() => onCheckout(item.id, item.status)}
+                    onChange={() =>
+                      onCheckout(
+                        item.id,
+                        item.status,
+                        window.location.replace("/cart", 100)
+                      )
+                    }
                   >
                     <Grid
                       templateAreas={`"nav main""nav footer"`}
@@ -180,7 +188,7 @@ export const CartComp = () => {
                       </GridItem>
                       <GridItem fontSize={"small"} pl="1" area={"main"}>
                         {item.Product?.productName}
-                        <GridItem>{item.Product?.weight} g</GridItem>
+                        {/* <GridItem>{item.Product?.weight} g</GridItem> */}
                       </GridItem>
                       <GridItem fontSize={"small"} pl="1" area={"footer"}>
                         Rp{item.Product?.Price?.productPrice}
@@ -204,9 +212,9 @@ export const CartComp = () => {
                         +
                       </Button>
                     </HStack>
-                    <Button onClick={() => onQty(item.id, item.qty)}>
+                    {/* <Button onChange={() => onQty(item.id, item.qty)}>
                       Change
-                    </Button>
+                    </Button> */}
                   </Box>
                 </Flex>
               </Card>
@@ -217,21 +225,7 @@ export const CartComp = () => {
           <FormLabel>Total</FormLabel>
           <PopoutCheckout props={checkout} />
         </FormControl>
-        <FormControl>
-          <FormLabel>Shipping Method</FormLabel>
-          <Select>
-            <option>
-              <Box border={"2px"}>
-                <Text>Regular</Text>
-              </Box>
-            </option>
-            <option>
-              <Box border={"2px"}>
-                <Text>One-Day Service</Text>
-              </Box>
-            </option>
-          </Select>
-        </FormControl>
+
         <FormControl>
           <FormLabel>Buyer Information</FormLabel>
           <Text>{data2?.["User.name"]}</Text>

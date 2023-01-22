@@ -49,7 +49,7 @@ export const PopoutCheckout = ({ props }) => {
               <Text>Total:</Text>
               <Text>{props}</Text>
               {data?.map((item) => {
-                return <Text>Rp({item.Product?.Price?.productPrice})</Text>;
+                return <Text>Rp(({item.Product?.Price?.productPrice}))</Text>;
               })}
               {/* <Button onClick={toCheckout}>Checkout</Button> */}
             </Flex>

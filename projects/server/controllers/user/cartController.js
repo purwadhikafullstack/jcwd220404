@@ -14,6 +14,7 @@ module.exports = {
       const data = await productCart.create({
         ProductId,
         UserId,
+        qty: 1,
       });
       res.status(200).send(data);
     } catch (err) {

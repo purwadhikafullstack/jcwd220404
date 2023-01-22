@@ -26,9 +26,7 @@ router.get("/list/:id", productController.findByProductId);
 router.get("/listCategory/:id", productController.findByCategoryId);
 router.get("/pagProduct", productController.paginationProduct);
 router.get("/pagCategory", productController.paginationCategory);
-router.get("/list/total", productController.totalProduct);
-router.get("/search", productController.searchBy);
-router.get("/sort", productController.sortBy);
+
 router.delete("/remove/:id", productController.remove);
 router.delete("/removeCategory/:id", productController.removeCategory);
 

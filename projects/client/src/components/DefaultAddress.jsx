@@ -43,9 +43,10 @@ export const DefaultAddress = () => {
 
   return (
     <div>
-      <Flex pr={"20px"} mt="100px">
+      <Flex pr={"20px"} 
+      mt="100px"
+      >
         <Stack>
-          console.log(item);
           <Button
             _placeholder={{ color: "#5F8D4E" }}
             // bgColor="#E5D9B6"

@@ -95,14 +95,26 @@ export const Checkout = () => {
             w={"390px"}
           >
             <FormControl>
-              <FormLabel>Payment Option</FormLabel>
+              <FormLabel>Shipping Method</FormLabel>
+              <Select>
+                <option>Select Shipping Method</option>
+                <option>
+                  <Box border={"2px"}>
+                    <Text>Regular ETA: 2-days</Text>
+                  </Box>
+                </option>
+                <option>
+                  <Box border={"2px"}>
+                    <Text>One-Day Service ETA: 1-day</Text>
+                  </Box>
+                </option>
+              </Select>
             </FormControl>
             <FormControl>
-              <FormLabel>Bank Transfer</FormLabel>
+              <FormLabel>Payment Option</FormLabel>
               <Box variant={"unstyled"}>
                 <Checkbox value="1">
-                  <Text>Only Fresh Account</Text>
-                  <Text>Transfer ke Rekening OnlyFresh</Text>
+                  <Text>Bank Transfer via Only Fresh Account</Text>
                 </Checkbox>
               </Box>
             </FormControl>

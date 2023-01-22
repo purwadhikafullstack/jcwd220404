@@ -198,7 +198,7 @@ export const MenuComp = () => {
       <Center>
         <Flex
           flexWrap="wrap"
-          mt="-110"
+          mt="-200"
           w={[330, 330, 380]}
           justifyContent="center"
         >
@@ -284,7 +284,7 @@ export const MenuComp = () => {
                   </FormControl>
                   <Center>
                     <FormControl w="" m={1}>
-                      <Select
+                      {/* <Select
                         color={"#285430"}
                         borderColor="#285430"
                         onChange={(event) => {
@@ -293,10 +293,10 @@ export const MenuComp = () => {
                       >
                         <option value="ASC">A-Z</option>
                         <option value="DESC">Z-A</option>
-                      </Select>
+                      </Select> */}
                     </FormControl>
                     <FormControl w="" m={1}>
-                      <Select
+                      {/* <Select
                         color={"#285430"}
                         borderColor="#285430"
                         onChange={(event) => {
@@ -307,7 +307,7 @@ export const MenuComp = () => {
                         <option value="20">20</option>
                         <option value="30">30</option>
                         <option value="50">50</option>
-                      </Select>
+                      </Select> */}
                     </FormControl>
                   </Center>
                   {/* <Icon
@@ -358,7 +358,7 @@ export const MenuComp = () => {
         </Flex>
       </Center>
       <Box>
-        <Box display="flex" justifyContent="center" alignContent="center">
+        {/* <Box display="flex" justifyContent="center" alignContent="center">
           <Button
             onClick={() => {
               async function submit() {
@@ -407,7 +407,7 @@ export const MenuComp = () => {
           >
             Next
           </Button>
-        </Box>
+        </Box> */}
         <SimpleGrid
           spacing={4}
           templateColumns="repeat(auto-fill, minmax(100px, 1fr))"
@@ -415,20 +415,24 @@ export const MenuComp = () => {
           {data?.map((item) => {
             return (
               <Card>
-                <CardBody as={Link} to={`product/${item.Product?.id}`}>
-                  <Image
-                    boxSize={"50px"}
-                    src={
-                      `${process.env.REACT_APP_API_BASE_URL}/` +
-                      item.Product.picture
-                    }
-                  />
-                  <Text as={"b"} size="sm">
-                    {item.Product.productName}
-                  </Text>
-                  <Text fontSize={"xs"}>{item.Product.Price.productPrice}</Text>
-                  <Text>{item.stockQty}</Text>
-                </CardBody>
+                <Center>
+                  <CardBody as={Link} to={`product/${item.Product?.id}`}>
+                    <Image
+                      boxSize={"50px"}
+                      src={
+                        `${process.env.REACT_APP_API_BASE_URL}/` +
+                        item.Product.picture
+                      }
+                    />
+                    <Text as={"b"} size="sm">
+                      {item.Product.productName}
+                    </Text>
+                    <Text fontSize={"xs"}>
+                      Rp{item.Product.Price.productPrice}
+                    </Text>
+                    <Text>{item.stockQty} pcs</Text>
+                  </CardBody>
+                </Center>
                 <CardFooter>
                   <Button onClick={() => onAddCart(item.Product.id)}>
                     <AddIcon />

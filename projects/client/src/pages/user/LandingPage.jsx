@@ -8,6 +8,8 @@ import { MenuComp } from "../../components/user/MenuComp";
 import { DefaultAddress } from "../../components/DefaultAddress";
 
 export const LandingPage = () => {
+  const tokenLocalStorage = localStorage.getItem("tokenUser");
+
   return (
     <>
       <Center>
@@ -27,7 +29,7 @@ export const LandingPage = () => {
             <LogoComp />
             <NotificationComp />
           </Box>
-          <DefaultAddress />
+          {tokenLocalStorage ? <DefaultAddress /> : ""}
           <Box className="body" bgColor="white" h={"2000px"} w={"390px"}>
             <VStack>
               <CarouselComp />

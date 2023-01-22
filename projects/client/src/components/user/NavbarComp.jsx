@@ -12,11 +12,11 @@ import {
   IoPerson,
 } from "react-icons/io5";
 import { Badge, Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
-import "../../components/user/NavbarComp";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import Axios from "axios";
 import { cartSync } from "../../redux/cartSlice";
+import { useEffect } from "react";
 
 export const NavbarComp = () => {
   // const [data, setData] = useState();
@@ -39,6 +39,10 @@ export const NavbarComp = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    getData();
+  }, [id]);
 
   const menuBar = [
     {
@@ -81,7 +85,7 @@ export const NavbarComp = () => {
     <>
       <Center>
         <Badge zIndex={2} borderRadius="2xl" mb={"10px"}>
-          0
+          {data?.length}
         </Badge>
       </Center>
       <Center>
