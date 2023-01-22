@@ -87,17 +87,18 @@ export const CartComp = () => {
     }
   };
 
-  const onQty = async (id, qty) => {
+  const onQty = async (idCart, qty) => {
     try {
       const res = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/cart/update/${id}`,
         {
-          id: id,
+          id: idCart,
           qty,
         }
       );
       getData();
       console.log(res.data);
+      setCheckout(!checkout);
     } catch (err) {
       console.log(err);
     }
@@ -209,7 +210,6 @@ export const CartComp = () => {
                           // countNow = countNow <= 0 ? 1 : countNow;
                           // document.getElementById("countInput").value =
                           //   parseInt(countNow);
-
                           onQty(item.id, item.qty - 1);
                         }}
                       >

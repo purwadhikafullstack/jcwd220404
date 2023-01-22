@@ -40,20 +40,42 @@ module.exports = {
 
   updateQty: async (req, res) => {
     try {
-      const response = await productCart.findOne({
-        where: {
-          UserId: req.params,
-        },
-      });
       const { id, qty } = req.body;
+      const response = await productCart.findOne({
+        where: [
+          {
+            UserId: req.params.id,
+          },
+          {
+            id,
+            // status: 1,
+          },
+        ],
+        // attributes: ["qty", "totalCheckout", "status"],
+        include: [
+          {
+            model: product,
+            include: [
+              {
+                model: price,
+              },
+            ],
+            // attributes: ["productPrice"],
+          },
+        ],
+        raw: true,
+      });
+      console.log(response["Product.Price.productPrice"]);
       const data = await productCart.update(
         {
           qty,
+          totalCheckout: qty * response["Product.Price.productPrice"],
         },
         {
           where: { id },
         }
       );
+      console.log(data);
       res.status(200).send({
         message: "Update success",
         data,
@@ -121,16 +143,16 @@ module.exports = {
         attributes: [
           "qty",
           "id",
-          [Sequelize.literal("(qty*Product.Price.productPrice)"), "Total"],
+          [Sequelize.literal(`(qty*Product.Price.productPrice)`), "Total"],
         ],
         include: [
           {
             model: product,
-            // required: true,
+            required: true,
             include: [
               {
                 model: price,
-                // required: true,
+                required: true,
                 attributes: ["productPrice"],
               },
             ],
@@ -139,6 +161,7 @@ module.exports = {
         ],
         group: "id",
         raw: true,
+        subQuery: false,
       });
       res.status(200).send(carts);
     } catch (err) {
@@ -156,7 +179,7 @@ module.exports = {
             status: 1,
           },
         ],
-        attributes: ["ProductId", "id", "status", "qty"],
+        // attributes: ["ProductId", "id", "status", "qty"],
         include: [
           {
             model: product,

@@ -9,18 +9,25 @@ import { cartSync } from "../redux/cartSlice";
 export const PopoutCheckout = ({ props }) => {
   console.log(props);
   const [data, setData] = useState([]);
+  const [totalCheckout, setTotalCheckout] = useState(0);
   // const data = useSelector((state) => state.cartSlice.value)
   const navigate = useNavigate();
   const { id } = useSelector((state) => state.userSlice.value);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const getData = async () => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
       );
+      const selectedItem = res.data
+        .filter((item) => item.status === true)
+        .map((item) => item.totalCheckout)
+        .reduce((a, b) => a + b);
+      console.log(selectedItem);
       console.log(res.data);
-      setData(res.data)
+      setTotalCheckout(selectedItem);
+      setData(res.data);
       // dispatch(cartSync(res.data))
     } catch (err) {
       console.log(err);
@@ -29,7 +36,7 @@ export const PopoutCheckout = ({ props }) => {
 
   useEffect(() => {
     getData();
-  }, [id]);
+  }, [id, props]);
 
   return (
     <div>
@@ -37,7 +44,7 @@ export const PopoutCheckout = ({ props }) => {
         <Flex
           w={[300, 350, 390]}
           h="70px"
-          bgColor="teal"
+          // bgColor="teal"
           color="gray.800"
           dropShadow="2xl"
           // pb={"1000px"}
@@ -50,17 +57,7 @@ export const PopoutCheckout = ({ props }) => {
             w={[300, 350, 390]}
           >
             <Flex justify={"space-between"}>
-              <Text>Total:</Text>
-              <Text>{props}</Text>
-              {data?.map((item) => {
-                return (
-                  <>
-                  {/* <Text>{item.Product?.weight}g</Text> */}
-                    <Text>Rp{item.Product?.Price?.productPrice}</Text>
-                  </>
-                );
-              })}
-              {/* <Button onClick={toCheckout}>Checkout</Button> */}
+              <Text>Rp{totalCheckout}</Text>
             </Flex>
           </Flex>
         </Flex>
