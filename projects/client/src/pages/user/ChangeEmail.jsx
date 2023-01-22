@@ -1,6 +1,6 @@
 import Axios from "axios";
 import { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ArrowBackIcon } from "@chakra-ui/icons";
@@ -14,10 +14,12 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
+import { logoutUser } from "../../redux/userSlice";
 
 export const ChangeEmail = (data) => {
   const inputEmail = useRef("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { id } = useSelector((state) => state.userSlice.value);
 
   const updateEmail = async () => {
@@ -31,6 +33,9 @@ export const ChangeEmail = (data) => {
       );
       // setTimeout(() => navigate(`/verification/${result.data.token} `), 2000);
       console.log(result);
+      dispatch(logoutUser());
+      localStorage.removeItem("tokenUser");
+      navigate("/login-user");
       navigate("/account/profile");
       Swal.fire({
         icon: "success",

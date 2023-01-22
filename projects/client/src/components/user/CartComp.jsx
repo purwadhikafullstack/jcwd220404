@@ -82,6 +82,7 @@ export const CartComp = () => {
         }
       );
       getData();
+      setCheckout(!checkout);
     } catch (err) {
       console.log(err);
     }

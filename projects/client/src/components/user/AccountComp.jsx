@@ -145,6 +145,16 @@ export const AccountComp = () => {
             >
               MY ADDRESS
             </Button>
+            <Button
+              textAlign={"left"}
+              variant={"unstyled"}
+              ml={"30px"}
+              textColor={"#285430"}
+              onClick={toAddress}
+              fontSize="sm"
+            >
+              VERIFY MY ACCOUNT
+            </Button>
             <LogoutUser />
           </Stack>
         </Box>
