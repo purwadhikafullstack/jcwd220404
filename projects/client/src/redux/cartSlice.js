@@ -12,6 +12,7 @@ export const cartSlice = createSlice({
     cartSync: (state, action) => {
       state.value = action.payload;
     },
+
     cartDel: (state) => {
       state.value = [];
     },

@@ -3,13 +3,16 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { cartSync } from "../redux/cartSlice";
 
 export const PopoutCheckout = ({ props }) => {
   console.log(props);
   const [data, setData] = useState([]);
+  // const data = useSelector((state) => state.cartSlice.value)
   const navigate = useNavigate();
   const { id } = useSelector((state) => state.userSlice.value);
+  const dispatch = useDispatch()
 
   const getData = async () => {
     try {
@@ -17,7 +20,8 @@ export const PopoutCheckout = ({ props }) => {
         `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
       );
       console.log(res.data);
-      setData(res.data);
+      setData(res.data)
+      // dispatch(cartSync(res.data))
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +53,12 @@ export const PopoutCheckout = ({ props }) => {
               <Text>Total:</Text>
               <Text>{props}</Text>
               {data?.map((item) => {
-                return <Text>Rp(({item.Product?.Price?.productPrice}))</Text>;
+                return (
+                  <>
+                  {/* <Text>{item.Product?.weight}g</Text> */}
+                    <Text>Rp{item.Product?.Price?.productPrice}</Text>
+                  </>
+                );
               })}
               {/* <Button onClick={toCheckout}>Checkout</Button> */}
             </Flex>

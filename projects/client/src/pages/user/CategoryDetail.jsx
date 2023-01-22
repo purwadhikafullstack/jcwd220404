@@ -15,12 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/productSlice";
 import { syncCategory } from "../../redux/categorySlice";
 
-export const CategoryDetail = () => {
+export const CategoryDetail = (id) => {
   const data = useSelector((state) => state.categorySlice.value);
   // const [data, setData] = useState([]);
   const params = useParams();
   const dispatch = useDispatch();
-  console.log(data);
 
   const getCategory = async () => {
     try {
@@ -37,7 +36,7 @@ export const CategoryDetail = () => {
 
   useEffect(() => {
     getCategory();
-  }, []);
+  }, [id]);
 
   return (
     <div>
@@ -47,6 +46,7 @@ export const CategoryDetail = () => {
             <Card w={"200px"}>
               <CardHeader></CardHeader>
               <CardBody>
+                <Text>{item?.Product?.productName}</Text>
                 <Text size="sm">
                   {item?.Product_Categories?.Product?.Price?.productPrice}
                 </Text>

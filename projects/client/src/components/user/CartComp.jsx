@@ -36,6 +36,8 @@ export const CartComp = () => {
   // const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [checkout, setCheckout] = useState(false);
+  const [count, setCount] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
   const data = useSelector((state) => state.cartSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
@@ -56,7 +58,7 @@ export const CartComp = () => {
   const getData = async () => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
       );
       console.log(res.data);
       dispatch(cartSync(res.data));
@@ -85,15 +87,17 @@ export const CartComp = () => {
     }
   };
 
-  const onQty = async (id) => {
+  const onQty = async (id, qty) => {
     try {
       const res = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/cart/update/${id}`,
         {
           id: id,
-          qty: 1,
+          qty,
         }
       );
+      getData();
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -154,19 +158,13 @@ export const CartComp = () => {
               Hapus
             </Text> */}
           </Flex>
-          {data?.map((item) => {
-            return (
-              <Card margin={"10px"}>
+          <Card margin={"10px"}>
+            {data?.map((item) => {
+              return (
                 <Flex mb={"50px"} justify={"space-between"}>
                   <Checkbox
                     defaultChecked={item.status ? true : false}
-                    onChange={() =>
-                      onCheckout(
-                        item.id,
-                        item.status,
-                        window.location.replace("/cart", 100)
-                      )
-                    }
+                    onChange={() => onCheckout(item.id, item.status)}
                   >
                     <Grid
                       templateAreas={`"nav main""nav footer"`}
@@ -200,26 +198,46 @@ export const CartComp = () => {
                       <DeleteIcon />
                     </Button>
                     <HStack maxW="200px">
-                      <Button variant={"unstyled"} {...dec}>
+                      <Button
+                        variant={"unstyled"}
+                        onClick={() => {
+                          // async function submit() {
+                          //   setCount(count === 1 ? 1 : count - 1);
+                          // }
+                          // submit();
+                          // var countNow = count - 1;
+                          // countNow = countNow <= 0 ? 1 : countNow;
+                          // document.getElementById("countInput").value =
+                          //   parseInt(countNow);
+
+                          onQty(item.id, item.qty - 1);
+                        }}
+                      >
                         -
                       </Button>
-                      <Input
-                        w={"50px"}
-                        // {...input}
-                        defaultValue={item.qty}
-                      ></Input>
-                      <Button variant={"unstyled"} {...inc}>
+                      <Text w={"10px"}>{item.qty}</Text>
+                      <Button
+                        variant={"unstyled"}
+                        onClick={() => {
+                          // async function submit() {
+                          //   setCount(totalCount === count ? count : count + 1);
+                          // }
+                          // submit();
+                          // var countNow = count + 1;
+                          // countNow = countNow > totalCount ? count : countNow;
+                          // document.getElementById("countInput").value =
+                          //   parseInt(countNow);
+                          onQty(item.id, item.qty + 1);
+                        }}
+                      >
                         +
                       </Button>
                     </HStack>
-                    {/* <Button onChange={() => onQty(item.id, item.qty)}>
-                      Change
-                    </Button> */}
                   </Box>
                 </Flex>
-              </Card>
-            );
-          })}
+              );
+            })}
+          </Card>
         </FormControl>
         <FormControl>
           <FormLabel>Total</FormLabel>

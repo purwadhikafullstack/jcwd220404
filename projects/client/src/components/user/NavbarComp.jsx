@@ -11,7 +11,7 @@ import {
   IoPersonOutline,
   IoPerson,
 } from "react-icons/io5";
-import { Badge, Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import { Badge, Box, Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import Axios from "axios";
@@ -25,7 +25,7 @@ export const NavbarComp = () => {
   const navigate = useNavigate();
   const { id, cart } = useSelector((state) => state.userSlice.value);
   const dispatch = useDispatch();
-  console.log(data);
+  // console.log(data);
 
   const getData = async () => {
     try {
@@ -48,30 +48,35 @@ export const NavbarComp = () => {
     {
       icon1: IoHomeOutline,
       icon2: IoHome,
+      icon3: "",
       name: "Home",
       url: "/",
     },
     {
       icon1: IoGridOutline,
       icon2: IoGrid,
+      icon3: "",
       name: "Category",
       url: "/category",
     },
     {
       icon1: IoCartOutline,
       icon2: IoCart,
+      icon3: Badge,
       name: "Cart",
       url: `/cart`,
     },
     {
       icon1: IoNewspaperOutline,
       icon2: IoNewspaper,
+      icon3: Badge,
       name: "Order",
       url: "/transaction",
     },
     {
       icon1: IoPersonOutline,
       icon2: IoPerson,
+      icon3: "",
       name: "Account",
       url: "/account",
     },
@@ -83,9 +88,12 @@ export const NavbarComp = () => {
 
   return (
     <>
-      <Center>
-        <Badge zIndex={2} borderRadius="2xl" mb={"10px"}>
+      <Center ml={"70px"}>
+        <Badge zIndex={2} borderRadius="2xl" mb={"10px"} ml="30px">
           {data?.length}
+        </Badge>
+        <Badge zIndex={2} borderRadius="2xl" mb={"10px"} ml="50px">
+          0
         </Badge>
       </Center>
       <Center>

@@ -414,32 +414,34 @@ export const MenuComp = () => {
         >
           {data?.map((item) => {
             return (
-              <Card>
-                <Center>
-                  <CardBody as={Link} to={`product/${item.Product?.id}`}>
-                    <Image
-                      boxSize={"50px"}
-                      src={
-                        `${process.env.REACT_APP_API_BASE_URL}/` +
-                        item.Product.picture
-                      }
-                    />
-                    <Text as={"b"} size="sm">
-                      {item.Product.productName}
-                    </Text>
-                    <Text fontSize={"xs"}>
-                      Rp{item.Product.Price.productPrice}
-                    </Text>
-                    <Text>{item.stockQty} pcs</Text>
-                  </CardBody>
-                </Center>
-                <CardFooter>
-                  <Button onClick={() => onAddCart(item.Product.id)}>
-                    <AddIcon />
-                    Cart
-                  </Button>
-                </CardFooter>
-              </Card>
+              <>
+                <Card>
+                  <Center>
+                    <CardBody as={Link} to={`product/${item.Product?.id}`}>
+                      <Image
+                        boxSize={"50px"}
+                        src={
+                          `${process.env.REACT_APP_API_BASE_URL}/` +
+                          item.Product.picture
+                        }
+                      />
+                      <Text as={"b"} size="sm">
+                        {item.Product.productName}
+                      </Text>
+                      <Text fontSize={"xs"}>
+                        Rp{item.Product.Price.productPrice}
+                      </Text>
+                      <Text>{item.stockQty} pcs</Text>
+                    </CardBody>
+                  </Center>
+                  <CardFooter>
+                    <Button onClick={() => onAddCart(item.Product.id)}>
+                      <AddIcon />
+                      Cart
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </>
             );
           })}
         </SimpleGrid>

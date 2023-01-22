@@ -1,3 +1,4 @@
+const { Sequelize } = require("sequelize");
 const db = require("../../models");
 const product = db.Product;
 const price = db.Price;
@@ -39,7 +40,7 @@ module.exports = {
 
   updateQty: async (req, res) => {
     try {
-      const user = await productCart.findOne({
+      const response = await productCart.findOne({
         where: {
           UserId: req.params,
         },
@@ -58,6 +59,7 @@ module.exports = {
         data,
       });
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -107,6 +109,44 @@ module.exports = {
     }
   },
 
+  findTotal: async (req, res) => {
+    try {
+      const carts = await productCart.findAll({
+        where: [
+          { UserId: req.params.id },
+          {
+            status: 1,
+          },
+        ],
+        attributes: [
+          "qty",
+          "id",
+          [Sequelize.literal("(qty*Product.Price.productPrice)"), "Total"],
+        ],
+        include: [
+          {
+            model: product,
+            // required: true,
+            include: [
+              {
+                model: price,
+                // required: true,
+                attributes: ["productPrice"],
+              },
+            ],
+            attributes: [],
+          },
+        ],
+        group: "id",
+        raw: true,
+      });
+      res.status(200).send(carts);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
   findCheckout: async (req, res) => {
     try {
       const carts = await productCart.findAll({
@@ -137,10 +177,11 @@ module.exports = {
           UserId: req.params.id,
         },
       });
-      const { qty, price, id } = req.body;
+      const { qty, productPrice, id } = req.body;
       const data = await productCart.update(
         {
           qty,
+          productPrice,
         },
         {
           where: { id },
@@ -148,6 +189,7 @@ module.exports = {
       );
       res.send(200).send(data);
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },
