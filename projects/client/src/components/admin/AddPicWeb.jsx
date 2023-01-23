@@ -44,7 +44,6 @@ export const AddPicWeb = () => {
       text: "Success",
       width: "370px",
     });
-
     window.location.replace("/admin");
   };
   return (

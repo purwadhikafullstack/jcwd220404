@@ -30,25 +30,39 @@ export const Checkout = () => {
   const [value, setValue] = useState("0");
   const [data, setData] = useState([]);
   const [product, setProduct] = useState([]);
+  const [totalCheckout, setTotalCheckout] = useState(0);
+  const [totalWeight, setTotalWeight] = useState(0);
   // const { data } = useSelector((state) => state.addressSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const getProduct = async () => {
+  const getData = async () => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
       );
+      const selectedItem = res.data
+        .filter((item) => item.status === true)
+        .map((item) => item.totalCheckout)
+        .reduce((a, b) => a + b);
+      console.log(selectedItem);
       console.log(res.data);
-      setProduct(res.data);
+      const selectedWeight = res.data
+        .filter((item) => item.status === true)
+        .map((item) => item.totalWeight)
+        .reduce((a, b) => a + b);
+      console.log(selectedWeight);
+      setTotalCheckout(selectedItem);
+      setTotalWeight(selectedWeight);
+      setData(res.data);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getProduct();
+    getData();
   }, [id]);
 
   const toPayment = () => {
@@ -94,22 +108,7 @@ export const Checkout = () => {
             h={"100%"}
             w={"390px"}
           >
-            <FormControl>
-              <FormLabel>Shipping Method</FormLabel>
-              <Select>
-                <option>Select Shipping Method</option>
-                <option>
-                  <Box border={"2px"}>
-                    <Text>Regular ETA: 2-days</Text>
-                  </Box>
-                </option>
-                <option>
-                  <Box border={"2px"}>
-                    <Text>One-Day Service ETA: 1-day</Text>
-                  </Box>
-                </option>
-              </Select>
-            </FormControl>
+            
             <FormControl>
               <FormLabel>Payment Option</FormLabel>
               <Box variant={"unstyled"}>
@@ -120,7 +119,7 @@ export const Checkout = () => {
             </FormControl>
             <FormControl>
               <FormLabel>Order Detail</FormLabel>
-              {product?.map((item) => {
+              {data?.map((item) => {
                 return (
                   <Card margin={"10px"}>
                     <Flex mb={"50px"} justify={"space-between"}>
@@ -146,11 +145,11 @@ export const Checkout = () => {
                           {item.Product?.productName}
                         </GridItem>
                         <GridItem fontSize={"small"} pl="1" area={"footer"}>
-                          {item.Product.Price.productPrice}
+                          Rp{item.totalCheckout}
                         </GridItem>
                       </Grid>
-                      <Text>{item.Product.weight}</Text>
-                      <Text>{item.qty}</Text>
+                      <Text>{item.totalWeight} g</Text>
+                      <Text>{item.qty}x</Text>
                     </Flex>
                   </Card>
                 );
@@ -168,23 +167,17 @@ export const Checkout = () => {
                   <Text>Subtotal Produk</Text>
                   <Text>Voucher</Text>
                 </Box>
-                {/* {product?.map((item) => {
-                  return (
-                    <> */}
                 <Box>
-                  <Text>{product?.Product?.Price?.productPrice}</Text>
+                  <Text>Rp{totalCheckout}</Text>
                   <Text>xx.xxx</Text>
                 </Box>
-                {/* </>
-                  );
-                })} */}
               </Flex>
             </FormControl>
             <FormControl>
               <FormLabel>Payment Subtotal</FormLabel>
               <Flex justify={"space-between"}>
                 <Text>Total Weight</Text>
-                <Text>{product?.Product?.weight}</Text>
+                <Text>{totalWeight} g</Text>
               </Flex>
               <Flex justify={"space-between"}>
                 <Text>Delivery Charge</Text>

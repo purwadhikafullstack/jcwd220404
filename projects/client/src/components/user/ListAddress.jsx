@@ -50,16 +50,6 @@ export const ListAddress = () => {
     }
   };
 
-  const onDefault = async () => {
-    try {
-      const defAddress = await Axios.patch(`${process.env.REACT_APP_API_BASE_URL}/address/`)
-    } catch (err) {
-      console.log(err)
-
-    }
-  }
-
-
   const toUpdate = (addressId) => {
     navigate(`/account/address/update/${addressId}`);
   };

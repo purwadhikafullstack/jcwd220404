@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       status: DataTypes.BOOLEAN,
       totalCharge: DataTypes.INTEGER,
       totalOrder: DataTypes.INTEGER,
+      totalWeight: DataTypes.INTEGER,
     },
     {
       sequelize,

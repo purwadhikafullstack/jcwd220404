@@ -48,7 +48,6 @@ export const MenuComp = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [state2, setState2] = useState(0);
   const [state, setState] = useState("");
-  // const data = useSelector((state) => state.productSlice.value);
   const data = useSelector((state) => state.inventorySlice.value);
   const { id, cart } = useSelector((state) => state.userSlice.value);
   const navigate = useNavigate();
@@ -73,12 +72,11 @@ export const MenuComp = () => {
     getCategory();
   }, []);
 
-  const getProduct = async () => {
+  const getProduct = async (longitude) => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findByBranch/106.8158371/106.8158371`
       );
-      // setProduct(res.data);
       dispatch(syncInventory(res.data));
       console.log(res.data);
     } catch (err) {

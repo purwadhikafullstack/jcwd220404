@@ -33,7 +33,6 @@ import { PopoutCheckout } from "../PopoutCheckout";
 
 export const CartComp = () => {
   const [product, setProduct] = useState([]);
-  // const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [checkout, setCheckout] = useState(false);
   const [count, setCount] = useState(1);
@@ -43,26 +42,13 @@ export const CartComp = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-    useNumberInput({
-      step: 1,
-      // defaultValue: 1,
-      min: 0,
-      precision: 0,
-    });
-
-  const inc = getIncrementButtonProps();
-  const dec = getDecrementButtonProps();
-  const input = getInputProps();
 
   const getData = async () => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
       );
-      console.log(res.data);
       dispatch(cartSync(res.data));
-      // setData(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -126,14 +112,7 @@ export const CartComp = () => {
       await Axios.delete(
         `${process.env.REACT_APP_API_BASE_URL}/cart/remove/${id}`
       );
-      // Swal.fire({
-      //   icon: "success",
-      //   text: "Cart Berhasil Dihapus",
-      //   timer: 2000,
-      //   customClass: {
-      //     container: "my-swal",
-      //   },
-      // });
+
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
       );
@@ -144,6 +123,16 @@ export const CartComp = () => {
       console.log(err);
     }
   };
+
+  const onCharge = async () => {
+    try {
+      
+      const res = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/cart/createCost`)
+    } catch (err) {
+      console.log(err)
+
+    }
+  }
 
   const toCheckout = () => {
     navigate("/checkout");
@@ -188,7 +177,6 @@ export const CartComp = () => {
                       </GridItem>
                       <GridItem fontSize={"small"} pl="1" area={"main"}>
                         {item.Product?.productName}
-                        {/* <GridItem>{item.Product?.weight} g</GridItem> */}
                       </GridItem>
                       <GridItem fontSize={"small"} pl="1" area={"footer"}>
                         Rp{item.Product?.Price?.productPrice}
@@ -203,14 +191,6 @@ export const CartComp = () => {
                       <Button
                         variant={"unstyled"}
                         onClick={() => {
-                          // async function submit() {
-                          //   setCount(count === 1 ? 1 : count - 1);
-                          // }
-                          // submit();
-                          // var countNow = count - 1;
-                          // countNow = countNow <= 0 ? 1 : countNow;
-                          // document.getElementById("countInput").value =
-                          //   parseInt(countNow);
                           onQty(item.id, item.qty - 1);
                         }}
                       >
@@ -220,14 +200,6 @@ export const CartComp = () => {
                       <Button
                         variant={"unstyled"}
                         onClick={() => {
-                          // async function submit() {
-                          //   setCount(totalCount === count ? count : count + 1);
-                          // }
-                          // submit();
-                          // var countNow = count + 1;
-                          // countNow = countNow > totalCount ? count : countNow;
-                          // document.getElementById("countInput").value =
-                          //   parseInt(countNow);
                           onQty(item.id, item.qty + 1);
                         }}
                       >
@@ -244,7 +216,22 @@ export const CartComp = () => {
           <FormLabel>Total</FormLabel>
           <PopoutCheckout props={checkout} />
         </FormControl>
-
+        <FormControl>
+          <FormLabel>Shipping Method</FormLabel>
+          <Select>
+            <option>Select Shipping Method</option>
+            <option>
+              <Box border={"2px"}>
+                <Text>Regular ETA: 2-days</Text>
+              </Box>
+            </option>
+            <option>
+              <Box border={"2px"}>
+                <Text>One-Day Service ETA: 1-day</Text>
+              </Box>
+            </option>
+          </Select>
+        </FormControl>
         <FormControl>
           <FormLabel>Buyer Information</FormLabel>
           <Text>{data2?.["User.name"]}</Text>

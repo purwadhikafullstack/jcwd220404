@@ -214,10 +214,6 @@ export const BranchComp = () => {
     window.location.replace("/admin");
   };
 
-  const onRefresh = () => {
-    window.location.replace("/admin");
-  };
-
   const getProduct = async () => {
     try {
       const res = await Axios.get(

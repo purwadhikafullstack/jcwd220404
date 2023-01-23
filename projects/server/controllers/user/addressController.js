@@ -6,6 +6,7 @@ const user = db.User;
 const branch = db.Branch;
 const rajaOngkirKey = process.env.RAJA_KEY;
 const openCageKey = process.env.GEO_KEY;
+const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR;
 
 module.exports = {
   addressById: async (req, res) => {
@@ -38,7 +39,7 @@ module.exports = {
         district,
       } = req.body;
       const provinceAndCity = await axios.get(
-        `https://api.rajaongkir.com/starter/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
+        `${rajaOngkirURL}/starter/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
       );
       const provinceName = provinceAndCity.data.rajaongkir.results.province;
       const cityName = provinceAndCity.data.rajaongkir.results.city_name;

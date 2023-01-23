@@ -122,8 +122,6 @@ module.exports = {
     }
   },
 
-  
-
   remove: async (req, res) => {
     try {
       await product.destroy({
@@ -195,8 +193,6 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-
-  
 
   uploadFile: async (req, res) => {
     try {

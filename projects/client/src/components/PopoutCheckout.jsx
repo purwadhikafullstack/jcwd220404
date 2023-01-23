@@ -10,6 +10,7 @@ export const PopoutCheckout = ({ props }) => {
   console.log(props);
   const [data, setData] = useState([]);
   const [totalCheckout, setTotalCheckout] = useState(0);
+  const [totalWeight, setTotalWeight] = useState(0);
   // const data = useSelector((state) => state.cartSlice.value)
   const navigate = useNavigate();
   const { id } = useSelector((state) => state.userSlice.value);
@@ -25,10 +26,15 @@ export const PopoutCheckout = ({ props }) => {
         .map((item) => item.totalCheckout)
         .reduce((a, b) => a + b);
       console.log(selectedItem);
-      console.log(res.data);
+      const selectedWeight = res.data
+        .filter((item) => item.status === true)
+        .map((item) => item.totalWeight)
+        .reduce((a, b) => a + b);
+      console.log(selectedWeight);
       setTotalCheckout(selectedItem);
+      setTotalWeight(selectedWeight);
       setData(res.data);
-      // dispatch(cartSync(res.data))
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }

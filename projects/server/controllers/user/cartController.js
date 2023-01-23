@@ -6,6 +6,9 @@ const address = db.Address;
 const user = db.User;
 const branch = db.Branch;
 const productCart = db.Product_Cart;
+var request = require("request");
+const rajaOngkirKey = process.env.RAJA_KEY;
+const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR_COST;
 
 module.exports = {
   createCart: async (req, res) => {
@@ -48,10 +51,9 @@ module.exports = {
           },
           {
             id,
-            // status: 1,
           },
         ],
-        // attributes: ["qty", "totalCheckout", "status"],
+
         include: [
           {
             model: product,
@@ -60,7 +62,6 @@ module.exports = {
                 model: price,
               },
             ],
-            // attributes: ["productPrice"],
           },
         ],
         raw: true,
@@ -70,6 +71,7 @@ module.exports = {
         {
           qty,
           totalCheckout: qty * response["Product.Price.productPrice"],
+          totalWeight: qty * response["Product.weight"],
         },
         {
           where: { id },
@@ -179,7 +181,6 @@ module.exports = {
             status: 1,
           },
         ],
-        // attributes: ["ProductId", "id", "status", "qty"],
         include: [
           {
             model: product,
@@ -239,19 +240,50 @@ module.exports = {
 
   createCost: async (req, res) => {
     try {
-      const { cityId, weight, courier } = req.body;
-      const generateCost = await axios.post(
-        `https://api.rajaongkir.com/starter/cost`
-      );
-      const cost = await productCart.update({
-        origin: cityId,
-        destination: cityId,
-        weight: weight,
-        courier: courier,
-      });
-      res.status(200).send({
-        generateCost,
-        cost,
+      // const response = await productCart.findOne({
+      //   where: [
+      //     {
+      //       UserId: req.params.id,
+      //     },
+      //     {
+      //       id,
+      //     },
+      //   ],
+
+      //   include: [
+      //     {
+      //       model: product,
+      //       include: [
+      //         {
+      //           model: price,
+      //         },
+      //       ],
+      //     },
+      //   ],
+      //   raw: true,
+      // });
+      // console.log(response["Product.Price.productPrice"]);
+      const { origin, weight, courier, destination } = req.body;
+      var options = {
+        method: "POST",
+        url: rajaOngkirURL,
+        headers: {
+          key: rajaOngkirKey,
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        form: {
+          origin: origin,
+          destination: destination,
+          weight: weight,
+          courier: courier,
+        },
+      };
+      console.log(req.body);
+
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        console.log(body);
+        res.status(200).send(JSON.parse(body));
       });
     } catch (err) {
       res.status(400).send(err);

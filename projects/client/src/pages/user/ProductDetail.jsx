@@ -67,7 +67,6 @@ export const ProductDetail = () => {
                     fit={"fill"}
                     align={"center"}
                     boxSize="100px"
-                    // h={{ base: "100%", sm: "400px", lg: "500px" }}
                   />
                 </Flex>
                 <Stack spacing={{ base: 6, md: 10 }}>
@@ -104,11 +103,10 @@ export const ProductDetail = () => {
                         Description
                       </Text>
 
-                      {/* <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}> */}
                       <List spacing={2}>
                         <ListItem>{data?.description}</ListItem>
                       </List>
-                      {/* </SimpleGrid> */}
+
                       <Text
                         fontSize={{ base: "16px", lg: "18px" }}
                         color={useColorModeValue("yellow.500", "yellow.300")}
@@ -119,13 +117,11 @@ export const ProductDetail = () => {
                         Categories
                       </Text>
 
-                      {/* <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}> */}
                       <List spacing={2}>
                         <ListItem>
                           <Badge>{data?.Product_Categories?.length}</Badge>
                         </ListItem>
                       </List>
-                      {/* </SimpleGrid> */}
                     </Box>
                     <Box>
                       <Text
@@ -177,9 +173,7 @@ export const ProductDetail = () => {
                   direction="row"
                   alignItems="center"
                   justifyContent={"center"}
-                >
-                  {/* <Text>2-3 business days delivery</Text> */}
-                </Stack>
+                ></Stack>
               </SimpleGrid>
             </Container>
           </Box>
