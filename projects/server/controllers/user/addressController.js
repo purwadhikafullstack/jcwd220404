@@ -39,7 +39,7 @@ module.exports = {
         district,
       } = req.body;
       const provinceAndCity = await axios.get(
-        `${rajaOngkirURL}/starter/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
+        `https://api.rajaongkir.com/starter/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
       );
       const provinceName = provinceAndCity.data.rajaongkir.results.province;
       const cityName = provinceAndCity.data.rajaongkir.results.city_name;

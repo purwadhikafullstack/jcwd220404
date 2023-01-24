@@ -37,4 +37,17 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  findAllById: async (req, res) => {
+    try {
+      const transactions = await transaction.findAll({
+        where: {
+          UserId: req.params.id,
+        },
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
 };

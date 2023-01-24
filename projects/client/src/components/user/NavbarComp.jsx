@@ -17,15 +17,17 @@ import { useState } from "react";
 import Axios from "axios";
 import { cartSync } from "../../redux/cartSlice";
 import { useEffect } from "react";
+import { transSync } from "../../redux/transactionSlice";
 
 export const NavbarComp = () => {
   // const [data, setData] = useState();
   const data = useSelector((state) => state.cartSlice.value);
+  const data2 = useSelector((state) => state.transactionSlice.value);
   const location = useLocation();
   const navigate = useNavigate();
   const { id, cart } = useSelector((state) => state.userSlice.value);
   const dispatch = useDispatch();
-  // console.log(data);
+  console.log(data2);
 
   const getData = async () => {
     try {
@@ -34,7 +36,6 @@ export const NavbarComp = () => {
       );
       console.log(res.data);
       dispatch(cartSync(res.data));
-      // setData(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -42,6 +43,22 @@ export const NavbarComp = () => {
 
   useEffect(() => {
     getData();
+  }, [id]);
+
+  const getData2 = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/findById/${id}`
+      );
+      dispatch(transSync(result.data));
+      console.log(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData2();
   }, [id]);
 
   const menuBar = [
@@ -93,7 +110,7 @@ export const NavbarComp = () => {
           {data?.length}
         </Badge>
         <Badge zIndex={2} borderRadius="2xl" mb={"10px"} ml="50px">
-          0
+          {data2?.length}
         </Badge>
       </Center>
       <Center>
