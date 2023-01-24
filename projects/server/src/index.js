@@ -32,6 +32,7 @@ const {
   pictureRouter,
   cartRouter,
   inventoryRouter,
+  transactionRouter,
 } = require("../routers");
 
 // ===========================
@@ -44,6 +45,7 @@ app.use("/product", productRouter);
 app.use("/picture", pictureRouter);
 app.use("/cart", cartRouter);
 app.use("/inventory", inventoryRouter);
+app.use("/transaction", transactionRouter);
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);
