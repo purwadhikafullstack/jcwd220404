@@ -108,7 +108,6 @@ export const Checkout = () => {
             h={"100%"}
             w={"390px"}
           >
-            
             <FormControl>
               <FormLabel>Payment Option</FormLabel>
               <Box variant={"unstyled"}>
@@ -175,10 +174,7 @@ export const Checkout = () => {
             </FormControl>
             <FormControl>
               <FormLabel>Payment Subtotal</FormLabel>
-              <Flex justify={"space-between"}>
-                <Text>Total Weight</Text>
-                <Text>{totalWeight} g</Text>
-              </Flex>
+
               <Flex justify={"space-between"}>
                 <Text>Delivery Charge</Text>
                 <Text>xx.xxx</Text>

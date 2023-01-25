@@ -33,15 +33,24 @@ import { PopoutCheckout } from "../PopoutCheckout";
 
 export const CartComp = () => {
   const [product, setProduct] = useState([]);
-  const [data2, setData2] = useState([]);
   const [checkout, setCheckout] = useState(false);
   const [count, setCount] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+  const [totalCheckout, setTotalCheckout] = useState(0);
+  const [totalWeight, setTotalWeight] = useState(0);
+  const [data2, setData2] = useState([]);
+  const [data3, setData3] = useState([]);
+  const [data4, setData4] = useState([]);
+  const [data5, setData5] = useState();
+  const [data6, setData6] = useState();
+  const [data7, setData7] = useState(0);
   const data = useSelector((state) => state.cartSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(data7);
+  console.log(data4);
 
   const getData = async () => {
     try {
@@ -56,6 +65,36 @@ export const CartComp = () => {
 
   useEffect(() => {
     getData();
+  }, []);
+
+  const getCheckout = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
+      );
+      const selectedItem = res.data
+        .filter((item) => item.status === true)
+        .map((item) => item.totalCheckout)
+        .reduce((a, b) => a + b);
+      console.log(selectedItem);
+      const selectedWeight = res.data
+        .filter((item) => item.status === true)
+        .map((item) => item.totalWeight)
+        .reduce((a, b) => a + b);
+      console.log(selectedWeight);
+
+      setTotalCheckout(selectedItem);
+      setTotalWeight(selectedWeight);
+
+      setData3(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCheckout();
   }, [id]);
 
   const onCheckout = async (id, status) => {
@@ -96,7 +135,7 @@ export const CartComp = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
-      console.log(result.data);
+      console.log(result.data.defaultAdd);
       setData2(result.data.defaultAdd);
     } catch (err) {
       console.log(err);
@@ -126,13 +165,69 @@ export const CartComp = () => {
 
   const onCharge = async () => {
     try {
-      
-      const res = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/cart/createCost`)
-    } catch (err) {
-      console.log(err)
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
+      );
+      const selectedItem = result.data
+        .filter((item) => item.status === true)
+        .map((item) => item.totalCheckout)
+        .reduce((a, b) => a + b);
+      console.log(selectedItem);
+      setData5(selectedItem);
 
+      const selectedWeight = result.data
+        .filter((item) => item.status === true)
+        .map((item) => item.totalWeight)
+        .reduce((a, b) => a + b);
+      console.log(selectedWeight);
+      setData6(selectedWeight);
+
+      const res = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/createCost`,
+        {
+          origin: data2?.["Branch.cityId"],
+          weight: selectedWeight,
+          courier: "jne",
+          destination: data2?.cityId,
+        }
+      );
+      console.log(data2);
+      setData4(res.data?.rajaongkir.results[0]?.costs);
+      console.log(res.data?.rajaongkir.results[0]?.costs);
+
+      const selectedCharge =
+        res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
+
+      console.log(selectedCharge);
+      let totalOrder = selectedItem + selectedCharge;
+      console.log(totalOrder);
+
+      const selectedCourier = res.data;
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
+
+  useEffect(() => {
+    onCharge();
+  }, [data2, data7]);
+
+  const onCreate = async () => {
+    try {
+      const res = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/create`,
+        {
+          totalOrder: data5,
+          totalWeight: data6,
+          totalCharge: 10000,
+          UserId: 6,
+          AdminId: 2,
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const toCheckout = () => {
     navigate("/checkout");
@@ -220,16 +315,13 @@ export const CartComp = () => {
           <FormLabel>Shipping Method</FormLabel>
           <Select>
             <option>Select Shipping Method</option>
-            <option>
-              <Box border={"2px"}>
-                <Text>Regular ETA: 2-days</Text>
-              </Box>
-            </option>
-            <option>
-              <Box border={"2px"}>
-                <Text>One-Day Service ETA: 1-day</Text>
-              </Box>
-            </option>
+            {data4?.map((item, index) => {
+              return (
+                <option onClick={() => setData7(index)}>
+                  {item.service}, ETA {item.cost[0].etd} days
+                </option>
+              );
+            })}
           </Select>
         </FormControl>
         <FormControl>
@@ -241,9 +333,11 @@ export const CartComp = () => {
           <FormLabel>Delivery Address</FormLabel>
           <Box border={"2px"}>
             <Text as={"b"}>{data2?.receiverName}</Text>
-            <Text>{data2?.receiverPhone}</Text>
-            {data2?.addressLine},{data2?.district},{data2?.city},
-            {data2?.province}
+            <Text>
+              {data2?.receiverPhone}
+              {data2?.addressLine},{data2?.district},{data2?.city},
+              {data2?.province}
+            </Text>
             <Text>{data2?.detail}</Text>
           </Box>
         </FormControl>

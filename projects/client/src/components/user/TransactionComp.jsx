@@ -2,21 +2,40 @@ import {
   Box,
   Button,
   Card,
+  Center,
   Checkbox,
   Flex,
   Grid,
   GridItem,
+  HStack,
+  Progress,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import Axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import {
+  CiCreditCard1,
+  CiBag1,
+  CiDeliveryTruck,
+  CiInboxIn,
+} from "react-icons/ci";
 
 export const TransactionComp = () => {
   const [data, setData] = useState();
   const { id } = useSelector((state) => state.userSlice.value);
-  console.log(data);
+  let dateNow = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate() + 2
+  ).toLocaleString("en-EN", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   const getData = async () => {
     try {
@@ -34,34 +53,36 @@ export const TransactionComp = () => {
     getData();
   }, [id]);
 
+  console.log(dateNow);
+
   return (
     <div>
-      <Stack border={"10px"} spacing={"10px"}>
-        <Card margin={"10px"}>
-          {data?.map((item) => {
-            return (
-              <Flex mb={"50px"} justify={"space-between"}>
-                <Grid
-                  templateAreas={`"nav main""nav footer"`}
-                  gridTemplateRows={"50px 1fr 30px"}
-                  gridTemplateColumns={"120px 1fr"}
-                  h="50px"
-                  gap="1"
-                  color="blackAlpha.700"
-                  fontWeight="bold"
-                >
-                  <GridItem fontSize={"small"} pl="1" area={"main"}>
-                    Order No. {item.id_order}
-                  </GridItem>
-                  <GridItem fontSize={"small"} pl="1" area={"footer"}>
-                    Rp{item.totalOrder}
-                  </GridItem>
-                </Grid>
-              </Flex>
-            );
-          })}
-        </Card>
-      </Stack>
+      {data?.map((item) => {
+        return (
+          <Center>
+            <Box w={"350px"} boxShadow={"md"} borderRadius="10px">
+              <Stack ml={"10px"} spacing={5} mb={2}>
+                <Box>
+                  <Text mt={"10px"}>Order No. {item.id_order}</Text>
+                  <Text>{dateNow}</Text>
+                </Box>
+                <Flex>
+                  <HStack>
+                    <CiCreditCard1 color="grey"></CiCreditCard1>
+                    <CiBag1 color="grey" />
+                    <CiDeliveryTruck color="grey" />
+                    <CiInboxIn color="grey" />
+                  </HStack>
+                </Flex>
+                <Box>
+                  <Text>Rp{item.totalOrder}</Text>
+                  <Text mb={"10px"}>{item.status}</Text>
+                </Box>
+              </Stack>
+            </Box>
+          </Center>
+        );
+      })}
     </div>
   );
 };

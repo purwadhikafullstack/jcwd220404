@@ -21,6 +21,7 @@ module.exports = {
         AdminId,
         id_order,
       } = req.body;
+      console.log(req.body)
       const result = await transaction.create({
         totalOrder,
         totalWeight,
