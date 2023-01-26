@@ -22,10 +22,12 @@ import {
   CiDeliveryTruck,
   CiInboxIn,
 } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 export const TransactionComp = () => {
   const [data, setData] = useState();
   const { id } = useSelector((state) => state.userSlice.value);
+
   let dateNow = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
@@ -53,18 +55,24 @@ export const TransactionComp = () => {
     getData();
   }, [id]);
 
-  console.log(dateNow);
-
   return (
     <div>
       {data?.map((item) => {
         return (
           <Center>
-            <Box w={"350px"} boxShadow={"md"} borderRadius="10px">
+            <Box
+              w={"350px"}
+              boxShadow={"md"}
+              borderRadius="10px"
+              as={Link}
+              to={`/transaction/${item.id}`}
+            >
               <Stack ml={"10px"} spacing={5} mb={2}>
                 <Box>
-                  <Text mt={"10px"}>Order No. {item.id_order}</Text>
-                  <Text>{dateNow}</Text>
+                  <Text align={"left"} mt={"10px"}>
+                    Order No. {item.id_order}
+                  </Text>
+                  <Text align={"left"}>Delivered Date: {dateNow}</Text>
                 </Box>
                 <Flex>
                   <HStack>
@@ -75,7 +83,7 @@ export const TransactionComp = () => {
                   </HStack>
                 </Flex>
                 <Box>
-                  <Text>Rp{item.totalOrder}</Text>
+                  <Text align={"left"}>Bill Total: Rp{item.totalOrder}</Text>
                   <Text mb={"10px"}>{item.status}</Text>
                 </Box>
               </Stack>

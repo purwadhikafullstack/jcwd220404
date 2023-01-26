@@ -74,15 +74,21 @@ export const ProductDetail = () => {
                     lineHeight={1.1}
                     fontWeight={600}
                     fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+                    divider={
+                      <StackDivider
+                        borderColor={useColorModeValue("gray.200", "gray.600")}
+                      />
+                    }
                   >
                     {data?.productName}
                   </Heading>
-                  <Text>Berat: {data?.weight} g</Text>
                   <Text
                     color={useColorModeValue("gray.900", "gray.400")}
                     fontWeight={300}
                     fontSize={"2xl"}
-                  ></Text>
+                  >
+                    Berat: {data?.weight} g
+                  </Text>
                   <Stack
                     spacing={{ base: 4, sm: 6 }}
                     direction={"column"}
@@ -105,22 +111,6 @@ export const ProductDetail = () => {
 
                       <List spacing={2}>
                         <ListItem>{data?.description}</ListItem>
-                      </List>
-
-                      <Text
-                        fontSize={{ base: "16px", lg: "18px" }}
-                        color={useColorModeValue("yellow.500", "yellow.300")}
-                        fontWeight={"500"}
-                        textTransform={"uppercase"}
-                        mb={"4"}
-                      >
-                        Categories
-                      </Text>
-
-                      <List spacing={2}>
-                        <ListItem>
-                          <Badge>{data?.Product_Categories?.length}</Badge>
-                        </ListItem>
                       </List>
                     </Box>
                     <Box>

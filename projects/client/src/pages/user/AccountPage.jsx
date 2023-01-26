@@ -9,7 +9,7 @@ export const AccountPage = () => {
   return (
     <>
       <Center>
-        <Box w={"390px"} h={"844px"} bgColor="white">
+        <Box pos={"fixed"} w={"390px"} h={"10px"} bgColor="white">
           {tokenLocalStorage ? <AccountComp /> : <WindowComp />}
 
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>

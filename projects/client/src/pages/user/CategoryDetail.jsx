@@ -26,9 +26,9 @@ export const CategoryDetail = (id) => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory/${params.id}`
       );
-      console.log(result.data);
-      // setData(result.data);
-      dispatch(syncCategory(result.data));
+      console.log(result.data[0]);
+
+      dispatch(syncCategory(result.data[0]));
     } catch (err) {
       console.log(err);
     }
@@ -41,28 +41,24 @@ export const CategoryDetail = (id) => {
   return (
     <div>
       <Box>
-        {data?.map((item) => {
+        {data?.Product_Categories?.map((item) => {
           return (
-            <Card w={"200px"}>
-              <CardHeader></CardHeader>
-              <CardBody>
-                <Text>{item?.Product?.productName}</Text>
-                <Text size="sm">
-                  {item?.Product_Categories?.Product?.Price?.productPrice}
-                </Text>
-                <Text fontSize={"xs"}>Price</Text>
-                <Image
-                  boxSize={"50px"}
-                  src={
-                    `${process.env.REACT_APP_API_BASE_URL}/` +
-                    item?.Product_Categories?.Product?.picture
-                  }
-                />
-              </CardBody>
-              <CardFooter>
-                <Button>Tambah</Button>
-              </CardFooter>
-            </Card>
+            <>
+              <Card w={"200px"}>
+                <CardBody>
+                  <Text>{item.Product.productName}</Text>
+                  <Text size="sm">{item?.Product?.Price?.productPrice}</Text>
+
+                  <Image
+                    boxSize={"50px"}
+                    src={
+                      `${process.env.REACT_APP_API_BASE_URL}/` +
+                      item?.Product?.picture
+                    }
+                  />
+                </CardBody>
+              </Card>
+            </>
           );
         })}
       </Box>

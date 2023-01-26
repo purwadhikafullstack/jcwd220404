@@ -14,7 +14,7 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { CheckIcon, DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 export const ListAddress = () => {
   const { data } = useSelector((state) => state.addressSlice.value);
@@ -102,7 +102,7 @@ export const ListAddress = () => {
                   <MenuItem
                     as={"button"}
                     onClick={() => onDelete(item.id)}
-                    icon={<DeleteIcon />}
+                    icon={<CheckIcon />}
                     bgColor="#E5D9B6"
                     textColor={"#285430"}
                   >

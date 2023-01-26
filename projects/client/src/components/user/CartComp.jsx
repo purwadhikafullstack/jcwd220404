@@ -4,19 +4,14 @@ import {
   Box,
   Button,
   Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
   Checkbox,
   Flex,
   FormControl,
   FormLabel,
   Grid,
   GridItem,
-  Heading,
   HStack,
   Image,
-  Input,
   Select,
   Text,
   Textarea,
@@ -25,17 +20,13 @@ import {
 import { Calculator } from "../Calculator";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { DeleteIcon } from "@chakra-ui/icons";
-import Swal from "sweetalert2";
 import { cartSync } from "../../redux/cartSlice";
 import { delCart } from "../../redux/userSlice";
 import { PopoutCheckout } from "../PopoutCheckout";
+import { useRef } from "react";
 
 export const CartComp = () => {
-  const [product, setProduct] = useState([]);
   const [checkout, setCheckout] = useState(false);
-  const [count, setCount] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
   const [totalCheckout, setTotalCheckout] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
   const [data2, setData2] = useState([]);
@@ -46,11 +37,9 @@ export const CartComp = () => {
   const [data7, setData7] = useState(0);
   const data = useSelector((state) => state.cartSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
-  const params = useParams();
+  const inputRef = useRef("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(data7);
-  console.log(data4);
 
   const getData = async () => {
     try {
@@ -191,18 +180,15 @@ export const CartComp = () => {
           destination: data2?.cityId,
         }
       );
-      console.log(data2);
       setData4(res.data?.rajaongkir.results[0]?.costs);
       console.log(res.data?.rajaongkir.results[0]?.costs);
 
       const selectedCharge =
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
-
       console.log(selectedCharge);
+
       let totalOrder = selectedItem + selectedCharge;
       console.log(totalOrder);
-
-      const selectedCourier = res.data;
     } catch (err) {
       console.log(err);
     }
@@ -211,6 +197,30 @@ export const CartComp = () => {
   useEffect(() => {
     onCharge();
   }, [data2, data7]);
+
+  const findOngkir = async () => {
+    try {
+      const res = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/createCost`,
+        {
+          origin: data2?.["Branch.cityId"],
+          weight: data6,
+          courier: "jne",
+          destination: data2?.cityId,
+        }
+      );
+
+      const selectedCharge =
+        res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
+      console.log(selectedCharge);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    findOngkir();
+  }, [data7]);
 
   const onCreate = async () => {
     try {
@@ -238,26 +248,26 @@ export const CartComp = () => {
       <Box>
         <FormControl>
           <FormLabel>Products</FormLabel>
-          <Flex justify={"space-between"}>
-            {/* <Checkbox>Select All</Checkbox> */}
-            {/* <Text align="end" as={"button"} variant="ghost">
-              Hapus
-            </Text> */}
-          </Flex>
           <Card margin={"10px"}>
             {data?.map((item) => {
               return (
-                <Flex mb={"50px"} justify={"space-between"}>
+                <Flex
+                  borderBottom={"1px"}
+                  borderColor="grey"
+                  borderRadius={"10px"}
+                  mt={"10px"}
+                  justify={"space-between"}
+                >
                   <Checkbox
                     defaultChecked={item.status ? true : false}
                     onChange={() => onCheckout(item.id, item.status)}
                   >
                     <Grid
                       templateAreas={`"nav main""nav footer"`}
-                      gridTemplateRows={"50px 1fr 30px"}
+                      gridTemplateRows={" 1fr 30px"}
                       gridTemplateColumns={"120px 1fr"}
                       h="50px"
-                      gap="1"
+                      // gap="1"
                       color="blackAlpha.700"
                       fontWeight="bold"
                     >
@@ -270,17 +280,22 @@ export const CartComp = () => {
                           }
                         ></Image>
                       </GridItem>
-                      <GridItem fontSize={"small"} pl="1" area={"main"}>
+                      <GridItem fontSize={"small"} ml="-12" area={"main"}>
                         {item.Product?.productName}
                       </GridItem>
-                      <GridItem fontSize={"small"} pl="1" area={"footer"}>
+                      <GridItem fontSize={"small"} ml="-12" area={"footer"}>
                         Rp{item.Product?.Price?.productPrice}
                       </GridItem>
                     </Grid>
                   </Checkbox>
                   <Box>
-                    <Button onClick={() => onDelete(item.id)}>
-                      <DeleteIcon />
+                    <Button
+                      pl={"50px"}
+                      variant={"unstyled"}
+                      onClick={() => onDelete(item.id)}
+                      fontSize="sm"
+                    >
+                      Hapus
                     </Button>
                     <HStack maxW="200px">
                       <Button
@@ -313,14 +328,13 @@ export const CartComp = () => {
         </FormControl>
         <FormControl>
           <FormLabel>Shipping Method</FormLabel>
-          <Select>
+          <Select
+            ref={inputRef}
+            onChange={() => setData7(inputRef.current.value)}
+          >
             <option>Select Shipping Method</option>
             {data4?.map((item, index) => {
-              return (
-                <option onClick={() => setData7(index)}>
-                  {item.service}, ETA {item.cost[0].etd} days
-                </option>
-              );
+              return <option value={index}>{item.cost[0].etd} days</option>;
             })}
           </Select>
         </FormControl>

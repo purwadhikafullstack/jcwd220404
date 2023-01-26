@@ -51,4 +51,19 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  findById: async (req, res) => {
+    try {
+      const transactions = await transaction.findOne({
+        where: {
+          id: req.params.id,
+        },
+        // include: [{ model: productCategory, include: [{ model: category }] }],
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
+      console.log(err)
+      res.status(400).send(err);
+    }
+  }
 };

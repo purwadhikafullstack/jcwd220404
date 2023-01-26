@@ -239,6 +239,7 @@ export const UpdateAddressPage = () => {
                   width="340px"
                   border="2px"
                   borderColor="#285430"
+                  defaultValue={selectedProvince}
                 >
                   {renderProvince()}
                 </Select>
