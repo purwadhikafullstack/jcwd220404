@@ -27,6 +27,8 @@ module.exports = (sequelize, DataTypes) => {
       totalCharge: DataTypes.INTEGER,
       totalOrder: DataTypes.INTEGER,
       totalWeight: DataTypes.INTEGER,
+      deliveryDate: DataTypes.DATEONLY,
+      arrivalDate: DataTypes.DATEONLY
     },
     {
       sequelize,

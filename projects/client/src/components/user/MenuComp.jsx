@@ -48,13 +48,16 @@ export const MenuComp = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [state2, setState2] = useState(0);
   const [state, setState] = useState("");
+  const [state3, setState3] = useState();
   const data = useSelector((state) => state.inventorySlice.value);
   const { id, cart } = useSelector((state) => state.userSlice.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const tokenLocalStorage = localStorage.getItem("tokenUser");
-  console.log(data);
+  const origin = state3;
+  // console.log(origin["Branch.longitude"]);
+  // console.log(origin.longitude);
 
   const getCategory = async () => {
     try {
@@ -72,10 +75,26 @@ export const MenuComp = () => {
     getCategory();
   }, []);
 
-  const getProduct = async (longitude) => {
+  const getData2 = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
+      );
+      console.log(result.data.defaultAdd);
+      setState3(result.data.defaultAdd);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData2();
+  }, [id]);
+
+  const getProduct = async () => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/inventory/findByBranch/106.8158371/106.8158371`
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/findByBranch/${Number(state3["Branch.longitude"])}/${Number(state3.longitude)}`
       );
       dispatch(syncInventory(res.data));
       console.log(res.data);
@@ -86,7 +105,7 @@ export const MenuComp = () => {
 
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [state3]);
 
   const onAddCart = async (ProductId) => {
     try {
@@ -145,37 +164,37 @@ export const MenuComp = () => {
     }
   };
 
-  const getData = async () => {
-    try {
-      const res = await Axios.get(
-        `${
-          process.env.REACT_APP_API_BASE_URL
-        }/inventory/pagProduct?search_query=${searchProduct}&page=${
-          page - 1
-        }&limit=${limit}&order=${order ? order : `productName`}&sort=${
-          sort ? sort : "ASC"
-        }`
-      );
-      dispatch(syncInventory(res.data.result));
-      console.log(res.data.result);
-      setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
-      setState(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const res = await Axios.get(
+  //       `${
+  //         process.env.REACT_APP_API_BASE_URL
+  //       }/inventory/pagProduct?search_query=${searchProduct}&page=${
+  //         page - 1
+  //       }&limit=${limit}&order=${order ? order : `productName`}&sort=${
+  //         sort ? sort : "ASC"
+  //       }`
+  //     );
+  //     dispatch(syncInventory(res.data.result));
+  //     console.log(res.data.result);
+  //     setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
+  //     setState(res.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    getData();
-  }, [searchProduct, page, limit, sort]);
+  // useEffect(() => {
+  //   getData();
+  // }, [searchProduct, page, limit, sort]);
 
-  async function fetchSort(filter) {
-    setSort(filter);
-  }
+  // async function fetchSort(filter) {
+  //   setSort(filter);
+  // }
 
-  useEffect(() => {
-    fetchSort();
-  }, []);
+  // useEffect(() => {
+  //   fetchSort();
+  // }, []);
 
   const formik = useFormik({
     initialValues: {

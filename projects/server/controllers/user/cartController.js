@@ -4,6 +4,7 @@ const product = db.Product;
 const price = db.Price;
 const address = db.Address;
 const user = db.User;
+const inventory = db.Inventory;
 const branch = db.Branch;
 const productCart = db.Product_Cart;
 var request = require("request");
@@ -92,7 +93,6 @@ module.exports = {
     try {
       const carts = await productCart.findAll({
         where: { UserId: req.params.id },
-
         include: [
           {
             model: product,
@@ -184,7 +184,7 @@ module.exports = {
         include: [
           {
             model: product,
-            include: [{ model: price }],
+            include: [{ model: inventory }, { model: price }],
           },
         ],
       });
