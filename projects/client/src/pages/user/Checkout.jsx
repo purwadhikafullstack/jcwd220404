@@ -185,7 +185,7 @@ export const Checkout = () => {
               <Text as={"b"}>xx.xxx</Text>
             </Flex>
             <Button onClick={toPayment} w={"100%"}>
-              Proceed Payment
+              Checkout
             </Button>
           </Box>
         </Center>

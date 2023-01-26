@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import { useState } from "react";
-import { Box, Center, Flex, HStack } from "@chakra-ui/react";
+import { Box, Center, Flex, HStack, Text } from "@chakra-ui/react";
 import {
   CiBag1,
   CiCreditCard1,
@@ -13,6 +13,8 @@ import {
 export const OrderDetail = () => {
   const [data, setData] = useState();
   const params = useParams();
+  let dateNow = new Date();
+  console.log(dateNow);
 
   const getData = async () => {
     try {
@@ -46,25 +48,26 @@ export const OrderDetail = () => {
             position="fixed"
             zIndex="2"
           >
-            <Box margin={"auto"} alignItems={"center"} textColor="black">
-              ORDERS
+            <Box m={"auto"} alignItems={"center"} textColor="black">
+              ORDER DETAIL
             </Box>
-            <Box
-              className="body"
-              bgColor="white"
-              h={"1750px"}
-              w={"390px"}
-              mt="100px"
-            >
-              <Flex>
-                <HStack>
-                  <CiCreditCard1 color="grey"></CiCreditCard1>
-                  <CiBag1 color="grey" />
-                  <CiDeliveryTruck color="grey" />
-                  <CiInboxIn color="grey" />
-                </HStack>
-              </Flex>
-            </Box>
+          </Box>
+          <Box
+            className="body"
+            bgColor="white"
+            h={"1750px"}
+            w={"390px"}
+            mt="100px"
+          >
+            <Flex>
+              <HStack>
+                <CiCreditCard1 color="grey"></CiCreditCard1>
+                <CiBag1 color="grey" />
+                <CiDeliveryTruck color="grey" />
+                <CiInboxIn color="grey" />
+              </HStack>
+            </Flex>
+            <Text placeholder={dateNow}>Please proceed Payment before </Text>
           </Box>
         </Box>
       </Center>
