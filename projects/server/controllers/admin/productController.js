@@ -394,12 +394,13 @@ module.exports = {
 
   createPrice: async (req, res) => {
     try {
-      const { productPrice, startDate, endDate, ProductId } = req.body;
+      const { productPrice, startDate, endDate, ProductId, DiscountId } = req.body;
       await price.create({
         productPrice,
         startDate,
         endDate,
         ProductId,
+        DiscountId
       });
       res.status(200).send({
         message: "Success Added",

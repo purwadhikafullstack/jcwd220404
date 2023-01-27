@@ -6,11 +6,10 @@ const promotion = db.Promotion;
 module.exports = {
   createDiscount: async (req, res) => {
     try {
-      const { nominal, isActive, ProductId } = req.body;
+      const { nominal, isActive } = req.body;
       const result = await discount.create({
         nominal,
         isActive: 1,
-        ProductId,
       });
       res.status(200).send(result);
     } catch (err) {
@@ -20,7 +19,17 @@ module.exports = {
 
   createVoucherOrder: async (req, res) => {
     try {
-        const {} = req.body
+      const {} = req.body;
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findDiscount: async (req, res) => {
+    try {
+        const result = await discount.findAll({
+            
+        })
     } catch (err) {
         res.status(400).send(err)
     }

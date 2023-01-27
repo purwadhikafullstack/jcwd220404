@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       Price.belongsTo(models.Admin);
       Price.belongsTo(models.Product);
       Price.hasMany(models.Product_Cart);
+      Price.belongsTo(models.Discount)
     }
   }
   Price.init(
@@ -19,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       productPrice: DataTypes.INTEGER,
       startDate: DataTypes.DATEONLY,
       endDate: DataTypes.DATEONLY,
-      isDiscount: DataTypes.BOOLEAN,
+      
       discPrice: DataTypes.INTEGER
     },
     {
