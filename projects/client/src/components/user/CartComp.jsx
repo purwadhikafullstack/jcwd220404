@@ -35,6 +35,7 @@ export const CartComp = () => {
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
   const [data7, setData7] = useState(0);
+  const [data8, setData8] = useState();
   const data = useSelector((state) => state.cartSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const inputRef = useRef("");
@@ -213,6 +214,7 @@ export const CartComp = () => {
       const selectedCharge =
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
       console.log(selectedCharge);
+      setData8(selectedCharge);
     } catch (err) {
       console.log(err);
     }
@@ -229,18 +231,16 @@ export const CartComp = () => {
         {
           totalOrder: data5,
           totalWeight: data6,
-          totalCharge: 10000,
-          UserId: 6,
-          AdminId: 2,
+          totalCharge: data8,
+          UserId: data3[0]?.UserId,
+          AdminId: data3[0]?.Product?.Inventories[1]?.AdminId,
         }
       );
+      console.log(res.data);
+      navigate("/checkout");
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const toCheckout = () => {
-    navigate("/checkout");
   };
 
   return (
@@ -359,7 +359,7 @@ export const CartComp = () => {
           <FormLabel>Order Note</FormLabel>
           <Textarea></Textarea>
         </FormControl>
-        <Button onClick={toCheckout} w={"100%"}>
+        <Button onClick={() => onCreate()} w={"100%"}>
           Select Payment Method
         </Button>
       </Box>

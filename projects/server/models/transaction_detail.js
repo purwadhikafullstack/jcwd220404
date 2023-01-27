@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Transaction_Detail.init(
     {
-      qty: DataTypes.INTEGER
+      qty: DataTypes.INTEGER,
+      id_order: DataTypes.STRING
     },
     {
       sequelize,

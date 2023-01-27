@@ -1,6 +1,7 @@
 const db = require("../../models");
 const transaction = db.Transaction;
 const transactionDetail = db.Transaction_Detail;
+const productCart = db.Product_Cart;
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -20,8 +21,10 @@ module.exports = {
         UserId,
         AdminId,
         id_order,
+        data,
       } = req.body;
-      console.log(req.body)
+      console.log(req.body);
+
       const result = await transaction.create({
         totalOrder,
         totalWeight,
@@ -32,6 +35,20 @@ module.exports = {
         id_order: no_order,
       });
 
+      data?.map(async (item) => {
+        await transactionDetail.create({
+          ProductId: item.Product_Cart.id,
+          id_order: no_order,
+        });
+      });
+
+      data?.map(async (item) => {
+        await productCart.destroy({
+          where: {
+            id: item.id,
+          },
+        });
+      });
       res.status(200).send(result);
     } catch (err) {
       console.log(err);
@@ -62,8 +79,8 @@ module.exports = {
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(400).send(err);
     }
-  }
+  },
 };
