@@ -18,12 +18,12 @@ module.exports = (sequelize, DataTypes) => {
   Admin.init(
     {
       username: {
-        type  : DataTypes.STRING,
+        type: DataTypes.STRING,
         unique: "username",
-        allowNull: false, 
+        allowNull: false,
       },
-      email   : {
-        type : DataTypes.STRING,
+      email: {
+        type: DataTypes.STRING,
         unique : "email",
         allowNull: false,
       },
@@ -34,9 +34,9 @@ module.exports = (sequelize, DataTypes) => {
           len: [8],
         },
       },
-      isSuper : {
+      isSuper: {
         type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        defaultValue: 1,
       },
     },
     {

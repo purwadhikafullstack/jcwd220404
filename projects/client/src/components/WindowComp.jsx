@@ -15,7 +15,7 @@ export const WindowComp = () => {
     navigate("/register");
   };
   const toLogin = () => {
-    navigate("/loginUser");
+    navigate("/login-user");
   };
 
   return (
@@ -23,7 +23,9 @@ export const WindowComp = () => {
       w={"full"}
       h={"100vh"}
       backgroundImage={
-        "url(https://media.istockphoto.com/id/467970412/vector/groceries.jpg?s=612x612&w=0&k=20&c=tH30XMv3C-OnoxGIvN3sWmjbmtbdOJMuffd_dR9L5Z8=)"
+        `url(${
+          process.env.REACT_APP_API_BASE_URL
+        }/upload/PIMG-167358083219244234.jpeg)`
       }
       backgroundSize={"cover"}
       backgroundPosition={"center center"}

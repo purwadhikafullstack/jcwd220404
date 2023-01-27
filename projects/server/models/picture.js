@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Picture.init({
-    description: DataTypes.STRING,
-    pictureName: DataTypes.STRING
+    pictureName: DataTypes.STRING,
+    description: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Picture',

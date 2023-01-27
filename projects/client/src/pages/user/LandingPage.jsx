@@ -5,8 +5,10 @@ import { SearchComp } from "../../components/user/SearchComp";
 import { NavbarComp } from "../../components/user/NavbarComp";
 import { CarouselComp } from "../../components/user/CarouselComp";
 import { MenuComp } from "../../components/user/MenuComp";
+import { DefaultAddressComp } from "../../components/DefaultAddressComp";
 
 export const LandingPage = () => {
+  const tokenLocalStorage = localStorage.getItem("tokenUser");
   return (
     <div>
       <Center>
@@ -27,8 +29,14 @@ export const LandingPage = () => {
             <SearchComp />
             <NotificationComp />
           </Box>
-          <Box className="body" bgColor="white" h={"1750px"} w={"390px"}>
+          <Box
+            className="body"
+            bgColor="white"
+            h={"200vh"}
+            w={"390px"}
+            >
             <VStack>
+            {tokenLocalStorage ? <DefaultAddressComp /> : ""}
               <CarouselComp />
               <MenuComp />
             </VStack>

@@ -1,5 +1,5 @@
 import Axios from "axios";
-import React from "react";
+import Swal from "sweetalert2";
 import {
   Input,
   Button,
@@ -13,10 +13,8 @@ import {
   Stack,
   Text,
   Heading,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import Swal from "sweetalert2";
-
-const url = "http://localhost:8000/user/forgotPassword";
 
 export const ForgotPasswordPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,26 +22,26 @@ export const ForgotPasswordPage = () => {
   const onSendEmail = async () => {
     try {
       const email = document.getElementById("email").value;
-      const result = await Axios.post(url, { email: email });
+      const result = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/user/forgotPassword`,
+        { email: email }
+      );
 
       Swal.fire({
-        icon: "success",
-        width: "370px",
-        text: "Please Check Your Email",
-        title: `${result.data}`,
+        icon: "error",
+        title: "Oops...",
+        text: `${result.data}`,
       });
-      onClose();
     } catch (err) {
       Swal.fire({
         icon: "error",
-        width: "370px",
-        text: "Oops...",
-        title: `${err.response.data}`,
+        title: "Oops...",
+        text: `${err.response.data}`,
         customClass: {
           container: "my-swal",
         },
+        width: "370px",
       });
-      onClose();
     }
   };
 

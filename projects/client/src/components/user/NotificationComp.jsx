@@ -10,17 +10,16 @@ export const NotificationComp = () => {
   };
   return (
     <div>
-      <Box pr={"23px"} pt="5px" as="button" onClick={toNotification} mt="4">
+      <Box pr={"23px"} pt="5px" as="button" onClick={toNotification} mt="3">
         <Badge
           ml="1"
-          mt="-1"
-          fontSize="0.6em"
+          mt="-2"
           bg="#FE0013"
+          color={"black"}
           colorScheme={"red"}
           variant={"solid"}
           position="absolute"
           fontWeight="bold"
-          color={"black"}
           borderRadius="2xl"
         >
           0

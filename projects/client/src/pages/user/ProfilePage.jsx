@@ -130,6 +130,7 @@ export const ProfilePage = (user) => {
           w={"390px"}
           h={"80px"}
           bgColor="#E5D9B6"
+          color="gray.800"
           display={"flex"}
           justifyContent="space-between"
           pt={"10px"}
@@ -158,6 +159,7 @@ export const ProfilePage = (user) => {
           mt={"80px"}
           className="body"
           bgColor="white"
+          color="#285430"
           h={"740px"}
           w={"390px"}
           overflow="-moz-hidden-unscrollable"
@@ -166,7 +168,7 @@ export const ProfilePage = (user) => {
             size={"lg"}
             bg="gray.500"
             ml={"8"}
-            mt="5"
+            mt="3"
             src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}
           />
           <Tag
@@ -179,7 +181,6 @@ export const ProfilePage = (user) => {
             <ArrowUpIcon mr={"8px"} fontSize="20" textColor={"#285430"} />{" "}
             <Text color={"#285430"}>Upload Picture</Text>
           </Tag>
-
           <Popover
             returnFocusOnClose={false}
             isOpen={isOpen}
@@ -187,11 +188,16 @@ export const ProfilePage = (user) => {
             closeOnBlur={false}
             >
             <PopoverContent w={"380px"} ml="530px" mt="170px">
-              <PopoverBody>
+              <PopoverBody
+                backgroundColor="#E5D9B6"
+                border="2px"
+                borderRadius="xl"
+                borderColor="#285430"
+              >
                 <PopoverArrow />
                 <PopoverCloseButton />
-                  <ButtonGroup size="sm">
-              <Box>
+                <ButtonGroup size="sm">
+                  <Box>
                     <form encType="multipart/form-data">
                       <input
                         color="#285430"
@@ -200,26 +206,26 @@ export const ProfilePage = (user) => {
                         name="file"
                         size={"100px"}
                         onChange={(e) => handleChoose(e)}
-                        ></input>
-                    </form><Center>
-
-                    <Button
-                    mt="3"
-                    ml="30px"
-                      bgColor={"#A4BE7B"}
-                      borderColor="#285430"
-                      border="2px"
-                      fontSize="14px"
-                      color="gray.800"
-                      width={"30%"}
-                      onClick={handleUpload}
-                      size="sm"
+                      ></input>
+                    </form>
+                    <Center>
+                      <Button
+                        mt="3"
+                        ml="30px"
+                        bgColor={"#A4BE7B"}
+                        borderColor="#285430"
+                        border="2px"
+                        fontSize="14px"
+                        color="gray.800"
+                        width={"30%"}
+                        onClick={handleUpload}
+                        size="sm"
                       >
-                      Upload
-                    </Button>
-                        </Center>
-                      </Box>
-                  </ButtonGroup>
+                        Upload
+                      </Button>
+                    </Center>
+                  </Box>
+                </ButtonGroup>
               </PopoverBody>
             </PopoverContent>
           </Popover>
@@ -234,7 +240,7 @@ export const ProfilePage = (user) => {
               </FormLabel>
               <Flex>
                 <Input
-                  w={"max"}
+                  width="83%"
                   ml={"8"}
                   borderColor="#285430"
                   border="2px"
@@ -242,7 +248,7 @@ export const ProfilePage = (user) => {
                   placeholder="Name"
                   _placeholder={{ color: "#285430" }}
                   defaultValue={data.name}
-                  textColor="black"
+                  textColor="#285430"
                 ></Input>
               </Flex>
             </FormControl>
@@ -254,7 +260,7 @@ export const ProfilePage = (user) => {
                 color={"#285430"}
                 borderColor="#285430"
                 border="2px"
-                width="max"
+                width="83%"
                 ml="8"
                 placeholder="Select Date and Time"
                 _placeholder={{ color: "#285430" }}
@@ -273,7 +279,7 @@ export const ProfilePage = (user) => {
                 color={"#285430"}
                 borderColor="#285430"
                 border="2px"
-                width="max"
+                width="83%"
                 ml="8"
                 ref={inputGender}
               >
@@ -299,7 +305,7 @@ export const ProfilePage = (user) => {
                 border="2px"
                 fontSize="18px"
                 color="gray.800"
-                width={"100px"}
+                width={"180px"}
                 justifyContent="center"
               >
                 Save

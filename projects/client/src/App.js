@@ -17,6 +17,11 @@ import { NotFoundPage } from "./pages/user/404NotFoundPage";
 import { LoginUserComp } from "./components/user/EnterComp";
 import { LoginAdminPage } from "./pages/admin/LoginAdminPage";
 import { AdminPage } from "./pages/admin/AdminPage";
+import { ProductAdminPage } from "./pages/admin/ProductAdminPage";
+import { CategoryAdminPage } from "./pages/admin/CategoryAdminPage";
+import { InventoryAdminPage } from "./pages/admin/InventoryAdminPage";
+import { TransactionAdminPage } from "./pages/admin/TransactionAdminPage";
+import { DiscountAdminPage } from "./pages/admin/DiscountAdminPage";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { loginUser } from "./redux/userSlice";
@@ -24,6 +29,13 @@ import { loginAdmin } from "./redux/adminSlice";
 import Axios from "axios";
 import { ListAddressPage } from "./pages/user/ListAddressPage";
 import { UpdateAddressPage } from "./pages/user/UpdateAddressPage";
+import { AddProductComp } from "./components/admin/AddProductComp"
+import { Checkout } from "./pages/user/CheckoutPage";
+import { OrderSuccess } from "./pages/user/OrderSuccess";
+import { ProductDetail } from "./pages/user/ProductDetailPage";
+import { CategoryDetail } from "./pages/user/CategoryDetail";
+import { OrderDetail } from "./pages/user/OrderDetail";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +46,6 @@ function App() {
   const keepLoginUser = async () => {
     try {
       const user = await Axios.get(
-        
         `${process.env.REACT_APP_API_BASE_URL}/user/keepLogin`,
         {
           headers: {
@@ -60,17 +71,20 @@ function App() {
 
   const keepLoginSuper = async () => {
     try {
-      const Super = await Axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/keepLogin`, {
-        headers: {
-          Authorization: `Bearer ${tokenSuper} `,
-        },
-      });
+      const Super = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/admin/keepLogin`,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenSuper} `,
+          },
+        }
+      );
       dispatch(
         loginAdmin({
+          id: Super.data.id,
           username: Super.data.username,
           email: Super.data.email,
           isSuper: Super.data.isSuper,
-          
         })
       );
     } catch (err) {
@@ -80,13 +94,17 @@ function App() {
 
   const keepLoginBranch = async () => {
     try {
-      const Branch = await Axios.get(`${process.env.REACT_APP_API_BASE_URL}/admin/keepLogin`, {
-        headers: {
-          Authorization: `Bearer ${tokenBranch} `,
-        },
-      });
+      const Branch = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/admin/keepLogin`,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenBranch} `,
+          },
+        }
+      );
       dispatch(
         loginAdmin({
+          id: Branch.data.id,
           username: Branch.data.username,
           email: Branch.data.email,
           isSuper: Branch.data.isSuper,
@@ -114,7 +132,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
-        <Route path="/loginUser" element={<LoginUserComp />}></Route>
+        <Route path="/login-user" element={<LoginUserComp />}></Route>
         <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/resetPassword/:token" element={<ResetPassPage />}></Route>
         <Route path="/forgotPassword" element={<ForgotPasswordPage />}></Route>
@@ -123,19 +141,64 @@ function App() {
         <Route path="/transaction" element={<TransactionPage />}></Route>
         <Route path="/notification" element={<NotificationPage />}></Route>
         <Route path="/account/profile/:id" element={<ProfilePage />}></Route>
-        <Route path="/account/profile/password" element={<ChangePassword />}></Route>
+        <Route
+          path="/account/profile/password"
+          element={<ChangePassword />}
+        ></Route>
         <Route path="/account/profile/email" element={<ChangeEmail />}></Route>
-        <Route path="/account/address/:id" element={<ListAddressPage />}></Route>
+        <Route
+          path="/account/address/:id"
+          element={<ListAddressPage />}
+        ></Route>
         <Route path="/account/address" element={<ListAddressPage />}></Route>
-        <Route path="/account/address/addAddress/:id" element={<AddressPage />}></Route>
-        <Route path="/account/address/updateAddress/:id" element={<UpdateAddressPage/>}></Route>
+        <Route
+          path="/account/address/addAddress/:id"
+          element={<AddressPage />}
+        ></Route>
+        <Route
+          path="/account/address/updateAddress/:id"
+          element={<UpdateAddressPage />}
+        ></Route>
         <Route path="/loginAdmin" element={<LoginAdminPage />}></Route>
         <Route path="/adminPage" element={<AdminPage />}></Route>
+        <Route
+          path="/adminPage/productAdminPage"
+          element={<ProductAdminPage />}
+        ></Route>
+        {/* <Route
+          path="/adminPage/productAdminPage/addProduct"
+          element={<AddProductComp />}
+        ></Route> */}
+        <Route
+          path="/adminPage/categoryAdminPage"
+          element={<CategoryAdminPage />}
+        ></Route>
+        <Route
+          path="/adminPage/inventoryAdminPage"
+          element={<InventoryAdminPage />}
+        ></Route>
+        <Route
+          path="/adminPage/transactionAdminPage"
+          element={<TransactionAdminPage />}
+        ></Route>
+        <Route
+          path="/adminPage/discountAdminPage"
+          element={<DiscountAdminPage />}
+        ></Route>
         <Route path="/*" element={<NotFoundPage />}></Route>
         <Route
           path="/verification/:token"
           element={<VerificationPage />}
         ></Route>
+        <Route path="/checkout" element={<Checkout />}></Route>
+        <Route
+          path="/checkout/payment/success"
+          element={<OrderSuccess />}
+        ></Route>
+        <Route path="/product/:id" element={<ProductDetail />}></Route>
+        <Route path="/category/:id" element={<CategoryDetail />}></Route>
+        <Route path="/transaction/:id" element={<OrderDetail />}></Route>
+        
       </Routes>
     </div>
   );

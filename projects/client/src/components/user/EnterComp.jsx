@@ -82,7 +82,7 @@ export const LoginUserComp = () => {
           </Stack>
           <Center>
           <Stack mt={"20px"} spacing={"2px"}>
-          <FormControl isRequired>
+          <FormControl>
           <FormLabel htmlFor="email" textColor={"#285430"}>
             <b> Phone Number or Email </b>
           </FormLabel>
@@ -97,7 +97,7 @@ export const LoginUserComp = () => {
               ref={inputPhoneEmail}
             />
             </FormControl>
-            <FormControl isRequired>
+            <FormControl>
           <FormLabel htmlFor="password" textColor={"#285430"}>
             <b> Password</b>
           </FormLabel>
@@ -164,7 +164,7 @@ export const LoginUserComp = () => {
           </Center>
           <Box  justifyContent="center" >
             <React.StrictMode>
-            <img src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif" width="100%" height="200px"></img>
+            <Image src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358160512169392.gif`}></Image>
             </React.StrictMode>
             </Box>
         </Box>

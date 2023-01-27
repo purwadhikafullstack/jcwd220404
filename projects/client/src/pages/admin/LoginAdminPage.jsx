@@ -73,9 +73,9 @@ export const LoginAdminPage = () => {
   return (
     <div>
       <Center>
-        <Box py={3} px={3} bgColor="#E5D9B6" w={"390px"} h={"100%"}>
-          <Image src={OnlyFreshLogo} height="160px" w={"auto"} ml={"75px"} />
+        <Box py={3} px={3} bgColor="#E5D9B6" w={"100%"} h={"820px"}>
           <Stack align={"center"}>
+            <Image src={OnlyFreshLogo} height="160px" w={"auto"} />
             <Heading mt={"10px"} size={"lg"} textColor="#285430">
               Sign in to Admin
             </Heading>
@@ -148,15 +148,15 @@ export const LoginAdminPage = () => {
               </Box>
             </Stack>
           </Center>
-          <Box justifyContent="center">
+          <Center>
             <React.StrictMode>
               <img
                 src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif"
-                width="100%"
+                width="390px"
                 height="200px"
               ></img>
             </React.StrictMode>
-          </Box>
+          </Center>
         </Box>
       </Center>
     </div>

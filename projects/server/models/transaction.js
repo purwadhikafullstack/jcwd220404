@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Transaction.belongsTo(models.User);
       Transaction.belongsTo(models.Admin);
-      Transaction.belongsTo(models.Branch);
+      // Transaction.belongsTo(models.Branch);
+      // Transaction.belongsTo(models.Inventory);
       Transaction.belongsTo(models.Payment);
       Transaction.hasOne(models.Transaction_Detail);
       Transaction.hasMany(models.Voucher);
@@ -20,12 +21,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   Transaction.init(
     {
+      id_order: DataTypes.STRING,
       isVoucher: DataTypes.BOOLEAN,
-      waitingConfirmPayment: DataTypes.BOOLEAN,
-      isProcessed: DataTypes.BOOLEAN,
-      isDelivered: DataTypes.BOOLEAN,
-      isConfirmed: DataTypes.BOOLEAN,
-      deliveryCharge: DataTypes.INTEGER,
+      status: DataTypes.BOOLEAN,
+      totalCharge: DataTypes.INTEGER,
+      totalOrder: DataTypes.INTEGER,
+      totalWeight: DataTypes.INTEGER,
+      // deliveryDate: DataTypes.DATEONLY,
+      // arrivalDate: DataTypes.DATEONLY
     },
     {
       sequelize,

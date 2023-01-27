@@ -230,7 +230,7 @@ export const UpdateAddressPage = () => {
             pt={"3px"}
             className="body"
             bgColor="white"
-            h={"850px"}
+            h={"900px"}
             w={"390px"}
           >
             <Stack spacing={"10px"} mt={"10px"} textColor="#285430">
@@ -352,13 +352,14 @@ export const UpdateAddressPage = () => {
               </FormControl>
               <Center>
                 <Button
+                mt="2vw"
                   onClick={() => onUpdate(data.id)}
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"
                   fontSize="18px"
                   color="gray.800"
-                  width={"160px"}
+                  width={"130px"}
                   justifyContent="center"
                 >
                   Confirm

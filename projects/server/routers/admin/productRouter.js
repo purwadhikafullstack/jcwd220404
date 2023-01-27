@@ -6,6 +6,8 @@ require("dotenv/config");
 
 router.post("/create", productController.create);
 router.post("/createCategory", productController.createCategory);
+router.post("/createPrice", productController.createPrice);
+router.post("/createMulti", productController.createMultiCategory);
 router.post(
   "/single-uploaded/:id",
   multerUpload.single("file"),
@@ -20,12 +22,10 @@ router.patch("/update/:id", productController.update);
 router.patch("/updateCategory/:id", productController.updateCategory);
 router.get("/list", productController.findAll);
 router.get("/listCategory", productController.findAllCategory);
-router.get("/list/:id", productController.findById);
-router.get("/list/filter", productController.findBy);
-router.get("/list/total", productController.totalProduct);
-router.get("/search", productController.searchBy);
-router.get("/view2", productController.view2);
-router.get("/sort", productController.sortBy);
+router.get("/list/:id", productController.findByProductId);
+router.get("/listCategory/:id", productController.findByCategoryId);
+router.get("/pagProduct", productController.paginationProduct);
+router.get("/pagCategory", productController.paginationCategory);
 router.delete("/remove/:id", productController.remove);
 router.delete("/removeCategory/:id", productController.removeCategory);
 

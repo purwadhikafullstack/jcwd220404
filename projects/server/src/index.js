@@ -30,6 +30,10 @@ const {
   branchRouter,
   productRouter,
   pictureRouter,
+  cartRouter,
+  inventoryRouter,
+  transactionRouter,
+  promoRouter,
 } = require("../routers");
 
 // ===========================
@@ -39,7 +43,11 @@ app.use("/address", addressRouter);
 app.use("/admin", adminRouter);
 app.use("/branch", branchRouter);
 app.use("/product", productRouter);
-app.use("/picture", pictureRouter)
+app.use("/picture", pictureRouter);
+app.use("/cart", cartRouter);
+app.use("/inventory", inventoryRouter);
+app.use("/transaction", transactionRouter);
+app.use("/promo", promoRouter);
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);
@@ -89,7 +97,7 @@ app.listen(PORT, (err) => {
   if (err) {
     console.log(`ERROR: ${err}`);
   } else {
-    // db.sequelize.sync({alter: true})
+    // db.sequelize.sync({ alter: true });
     console.log(`APP RUNNING at ${PORT} ✅`);
   }
 });

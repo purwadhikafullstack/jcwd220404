@@ -1,3 +1,8 @@
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Axios from "axios";
+import { useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import {
   Box,
   Button,
@@ -9,20 +14,18 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
-import { useRef } from "react";
-import Swal from "sweetalert2";
-import { Link, useNavigate} from "react-router-dom";
-import Axios from "axios";
-import { useState } from "react";
 import { ArrowBackIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { useSelector } from "react-redux";
+import { logoutUser } from "../../redux/userSlice";
 
 export const ChangePassword = (data) => {
-  const [CurrentPassword, setCurrentPassword] = useState(false);
-  const [NewPassword, setNewPassword] = useState(false);
+  const [move, setMove] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState(false);
+  const { id } = useSelector((state) => state.userSlice.value);
   const inputPass = useRef("");
   const navigate = useNavigate();
-  const {id} = useSelector((state) => state.userSlice.value)
+  const dispatch = useDispatch();
+  const params = useParams();
 
   const updatePass = async () => {
     try {
@@ -38,25 +41,29 @@ export const ChangePassword = (data) => {
 
         // { headers: { Authorization: `Bearer ${params.token}` } }
       );
-
       console.log(res);
       Swal.fire({
         icon: "success",
-        width: "370",
-        text: "Password has changed",
+        text: "Password has changed, please Login again",
+        // text: `${result.data}`,
       });
-      navigate(`/account/profile/${id}`);
-    } catch (err) {}
+      dispatch(logoutUser());
+      localStorage.removeItem("tokenUser");
+      navigate("/login-user");
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   return (
-    <div>
+    <>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
           <Box as={Link} to={`/account/profile/${id}`}>
             <ArrowBackIcon
               mt={"20px"}
-              ml={"20px"}
               pos={"fixed"}
+              ml={"20px"}
               color="#285430"
               fontSize={"25px"}
             />
@@ -64,7 +71,8 @@ export const ChangePassword = (data) => {
           <Box
             mt={"100px"}
             className="body"
-            bgColor="#E5D9B6"
+            bgColor="white"
+            h={"1750px"}
             w={"390px"}
             pos="fixed"
           >
@@ -78,11 +86,7 @@ export const ChangePassword = (data) => {
                 </FormLabel>
                 <Flex>
                   <Input
-                    type={
-                        CurrentPassword
-                          ? "text"
-                          : "password"
-                      }
+                    type={"password"}
                     isRequired
                     placeholder="Current Password"
                     _placeholder={{ color: "#5F8D4E" }}
@@ -96,69 +100,59 @@ export const ChangePassword = (data) => {
                   <Button
                     color={"black"}
                     onClick={() =>
-                      setCurrentPassword((CurrentPassword) => !CurrentPassword)
+                      setCurrentPassword((currentPassword) => !currentPassword)
                     }
                     pos="relative"
                     ml={"181px"}
                     zIndex="1"
+                    variant={"unstyled"}
                   >
-                    {CurrentPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    {currentPassword ? <ViewIcon /> : <ViewOffIcon />}
                   </Button>
                 </Flex>
               </FormControl>
               <FormControl isRequired>
-                <FormLabel color={"#285430"} ml="8">
-                  Create New Password
-                </FormLabel>
-                <Flex>
-                  <Input
-                    type={
-                        NewPassword
-                          ? "text"
-                          : "password"
-                      }
-                    ref={inputPass}
-                    isRequired
-                    placeholder="New Password"
-                    _placeholder={{ color: "#5F8D4E" }}
-                    textColor={"#285430"}
-                    borderColor={"#285430"}
-                    border={"2px"}
-                    width="200px"
-                    ml={"8"}
-                    position="absolute"
-                  />
-                  <Button
-                    color={"black"}
-                    onClick={() =>
-                      setNewPassword((NewPassword) => !NewPassword)
-                    }
-                    pos="relative"
-                    ml={"181px"}
-                    zIndex="1"
-                  >
-                    {NewPassword ? <ViewIcon /> : <ViewOffIcon />}
-                  </Button>
-                </Flex>
-              </FormControl>
-              <Center>
+                <FormLabel>Create New Password</FormLabel>
+                <Input
+                  type={"password"}
+                  ref={inputPass}
+                  isRequired
+                  placeholder="New Password"
+                  _placeholder={{ color: "#5F8D4E" }}
+                  textColor={"#285430"}
+                  borderColor={"#285430"}
+                  border={"2px"}
+                  width="200px"
+                  ml={"8"}
+                  position="absolute"
+                />
                 <Button
-                  onClick={() => updatePass(data.id)}
-                  bgColor={"#A4BE7B"}
-                  borderColor="#285430"
-                  border="2px"
-                  fontSize="18px"
-                  color="gray.800"
-                  width={"100px"}
-                  justifyContent="center"
+                  color={"black"}
+                  onClick={() => setNewPassword((newPassword) => !newPassword)}
+                  pos="relative"
+                  ml={"181px"}
+                  zIndex="1"
+                  variant={"unstyled"}
                 >
-                  Save
+                  {newPassword ? <ViewIcon /> : <ViewOffIcon />}
                 </Button>
-              </Center>
+              </FormControl>
+              <Button
+                onClick={() => updatePass(data.id)}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="18px"
+                color="gray.800"
+                width={"100px"}
+                justifyContent="center"
+              >
+                Save
+              </Button>
             </Stack>
           </Box>
         </Box>
       </Center>
-    </div>
+    </>
   );
 };

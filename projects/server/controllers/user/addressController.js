@@ -3,8 +3,10 @@ const axios = require("axios");
 const db = require("../../models");
 const address = db.Address;
 const user = db.User;
+const branch = db.Branch;
 const rajaOngkirKey = process.env.RAJA_KEY;
 const openCageKey = process.env.GEO_KEY;
+const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR;
 
 module.exports = {
   addressById: async (req, res) => {
@@ -16,11 +18,10 @@ module.exports = {
         order: [["defaultAddress", "DESC"]],
       });
       return res.status(200).send({
-        message: "Get User Address",
+        message: "User Address retrieved",
         data: response,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -44,8 +45,9 @@ module.exports = {
       const cityName = provinceAndCity.data.rajaongkir.results.city_name;
       const cityType = provinceAndCity.data.rajaongkir.results.type;
       const cityNameAndType = `${cityType} ${cityName}`;
+      const postal = provinceAndCity.data.rajaongkir.results.postal_code;
       const location = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?key=${openCageKey}&q=${district},${cityNameAndType},${provinceName}`
+        `https://api.opencagedata.com/geocode/v1/json?key=${openCageKey}&q=${district},${cityNameAndType},${provinceName},${postal}`
       );
       const lattitude = location.data.results[0].geometry.lat;
       const longitude = location.data.results[0].geometry.lng;
@@ -58,20 +60,19 @@ module.exports = {
         province: provinceName,
         cityId: city,
         city: cityNameAndType,
-        postalCode,
+        postalCode: postal,
         detail,
         district,
         lattitude,
         longitude,
-        defaultAddress: true,
+        defaultAddress: false,
         UserId: req.params.id,
       });
       res.status(200).json({
-        message: "New address",
+        message: "New Address created",
         data: response,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -122,20 +123,12 @@ module.exports = {
           },
         }
       );
-      const findData = await address.findByPk(
-        id
-        //   {
-        //   where: {
-        //     UserId: req.params.id,
-        //   },
-        // }
-      );
-      res.status(200).json({
+      const findData = await address.findByPk(id);
+      res.status(200).send({
         message: "Address edited",
         data: findData,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -152,7 +145,6 @@ module.exports = {
         message: "Address deleted",
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -202,27 +194,21 @@ module.exports = {
             },
           }
         );
-        res.status(200).json({
+        res.status(200).send({
           message: "success",
         });
       }
-      res.status(200).json({
-        message: "set as default",
+      res.status(200).send({
+        message: "Address set as default",
         data: findDefault,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
 
   findAddressById: async (req, res) => {
     try {
-      // const response = await address.findAll({
-      //   where: {
-      //     UserId: req.params.id,
-      //   },
-      // });
       const response = await address.findOne({
         where: {
           UserId: req.params.id,
@@ -230,11 +216,36 @@ module.exports = {
         },
       });
       return res.status(200).send({
-        message: "Get User Address",
+        message: "Data retrieved",
         data: response,
       });
     } catch (err) {
-      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findDefault: async (req, res) => {
+    try {
+      const defaultAdd = await address.findOne({
+        where: {
+          defaultAddress: 1,
+          UserId: req.params.id,
+        },
+        include: [
+          {
+            model: branch,
+          },
+          {
+            model: user,
+          },
+        ],
+        raw: true,
+      });
+      res.status(200).send({
+        message: "Default Address Found",
+        defaultAdd,
+      });
+    } catch (err) {
       res.status(400).send(err);
     }
   },
