@@ -28,7 +28,7 @@ module.exports = {
       const token = jwt.sign({ username: username, email: email }, "jcwd2204");
 
       res.status(200).send({
-        massage: "Register Succes",
+        message: "Register Succes",
         data,
         token,
       });
@@ -66,7 +66,6 @@ module.exports = {
         token,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -98,7 +97,6 @@ module.exports = {
       });
       res.status(200).send(admins);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

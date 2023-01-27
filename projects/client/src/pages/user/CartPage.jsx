@@ -10,7 +10,7 @@ export const CartPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
 
   return (
-    <div>
+    <>
       <Center>
         <Box>
           <Box
@@ -29,14 +29,22 @@ export const CartPage = () => {
               CART
             </Box>
           </Box>
-          <Box mt={"80px"} className="body" bgColor="white" h={"1750px"} w={"390px"}>
+          <Box
+            mt={"100px"}
+            mb={"100px"}
+            className="body"
+            bgColor="white"
+            h={"1750px"}
+            w={"390px"}
+          >
             {tokenLocalStorage ? <CartComp /> : <OrderNowComp />}
           </Box>
+            
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>
         </Box>
       </Center>
-    </div>
+    </>
   );
 };

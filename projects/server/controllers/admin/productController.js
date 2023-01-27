@@ -3,25 +3,33 @@ const db = require("../../models");
 const product = db.Product;
 const price = db.Price;
 const category = db.Category;
+const productCategory = db.Product_Category;
 
 module.exports = {
   create: async (req, res) => {
     try {
-      const { productName,
-        description } = req.body;
+      const { productName, distributor, description } = req.body;
 
-      if (!productName && 
-        !description) throw "required field";
+      if (
+        !productName &&
+        // !distributor &&
+        !description
+      )
+        throw "required field";
 
       await product.create({
         productName,
+        // distributor,
         description,
       });
       res.status(200).send({
         message: "Successfully Added",
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        err,
+      });
     }
   },
 
@@ -36,21 +44,26 @@ module.exports = {
         message: "Successfully Added",
       });
     } catch (err) {
-      res.status(400).send(err);
+      res.status(400).send({
+        message: "Process error",
+        err,
+      });
     }
   },
 
   findAll: async (req, res) => {
     try {
-      const users = await product.findAll({
+      const products = await product.findAll({
         attributes: [
           "id",
           "productName",
+          // "distributor",
           "description",
           "picture",
         ],
+        include: [{ model: price }],
       });
-      res.status(200).send(users);
+      res.status(200).send(products);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -58,74 +71,52 @@ module.exports = {
 
   findAllCategory: async (req, res) => {
     try {
-      const users = await category.findAll({
+      const categories = await category.findAll({
+        attributes: ["id", "categoryName", "categoryPicture"],
       });
-      res.status(200).send(users);
+      res.status(200).send(categories);
     } catch (err) {
       res.status(400).send(err);
     }
   },
 
-  findById: async (req, res) => {
+  findByProductId: async (req, res) => {
     try {
-      const users = await product.findOne({
+      const products = await product.findOne({
         where: {
           id: req.params.id,
         },
+        include: [{ model: productCategory, include: [{ model: category }] }],
       });
-      res.status(200).send(users);
+      res.status(200).send(products);
     } catch (err) {
       res.status(400).send(err);
     }
   },
 
-  findBy: async (req, res) => {
+  findByCategoryId: async (req, res) => {
     try {
-      const { productName, 
-        description } = req.query;
-      const users = await product.findAll({
+      const products = await category.findAll({
         where: {
-          [Op.or]: {
-            productName: productName ? productName : "",
-            description: description ? description : "",
-          },
+          id: req.params.id,
         },
-        raw: true,
-      });
-      res.status(200).send(users);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
-
-  searchBy: async (req, res) => {
-    try {
-      const { productName, categoryName } = req.query;
-      const users = await product.findAll({
-        where: {
-          [Op.or]: {
-            productName: {
-              [Op.like]: `%${productName}%`,
-            },
-            categoryName: {
-              [Op.like]: `%${categoryName}%`,
-            },
+        include: [
+          {
+            model: productCategory,
+            include: [
+              {
+                model: product,
+                include: [
+                  {
+                    model: price,
+                  },
+                ],
+              },
+            ],
           },
-        },
-        raw: true,
+        ],
       });
-      res.status(200).send(users);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
-
-  totalProduct: async (req, res) => {
-    try {
-      const users = await product.findAll({
-        attributes: [[sequelize.fn("count", sequelize.col(`id`)), "total"]],
-      });
-      res.status(200).send(users);
+      res.status(200).send(products);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -139,8 +130,8 @@ module.exports = {
         },
       });
       console.log(req.params.id);
-      const users = await product.findAll();
-      res.status(200).send(users);
+      const deleteProduct = await product.findAll();
+      res.status(200).send(deleteProduct);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -154,8 +145,8 @@ module.exports = {
         },
       });
       console.log(req.params.id);
-      const users = await category.findAll();
-      res.status(200).send(users);
+      const deleteCategory = await category.findAll();
+      res.status(200).send(deleteCategory);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -163,20 +154,20 @@ module.exports = {
 
   update: async (req, res) => {
     try {
-      const { productName, 
-         description } = req.body;
+      const { productName, distributor, description } = req.body;
 
       await product.update(
         {
           productName,
+          distributor,
           description,
         },
         {
           where: { id: req.params.id },
         }
       );
-      const users = await product.findOne({ where: { id: req.params.id } });
-      res.status(200).send(users);
+      const edit = await product.findOne({ where: { id: req.params.id } });
+      res.status(200).send(edit);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -193,20 +184,11 @@ module.exports = {
           where: { id: req.params.id },
         }
       );
-      const users = await category.findOne({ where: { id: req.params.id } });
-      res.status(200).send(users);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
-
-  sortBy: async (req, res) => {
-    try {
-      const { data, order } = req.query;
-      const users = await product.findAll({
-        order: [[data, order]],
+      const edit = await category.findOne({ where: { id: req.params.id } });
+      res.status(200).send({
+        message: "Update success",
+        edit,
       });
-      res.status(200).send(users);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -237,7 +219,6 @@ module.exports = {
         picture: getPicture.picture,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -267,14 +248,13 @@ module.exports = {
         categoryPicture: getPicture.categoryPicture,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
 
   paginationProduct: async (req, res) => {
     try {
-      const { page, limit, search_query, order, sort} = req.query;
+      const { page, limit, search_query, order, sort } = req.query;
       const productlist_page = parseInt(page) || 0;
       const list_limit = parseInt(limit) || 5;
       const search = search_query || "";
@@ -412,8 +392,47 @@ module.exports = {
     }
   },
 
-  stock: async (req, res) => {
+  createPrice: async (req, res) => {
     try {
+      const { productPrice, startDate, endDate, ProductId, DiscountId } = req.body;
+      await price.create({
+        productPrice,
+        startDate,
+        endDate,
+        ProductId,
+        DiscountId
+      });
+      res.status(200).send({
+        message: "Success Added",
+      });
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  createMultiCategory: async (req, res) => {
+    try {
+      const { CategoryId, ProductId } = req.body;
+      await productCategory.create({
+        CategoryId,
+        ProductId,
+      });
+      res.status(200).send({
+        message: "Success added",
+      });
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findMultiCategory: async (req, res) => {
+    try {
+      const multiCategory = await productCategory.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+      res.status(200).send(multiCategory);
     } catch (err) {
       res.status(400).send(err);
     }

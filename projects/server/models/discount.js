@@ -9,16 +9,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Discount.belongsTo(models.Product);
+      // Discount.belongsTo(models.Product);
+      Discount.hasMany(models.Price)
     }
   }
   Discount.init(
     {
-      percent: DataTypes.STRING,
+      // percent: DataTypes.STRING,
       nominal: DataTypes.INTEGER,
       isActive: DataTypes.BOOLEAN,
-      startDate: DataTypes.DATE,
-      endDate: DataTypes.DATE,
+      // startDate: DataTypes.DATE,
+      // endDate: DataTypes.DATE,
     },
     {
       sequelize,

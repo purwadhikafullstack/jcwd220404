@@ -12,12 +12,13 @@ module.exports = (sequelize, DataTypes) => {
       Inventory.belongsTo(models.Admin);
       Inventory.belongsTo(models.Branch);
       Inventory.belongsTo(models.Product);
+      // Inventory.hasMany(models.Transaction)
     }
   }
   Inventory.init(
     {
       stockQty: DataTypes.INTEGER,
-      entryDate: DataTypes.DATE,
+      entryDate: DataTypes.DATEONLY,
     },
     {
       sequelize,

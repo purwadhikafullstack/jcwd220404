@@ -11,13 +11,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Price.belongsTo(models.Admin);
       Price.belongsTo(models.Product);
+      Price.hasMany(models.Product_Cart);
+      Price.belongsTo(models.Discount)
     }
   }
   Price.init(
     {
       productPrice: DataTypes.INTEGER,
-      startDate: DataTypes.DATE,
-      endDate: DataTypes.DATE,
+      startDate: DataTypes.DATEONLY,
+      endDate: DataTypes.DATEONLY,
+      
+      discPrice: DataTypes.INTEGER
     },
     {
       sequelize,

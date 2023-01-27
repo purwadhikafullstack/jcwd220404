@@ -1,8 +1,15 @@
-import React from "react";
-import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
+import { useState } from "react";
+import {
+  Box,
+  Button,
+  Flex,
+  IconButton,
+  Stack,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
-import { useState } from "react";
 
 export const CarouselComp = () => {
   const [slider, setSlider] = useState(null);
@@ -11,10 +18,8 @@ export const CarouselComp = () => {
   const side = useBreakpointValue({ base: "30%", md: "10px" });
 
   const cards = [
-    `${process.env.REACT_APP_API_BASE_URL}/upload/146c108249a37c32c4a0cb4ef7fcfcef.webp`,
-    `${process.env.REACT_APP_API_BASE_URL}/upload/b157368de305b518c1b362e77826c54a.webp`,
-    `${process.env.REACT_APP_API_BASE_URL}/upload/bd5336fa7d68e9b750ed75e6b55ee87a.webp`,
-    `${process.env.REACT_APP_API_BASE_URL}/upload/cb201e90c04a05ddfe0c2444a8954010.webp`,
+    `${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167323961309566900.webp`,
+    `${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167323967203666499.webp`,
   ];
 
   return (
@@ -24,7 +29,7 @@ export const CarouselComp = () => {
         height={"300px"}
         width={"375px"}
         overflow={"hidden"}
-        pt={"88px"}
+        pt={"20px"}
       >
         <link
           rel="stylesheet"

@@ -1,6 +1,6 @@
 import { Box, Center } from "@chakra-ui/react";
-import { BranchComp } from "../../components/admin/BranchComp";
 import { SuperComp } from "../../components/admin/SuperComp";
+import {DashboardPage } from "../admin/DashboardPage";
 import { ForbiddenPage } from "../403ForbiddenPage";
 
 export const AdminPage = () => {
@@ -10,11 +10,15 @@ export const AdminPage = () => {
   return (
     <div>
       <Center>
-        <Box w={"390px"} h={"844px"} bgColor="white">
+        <Box
+        w={"100%"}
+        h={"100vh"} 
+        bgColor="white"
+        >
           {tokenLocalStorage ? (
             <SuperComp />
           ) : tokenLocalStorage2 ? (
-            <BranchComp />
+            <DashboardPage/>
           ) : (
             <ForbiddenPage />
           )}

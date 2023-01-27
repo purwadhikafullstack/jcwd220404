@@ -42,7 +42,9 @@ export const AddProductComp = () => {
 
   const getCategory = async () => {
     try {
-      const res = await Axios.get(`http://localhost:8000/product/listCategory`);
+      const res = await Axios.get(`${
+        process.env.REACT_APP_API_BASE_URL
+      }/product/listCategory`);
       console.log(res.data);
       setData2(res.data);
     } catch (err) {
@@ -69,7 +71,8 @@ export const AddProductComp = () => {
         </FormControl>
         <FormControl>
           <FormLabel color="#285430">Category</FormLabel>
-          <Select color={"#285430"} borderColor="#285430" width="100%">
+          <Select color={"#285430"} borderColor="#285430" 
+          >
             <option>Select Category</option>
             {data2?.map((item) => {
               return (

@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import Axios from "axios";
 import {
+  Box,
   Button,
   FormControl,
   FormLabel,
@@ -35,30 +36,30 @@ export const UpdateCategoryComp = ({ data }) => {
 
   return (
     <div>
-      <Stack spacing={"10px"}>
+      <Box w="36vw">
         <FormControl>
           <FormLabel color="#285430">Category Name</FormLabel>
           <Input
             _placeholder={{ color: "#5F8D4E" }}
             borderColor="#285430"
-            textColor="black"
+            textColor="#285430"
             defaultValue={data?.categoryName}
             ref={inputCategoryName}
           ></Input>
         </FormControl>
         <Button
+          mt="1vw"
           bgColor={"#A4BE7B"}
           borderColor="#285430"
           border="2px"
-          fontSize="18px"
           color="gray.800"
           width={"100%"}
           justifyContent="center"
           onClick={() => onUpdate(data.id)}
         >
-          Edit{" "}
+          Save
         </Button>
-      </Stack>
+      </Box>
     </div>
   );
 };

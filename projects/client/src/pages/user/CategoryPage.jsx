@@ -39,15 +39,17 @@ export const CategoryPage = () => {
             top={"0"}
             zIndex="2"
           >
-            <Box margin={"auto"} alignItems={"center"} textColor="black">
-              CATEGORIES
-            </Box>
+             <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+          <Text as={"b"} fontSize="xl">
+            CATEGORY
+          </Text>
+        </Box>
           </Box>
           <Box
             mt={"80px"}
             className="body"
             bgColor={"white"}
-            h={"1750px"}
+            h={"100vh"}
             w={"390px"}
           >
             <Center>
@@ -61,7 +63,7 @@ export const CategoryPage = () => {
                     <div>
                       <Avatar
                         border="1px"
-                        bgColor="#A4BE7B"
+                        bgColor="#E5D9B6"
                         _hover={{ border: "2px" }}
                         mr={[2, 3, 4]}
                         ml={[2, 3, 4]}
@@ -70,7 +72,7 @@ export const CategoryPage = () => {
                         name="Grocery"
                         src={"http://localhost:8000/" + item.categoryPicture}
                       ></Avatar>
-                      <Text>{item.categoryName}</Text>
+                      <Text textAlign="center" color="#285430">{item.categoryName}</Text>
                     </div>
                   );
                 })}

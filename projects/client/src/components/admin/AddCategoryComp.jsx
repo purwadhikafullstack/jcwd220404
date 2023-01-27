@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 export const AddCategoryComp = () => {
-    const inputCategoryName = useRef("");
+  const inputCategoryName = useRef("");
 
   const onCreateCategory = async () => {
     try {
@@ -36,30 +36,32 @@ export const AddCategoryComp = () => {
   };
   return (
     <div>
-        <Stack spacing={"10px"}>
-                <FormControl>
-                  <FormLabel color="#285430">Category Name</FormLabel>
-                  <Input
-                    ref={inputCategoryName}
-                    placeholder="Category"
-                    _placeholder={{ color: "#5F8D4E" }}
-                  ></Input>
-                </FormControl>
-                <Center>
-                  <Button
-                    bgColor={"#A4BE7B"}
-                    borderColor="#285430"
-                    border="2px"
-                    fontSize="18px"
-                    color="gray.800"
-                    width={"100%"}
-                    justifyContent="center"
-                    onClick={onCreateCategory}
-                  >
-                    Add Category
-                  </Button>
-                </Center>
-              </Stack>
+      <Stack spacing={"10px"}>
+        <FormControl>
+          <FormLabel color="#285430">Category Name</FormLabel>
+          <Input
+            ref={inputCategoryName}
+            placeholder="Category"
+            _placeholder={{ color: "#5F8D4E" }}
+            borderColor="#285430"
+            textColor="gray.800"
+          ></Input>
+        </FormControl>
+        <Center>
+          <Button
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="18px"
+            color="gray.800"
+            width={"100%"}
+            justifyContent="center"
+            onClick={onCreateCategory}
+          >
+            Add Category
+          </Button>
+        </Center>
+      </Stack>
     </div>
-  )
+  );
 };

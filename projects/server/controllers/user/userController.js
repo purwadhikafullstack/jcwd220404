@@ -8,6 +8,8 @@ const { Op } = require("sequelize");
 const transporter = require("../../middleware/transporter");
 const fs = require("fs");
 const handlebars = require("handlebars");
+const secretKey = process.env.SECRET_KEY;
+const urlReset = process.env.URL_RESETPASS;
 
 module.exports = {
   register: async (req, res) => {
@@ -41,11 +43,9 @@ module.exports = {
         UserId: data.id,
       });
 
-      const token = jwt.sign(
-        { phoneNumber: phoneNumber },
-        "jcwd2204"
-        // { expiresIn: "1h" }
-      );
+      const token = jwt.sign({ phoneNumber: phoneNumber }, secretKey, {
+        expiresIn: "1h",
+      });
 
       const tempEmail = fs.readFileSync("./template/codeotp.html", "utf-8");
       const tempCompile = handlebars.compile(tempEmail);
@@ -55,19 +55,18 @@ module.exports = {
       });
 
       await transporter.sendMail({
-        from: "Admin",
+        from: "Only Fresh",
         to: email,
-        subject: "Verifikasi akun",
+        subject: "Account Verification",
         html: tempResult,
       });
 
       res.status(200).send({
-        massage: "Register Succes",
+        message: "OTP code sent, please verify your Account",
         data,
         token,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -96,11 +95,10 @@ module.exports = {
         }
       );
       res.status(200).send({
-        message: "Succes Verification",
+        message: "Verification Succes",
         data: isAccountExist,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -130,7 +128,7 @@ module.exports = {
         raw: true,
       });
 
-      const token = jwt.sign({ phoneNumber, email }, "jcwd2204", {
+      const token = jwt.sign({ phoneNumber, email }, secretKey, {
         expiresIn: "1h",
       });
 
@@ -142,19 +140,18 @@ module.exports = {
       });
 
       await transporter.sendMail({
-        from: "Admin",
+        from: "Only Fresh",
         to: isAccountExist.email,
-        subject: "Verifikasi akun",
+        subject: "Account Verification",
         html: tempResult,
       });
 
       res.status(200).send({
-        massage: "Check Your Email, code otp send succes",
+        message: "Please check your Email for OTP Code",
         data,
         token,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -162,7 +159,7 @@ module.exports = {
   login: async (req, res) => {
     try {
       const { phoneEmail, password, id, isVerified } = req.body;
-
+      console.log(req.body);
       // if (isVerified === 0) {
       //   const code_otp = Math.floor(100000 + Math.random() * 900000).toString();
       //   const salt = await bcrypt.genSalt(10);
@@ -230,7 +227,6 @@ module.exports = {
         token,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -238,7 +234,6 @@ module.exports = {
   keepLogin: async (req, res) => {
     try {
       const verify = jwt.verify(req.token, "jcwd2204");
-      console.log(verify);
       const result = await user.findOne({
         where: {
           phoneNumber: verify.phoneNumber,
@@ -247,8 +242,6 @@ module.exports = {
         include: [{ model: profile }],
         raw: true,
       });
-
-      console.log(result);
       res.status(200).send(result);
     } catch (err) {
       res.status(400).send(err);
@@ -277,7 +270,6 @@ module.exports = {
       );
       res.status(200).send("Update Password Success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -294,7 +286,7 @@ module.exports = {
       if (isAccountExist === null) throw "Account not found";
       else if (isAccountExist.status === false) throw "Your Account is blocked";
 
-      const token = jwt.sign({ email: isAccountExist.email }, "jcwd2204", {
+      const token = jwt.sign({ email: isAccountExist.email }, secretKey, {
         expiresIn: "1h",
       });
 
@@ -302,7 +294,7 @@ module.exports = {
       const tempCompile = handlebars.compile(tempEmail);
       const tempResult = tempCompile({
         email: isAccountExist.email,
-        link: `http://localhost:3000/resetPassword/${token}`,
+        link: `${urlReset}/resetPassword/${token}`,
       });
 
       await transporter.sendMail({
@@ -314,9 +306,10 @@ module.exports = {
 
       res
         .status(200)
-        .send("Send email request reset password succes, open your email");
+        .send(
+          "Send email request reset password success, please open your email"
+        );
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -344,12 +337,12 @@ module.exports = {
       );
 
       res.status(200).send({
-        message: "success",
+        message: "Update success",
+
         data,
         data2,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -371,9 +364,10 @@ module.exports = {
         }
       );
 
-      res.status(200).send({ data });
+      res.status(200).send({
+        data,
+      });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -413,9 +407,10 @@ module.exports = {
       //   subject: "Verifikasi akun",
       //   html: tempResult,
       // });
-      res.status(200).send({ data });
+      res.status(200).send({
+        data,
+      });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -434,28 +429,25 @@ module.exports = {
 
   findEmail: async (req, res) => {
     try {
-      const users = await user.findOne({
+      const users = await user.findAll({
         attributes: ["email"],
       });
       res.status(200).send(users);
     } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
-    }
-  },
-  
-  findPhoneNumber: async (req, res) => {
-    try {
-      const users = await user.findOne({
-        attributes: ["phoneNumber"],
-      });
-      res.status(200).send(users);
-    } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
 
+  findPhoneNumber: async (req, res) => {
+    try {
+      const users = await user.findAll({
+        attributes: ["phoneNumber"],
+      });
+      res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
 
   findById: async (req, res) => {
     try {
@@ -463,7 +455,6 @@ module.exports = {
         where: { id: req.params.id },
         include: [{ model: profile }],
       });
-      console.log(req.body);
       res.status(200).send(users);
     } catch (err) {
       res.status(400).send(err);
@@ -496,7 +487,6 @@ module.exports = {
         profilePic: getProfile.profilePic,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

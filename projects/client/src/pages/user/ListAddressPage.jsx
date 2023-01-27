@@ -167,15 +167,13 @@ export const ListAddressPage = () => {
             })}{" "}
             <Center>
               <Button
-                mt="8"
                 onClick={toAddAddress}
-                bgColor={"#A4BE7B"}
-                borderColor="#285430"
-                border="2px"
-                fontSize="18px"
-                color="gray.800"
-                width={"160px"}
-                justifyContent="center"
+                mt={"2vw"}
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="18px"
+            color="gray.800"
               >
                 Tambah Alamat
               </Button>

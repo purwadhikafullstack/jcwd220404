@@ -154,9 +154,10 @@ export const AccountComp = () => {
           <Button
             textAlign={"left"}
             variant={"unstyled"}
-            ml={"30px"}
+            ml={"38px"}
             textColor={"#285430"}
-            onClick={toAddress} fontSize="sm"
+            fontSize="sm"
+            onClick={toAddress} 
           >
             MY ADDRESS
           </Button>
