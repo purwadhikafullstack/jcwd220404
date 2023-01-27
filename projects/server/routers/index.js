@@ -5,9 +5,9 @@ const branchRouter = require("./admin/branchRouter");
 const productRouter = require("./admin/productRouter");
 const pictureRouter = require("./admin/pictureRouter");
 const cartRouter = require("./user/cartRouter");
-const addCheckoutRouter = require("./user/addCheckoutRouter");
 const inventoryRouter = require("./admin/inventoryRouter");
-const transactionRouter = require("./user/transactionRouter")
+const transactionRouter = require("./user/transactionRouter");
+const promoRouter = require("./admin/promoRouter");
 
 module.exports = {
   userRouter,
@@ -18,5 +18,6 @@ module.exports = {
   pictureRouter,
   cartRouter,
   inventoryRouter,
-  transactionRouter
+  transactionRouter,
+  promoRouter,
 };

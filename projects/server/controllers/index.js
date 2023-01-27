@@ -7,6 +7,7 @@ const pictureController = require("./admin/pictureController");
 const cartController = require("./user/cartController");
 const inventoryController = require("./admin/inventoryController");
 const transactionController = require("./user/transactionController")
+const promoController = require("./admin/promoController")
 
 module.exports = {
   userController,
@@ -17,5 +18,6 @@ module.exports = {
   pictureController,
   cartController,
   inventoryController,
-  transactionController
+  transactionController,
+  promoController
 };

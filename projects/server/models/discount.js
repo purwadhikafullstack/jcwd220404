@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Discount.init(
     {
-      percent: DataTypes.STRING,
+      // percent: DataTypes.STRING,
       nominal: DataTypes.INTEGER,
       isActive: DataTypes.BOOLEAN,
-      startDate: DataTypes.DATE,
-      endDate: DataTypes.DATE,
+      // startDate: DataTypes.DATE,
+      // endDate: DataTypes.DATE,
     },
     {
       sequelize,
