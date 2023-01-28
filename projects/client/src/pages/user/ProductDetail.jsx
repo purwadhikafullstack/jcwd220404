@@ -20,7 +20,8 @@ import Axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const ProductDetail = () => {
   const [data, setData] = useState([]);
@@ -47,13 +48,40 @@ export const ProductDetail = () => {
       <Box>
         <Center>
           <Box
+            className="header"
+            w={"390px"}
+            h={"80px"}
+            bgColor="#E5D9B6"
+            display={"flex"}
+            justifyContent="space-between"
+            pt={"10px"}
+            pl={"1px"}
+            pos="fixed"
+            top={"0"}
+            zIndex={"2"}
+          >
+            <Box as={Link} to={"/"}>
+              <ArrowBackIcon
+                mt={"20px"}
+                ml={"20px"}
+                pos={"fixed"}
+                color="#285430"
+                fontSize={"25px"}
+              />
+            </Box>
+            <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+              <Text m="100px" as={"b"} fontSize="xl">
+                {data?.productName}
+              </Text>
+            </Box>
+          </Box>
+          <Box
             mt={"80px"}
             pt={"3px"}
             className="body"
             bgColor="white"
             h={"740px"}
             w={"390px"}
-            border="2px"
           >
             <Container maxW={"7xl"}>
               <Box>
@@ -70,18 +98,6 @@ export const ProductDetail = () => {
                   />
                 </Flex>
                 <Stack spacing={{ base: 6, md: 10 }}>
-                  <Heading
-                    lineHeight={1.1}
-                    fontWeight={600}
-                    fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
-                    divider={
-                      <StackDivider
-                        borderColor={useColorModeValue("gray.200", "gray.600")}
-                      />
-                    }
-                  >
-                    {data?.productName}
-                  </Heading>
                   <Text
                     color={useColorModeValue("gray.900", "gray.400")}
                     fontWeight={300}
