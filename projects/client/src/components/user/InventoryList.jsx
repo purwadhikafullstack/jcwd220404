@@ -33,16 +33,35 @@ import { Link } from "react-router-dom";
 
 export const InventoryList = () => {
   const [state, setState] = useState();
+  const [state2, setState2] = useState();
   const dispatch = useDispatch();
   const { id, cart } = useSelector((state) => state.userSlice.value);
   const data = useSelector((state) => state.inventorySlice.value);
+  console.log(data)
+
+  const getData2 = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
+      );
+      console.log(result.data.defaultAdd);
+      setState2(result.data.defaultAdd);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData2();
+  }, [id]);
+
 
   const getProduct = async () => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findByBranch/${Number(
-          state["Branch.longitude"]
-        )}/${Number(state.longitude)}`
+          state2["Branch.longitude"]
+        )}/${Number(state2.longitude)}`
       );
       dispatch(syncInventory(res.data));
       console.log(res.data);
@@ -53,7 +72,7 @@ export const InventoryList = () => {
 
   useEffect(() => {
     getProduct();
-  }, [state]);
+  }, [state2]);
 
   const onAddCart = async (ProductId) => {
     try {

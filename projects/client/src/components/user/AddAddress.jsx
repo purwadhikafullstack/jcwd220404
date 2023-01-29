@@ -187,6 +187,7 @@ export const AddAddress = () => {
             value={province?.rajaongkir?.results?.province_id}
             placeholder="Select Province"
             onChange={provinceHandler}
+            ref={inputProvince}
           >
             {renderProvince()}
           </Select>
@@ -197,6 +198,7 @@ export const AddAddress = () => {
             value={city?.rajaongkir?.results?.city_id}
             placeholder="Select City"
             onChange={cityHandler}
+            ref={inputCity}
           >
             {renderCity()}
           </Select>
@@ -211,6 +213,7 @@ export const AddAddress = () => {
             border="2px"
             borderColor="#285430"
             onChange={postalHandler}
+            ref={inputPostalCode}
           >
             {renderPostal()}
           </Select>
@@ -219,7 +222,7 @@ export const AddAddress = () => {
           <FormLabel>Detail Alamat</FormLabel>
           <Textarea ref={inputDetail} placeholder="e.g. Blok/Lantai"></Textarea>
         </FormControl>
-        <Checkbox mb={"20px"}>Set as Default Address</Checkbox>
+        {/* <Checkbox mb={"20px"}>Set as Default Address</Checkbox> */}
         <FormControl>
           <FormLabel>Nama Penerima</FormLabel>
           <Flex>

@@ -98,6 +98,7 @@ export const CartComp = () => {
       );
       getData();
       setCheckout(!checkout);
+      getCheckout()
     } catch (err) {
       console.log(err);
     }
@@ -301,7 +302,11 @@ export const CartComp = () => {
                       <Button
                         variant={"unstyled"}
                         onClick={() => {
-                          onQty(item.id, item.qty - 1);
+                          var qtyMin = item.qty -1
+                          onQty(item.id, qtyMin);
+                          qtyMin = onQty <= 0 ? 1 : onQty;
+                          document.getElementById("qtyInput").value =
+                            parseInt(qtyMin);
                         }}
                       >
                         -

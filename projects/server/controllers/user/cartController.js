@@ -240,29 +240,6 @@ module.exports = {
 
   createCost: async (req, res) => {
     try {
-      // const response = await productCart.findOne({
-      //   where: [
-      //     {
-      //       UserId: req.params.id,
-      //     },
-      //     {
-      //       id,
-      //     },
-      //   ],
-
-      //   include: [
-      //     {
-      //       model: product,
-      //       include: [
-      //         {
-      //           model: price,
-      //         },
-      //       ],
-      //     },
-      //   ],
-      //   raw: true,
-      // });
-      // console.log(response["Product.Price.productPrice"]);
       const { origin, weight, courier, destination } = req.body;
       var options = {
         method: "POST",

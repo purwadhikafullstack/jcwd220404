@@ -233,13 +233,14 @@ export const UpdateAddressPage = () => {
               <FormControl>
                 <FormLabel ml={"20px"}>Province</FormLabel>
                 <Select
-                  placeholder="Select Province"
+                  placeholder={data?.province}
                   onChange={provinceHandler}
                   ml={"20px"}
                   width="340px"
                   border="2px"
                   borderColor="#285430"
-                  defaultValue={selectedProvince}
+                  defaultValue={data?.province}
+                  ref={inputProvince}
                 >
                   {renderProvince()}
                 </Select>
@@ -247,12 +248,14 @@ export const UpdateAddressPage = () => {
               <FormControl>
                 <FormLabel ml={"20px"}>City</FormLabel>
                 <Select
-                  placeholder="Select City"
+                  placeholder={data?.city}
                   onChange={cityHandler}
                   ml={"20px"}
                   width="340px"
                   border="2px"
                   borderColor="#285430"
+                  ref={inputCity}
+                  defaultValue={data?.city}
                 >
                   {renderCity()}
                 </Select>
@@ -279,7 +282,7 @@ export const UpdateAddressPage = () => {
                   borderColor="#285430"
                   defaultValue={data?.detail}
                 ></Textarea>
-                <Checkbox
+                {/* <Checkbox
                   iconColor="#285430"
                   iconSize="1rem"
                   mt="10px"
@@ -287,7 +290,7 @@ export const UpdateAddressPage = () => {
                   ml={"20px"}
                 >
                   Set as Default Address
-                </Checkbox>
+                </Checkbox> */}
                 <FormControl>
                   <FormLabel ml={"20px"}>Nama Penerima</FormLabel>
                   <Flex>

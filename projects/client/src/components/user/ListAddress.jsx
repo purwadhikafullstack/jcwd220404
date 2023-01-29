@@ -14,7 +14,12 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import { CheckIcon, DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {
+  CheckIcon,
+  DeleteIcon,
+  EditIcon,
+  HamburgerIcon,
+} from "@chakra-ui/icons";
 
 export const ListAddress = () => {
   const { data } = useSelector((state) => state.addressSlice.value);
@@ -44,6 +49,18 @@ export const ListAddress = () => {
         `${process.env.REACT_APP_API_BASE_URL}/address/remove/${id}`
       );
       console.log(res);
+      getData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onDefault = async (idAddress) => {
+    try {
+      const result = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/address/setDefault/${idAddress}/${id}`
+      );
+      console.log(result)
       getData();
     } catch (err) {
       console.log(err);
@@ -101,7 +118,7 @@ export const ListAddress = () => {
                   </MenuItem>
                   <MenuItem
                     as={"button"}
-                    onClick={() => onDelete(item.id)}
+                    onClick={() => onDefault(item.id)}
                     icon={<CheckIcon />}
                     bgColor="#E5D9B6"
                     textColor={"#285430"}

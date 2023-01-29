@@ -41,6 +41,7 @@ module.exports = {
       });
       res.status(200).send(inventories);
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },
