@@ -16,7 +16,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
-import { LogoutUser } from "./LogoutUser";
+import { LogoutUser } from "./Logout";
 
 export const AccountComp = () => {
   const { name, id } = useSelector((state) => state.userSlice.value);

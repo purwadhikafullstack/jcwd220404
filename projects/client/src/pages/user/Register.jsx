@@ -7,7 +7,7 @@ import {
   Text,
   Stack,
 } from "@chakra-ui/react";
-import { RegisterUser } from "../../components/user/RegisterUser";
+import { RegisterUser } from "../../components/user/Register";
 
 export const RegisterPage = () => {
   return (

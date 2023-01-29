@@ -2,6 +2,7 @@ import { Box, Center } from "@chakra-ui/react";
 import { BranchComp } from "../../pages/admin/BranchAdmin";
 import { SuperComp } from "../../pages/admin/SuperAdmin";
 import { RestrictedPage } from "../403ResultPage";
+import { DashboardPage } from "./Dashboard";
 
 export const AdminPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenSuper");
@@ -11,11 +12,11 @@ export const AdminPage = () => {
     <>
       <Box>
         <Center>
-          <Box w={"390px"} h={"844px"} bgColor="white">
+          <Box w={"100%"} h={"100vh"} bgColor="white">
             {tokenLocalStorage ? (
               <SuperComp />
             ) : tokenLocalStorage2 ? (
-              <BranchComp />
+              <DashboardPage />
             ) : (
               <RestrictedPage />
             )}

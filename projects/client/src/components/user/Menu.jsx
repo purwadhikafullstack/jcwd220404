@@ -1,63 +1,20 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { BsFilterLeft } from "react-icons/bs";
-import { BiReset, BiSearchAlt } from "react-icons/bi";
-import {
-  Box,
-  Center,
-  Text,
-  Flex,
-  Avatar,
-  SimpleGrid,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Button,
-  Image,
-  Input,
-  FormHelperText,
-  InputRightElement,
-  Icon,
-  useColorModeValue,
-  Select,
-  FormLabel,
-  FormControl,
-  InputGroup,
-} from "@chakra-ui/react";
+import { Box, Center, Text, Flex, Avatar } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { cartSync } from "../../redux/cartSlice";
-import { addCart } from "../../redux/userSlice";
-import { useFormik } from "formik";
-import { syncData } from "../../redux/productSlice";
-import { syncInventory } from "../../redux/inventorySlice";
 import * as Yup from "yup";
 import { InventoryList } from "./InventoryList";
 import { ProductList } from "./ProductList";
 
 export const MenuComp = () => {
   const [category, setCategory] = useState();
-  const [product, setProduct] = useState();
-  const [address, setAddress] = useState();
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const [sort, setSort] = useState("ASC");
-  const [order, setOrder] = useState("productName");
-  const [searchProduct, setSearchProduct] = useState("");
-  const [totalPage, setTotalPage] = useState(0);
-  const [state2, setState2] = useState(0);
-  const [state, setState] = useState("");
   const [state3, setState3] = useState();
   const data = useSelector((state) => state.inventorySlice.value);
   const { id, cart } = useSelector((state) => state.userSlice.value);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const params = useParams();
   const tokenLocalStorage = localStorage.getItem("tokenUser");
-  const origin = state3;
 
   const getCategory = async () => {
     try {

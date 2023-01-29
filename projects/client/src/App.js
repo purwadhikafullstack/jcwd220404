@@ -4,28 +4,28 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "./redux/userSlice";
 import { loginAdmin } from "./redux/adminSlice";
-import { LandingPage } from "./pages/user/LandingPage";
-import { AccountPage } from "./pages/user/AccountUser";
-import { NotificationPage } from "./pages/user/NotificationUser";
+import { LandingPage } from "./pages/user/Landing";
+import { AccountPage } from "./pages/user/Account";
+import { NotificationPage } from "./pages/user/Notification";
 import { TransactionPage } from "./pages/user/Transaction";
 import { CategoryPage } from "./pages/user/Category";
 import { CartPage } from "./pages/user/Cart";
-import { RegisterPage } from "./pages/user/RegisterUser";
+import { RegisterPage } from "./pages/user/Register";
 import { VerificationPage } from "./pages/user/Verification";
-import { ProfilePage } from "./pages/user/ProfileUser";
-import { AddressPage } from "./pages/user/AddressUser";
+import { ProfilePage } from "./pages/user/Profile";
+import { AddressPage } from "./pages/user/Address";
 import { ForgotPasswordPage } from "./pages/user/ForgotPassword";
 import { ResetPassPage } from "./pages/user/ResetPassword";
 import { ChangePassword } from "./pages/user/ChangePassword";
 import { ChangeEmail } from "./pages/user/ChangeEmail";
 import { ListAddressPage } from "./pages/user/ListAddress";
 import { RestrictedPage } from "./pages/403ResultPage";
-import { LoginAdminPage } from "./pages/admin/LoginAdmin";
+import { LoginAdminPage } from "./pages/admin/Login";
 import { AdminPage } from "./pages/admin/AdminPage";
 import { UpdateAddressPage } from "./pages/user/UpdateAddress";
 import { NotFoundPage } from "./pages/user/404Result";
 import { WindowComp } from "./components/user/Window";
-import { EnterComp } from "./components/user/EnterUser";
+import { EnterComp } from "./components/user/Enter";
 import { Checkout } from "./pages/user/Checkout";
 import { ListCheckoutAddress } from "./pages/user/ListCheckoutAddress";
 import { PaymentMethod } from "./pages/user/PaymentMethod";
@@ -33,6 +33,9 @@ import { OrderSuccess } from "./pages/user/OrderSuccess";
 import { ProductDetail } from "./pages/user/ProductDetail";
 import { CategoryDetail } from "./pages/user/CategoryDetail";
 import { OrderDetail } from "./pages/user/OrderDetail";
+import { ProductAdminPage } from "./pages/admin/Product";
+import { CategoryAdminPage } from "./pages/admin/Category";
+import { InventoryAdminPage } from "./pages/admin/Inventory";
 
 function App() {
   const dispatch = useDispatch();
@@ -133,7 +136,7 @@ function App() {
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/product/:id" element={<ProductDetail />}></Route>
         <Route path="/category/:id" element={<CategoryDetail />}></Route>
-        <Route path="/transaction/:id" element={<OrderDetail/>}></Route>
+        <Route path="/transaction/:id" element={<OrderDetail />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route
           path="/checkout/address"
@@ -153,7 +156,10 @@ function App() {
         <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/account/profile/:id" element={<ProfilePage />}></Route>
         <Route path="/account/profile/email" element={<ChangeEmail />}></Route>
-        <Route path="/account/profile/password" element={<ChangePassword />}></Route>
+        <Route
+          path="/account/profile/password"
+          element={<ChangePassword />}
+        ></Route>
         <Route
           path="/account/address/:id"
           element={<ListAddressPage />}
@@ -176,6 +182,9 @@ function App() {
         <Route path="/login-admin" element={<LoginAdminPage />}></Route>
         <Route path="/admin" element={<AdminPage />}></Route>
         <Route path="/*" element={<NotFoundPage />}></Route>
+        <Route path="/admin/product" element={<ProductAdminPage />}></Route>
+        <Route path="/admin/category" element={<CategoryAdminPage />}></Route>
+        <Route path="/admin/inventory" element={<InventoryAdminPage />}></Route>
       </Routes>
     </div>
   );

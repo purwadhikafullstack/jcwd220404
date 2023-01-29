@@ -34,7 +34,7 @@ import * as Yup from "yup";
 export const ProductList = () => {
   const [state, setState] = useState();
   const [product, setProduct] = useState();
-  const [address, setAddress] = useState();
+  
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("ASC");
@@ -280,7 +280,7 @@ export const ProductList = () => {
                       <Text as={"b"} size="sm">
                         {item.productName}
                       </Text>
-                      <Text fontSize={"xs"}>Rp{item.Price.productPrice}</Text>
+                      <Text fontSize={"xs"}>Rp{item.Price?.productPrice}</Text>
                     </CardBody>
                   </Center>
                   <CardFooter>

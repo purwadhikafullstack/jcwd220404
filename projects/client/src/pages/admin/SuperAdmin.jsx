@@ -14,7 +14,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import Axios from "axios";
-import { RegisterAdmin } from "../../components/admin/RegisterAdmin";
+import { RegisterAdmin } from "../../components/admin/Register";
 import { ListAdmin } from "../../components/admin/ListAdmin";
 import { LogoutSuper } from "../../components/admin/LogoutSuper";
 

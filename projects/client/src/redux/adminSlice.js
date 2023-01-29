@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
+    id: 0,
     username: "",
     email: "",
     password: "",
@@ -15,6 +16,7 @@ export const adminSlice = createSlice({
   initialState,
   reducers: {
     loginAdmin: (state, action) => {
+      state.value.id = action.payload.id;
       state.value.username = action.payload.username;
       state.value.email = action.payload.email;
       state.value.isSuper = action.payload.isSuper;
