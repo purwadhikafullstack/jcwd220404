@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { cartSync } from "../redux/cartSlice";
+import { cartSync } from "../../redux/cartSlice";
 
 export const PopoutCheckout = ({ props }) => {
   console.log(props);

@@ -1,8 +1,8 @@
 import { Box, Center } from "@chakra-ui/react";
-import { NavbarComp } from "../../components/user/NavbarComp";
-import { OrderNowComp } from "../../components/user/OrderNowComp";
-import { TransactionComp } from "../../components/user/TransactionComp";
-import { AccountPage } from "./AccountPage";
+import { NavbarComp } from "../../components/user/Navbar";
+import { OrderNowComp } from "../../components/user/OrderNow";
+import { TransactionComp } from "../../components/user/Transaction";
+import { AccountPage } from "./AccountUser";
 
 export const TransactionPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");

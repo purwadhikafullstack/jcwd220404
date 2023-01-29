@@ -1,7 +1,7 @@
 import { Box, Center } from "@chakra-ui/react";
-import { AccountComp } from "../../components/user/AccountComp";
-import { NavbarComp } from "../../components/user/NavbarComp";
-import { WindowComp } from "../../components/user/WindowComp";
+import { AccountComp } from "../../components/user/Account";
+import { NavbarComp } from "../../components/user/Navbar";
+import { WindowComp } from "../../components/user/Window";
 
 export const AccountPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");

@@ -299,6 +299,7 @@ module.exports = {
             },
           ],
         },
+        include: [{ model: price }],
         offset: offset,
         limit: list_limit,
         order: [[orderby, direction]],
@@ -394,13 +395,14 @@ module.exports = {
 
   createPrice: async (req, res) => {
     try {
-      const { productPrice, startDate, endDate, ProductId, DiscountId } = req.body;
+      const { productPrice, startDate, endDate, ProductId, DiscountId } =
+        req.body;
       await price.create({
         productPrice,
         startDate,
         endDate,
         ProductId,
-        DiscountId
+        DiscountId,
       });
       res.status(200).send({
         message: "Success Added",

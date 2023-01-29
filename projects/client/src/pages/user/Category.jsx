@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import { Avatar, Box, Center, Flex, Text } from "@chakra-ui/react";
-import { NavbarComp } from "../../components/user/NavbarComp";
+import { NavbarComp } from "../../components/user/Navbar";
 
 export const CategoryPage = () => {
   const [data, setData] = useState([]);

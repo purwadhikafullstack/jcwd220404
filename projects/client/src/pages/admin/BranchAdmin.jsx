@@ -51,12 +51,12 @@ import {
   InputRightElement,
   FormHelperText,
 } from "@chakra-ui/react";
-import { UpdateProductComp } from "../../components/admin/UpdateProductComp";
-import { UpdateCategoryComp } from "../../components/admin/UpdateCategoryComp";
+import { UpdateProductComp } from "../../components/admin/UpdateProduct";
+import { UpdateCategoryComp } from "../../components/admin/UpdateCategory";
 import { AddProduct } from "../../components/admin/AddProduct";
 import { AddCategory } from "../../components/admin/AddCategory";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { LogoutBranch } from "../../components/LogoutBranch";
+import { LogoutBranch } from "../../components/admin/LogoutBranch";
 import { AddPicWeb } from "../../components/admin/AddPicWeb";
 import { syncData } from "../../redux/productSlice";
 import { syncCategory } from "../../redux/categorySlice";

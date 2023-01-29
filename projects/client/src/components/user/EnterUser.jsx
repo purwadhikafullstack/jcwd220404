@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { loginUser } from "../../redux/userSlice";
-import { ForgotPasswordPage } from "../../pages/user/ForgotPassPage";
+import { ForgotPasswordPage } from "../../pages/user/ForgotPassword";
 import { cartSync } from "../../redux/cartSlice";
 
 export const EnterComp = () => {

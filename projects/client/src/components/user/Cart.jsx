@@ -17,12 +17,12 @@ import {
   Textarea,
   useNumberInput,
 } from "@chakra-ui/react";
-import { Calculator } from "../Calculator";
+import { Calculator } from "./Calculator";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { cartSync } from "../../redux/cartSlice";
 import { delCart } from "../../redux/userSlice";
-import { PopoutCheckout } from "../PopoutCheckout";
+import { PopoutCheckout } from "./PopoutCheckout";
 import { useRef } from "react";
 
 export const CartComp = () => {

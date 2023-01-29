@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
-import { syncData } from "../redux/addressSlice";
+import { syncData } from "../../redux/addressSlice";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";

@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logoutAdmin } from "../redux/adminSlice";
+import { logoutAdmin } from "../../redux/adminSlice";
 
 export const LogoutSuper = () => {
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();

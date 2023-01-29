@@ -1,100 +1,48 @@
-import { useEffect, useState } from "react";
-import Axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { BsFilterLeft } from "react-icons/bs";
-import { BiReset, BiSearchAlt } from "react-icons/bi";
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Center,
-  Text,
-  Flex,
-  Avatar,
-  SimpleGrid,
+  Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  Button,
+  Center,
+  Flex,
+  FormControl,
+  FormHelperText,
+  Icon,
   Image,
   Input,
-  FormHelperText,
-  InputRightElement,
-  Icon,
-  useColorModeValue,
-  Select,
-  FormLabel,
-  FormControl,
   InputGroup,
+  InputRightElement,
+  SimpleGrid,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { BiSearchAlt } from "react-icons/bi";
+import Axios from "axios";
+import { syncInventory } from "../../redux/inventorySlice";
 import Swal from "sweetalert2";
 import { cartSync } from "../../redux/cartSlice";
 import { addCart } from "../../redux/userSlice";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { syncData } from "../../redux/productSlice";
-import { syncInventory } from "../../redux/inventorySlice";
 import * as Yup from "yup";
+import { Link } from "react-router-dom";
 
-export const MenuComp = () => {
-  const [category, setCategory] = useState();
-  const [product, setProduct] = useState();
-  const [address, setAddress] = useState();
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const [sort, setSort] = useState("ASC");
-  const [order, setOrder] = useState("productName");
-  const [searchProduct, setSearchProduct] = useState("");
-  const [totalPage, setTotalPage] = useState(0);
-  const [state2, setState2] = useState(0);
-  const [state, setState] = useState("");
-  const [state3, setState3] = useState();
-  const data = useSelector((state) => state.inventorySlice.value);
-  const { id, cart } = useSelector((state) => state.userSlice.value);
-  const navigate = useNavigate();
+export const InventoryList = () => {
+  const [state, setState] = useState();
   const dispatch = useDispatch();
-  const params = useParams();
-  const tokenLocalStorage = localStorage.getItem("tokenUser");
-  const origin = state3;
-  // console.log(origin["Branch.longitude"]);
-  // console.log(origin.longitude);
-
-  const getCategory = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
-      );
-      setCategory(res.data);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getCategory();
-  }, []);
-
-  const getData2 = async () => {
-    try {
-      const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
-      );
-      console.log(result.data.defaultAdd);
-      setState3(result.data.defaultAdd);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getData2();
-  }, [id]);
+  const { id, cart } = useSelector((state) => state.userSlice.value);
+  const data = useSelector((state) => state.inventorySlice.value);
 
   const getProduct = async () => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/inventory/findByBranch/${Number(state3["Branch.longitude"])}/${Number(state3.longitude)}`
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/findByBranch/${Number(
+          state["Branch.longitude"]
+        )}/${Number(state.longitude)}`
       );
       dispatch(syncInventory(res.data));
       console.log(res.data);
@@ -105,21 +53,10 @@ export const MenuComp = () => {
 
   useEffect(() => {
     getProduct();
-  }, [state3]);
+  }, [state]);
 
   const onAddCart = async (ProductId) => {
     try {
-      if (!id) {
-        return Swal.fire({
-          icon: "error",
-          title: "Oooops ...",
-          text: "Login First",
-          timer: 2000,
-          customClass: {
-            container: "my-swal",
-          },
-        });
-      }
       const result = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/cart/create`,
         {
@@ -156,62 +93,22 @@ export const MenuComp = () => {
     }
   };
 
-  const onNavigate = () => {
-    if (!tokenLocalStorage) {
-      navigate("/account");
-    } else {
-      navigate(`/cart`);
-    }
-  };
-
-  // const getData = async () => {
-  //   try {
-  //     const res = await Axios.get(
-  //       `${
-  //         process.env.REACT_APP_API_BASE_URL
-  //       }/inventory/pagProduct?search_query=${searchProduct}&page=${
-  //         page - 1
-  //       }&limit=${limit}&order=${order ? order : `productName`}&sort=${
-  //         sort ? sort : "ASC"
-  //       }`
-  //     );
-  //     dispatch(syncInventory(res.data.result));
-  //     console.log(res.data.result);
-  //     setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
-  //     setState(res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, [searchProduct, page, limit, sort]);
-
-  // async function fetchSort(filter) {
-  //   setSort(filter);
-  // }
-
-  // useEffect(() => {
-  //   fetchSort();
-  // }, []);
-
-  const formik = useFormik({
-    initialValues: {
-      searchName: ``,
-    },
-    validationSchema: Yup.object().shape({
-      searchName: Yup.string().min(3, "Minimal 3 huruf"),
-    }),
-    validationOnChange: false,
-    onSubmit: async () => {
-      const { searchName } = formik.values;
-      setSearchProduct(searchName);
-    },
-  });
+  //   const formik = useFormik({
+  //     initialValues: {
+  //       searchName: ``,
+  //     },
+  //     validationSchema: Yup.object().shape({
+  //       searchName: Yup.string().min(3, "Minimal 3 huruf"),
+  //     }),
+  //     validationOnChange: false,
+  //     onSubmit: async () => {
+  //       const { searchName } = formik.values;
+  //       setSearchProduct(searchName);
+  //     },
+  //   });
 
   return (
-    <>
+    <div>
       <Center>
         <Flex
           flexWrap="wrap"
@@ -219,14 +116,6 @@ export const MenuComp = () => {
           w={[330, 330, 380]}
           justifyContent="center"
         >
-          {/* <Input
-            placeholder="Only Fresh Here..."
-            _placeholder={{ color: "#5F8D4E" }}
-            bgColor={"white"}
-            w={"400px"}
-            textColor="black"
-            borderColor={"#285430"}
-          /> */}
           <Center>
             <Flex
               ml="3"
@@ -264,7 +153,7 @@ export const MenuComp = () => {
                 </Box>
                 <Flex m={2} wrap="wrap">
                   <FormControl w="" m={1}>
-                    <InputGroup>
+                    {/* <InputGroup>
                       <Input
                         placeholder="Only Fresh Here..."
                         _placeholder={{ color: "#5F8D4E" }}
@@ -294,10 +183,10 @@ export const MenuComp = () => {
                           onClick={() => formik.handleSubmit()}
                         />
                       </InputRightElement>
-                    </InputGroup>
-                    <FormHelperText color="red">
+                    </InputGroup> */}
+                    {/* <FormHelperText color="red">
                       {formik.errors.searchName}
-                    </FormHelperText>
+                    </FormHelperText> */}
                   </FormControl>
                   <Center>
                     <FormControl w="" m={1}>
@@ -346,32 +235,6 @@ export const MenuComp = () => {
               {/* </Box> */}
             </Flex>
           </Center>
-
-          {category?.map((item) => {
-            return (
-              <div>
-                <Avatar
-                  border="1px"
-                  bgColor="#A4BE7B"
-                  _hover={{ border: "2px" }}
-                  mr={[2, 3, 4]}
-                  ml={[2, 3, 4]}
-                  mt="20px"
-                  size="md"
-                  name="Grocery"
-                  src={
-                    `${process.env.REACT_APP_API_BASE_URL}/` +
-                    item.categoryPicture
-                  }
-                  as={Link}
-                  to={`/category/${item.id}`}
-                ></Avatar>
-                <Text fontSize="x-small" color={"#285430"}>
-                  {item.categoryName}
-                </Text>
-              </div>
-            );
-          })}
         </Flex>
       </Center>
       <Box>
@@ -463,6 +326,6 @@ export const MenuComp = () => {
           })}
         </SimpleGrid>
       </Box>
-    </>
+    </div>
   );
 };

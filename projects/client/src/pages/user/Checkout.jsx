@@ -23,8 +23,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/addressSlice";
-import { DefaultAddress } from "../../components/DefaultAddress";
-import { CartComp } from "../../components/user/CartComp";
+import { DefaultAddress } from "../../components/user/DefaultAddress";
+import { CartComp } from "../../components/user/Cart";
 
 export const Checkout = () => {
   const [value, setValue] = useState("0");

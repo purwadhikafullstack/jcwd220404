@@ -16,7 +16,7 @@ import {
 import Axios from "axios";
 import { RegisterAdmin } from "../../components/admin/RegisterAdmin";
 import { ListAdmin } from "../../components/admin/ListAdmin";
-import { LogoutSuper } from "../../components/LogoutSuper";
+import { LogoutSuper } from "../../components/admin/LogoutSuper";
 
 export const SuperComp = () => {
   const [data2, setData2] = useState([]);
