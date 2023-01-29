@@ -164,7 +164,6 @@ module.exports = {
   setDefault: async (req, res) => {
     try {
       const { id } = req.params;
-      console.log(id);
       const toFalse = await address.update(
         {
           defaultAddress: false,
@@ -175,14 +174,16 @@ module.exports = {
           },
         }
       );
-      const toTrue = await address.update({
-        defaultAddress: true
-      },
-      {
-        where: {
-          id: req.params.id
+      const toTrue = await address.update(
+        {
+          defaultAddress: true,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
         }
-      })
+      );
       res.status(200).send("Set default success");
     } catch (err) {
       console.log(err);
