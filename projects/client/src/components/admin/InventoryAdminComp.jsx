@@ -33,11 +33,11 @@ export const InventoryAdminComp = () => {
   const [data3, setData3] = useState([]);
   const { id } = useSelector((state) => state.adminSlice.value);
 
-  const getData = async () => {
+  const getData = async (idBranch) => {
     console.log(id);
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/inventory/findAll/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/findAll/${id}/${idBranch}`
       );
       setData2(res.data);
       console.log(res.data);

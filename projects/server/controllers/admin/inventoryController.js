@@ -51,7 +51,7 @@ module.exports = {
       const inventories = await inventory.findAll({
         where: {
           AdminId: req.params.id,
-          BranchId: req.params.id
+          BranchId: req.params.BranchId
         },
         // attributes: ["id", "productName", "description", "picture"],
         include: [{ model: product }],
