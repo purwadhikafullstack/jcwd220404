@@ -216,6 +216,9 @@ export const TransactionComp = () => {
                       <Th textAlign={"center"} color={"#285430"}>
                         Weight
                       </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        ACTIONS
+                      </Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -230,6 +233,9 @@ export const TransactionComp = () => {
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalCharge}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalWeight}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}

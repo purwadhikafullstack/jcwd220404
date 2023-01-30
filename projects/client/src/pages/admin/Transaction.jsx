@@ -1,6 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { SidebarComp } from "../../components/admin/SidebarComp";
-import { TransactionComp } from "../../components/admin/TransactionComp";
+import { SidebarComp } from "../../components/admin/Sidebar";
+import { TransactionComp } from "../../components/admin/Transaction";
 
 export const TransactionAdminPage = () => {
   return (

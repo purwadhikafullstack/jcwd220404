@@ -19,16 +19,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { logoutAdmin } from "../../redux/adminSlice";
 import { syncData } from "../../redux/branchSlice";
+import { LogoutBranch } from "../../components/admin/LogoutBranch";
 
 export const SidebarComp = () => {
   const { username, id } = useSelector((state) => state.adminSlice.value);
   const { isOpen, onClose, onToggle } = useDisclosure();
-  const [data, setData] = useState()
+  const [data, setData] = useState();
   // const data = useSelector((state) => state.branchSlice.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  console.log(id)
+  console.log(id);
   console.log(data);
   console.log(params);
 
@@ -54,18 +55,12 @@ export const SidebarComp = () => {
     navigate("admin/discount");
   };
 
-  const onLogout = () => {
-    dispatch(logoutAdmin());
-    localStorage.removeItem("tokenBranch");
-    navigate("/login-admin");
-  };
-
   const getBranch = async (id) => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/branch/branchById/1`
       );
-      setData(res.data.response)
+      setData(res.data.response);
       // dispatch(syncData(res.data));
       console.log(res.data.response);
     } catch (err) {
@@ -85,7 +80,7 @@ export const SidebarComp = () => {
         w={"16vw"}
         h={"100vh"}
         bgColor="#E5D9B6"
-        pt={"10px"}
+        // pt={"10px"}
         pl={"1px"}
         zIndex={"2"}
         pos="fixed"
@@ -94,9 +89,9 @@ export const SidebarComp = () => {
       >
         <Box margin={"auto"} alignItems={"center"} textColor="#285430">
           <Image
-            ml={"3vw"}
-            boxSize={"8vw"}
-            src={`${process.env.REACT_APP_API_BASE_URL}/upload/OnlyFreshLogo.png`}
+            ml={"50px"}
+            boxSize={"100px"}
+            src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`}
           />
           <Text color={"#285430"} as="b" ml={"3vw"}>
             BRANCH ADMIN
@@ -167,63 +162,7 @@ export const SidebarComp = () => {
           >
             Discount
           </Button>
-          <Button
-            display={"flex"}
-            bgColor={"#FF0000"}
-            textColor="gray.800"
-            width={"100px"}
-            justifyContent={"center"}
-            borderColor="#gray.800"
-            border="2px"
-            onClick={onToggle}
-            mt="17vw"
-            ml="4vw"
-            position="absolute"
-          >
-            LogOut
-          </Button>
-          <Popover
-            returnFocusOnClose={false}
-            isOpen={isOpen}
-            closeOnBlur={false}
-          >
-            <PopoverContent
-              ml="560"
-              mt="280"
-              borderColor="#285430"
-              border="2px"
-              bgColor={"#E5D9B6"}
-            >
-              <PopoverArrow />
-              <PopoverBody textColor={"#285430"}>
-                Are you sure you want to logout?
-              </PopoverBody>
-              <PopoverFooter display="flex" justifyContent="flex-end">
-                <ButtonGroup size="sm">
-                  <Button
-                    onClick={onClose}
-                    bgColor={"#A4BE7B"}
-                    borderColor="#285430"
-                    border="2px"
-                    fontSize="14px"
-                    color="gray.800"
-                  >
-                    No
-                  </Button>
-                  <Button
-                    onClick={onLogout}
-                    bgColor="#A4BE7B"
-                    borderColor="#285430"
-                    border="2px"
-                    fontSize="14px"
-                    color="gray.800"
-                  >
-                    Yes
-                  </Button>
-                </ButtonGroup>
-              </PopoverFooter>
-            </PopoverContent>
-          </Popover>
+          <LogoutBranch />
         </Box>
       </Box>
     </div>

@@ -5,7 +5,7 @@ const branch = db.Branch;
 const rajaOngkirKey = process.env.RAJA_KEY;
 const openCageKey = process.env.GEO_KEY;
 const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR;
-const openCageURL = process.env.OPENCAGE_URL
+const openCageURL = process.env.OPENCAGE_URL;
 
 module.exports = {
   // branchById: async (req, res) => {
