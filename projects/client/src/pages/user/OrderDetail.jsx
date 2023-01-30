@@ -241,7 +241,7 @@ export const OrderDetail = () => {
                   <Text align={"left"}> {dateDeliv}</Text>
                 </FormControl>
               </Box>
-              
+
               <Box>{data5 === true ? <CancelButton /> : ""}</Box>
               <Box>{data5 === 5 ? <CompleteButton /> : ""}</Box>
             </Stack>
