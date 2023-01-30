@@ -52,7 +52,7 @@ export const SidebarComp = () => {
     navigate("/admin/transaction");
   };
   const toDiscount = () => {
-    navigate("admin/discount");
+    navigate("/admin/discount");
   };
 
   const getBranch = async (id) => {

@@ -55,7 +55,7 @@ export const DefaultAddress = () => {
             borderColor={"#285430"}
           >
             <Text color={"#285430"}>
-              Dikirim ke: {data?.city}, {data?.province}
+              Deliver to: {data?.city}, {data?.province}
             </Text>
           </Button>
         </Stack>

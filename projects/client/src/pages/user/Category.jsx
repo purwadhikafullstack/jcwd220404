@@ -2,6 +2,7 @@ import Axios from "axios";
 import { useEffect, useState } from "react";
 import { Avatar, Box, Center, Flex, Text } from "@chakra-ui/react";
 import { NavbarComp } from "../../components/user/Navbar";
+import { Link } from "react-router-dom";
 
 export const CategoryPage = () => {
   const [data, setData] = useState([]);
@@ -73,6 +74,8 @@ export const CategoryPage = () => {
                           `${process.env.REACT_APP_API_BASE_URL}/` +
                           item.categoryPicture
                         }
+                        as={Link}
+                        to={`/category/${item.id}`}
                       ></Avatar>
                       <Text>{item.categoryName}</Text>
                     </div>

@@ -37,6 +37,7 @@ import { ProductAdminPage } from "./pages/admin/Product";
 import { CategoryAdminPage } from "./pages/admin/Category";
 import { InventoryAdminPage } from "./pages/admin/Inventory";
 import { TransactionAdminPage } from "./pages/admin/Transaction";
+import { Discount } from "./pages/admin/Discount";
 
 function App() {
   const dispatch = useDispatch();
@@ -190,6 +191,7 @@ function App() {
           path="/admin/transaction"
           element={<TransactionAdminPage />}
         ></Route>
+        <Route path="/admin/discount" element={<Discount />}></Route>
       </Routes>
     </div>
   );

@@ -49,14 +49,14 @@ export const AddPicWeb = () => {
   return (
     <div>
       <h2>
-        <AccordionButton>
+        {/* <AccordionButton> */}
           <Box color="#285430" as="span" flex="1" textAlign="left">
             Add Picture
           </Box>
-          <AccordionIcon color="gray.800" />
-        </AccordionButton>
+          {/* <AccordionIcon color="gray.800" /> */}
+        {/* </AccordionButton> */}
       </h2>
-      <AccordionPanel pb={4}>
+      {/* <AccordionPanel pb={4}> */}
         <ButtonGroup size="sm">
           <form encType="multipart/form-data">
             <input
@@ -79,7 +79,7 @@ export const AddPicWeb = () => {
             Upload
           </Button>
         </ButtonGroup>
-      </AccordionPanel>
+      {/* </AccordionPanel> */}
     </div>
   );
 };
