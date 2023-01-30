@@ -53,7 +53,7 @@ export const MenuComp = () => {
       <Center>
         <Flex
           flexWrap="wrap"
-          mt="-200"
+          mt="-140"
           w={[330, 330, 380]}
           justifyContent="center"
         >

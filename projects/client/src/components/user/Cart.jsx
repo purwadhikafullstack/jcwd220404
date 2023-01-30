@@ -13,6 +13,7 @@ import {
   HStack,
   Image,
   Select,
+  Stack,
   Text,
   Textarea,
   useNumberInput,
@@ -98,7 +99,7 @@ export const CartComp = () => {
       );
       getData();
       setCheckout(!checkout);
-      getCheckout()
+      getCheckout();
     } catch (err) {
       console.log(err);
     }
@@ -247,126 +248,135 @@ export const CartComp = () => {
   return (
     <>
       <Box>
-        <FormControl>
-          <FormLabel>Products</FormLabel>
-          <Card margin={"10px"}>
-            {data?.map((item) => {
-              return (
-                <Flex
-                  borderBottom={"1px"}
-                  borderColor="grey"
-                  borderRadius={"10px"}
-                  mt={"10px"}
-                  justify={"space-between"}
-                >
-                  <Checkbox
-                    defaultChecked={item.status ? true : false}
-                    onChange={() => onCheckout(item.id, item.status)}
+        <Stack spacing={"10px"}>
+          <FormControl>
+            <FormLabel>Products</FormLabel>
+            <Card margin={"10px"}>
+              {data?.map((item) => {
+                return (
+                  <Flex
+                    borderBottom={"1px"}
+                    borderColor="grey"
+                    borderRadius={"10px"}
+                    mt={"10px"}
+                    justify={"space-between"}
                   >
-                    <Grid
-                      templateAreas={`"nav main""nav footer"`}
-                      gridTemplateRows={" 1fr 30px"}
-                      gridTemplateColumns={"120px 1fr"}
-                      h="50px"
-                      // gap="1"
-                      color="blackAlpha.700"
-                      fontWeight="bold"
+                    <Checkbox
+                      defaultChecked={item.status ? true : false}
+                      onChange={() => onCheckout(item.id, item.status)}
                     >
-                      <GridItem pl="1" area={"nav"}>
-                        <Image
-                          boxSize={"50px"}
-                          src={
-                            `${process.env.REACT_APP_API_BASE_URL}/` +
-                            item.Product?.picture
-                          }
-                        ></Image>
-                      </GridItem>
-                      <GridItem fontSize={"small"} ml="-12" area={"main"}>
-                        {item.Product?.productName}
-                      </GridItem>
-                      <GridItem fontSize={"small"} ml="-12" area={"footer"}>
-                        Rp{item.Product?.Price?.productPrice}
-                      </GridItem>
-                    </Grid>
-                  </Checkbox>
-                  <Box>
-                    <Button
-                      pl={"50px"}
-                      variant={"unstyled"}
-                      onClick={() => onDelete(item.id)}
-                      fontSize="sm"
-                    >
-                      Hapus
-                    </Button>
-                    <HStack maxW="200px">
-                      <Button
-                        variant={"unstyled"}
-                        onClick={() => {
-                          var qtyMin = item.qty -1
-                          onQty(item.id, qtyMin);
-                          qtyMin = onQty <= 0 ? 1 : onQty;
-                          document.getElementById("qtyInput").value =
-                            parseInt(qtyMin);
-                        }}
+                      <Grid
+                        templateAreas={`"nav main""nav footer"`}
+                        gridTemplateRows={" 1fr 30px"}
+                        gridTemplateColumns={"120px 1fr"}
+                        h="50px"
+                        // gap="1"
+                        color="blackAlpha.700"
+                        fontWeight="bold"
                       >
-                        -
-                      </Button>
-                      <Text w={"10px"}>{item.qty}</Text>
+                        <GridItem pl="1" area={"nav"}>
+                          <Image
+                            boxSize={"50px"}
+                            src={
+                              `${process.env.REACT_APP_API_BASE_URL}/` +
+                              item.Product?.picture
+                            }
+                          ></Image>
+                        </GridItem>
+                        <GridItem fontSize={"small"} ml="-12" area={"main"}>
+                          {item.Product?.productName}
+                        </GridItem>
+                        <GridItem fontSize={"small"} ml="-12" area={"footer"}>
+                          Rp{item.Product?.Price?.productPrice}
+                        </GridItem>
+                      </Grid>
+                    </Checkbox>
+                    <Box>
                       <Button
+                        pl={"50px"}
                         variant={"unstyled"}
-                        onClick={() => {
-                          onQty(item.id, item.qty + 1);
-                        }}
+                        onClick={() => onDelete(item.id)}
+                        fontSize="sm"
                       >
-                        +
+                        Hapus
                       </Button>
-                    </HStack>
-                  </Box>
-                </Flex>
-              );
-            })}
-          </Card>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Total</FormLabel>
-          <PopoutCheckout props={checkout} />
-        </FormControl>
-        <FormControl>
-          <FormLabel>Shipping Method</FormLabel>
-          <Select
-            ref={inputRef}
-            onChange={() => setData7(inputRef.current.value)}
-          >
-            <option>Select Shipping Method</option>
-            {data4?.map((item, index) => {
-              return <option value={index}>{item.cost[0].etd} days</option>;
-            })}
-          </Select>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Buyer Information</FormLabel>
-          <Text>{data2?.["User.name"]}</Text>
-          <Text>{data2?.["User.phoneNumber"]}</Text>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Delivery Address</FormLabel>
-          <Box border={"2px"}>
-            <Text as={"b"}>{data2?.receiverName}</Text>
-            <Text>
-              {data2?.receiverPhone}
-              {data2?.addressLine},{data2?.district},{data2?.city},
-              {data2?.province}
-            </Text>
-            <Text>{data2?.detail}</Text>
-          </Box>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Order Note</FormLabel>
-          <Textarea></Textarea>
-        </FormControl>
-        <Button onClick={() => onCreate()} w={"100%"}>
-          Select Payment Method
-        </Button>
+                      <HStack maxW="200px">
+                        <Button
+                          variant={"unstyled"}
+                          onClick={() => {
+                            var qtyMin = item.qty - 1;
+                            onQty(item.id, qtyMin);
+                            qtyMin = onQty <= 0 ? 1 : onQty;
+                            document.getElementById("qtyInput").value =
+                              parseInt(qtyMin);
+                          }}
+                        >
+                          -
+                        </Button>
+                        <Text w={"10px"}>{item.qty}</Text>
+                        <Button
+                          variant={"unstyled"}
+                          onClick={() => {
+                            onQty(item.id, item.qty + 1);
+                          }}
+                        >
+                          +
+                        </Button>
+                      </HStack>
+                    </Box>
+                  </Flex>
+                );
+              })}
+            </Card>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Total</FormLabel>
+            <PopoutCheckout props={checkout} />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Shipping Method</FormLabel>
+            <Select
+              ref={inputRef}
+              onChange={() => setData7(inputRef.current.value)}
+            >
+              <option>Select Shipping Method</option>
+              {data4?.map((item, index) => {
+                return <option value={index}>{item.cost[0].etd} days</option>;
+              })}
+            </Select>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Buyer Information</FormLabel>
+            <Text>{data2?.["User.name"]}</Text>
+            <Text>{data2?.["User.phoneNumber"]}</Text>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Delivery Address</FormLabel>
+            <Box>
+              <Text as={"b"}>{data2?.receiverName}</Text>
+              <Text>{data2?.receiverPhone}</Text>
+              <Text>{data2?.addressLine}</Text>
+              <Text>
+                {data2?.district} {data2?.city}, {data2?.province}
+              </Text>
+            </Box>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Order Note</FormLabel>
+            <Textarea></Textarea>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Payment Option</FormLabel>
+            <Box variant={"unstyled"}>
+              <Checkbox value="1">
+                <Text>Bank Transfer via Only Fresh Account</Text>
+              </Checkbox>
+            </Box>
+          </FormControl>
+          <Button onClick={() => onCreate()} w={"100%"}>
+            Checkout
+          </Button>
+        </Stack>
       </Box>
     </>
   );

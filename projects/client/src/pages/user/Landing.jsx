@@ -6,6 +6,7 @@ import { NavbarComp } from "../../components/user/Navbar";
 import { CarouselComp } from "../../components/user/Carousel";
 import { MenuComp } from "../../components/user/Menu";
 import { DefaultAddress } from "../../components/user/DefaultAddress";
+import { BlankAddress } from "../../components/user/BlankAddress";
 
 export const LandingPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
@@ -29,7 +30,7 @@ export const LandingPage = () => {
             <LogoComp />
             <NotificationComp />
           </Box>
-          {tokenLocalStorage ? <DefaultAddress /> : ""}
+          {tokenLocalStorage ? <DefaultAddress /> : <BlankAddress />}
           <Box className="body" bgColor="white" h={"2000px"} w={"390px"}>
             <VStack>
               <CarouselComp />
@@ -37,7 +38,13 @@ export const LandingPage = () => {
               <MenuComp />
             </VStack>
           </Box>
-          <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"} zIndex="2">
+          <Box
+            className="footer"
+            w={"390px"}
+            pos="fixed"
+            bottom={"35px"}
+            zIndex="2"
+          >
             <NavbarComp />
           </Box>
         </Box>

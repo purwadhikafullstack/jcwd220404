@@ -108,14 +108,7 @@ export const Checkout = () => {
             h={"100%"}
             w={"390px"}
           >
-            <FormControl>
-              <FormLabel>Payment Option</FormLabel>
-              <Box variant={"unstyled"}>
-                <Checkbox value="1">
-                  <Text>Bank Transfer via Only Fresh Account</Text>
-                </Checkbox>
-              </Box>
-            </FormControl>
+           
             <FormControl>
               <FormLabel>Order Detail</FormLabel>
               {data?.map((item) => {

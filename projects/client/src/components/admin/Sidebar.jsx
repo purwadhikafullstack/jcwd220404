@@ -13,6 +13,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Axios from "axios";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -22,10 +23,12 @@ import { syncData } from "../../redux/branchSlice";
 export const SidebarComp = () => {
   const { username, id } = useSelector((state) => state.adminSlice.value);
   const { isOpen, onClose, onToggle } = useDisclosure();
-  const data = useSelector((state) => state.branchSlice.value);
+  const [data, setData] = useState()
+  // const data = useSelector((state) => state.branchSlice.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
+  console.log(id)
   console.log(data);
   console.log(params);
 
@@ -54,16 +57,17 @@ export const SidebarComp = () => {
   const onLogout = () => {
     dispatch(logoutAdmin());
     localStorage.removeItem("tokenBranch");
-    navigate("/loginAdmin");
+    navigate("/login-admin");
   };
 
-  const getBranch = async () => {
+  const getBranch = async (id) => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/branch/findByAdmin/7`
+        `${process.env.REACT_APP_API_BASE_URL}/branch/branchById/1`
       );
-      dispatch(syncData(res.data));
-      console.log(res.data);
+      setData(res.data.response)
+      // dispatch(syncData(res.data));
+      console.log(res.data.response);
     } catch (err) {
       console.log(err);
     }
@@ -105,7 +109,7 @@ export const SidebarComp = () => {
             pb={""}
             name={username}
           ></Avatar>
-          <Text textColor={"#285430"} fontSize="md" as={"b"} ml="3.8vw">
+          <Text textColor={"#285430"} fontSize="md" as={"b"} ml="5vw">
             {username}
           </Text>
           <Text ml="5.5vw">{data?.branchName}</Text>

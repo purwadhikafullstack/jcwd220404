@@ -8,22 +8,22 @@ const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR;
 const openCageURL = process.env.OPENCAGE_URL
 
 module.exports = {
-  branchById: async (req, res) => {
-    try {
-      const response = await branch.findAll({
-        where: {
-          // UserId: req.params.id,
-        },
-        order: [["defaultAddress", "DESC"]],
-      });
-      return res.status(200).send({
-        message: "Get Branch Address",
-        response,
-      });
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
+  // branchById: async (req, res) => {
+  //   try {
+  //     const response = await branch.findAll({
+  //       where: {
+  //         // id: req.params.id,
+  //       },
+  //       order: [["defaultAddress", "DESC"]],
+  //     });
+  //     return res.status(200).send({
+  //       message: "Get Branch Address",
+  //       response,
+  //     });
+  //   } catch (err) {
+  //     res.status(400).send(err);
+  //   }
+  // },
 
   newBranch: async (req, res) => {
     try {
@@ -145,6 +145,23 @@ module.exports = {
         },
       });
       res.status(200).send(response);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findBranchById: async (req, res) => {
+    try {
+      const response = await branch.findOne({
+        where: {
+          id: req.params.id,
+        },
+        // order: [["defaultAddress", "DESC"]],
+      });
+      return res.status(200).send({
+        message: "Get Branch Address",
+        response,
+      });
     } catch (err) {
       res.status(400).send(err);
     }

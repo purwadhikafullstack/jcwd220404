@@ -156,7 +156,7 @@ export const ProductDetail = () => {
                 spacing={{ base: 8, md: 10 }}
                 py={{ base: 18, md: 24 }}
               >
-                <Box as={"header"}></Box>
+                {/* <Box as={"header"}></Box> */}
 
                 {/* <Button
                 rounded={"none"}
