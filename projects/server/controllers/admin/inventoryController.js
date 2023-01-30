@@ -46,14 +46,13 @@ module.exports = {
   },
 
   findAll: async (req, res) => {
-    console.log(req)
+    console.log(req);
     try {
       const inventories = await inventory.findAll({
         where: {
           AdminId: req.params.id,
-          BranchId: req.params.BranchId
+          BranchId: req.params.BranchId,
         },
-        // attributes: ["id", "productName", "description", "picture"],
         include: [{ model: product }],
       });
       res.status(200).send(inventories);

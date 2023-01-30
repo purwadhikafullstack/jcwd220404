@@ -29,13 +29,12 @@ import { loginAdmin } from "./redux/adminSlice";
 import Axios from "axios";
 import { ListAddressPage } from "./pages/user/ListAddressPage";
 import { UpdateAddressPage } from "./pages/user/UpdateAddressPage";
-import { AddProductComp } from "./components/admin/AddProductComp"
+import { AddProductComp } from "./components/admin/AddProductComp";
 import { Checkout } from "./pages/user/CheckoutPage";
 import { OrderSuccess } from "./pages/user/OrderSuccess";
 import { ProductDetail } from "./pages/user/ProductDetailPage";
 import { CategoryDetail } from "./pages/user/CategoryDetail";
 import { OrderDetail } from "./pages/user/OrderDetail";
-
 
 function App() {
   const dispatch = useDispatch();
@@ -198,7 +197,6 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />}></Route>
         <Route path="/category/:id" element={<CategoryDetail />}></Route>
         <Route path="/transaction/:id" element={<OrderDetail />}></Route>
-        
       </Routes>
     </div>
   );

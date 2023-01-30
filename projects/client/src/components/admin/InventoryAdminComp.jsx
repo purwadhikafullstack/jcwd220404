@@ -34,7 +34,6 @@ export const InventoryAdminComp = () => {
   const { id } = useSelector((state) => state.adminSlice.value);
 
   const getData = async (idBranch) => {
-    console.log(id);
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAll/${id}/${idBranch}`
@@ -51,7 +50,6 @@ export const InventoryAdminComp = () => {
   }, [id]);
 
   const getProduct = async () => {
-    console.log(id);
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
