@@ -34,7 +34,7 @@ const {
   inventoryRouter,
   transactionRouter,
   promoRouter,
-} = require("../../server/src/routers");
+} = require("./routers");
 
 // ===========================
 // NOTE : Add your routes here
