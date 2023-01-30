@@ -2,6 +2,7 @@ const db = require("../../models");
 const transaction = db.Transaction;
 const transactionDetail = db.Transaction_Detail;
 const productCart = db.Product_Cart;
+const payment = db.Payment
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -80,6 +81,36 @@ module.exports = {
       res.status(200).send(transactions);
     } catch (err) {
       console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  uploadFile: async (req, res) => {
+    try {
+      let fileUploaded = req.file;
+      console.log("controller", fileUploaded);
+      await payment.update(
+        {
+          picture: `upload/${fileUploaded.filename}`,
+        },
+        {
+          where: {
+            TransactionId: req.params.TransactionId,
+          },
+        }
+      );
+      const getPicture = await payment.findOne({
+        where: {
+          id: req.params.id,
+        },
+        raw: true,
+      });
+      res.status(200).send({
+        id: getPicture.id,
+        picture: getPicture.picture,
+      });
+    } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },

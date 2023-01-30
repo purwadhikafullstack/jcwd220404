@@ -14,12 +14,13 @@ const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR_COST;
 module.exports = {
   createCart: async (req, res) => {
     try {
-      const { ProductId, UserId } = req.body;
+      const { ProductId, UserId, BranchId } = req.body;
       if (!UserId) throw `You have to Login First`;
       const data = await productCart.create({
         ProductId,
         UserId,
         qty: 1,
+        BranchId
       });
       res.status(200).send(data);
     } catch (err) {

@@ -2,7 +2,7 @@ require("dotenv/config");
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
-const db = require("../../server/src/models");
+const db = require("./models");
 const bearerToken = require("express-bearer-token");
 const path = require("path");
 const app = express();

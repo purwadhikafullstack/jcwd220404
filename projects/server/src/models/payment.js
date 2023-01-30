@@ -9,15 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Payment.hasOne(models.Transaction);
+      Payment.belongsTo(models.Transaction);
       Payment.hasOne(models.Notification);
     }
   }
   Payment.init(
     {
-      description: DataTypes.STRING,
-      waitingPayment: DataTypes.BOOLEAN,
-      paymentDate: DataTypes.DATE,
+      // description: DataTypes.STRING,
+      // waitingPayment: DataTypes.BOOLEAN,
+      // paymentDate: DataTypes.DATE,
+      picture: DataTypes.STRING
     },
     {
       sequelize,
