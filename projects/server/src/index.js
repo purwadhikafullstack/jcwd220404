@@ -2,7 +2,7 @@ require("dotenv/config");
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
-const db = require("../models");
+const db = require("./models");
 const bearerToken = require("express-bearer-token");
 const path = require("path");
 const app = express();
@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cors());
-app.use("/upload", express.static(path.join(__dirname, "../upload")));
+app.use("/upload", express.static(path.join(__dirname, "/upload")));
 app.use(bearerToken());
 
 // app.use(
@@ -34,7 +34,7 @@ const {
   inventoryRouter,
   transactionRouter,
   promoRouter,
-} = require("../routers");
+} = require("../../server/src/routers");
 
 // ===========================
 // NOTE : Add your routes here
