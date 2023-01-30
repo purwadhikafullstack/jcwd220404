@@ -74,7 +74,7 @@ export const TransactionComp = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded-picture/${data2?.id}`,
+      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded-picture/4`,
       data,
       {
         headers: {
