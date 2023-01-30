@@ -147,4 +147,16 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  findBranchByAdmin: async (req, res) => {
+    try {
+      const admin = await branch.findOne({
+
+      })
+      res.status(200).send(admin)
+    } catch (err) {
+      res.status(400).send(err)
+
+    }
+  }
 };

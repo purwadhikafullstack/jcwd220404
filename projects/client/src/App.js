@@ -36,7 +36,6 @@ import { ProductDetail } from "./pages/user/ProductDetailPage";
 import { CategoryDetail } from "./pages/user/CategoryDetail";
 import { OrderDetail } from "./pages/user/OrderDetail";
 
-
 function App() {
   const dispatch = useDispatch();
   const tokenUser = localStorage.getItem("tokenUser");
