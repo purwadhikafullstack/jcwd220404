@@ -32,8 +32,9 @@ export const LandingPage = () => {
           <Box
             className="body"
             bgColor="white"
-            h={"200vh"}
+            h={"100%"}
             w={"390px"}
+            pb="80px"
             >
             <VStack>
             {tokenLocalStorage ? <DefaultAddressComp /> : ""}

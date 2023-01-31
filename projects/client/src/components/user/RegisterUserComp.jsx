@@ -102,7 +102,7 @@ export const RegisterUserComp = () => {
           return (
             <>
               <Form>
-                <VStack spacing={"10px"} align="center">
+                <VStack spacing={"15px"} align="center">
                   <FormControl isRequired>
                     <FormLabel textColor={"#285430"} htmlFor="name">
                       Name
@@ -117,8 +117,8 @@ export const RegisterUserComp = () => {
                       bgColor={"white"}
                       textColor="#285430"
                       borderColor={"#285430"}
-                      border={"2px"}
-                      w={"340px"}
+                      border={"1px"}
+                      w={"370px"}
                     />
                     <ErrorMessage
                       style={{ color: "red" }}
@@ -140,8 +140,8 @@ export const RegisterUserComp = () => {
                       bgColor={"white"}
                       textColor="#285430"
                       borderColor={"#285430"}
-                      border={"2px"}
-                      w={"340px"}
+                      border={"1px"}
+                      w={"370px"}
                     />
                     <ErrorMessage
                       style={{ color: "red" }}
@@ -163,8 +163,8 @@ export const RegisterUserComp = () => {
                       bgColor={"white"}
                       textColor="#285430"
                       borderColor={"#285430"}
-                      border={"2px"}
-                      w={"340px"}
+                      border={"1px"}
+                      w={"370px"}
                     />
                     <ErrorMessage
                       style={{ color: "red" }}
@@ -187,8 +187,8 @@ export const RegisterUserComp = () => {
                         bgColor={"white"}
                         textColor="#285430"
                         borderColor={"#285430"}
-                        border={"2px"}
-                        w={"340px"}
+                        border={"1px"}
+                        w={"370px"}
                       />
 
                       <InputRightElement h={"full"}>
@@ -227,8 +227,8 @@ export const RegisterUserComp = () => {
                         bgColor={"white"}
                         textColor="#285430"
                         borderColor={"#285430"}
-                        border={"2px"}
-                        w={"340px"}
+                        border={"1px"}
+                        w={"370px"}
                       />
                       <InputRightElement h={"full"}>
                         <Button
@@ -251,17 +251,13 @@ export const RegisterUserComp = () => {
                     />
                   </FormControl>
                   <Button
-                  mt={"20px"}
-                    type="submit"
-                    _hover={{
-                      bg: "#E5D9B6",
-                    }}
-                    bgColor={"#A4BE7B"}
-                    borderColor="#285430"
-                    border="2px"
-                    fontSize="18px"
-                    color="gray.800"
-                    w={"230px"}
+                 mt={"15px"}
+                 bgColor={"#A4BE7B"}
+                 borderColor="#285430"
+                 border="2px"
+                 fontSize="18px"
+                 color="gray.800"
+                 width={"370px"}
                   >
                     Sign up
                   </Button>

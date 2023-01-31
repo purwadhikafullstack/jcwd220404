@@ -13,6 +13,7 @@ import {
   Heading,
   Input,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import { logoutUser } from "../../redux/userSlice";
 
@@ -31,7 +32,6 @@ export const ChangeEmail = (data) => {
         `${process.env.REACT_APP_API_BASE_URL}/user/updateEmail/${id}`,
         user
       );
-      // setTimeout(() => navigate(`/verification/${result.data.token} `), 2000);
       console.log(result);
       dispatch(logoutUser());
       localStorage.removeItem("tokenUser");
@@ -40,6 +40,7 @@ export const ChangeEmail = (data) => {
       Swal.fire({
         icon: "success",
         text: "Email has changed",
+        width: "370px",
       });
     } catch (err) {
       console.log(err);
@@ -50,24 +51,47 @@ export const ChangeEmail = (data) => {
     <>
       <Box>
         <Center>
-          <Box w={"390px"} h={"844px"} bgColor="#E5D9B6">
+          <Box
+            className="header"
+            w={"390px"}
+            h={"80px"}
+            bgColor="#E5D9B6"
+            color="gray.800"
+            display={"flex"}
+            justifyContent="space-between"
+            pt={"10px"}
+            pl={"1px"}
+            pos="fixed"
+            top={"0"}
+            zIndex={"2"}
+          >
             <Box as={Link} to={`/account/profile/${id}`}>
-              <ArrowBackIcon mt={"20px"} pos={"fixed"} />
+              <ArrowBackIcon
+                mt={"20px"}
+                ml={"20px"}
+                pos={"fixed"}
+                color="#285430"
+                fontSize={"25px"}
+              />
             </Box>
+            <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+              <Text as={"b"} fontSize="xl">
+                EDIT YOUR EMAIL
+              </Text>
+            </Box>
+          </Box>
+          <Box w={"390px"} h={"844px"} bgColor="white">
             <Box
               mt={"100px"}
               className="body"
-              bgColor="#E5D9B6"
+              bgColor="white"
               h={"1750px"}
               w={"390px"}
               pos="fixed"
             >
-              <Heading textAlign={"center"} color="#285430">
-                Edit your Email
-              </Heading>
               <Stack spacing={"20px"} mt={"20px"}>
                 <FormControl isRequired>
-                  <FormLabel color={"#285430"} ml="8">
+                  <FormLabel color={"#285430"} ml={"10px"}>
                     Input Email Existing
                   </FormLabel>
                   <Input
@@ -76,13 +100,15 @@ export const ChangeEmail = (data) => {
                     _placeholder={{ color: "#5F8D4E" }}
                     textColor={"#285430"}
                     borderColor={"#285430"}
-                    border={"2px"}
-                    width="200px"
-                    ml={"8"}
+                    border={"1px"}
+                    width="370px"
+                    ml={"10px"}
                   />
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel>Create New Email</FormLabel>
+                  <FormLabel color={"#285430"} ml={"10px"}>
+                    Create New Email
+                  </FormLabel>
                   <Input
                     ref={inputEmail}
                     isRequired
@@ -90,23 +116,25 @@ export const ChangeEmail = (data) => {
                     _placeholder={{ color: "#5F8D4E" }}
                     borderColor={"#285430"}
                     textColor={"#285430"}
-                    border={"2px"}
-                    width="200px"
-                    ml={"8"}
+                    border={"1px"}
+                    width="370px"
+                    ml={"10px"}
                   />
                 </FormControl>
-                <Button
-                  bgColor={"#A4BE7B"}
-                  borderColor="#285430"
-                  border="2px"
-                  fontSize="18px"
-                  color="gray.800"
-                  width={"100px"}
-                  justifyContent="center"
-                  onClick={() => updateEmail(data.id)}
-                >
-                  Save
-                </Button>
+                <Center>
+                  <Button
+                  mt={"15px"}
+                    bgColor={"#A4BE7B"}
+                    borderColor="#285430"
+                    border="2px"
+                    fontSize="18px"
+                    color="gray.800"
+                    width={"370px"}
+                    onClick={() => updateEmail(data.id)}
+                  >
+                    Save
+                  </Button>
+                </Center>
               </Stack>
             </Box>
           </Box>

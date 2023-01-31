@@ -2,12 +2,15 @@ import React, { useRef } from "react";
 import Swal from "sweetalert2";
 import Axios from "axios";
 import {
+  Box,
   Button,
   Center,
   FormControl,
   FormLabel,
   Input,
   Stack,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 export const AddCategoryComp = () => {
@@ -25,7 +28,6 @@ export const AddCategoryComp = () => {
       Swal.fire({
         icon: "success",
         text: "Success",
-        width: "370",
       });
 
       setTimeout(() => window.location.replace("/adminPage"), 2000);
@@ -36,32 +38,68 @@ export const AddCategoryComp = () => {
   };
   return (
     <div>
-      <Stack spacing={"10px"}>
-        <FormControl>
-          <FormLabel color="#285430">Category Name</FormLabel>
-          <Input
-            ref={inputCategoryName}
-            placeholder="Category"
-            _placeholder={{ color: "#5F8D4E" }}
-            borderColor="#285430"
-            textColor="gray.800"
-          ></Input>
-        </FormControl>
-        <Center>
-          <Button
-            bgColor={"#A4BE7B"}
-            borderColor="#285430"
-            border="2px"
+      <Box
+        p="10px"
+        mt="215px"
+        color={useColorModeValue("#285430")}
+        border="2px"
+        borderRadius="2xl"
+      >
+        <Box
+          w={"385px"}
+          m="10px"
+          mb="25px"
+          borderWidth="2px"
+          boxShadow="xl"
+          borderRadius="8px"
+          borderColor="#285430"
+        >
+          <Box
+            pt="10px"
+            h="50px"
+            borderTopRadius="8px"
+            align="center"
+            bg="#E5D9B6"
             fontSize="18px"
-            color="gray.800"
-            width={"100%"}
-            justifyContent="center"
-            onClick={onCreateCategory}
           >
-            Add Category
-          </Button>
-        </Center>
-      </Stack>
+            <Text justifyContent="center" fontWeight="bold" color="#285430">
+              Add Category
+            </Text>
+          </Box>
+          <Stack spacing={"10px"}>
+            <FormControl>
+              <FormLabel mt={"10px"} ml={"10px"} color="#285430">
+                Category Name
+              </FormLabel>
+              <Input
+                w={"360px"}
+                ml={"10px"}
+                ref={inputCategoryName}
+                placeholder="Category"
+                _placeholder={{ color: "#5F8D4E" }}
+                borderColor="#285430"
+                textColor="gray.800"
+              ></Input>
+            </FormControl>
+            <Center>
+              <Button
+                mt={"20px"}
+                mb={"20px"}
+                w={"360px"}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="16px"
+                color="gray.800"
+                justifyContent="center"
+                onClick={onCreateCategory}
+              >
+                Add Category
+              </Button>
+            </Center>
+          </Stack>
+        </Box>
+      </Box>
     </div>
   );
 };

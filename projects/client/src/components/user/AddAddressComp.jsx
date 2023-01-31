@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import {
   Button,
   Center,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -56,6 +55,7 @@ export const AddAddressComp = () => {
       Swal.fire({
         icon: "success",
         text: "Success",
+        width: "370px",
       });
       navigate("/account/address");
       console.log(res);
@@ -155,7 +155,6 @@ export const AddAddressComp = () => {
   useEffect(() => {
     fetchPostal();
   }, [selectedCity]);
-
   return (
     <div>
       <Stack ml="10px" spacing={"10px"} mt={"20px"} textColor="#285430">
@@ -166,7 +165,7 @@ export const AddAddressComp = () => {
             placeholder="Alamat"
             mb={"10px"}
             width="370px"
-            border="2px"
+            border="1px"
             borderColor="#285430"
           ></Input>
         </FormControl>
@@ -176,7 +175,7 @@ export const AddAddressComp = () => {
             ref={inputDistrict}
             mb={"10px"}
             width="370px"
-            border="2px"
+            border="1px"
             borderColor="#285430"
           ></Input>
         </FormControl>
@@ -185,11 +184,12 @@ export const AddAddressComp = () => {
           <Select
             mb={"10px"}
             width="370px"
-            border="2px"
+            border="1px"
             borderColor="#285430"
             value={province?.rajaongkir?.results?.province_id}
             placeholder="Select Province"
             onChange={provinceHandler}
+            ref={inputProvince}
           >
             {renderProvince()}
           </Select>
@@ -199,11 +199,12 @@ export const AddAddressComp = () => {
           <Select
             mb={"10px"}
             width="370px"
-            border="2px"
+            border="1px"
             borderColor="#285430"
             value={city?.rajaongkir?.results?.city_id}
             placeholder="Select City"
             onChange={cityHandler}
+            ref={inputCity}
           >
             {renderCity()}
           </Select>
@@ -214,7 +215,7 @@ export const AddAddressComp = () => {
           <Select
             mb={"10px"}
             width="370px"
-            border="2px"
+            border="1px"
             borderColor="#285430"
             placeholder="Select Postal Code"
             onChange={postalHandler}
@@ -227,16 +228,13 @@ export const AddAddressComp = () => {
           <Textarea
             mb={"10px"}
             width="370px"
-            border="2px"
+            border="1px"
             borderColor="#285430"
             ref={inputDetail}
             placeholder="e.g. Blok/Lantai"
             _placeholder={{ color: "#5F8D4E" }}
           />
         </FormControl>
-        <Checkbox ml={"10px"} color={"285430"} mb={"10px"}>
-          Set as Default Address
-        </Checkbox>
         <FormControl>
           <FormLabel>Nama Penerima</FormLabel>
           <Flex>
@@ -245,7 +243,7 @@ export const AddAddressComp = () => {
               placeholder="Name"
               mb={"10px"}
               width="370px"
-              border="2px"
+              border="1px"
               borderColor="#285430"
               _placeholder={{ color: "#5F8D4E" }}
             ></Input>
@@ -258,7 +256,7 @@ export const AddAddressComp = () => {
             placeholder="08xxx"
             mb={"10px"}
             width="370px"
-            border="2px"
+            border="1px"
             borderColor="#285430"
             _placeholder={{ color: "#5F8D4E" }}
           ></Input>
@@ -270,25 +268,26 @@ export const AddAddressComp = () => {
             placeholder="yourname@example.com"
             mb={"10px"}
             width="370px"
-            border="2px"
+            border="1px"
             borderColor="#285430"
             _placeholder={{ color: "#5F8D4E" }}
           ></Input>
         </FormControl>
-          </Stack>
-        <Center>
-          <Button
-            onClick={onCreate}
-            mt={"2vw"}
-            bgColor={"#A4BE7B"}
-            borderColor="#285430"
-            border="2px"
-            fontSize="18px"
-            color="gray.800"
-          >
-            Add Address
-          </Button>
-        </Center>
+      </Stack>
+      <Center>
+        <Button
+          onClick={onCreate}
+          mt={"15px"}
+          bgColor={"#A4BE7B"}
+          borderColor="#285430"
+          border="2px"
+          fontSize="18px"
+          color="gray.800"
+          width={"370px"}
+        >
+          Add Address
+        </Button>
+      </Center>
     </div>
   );
 };

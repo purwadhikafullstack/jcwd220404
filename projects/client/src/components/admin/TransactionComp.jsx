@@ -1,6 +1,7 @@
 import {
   Box,
   Flex,
+  SimpleGrid,
   Stat,
   StatLabel,
   StatNumber,
@@ -118,9 +119,9 @@ export const TransactionComp = () => {
   return (
     <div>
       <Box>
-        <Tabs mt="50px" ml="140px" variant='solid-rounded' colorScheme="">
-          <TabList>
-            <Tab spacing={{ base: 5, lg: 2 }}>
+        <Tabs variant='solid-rounded' colorScheme="">
+          <TabList maxW="6xl" pl="10px" mt="50px" mx={"auto"}>
+            <Tab>
               <StatsCard
                 title={"Waiting Payment"}
                 stat={data?.length}
@@ -156,9 +157,9 @@ export const TransactionComp = () => {
               />
             </Tab>
           </TabList>
-          <TabPanels>
+          <TabPanels ml="62px" mt={"2px"}>
             <TabPanel>
-              <TableContainer mt="30px" w="60vw" bgColor={"white"}>
+              <TableContainer mt="30px" w="83vw" bgColor={"white"}>
                 <Table variant="simple" colorScheme="#285430">
                   <Thead alignContent={"center"}>
                     <Tr>
@@ -174,6 +175,15 @@ export const TransactionComp = () => {
                       <Th textAlign={"center"} color={"#285430"}>
                         Weight
                       </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Transfer Proof
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Action
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Status
+                      </Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -184,10 +194,16 @@ export const TransactionComp = () => {
                             {item.id}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalOrder}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalOrder)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalCharge}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalCharge)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
@@ -226,10 +242,16 @@ export const TransactionComp = () => {
                             {item.id}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalOrder}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalOrder)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalCharge}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalCharge)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
@@ -268,10 +290,16 @@ export const TransactionComp = () => {
                             {item.id}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalOrder}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalOrder)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalCharge}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalCharge)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
@@ -310,10 +338,16 @@ export const TransactionComp = () => {
                             {item.id}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalOrder}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalOrder)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalCharge}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalCharge)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
@@ -352,10 +386,16 @@ export const TransactionComp = () => {
                             {item.id}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalOrder}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalOrder)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalCharge}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalCharge)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
@@ -379,7 +419,7 @@ function StatsCard(props) {
   return (
     <div>
       <Stat
-        px={{ base: 2, md: 4 }}
+        px={{ base: 2, md: 5 }}
         py={"5"}
         shadow={"xl"}
         border={"2px solid"}
@@ -388,7 +428,7 @@ function StatsCard(props) {
         rounded={"lg"}
       >
         <Flex justifyContent={"space-between"}>
-          <Box pl={{ base: 2, md: 4 }}>
+          <Box w={"120px"}>
             <StatLabel fontWeight={"medium"} isTruncated>
               {title}
             </StatLabel>

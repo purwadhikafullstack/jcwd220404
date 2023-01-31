@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useState } from "react";
 import { Box, Center, Flex, HStack, Text } from "@chakra-ui/react";
@@ -9,6 +9,7 @@ import {
   CiDeliveryTruck,
   CiInboxIn,
 } from "react-icons/ci";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const OrderDetail = () => {
   const [data, setData] = useState();
@@ -41,33 +42,48 @@ export const OrderDetail = () => {
             w={"390px"}
             h={"80px"}
             bgColor="#E5D9B6"
-            display="flex"
+            display={"flex"}
             justifyContent="space-between"
             pt={"10px"}
             pl={"1px"}
-            position="fixed"
+            pos="fixed"
+            top={"0"}
             zIndex="2"
           >
-            <Box m={"auto"} alignItems={"center"} textColor="black">
-              ORDER DETAIL
+            <Box as={Link} to={`/transaction`}>
+              <ArrowBackIcon
+                mt={"20px"}
+                ml={"20px"}
+                pos={"fixed"}
+                color="#285430"
+                fontSize={"25px"}
+              />
+            </Box>
+            <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+              <Text as={"b"} fontSize="xl">
+                ORDER DETAIL
+              </Text>
             </Box>
           </Box>
           <Box
             className="body"
             bgColor="white"
-            h={"1750px"}
+            h={"100vh"}
             w={"390px"}
-            mt="100px"
+            mt="80px"
+            pt="10px"
           >
-            <Flex>
+            <Flex ml={"10px"}>
               <HStack>
-                <CiCreditCard1 color="grey"></CiCreditCard1>
-                <CiBag1 color="grey" />
-                <CiDeliveryTruck color="grey" />
-                <CiInboxIn color="grey" />
+                <CiCreditCard1 color="#285430"></CiCreditCard1>
+                <CiBag1 color="#285430" />
+                <CiDeliveryTruck color="#285430" />
+                <CiInboxIn color="#285430" />
               </HStack>
             </Flex>
-            <Text placeholder={dateNow}>Please proceed Payment before </Text>
+            <Text ml={"10px"} color={"#285430"} placeholder={dateNow}>
+              Please proceed Payment before{" "}
+            </Text>
           </Box>
         </Box>
       </Center>

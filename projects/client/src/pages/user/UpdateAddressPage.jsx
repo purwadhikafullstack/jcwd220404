@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Center,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -30,7 +29,6 @@ export const UpdateAddressPage = () => {
   const [selectedProvince, setSelectedProvince] = useState(0);
   const [selectedCity, setSelectedCity] = useState(0);
   const [selectedPostal, setSelectedPostal] = useState(0);
-  // const [data, setData] = useState();
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
   const inputProvince = useRef("");
@@ -235,89 +233,84 @@ export const UpdateAddressPage = () => {
           >
             <Stack spacing={"10px"} mt={"10px"} textColor="#285430">
               <FormControl>
-                <FormLabel ml={"20px"}>Alamat</FormLabel>
+                <FormLabel ml={"10px"}>Alamat</FormLabel>
                 <Input
                   ref={inputAddressLine}
                   placeholder="Alamat"
-                  ml="20px"
-                  width="340px"
-                  border="2px"
+                  ml={"10px"}
+                  width="370px"
+                  border="1px"
                   borderColor="#285430"
                   defaultValue={data?.addressLine}
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>Kecamatan</FormLabel>
+                <FormLabel ml={"10px"}>Kecamatan</FormLabel>
                 <Input
                   ref={inputDistrict}
-                  ml={"20px"}
-                  width="340px"
-                  border="2px"
+                  ml={"10px"}
+                  width="370px"
+                  border="1px"
                   borderColor="#285430"
                   defaultValue={data?.district}
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>Province</FormLabel>
+                <FormLabel ml={"10px"}>Province</FormLabel>
                 <Select
                   placeholder="Select Province"
                   onChange={provinceHandler}
-                  ml={"20px"}
-                  width="340px"
-                  border="2px"
+                  ml={"10px"}
+                  width="370px"
+                  border="1px"
                   borderColor="#285430"
                 >
                   {renderProvince()}
                 </Select>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>City</FormLabel>
-                <Select placeholder="Select City" onChange={cityHandler}ml={"20px"}
-                  width="340px"
-                  border="2px"
-                  borderColor="#285430">
+                <FormLabel ml={"10px"}>City</FormLabel>
+                <Select
+                  placeholder="Select City"
+                  onChange={cityHandler}
+                  ml={"10px"}
+                  width="370px"
+                  border="1px"
+                  borderColor="#285430"
+                >
                   {renderCity()}
                 </Select>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>Kode Pos</FormLabel>
+                <FormLabel ml={"10px"}>Kode Pos</FormLabel>
                 <Input
                   ref={inputPostalCode}
-                  ml={"20px"}
-                  width="340px"
-                  border="2px"
+                  ml={"10px"}
+                  width="370px"
+                  border="1px"
                   borderColor="#285430"
                   defaultValue={data?.postalCode}
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>Detail Alamat</FormLabel>
+                <FormLabel ml={"10px"}>Detail Alamat</FormLabel>
                 <Textarea
                   ref={inputDetail}
                   placeholder="e.g. Blok/Lantai"
-                  ml={"20px"}
+                  ml={"10px"}
                   width="340px"
-                  border="2px"
+                  border="1px"
                   borderColor="#285430"
                   defaultValue={data?.detail}
                 ></Textarea>
-                <Checkbox
-                  iconColor="#285430"
-                  iconSize="1rem"
-                  mt="10px"
-                  mb={"10px"}
-                  ml={"20px"}
-                >
-                  Set as Default Address
-                </Checkbox>
                 <FormControl>
-                  <FormLabel ml={"20px"}>Nama Penerima</FormLabel>
+                  <FormLabel ml={"10px"}>Nama Penerima</FormLabel>
                   <Flex>
                     <Input
                       ref={inputReceiverName}
-                      ml={"20px"}
-                      width="340px"
-                      border="2px"
+                      ml={"10px"}
+                      width="370px"
+                      border="1px"
                       borderColor="#285430"
                       defaultValue={data?.receiverName}
                       placeholder="Name"
@@ -325,26 +318,26 @@ export const UpdateAddressPage = () => {
                   </Flex>
                 </FormControl>
                 <FormControl>
-                  <FormLabel ml={"20px"}>No. Telepon Penerima</FormLabel>
+                  <FormLabel ml={"10px"}>No. Telepon Penerima</FormLabel>
                   <Input
                     ref={inputReceiverPhone}
                     placeholder="08xxx"
-                    ml={"20px"}
-                    width="340px"
-                    border="2px"
+                    ml={"10px"}
+                    width="370px"
+                    border="1px"
                     borderColor="#285430"
                     type={"text"}
                     defaultValue={data?.receiverPhone}
                   ></Input>
                 </FormControl>
                 <FormControl>
-                  <FormLabel ml={"20px"}>Email Penerima</FormLabel>
+                  <FormLabel ml={"10px"}>Email Penerima</FormLabel>
                   <Input
                     ref={inputReceiverEmail}
                     placeholder="yourname@example.com"
-                    ml={"20px"}
-                    width="340px"
-                    border="2px"
+                    ml={"10px"}
+                    width="370px"
+                    border="1px"
                     borderColor="#285430"
                     defaultValue={data?.receiverEmail}
                   ></Input>
@@ -352,15 +345,14 @@ export const UpdateAddressPage = () => {
               </FormControl>
               <Center>
                 <Button
-                mt="2vw"
                   onClick={() => onUpdate(data.id)}
+                  mt={"15px"}
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"
                   fontSize="18px"
                   color="gray.800"
-                  width={"130px"}
-                  justifyContent="center"
+                  width={"370px"}
                 >
                   Confirm
                 </Button>

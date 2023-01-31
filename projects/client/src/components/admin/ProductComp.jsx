@@ -14,6 +14,12 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
   Select,
   Table,
   TableContainer,
@@ -27,6 +33,7 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
@@ -37,6 +44,7 @@ import { BsFilterLeft } from "react-icons/bs";
 import { BiReset, BiSearchAlt } from "react-icons/bi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { UpdateProductComp } from "./UpdateProductComp";
 
 export const ProductComp = () => {
   const data = useSelector((state) => state.productSlice.value);
@@ -50,8 +58,15 @@ export const ProductComp = () => {
   const [searchProduct, setSearchProduct] = useState("");
   const [totalPage, setTotalPage] = useState(0);
   const [state, setState] = useState(0);
-  const navigate = useNavigate()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const OverlayOne = () => (
+    <ModalOverlay
+    />
+  );
+  const [overlay, setOverlay] = useState(<OverlayOne />);
 
   const getProduct = async () => {
     try {
@@ -123,7 +138,6 @@ export const ProductComp = () => {
       Swal.fire({
         icon: "success",
         text: " Delete Success",
-        width: "370",
       });
     } catch (err) {
       console.log(err);
@@ -144,10 +158,10 @@ export const ProductComp = () => {
     },
   });
 
-  const toAddProduct = () => {
-    navigate("/adminPage/productAdminPage/addProduct");
+  const toAddProductCategory = () => {
+    navigate("/adminPage/productAdminPage/addProductCategory");
   };
-  
+
   return (
     <div>
       <Tabs isFitted variant="enclosed">
@@ -285,7 +299,7 @@ export const ProductComp = () => {
                   width={"100%"}
                   justifyContent="center"
                   size="md"
-                  // onClick={ toAddProduct()}
+                  onClick={toAddProductCategory}
                 >
                   Add Product
                 </Button>
@@ -351,7 +365,13 @@ export const ProductComp = () => {
                               display={"flex"}
                               justifyContent="space-evenly"
                             >
-                              <Button onClick={() => setEdit(item)}>
+                              <Button
+                              onClick={() => {
+                                setEdit(item);
+                                setOverlay(<OverlayOne />);
+                                onOpen();
+                              }}
+                            >
                                 <EditIcon color={"#285430"} />
                               </Button>
                               <Button onClick={() => onDelete(item.id)}>
@@ -420,6 +440,16 @@ export const ProductComp = () => {
             </TabPanel>
           </TabPanel>
         </TabPanels>
+        <Modal isCentered isOpen={isOpen} onClose={onClose}>
+          {overlay}
+          <ModalContent bgColor={"#E5D9B6"} color="#285430" border="2px">
+            <ModalHeader textColor={"#285430"}>Edit Product</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <UpdateProductComp data={edit} />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </Tabs>
     </div>
   );

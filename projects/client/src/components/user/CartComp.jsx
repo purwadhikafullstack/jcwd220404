@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Card,
+  Center,
   Checkbox,
   Flex,
   FormControl,
@@ -15,13 +16,12 @@ import {
   Select,
   Text,
   Textarea,
-  useNumberInput,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { cartSync } from "../../redux/cartSlice";
 import { delCart } from "../../redux/userSlice";
-import {PopoutCheckoutComp} from "../../components/PopoutChectoutComp"
+import { PopoutCheckoutComp } from "../PopoutCheckoutComp";
 import { useRef } from "react";
 
 export const CartComp = () => {
@@ -245,19 +245,19 @@ export const CartComp = () => {
   return (
     <>
       <Box>
-        <FormControl>
-          <FormLabel>Products</FormLabel>
-          <Card margin={"10px"}>
+        <FormControl ml={"10px"} mr={"10px"}>
+          <FormLabel textColor="#285430">Products</FormLabel>
+          <Card w="370px" bgColor={"white"}>
             {data?.map((item) => {
               return (
                 <Flex
-                  borderBottom={"1px"}
-                  borderColor="grey"
-                  borderRadius={"10px"}
-                  mt={"10px"}
-                  justify={"space-between"}
+                  border={"1px"}
+                  borderColor="#285430"
+                  borderRadius={"md"}
+                  mt={"5px"}
                 >
                   <Checkbox
+                    ml={"10px"}
                     defaultChecked={item.status ? true : false}
                     onChange={() => onCheckout(item.id, item.status)}
                   >
@@ -266,38 +266,52 @@ export const CartComp = () => {
                       gridTemplateRows={" 1fr 30px"}
                       gridTemplateColumns={"120px 1fr"}
                       h="50px"
-                      // gap="1"
-                      color="blackAlpha.700"
+                      color="#285430"
                       fontWeight="bold"
                     >
-                      <GridItem pl="1" area={"nav"}>
+                      <GridItem ml="8px" area={"nav"}>
                         <Image
-                          boxSize={"50px"}
+                          boxSize={"55px"}
                           src={
                             `${process.env.REACT_APP_API_BASE_URL}/` +
                             item.Product?.picture
                           }
                         ></Image>
                       </GridItem>
-                      <GridItem fontSize={"small"} ml="-12" area={"main"}>
+                      <GridItem fontSize={"small"} ml="-6" area={"main"}>
                         {item.Product?.productName}
                       </GridItem>
-                      <GridItem fontSize={"small"} ml="-12" area={"footer"}>
-                        Rp{item.Product?.Price?.productPrice}
+                      <GridItem
+                        fontSize={"small"}
+                        ml="-6"
+                        mt={"1"}
+                        area={"footer"}
+                      >{new Intl.NumberFormat("IND", {
+                        style: "currency",
+                        currency: "IDR",
+                      }).format(item.Product?.Price?.productPrice)}
                       </GridItem>
                     </Grid>
                   </Checkbox>
                   <Box>
                     <Button
-                      pl={"50px"}
+                      pt={"10px"}
+                      ml={"50px"}
                       variant={"unstyled"}
                       onClick={() => onDelete(item.id)}
                       fontSize="sm"
+                      textColor={"#285430"}
                     >
-                      Hapus
+                      Delete
                     </Button>
-                    <HStack maxW="200px">
+                    <HStack
+                      ml={"20px"}
+                      mr="20px"
+                      maxW="200px"
+                      textColor={"#285430"}
+                    >
                       <Button
+                        pb={"4"}
                         variant={"unstyled"}
                         onClick={() => {
                           onQty(item.id, item.qty - 1);
@@ -305,8 +319,11 @@ export const CartComp = () => {
                       >
                         -
                       </Button>
-                      <Text w={"10px"}>{item.qty}</Text>
+                      <Text pb={"4"} fontSize={"small"} as="b">
+                        {item.qty}
+                      </Text>
                       <Button
+                        pb={"4"}
                         variant={"unstyled"}
                         onClick={() => {
                           onQty(item.id, item.qty + 1);
@@ -322,12 +339,22 @@ export const CartComp = () => {
           </Card>
         </FormControl>
         <FormControl>
-          <FormLabel>Total</FormLabel>
+          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+            Total
+          </FormLabel>
           <PopoutCheckoutComp props={checkout} />
         </FormControl>
         <FormControl>
-          <FormLabel>Shipping Method</FormLabel>
+          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+            Shipping Method
+          </FormLabel>
           <Select
+            w={"370px"}
+            ml="10px"
+            border={"1px"}
+            borderColor="#285430"
+            borderRadius={"md"}
+            textColor="#285430"
             ref={inputRef}
             onChange={() => setData7(inputRef.current.value)}
           >
@@ -338,29 +365,75 @@ export const CartComp = () => {
           </Select>
         </FormControl>
         <FormControl>
-          <FormLabel>Buyer Information</FormLabel>
-          <Text>{data2?.["User.name"]}</Text>
-          <Text>{data2?.["User.phoneNumber"]}</Text>
+          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+            Buyer Information
+          </FormLabel>
+          <Box
+            border={"1px"}
+            borderColor="#285430"
+            borderRadius={"md"}
+            w="370px"
+            ml={"10px"}
+          >
+            <Text ml={"10px"} color="#285430">
+              {data2?.["User.name"]}
+            </Text>
+            <Text ml={"10px"} color="#285430">
+              {data2?.["User.phoneNumber"]}
+            </Text>
+          </Box>
         </FormControl>
         <FormControl>
-          <FormLabel>Delivery Address</FormLabel>
-          <Box border={"2px"}>
-            <Text as={"b"}>{data2?.receiverName}</Text>
-            <Text>
+          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+            Delivery Address
+          </FormLabel>
+          <Box
+            ml="10px"
+            border={"1px"}
+            borderColor="#285430"
+            borderRadius={"md"}
+            w="370px"
+          >
+            <Text ml={"10px"} color="#285430">
+              {data2?.receiverName}
+            </Text>
+            <Text ml={"10px"} color="#285430">
               {data2?.receiverPhone}
               {data2?.addressLine},{data2?.district},{data2?.city},
               {data2?.province}
             </Text>
-            <Text>{data2?.detail}</Text>
+            <Text ml={"10px"} color="#285430">
+              {data2?.detail}
+            </Text>
           </Box>
         </FormControl>
         <FormControl>
-          <FormLabel>Order Note</FormLabel>
-          <Textarea></Textarea>
+          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+            Order Note
+          </FormLabel>
+          <Textarea
+            color={"#285430"}
+            border="1px"
+            borderColor={"#285430"}
+            w="370px"
+            ml={"10px"}
+          ></Textarea>
         </FormControl>
-        <Button onClick={() => onCreate()} w={"100%"}>
-          Select Payment Method
-        </Button>
+        <Center>
+          <Button
+            onClick={() => onCreate()}
+            mt={"20px"}
+            w={"370px"}
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="16px"
+            color="gray.800"
+            justifyContent="center"
+          >
+           Checkout
+          </Button>
+        </Center>
       </Box>
     </>
   );

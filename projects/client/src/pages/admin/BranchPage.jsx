@@ -1,8 +1,8 @@
 import { Grid, GridItem } from "@chakra-ui/react";
+import { BranchComp } from "../../components/admin/BranchComp";
 import { SidebarBranchComp } from "../../components/admin/SidebarBranchComp";
-import { TransactionComp } from "../../components/admin/TransactionComp";
 
-export const TransactionAdminPage = () => {
+export const BranchPage = () => {
   return (
     <div>
       <Grid
@@ -21,7 +21,7 @@ export const TransactionAdminPage = () => {
           <SidebarBranchComp />
         </GridItem>
         <GridItem>
-          <TransactionComp />
+          <BranchComp />
         </GridItem>
       </Grid>
     </div>

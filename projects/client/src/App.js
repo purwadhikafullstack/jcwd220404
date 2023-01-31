@@ -17,6 +17,7 @@ import { NotFoundPage } from "./pages/user/404NotFoundPage";
 import { LoginUserComp } from "./components/user/EnterComp";
 import { LoginAdminPage } from "./pages/admin/LoginAdminPage";
 import { AdminPage } from "./pages/admin/AdminPage";
+import { ManagementBranchPage } from "./pages/admin/ManagementBranchPage";
 import { ProductAdminPage } from "./pages/admin/ProductAdminPage";
 import { CategoryAdminPage } from "./pages/admin/CategoryAdminPage";
 import { InventoryAdminPage } from "./pages/admin/InventoryAdminPage";
@@ -29,7 +30,7 @@ import { loginAdmin } from "./redux/adminSlice";
 import Axios from "axios";
 import { ListAddressPage } from "./pages/user/ListAddressPage";
 import { UpdateAddressPage } from "./pages/user/UpdateAddressPage";
-import { AddProductComp } from "./components/admin/AddProductComp"
+import { AddProductCategoryPage } from "./pages/admin/AddProductCategoryPage";
 import { Checkout } from "./pages/user/CheckoutPage";
 import { OrderSuccess } from "./pages/user/OrderSuccess";
 import { ProductDetail } from "./pages/user/ProductDetailPage";
@@ -155,19 +156,20 @@ function App() {
           element={<AddressPage />}
         ></Route>
         <Route
-          path="/account/address/updateAddress/:id"
+          path="/account/address/update/:id"
           element={<UpdateAddressPage />}
         ></Route>
         <Route path="/loginAdmin" element={<LoginAdminPage />}></Route>
         <Route path="/adminPage" element={<AdminPage />}></Route>
+        <Route path="/adminPage/managementBranchPage" element={<ManagementBranchPage />}></Route>
         <Route
           path="/adminPage/productAdminPage"
           element={<ProductAdminPage />}
         ></Route>
-        {/* <Route
-          path="/adminPage/productAdminPage/addProduct"
-          element={<AddProductComp />}
-        ></Route> */}
+        <Route
+          path="/adminPage/productAdminPage/addProductCategory"
+          element={<AddProductCategoryPage />}
+        ></Route>
         <Route
           path="/adminPage/categoryAdminPage"
           element={<CategoryAdminPage />}
@@ -197,7 +199,6 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />}></Route>
         <Route path="/category/:id" element={<CategoryDetail />}></Route>
         <Route path="/transaction/:id" element={<OrderDetail />}></Route>
-        
       </Routes>
     </div>
   );

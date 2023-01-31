@@ -14,9 +14,14 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {
+  CheckIcon,
+  DeleteIcon,
+  EditIcon,
+  HamburgerIcon,
+} from "@chakra-ui/icons";
 
-export const ListAddress = () => {
+export const ListAddressComp = () => {
   const { data } = useSelector((state) => state.addressSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const navigate = useNavigate();
@@ -50,6 +55,18 @@ export const ListAddress = () => {
     }
   };
 
+  const onDefault = async (idAddress) => {
+    try {
+      const result = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/address/setDefault/${idAddress}/${id}`
+      );
+      console.log(result)
+      getData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const toUpdate = (addressId) => {
     navigate(`/account/address/update/${addressId}`);
   };
@@ -63,9 +80,9 @@ export const ListAddress = () => {
             mr="8px"
             mt="8px"
             p="4"
-            border={"2px"}
+            border={"1px"}
             borderColor={"#285430"}
-            borderRadius="xl"
+            borderRadius="md"
           >
             <Flex justifyContent={"space-between"}>
               <Text color={"#285430"}>{item.receiverName}</Text>
@@ -101,8 +118,8 @@ export const ListAddress = () => {
                   </MenuItem>
                   <MenuItem
                     as={"button"}
-                    onClick={() => onDelete(item.id)}
-                    icon={<DeleteIcon />}
+                    onClick={() => onDefault(item.id)}
+                    icon={<CheckIcon />}
                     bgColor="#E5D9B6"
                     textColor={"#285430"}
                   >
@@ -119,7 +136,7 @@ export const ListAddress = () => {
               <Text color={"#285430"}>{item.province}</Text>
             </Flex>
             <Text color={"#285430"}>{item.detail}</Text>
-            <Badge color={"#285430"}>
+            <Badge color={"#285430"} fontSize="14px">
               {item.defaultAddress === false ? "" : "Alamat Utama"}
             </Badge>
           </Box>
@@ -127,4 +144,4 @@ export const ListAddress = () => {
       })}{" "}
     </div>
   );
-};  
+};

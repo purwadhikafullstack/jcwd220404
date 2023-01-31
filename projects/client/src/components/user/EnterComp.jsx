@@ -92,8 +92,8 @@ export const LoginUserComp = () => {
               bgColor={"white"}
               textColor="#285430"
               borderColor={"#285430"}
-              border={"2px"}
-              w={"340px"}
+              border={"1px"}
+              w={"370px"}
               ref={inputPhoneEmail}
             />
             </FormControl>
@@ -112,8 +112,8 @@ export const LoginUserComp = () => {
                   bgColor={"white"}
                   textColor="#285430"
                   borderColor={"#285430"}
-                  border={"2px"}
-                  w={"340px"}
+                  border={"1px"}
+                  w={"370px"}
                   zIndex="1"
                 />
                 <Button
@@ -131,8 +131,8 @@ export const LoginUserComp = () => {
             </FormControl>
             <Center>
               <Button
-                mt={"3"}
-                mb={"3"}
+                mt={"15px"}
+                mb={"15px"}
                 onClick={onLogin}
                 _hover={{
                   bg: "#E5D9B6",
@@ -142,7 +142,7 @@ export const LoginUserComp = () => {
                 border="2px"
                 fontSize="18px"
                 color="gray.800"
-                w={"90px"}
+                w={"370px"}
                 alignItems="center"
               >
                 <b>Sign In</b>

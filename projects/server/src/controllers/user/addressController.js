@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Op, where } = require("sequelize");
 const axios = require("axios");
 const db = require("../../models");
 const address = db.Address;
@@ -7,6 +7,7 @@ const branch = db.Branch;
 const rajaOngkirKey = process.env.RAJA_KEY;
 const openCageKey = process.env.GEO_KEY;
 const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR;
+const openCageURL = process.env.OPENCAGE_URL;
 
 module.exports = {
   addressById: async (req, res) => {
@@ -39,15 +40,22 @@ module.exports = {
         district,
       } = req.body;
       const provinceAndCity = await axios.get(
-        `https://api.rajaongkir.com/starter/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
+        `${rajaOngkirURL}/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
       );
+      const branchCity = await branch.findOne({
+        where: {
+          cityId: city,
+        },
+        raw: true,
+      });
+      console.log(branchCity);
       const provinceName = provinceAndCity.data.rajaongkir.results.province;
       const cityName = provinceAndCity.data.rajaongkir.results.city_name;
       const cityType = provinceAndCity.data.rajaongkir.results.type;
       const cityNameAndType = `${cityType} ${cityName}`;
       const postal = provinceAndCity.data.rajaongkir.results.postal_code;
       const location = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?key=${openCageKey}&q=${district},${cityNameAndType},${provinceName},${postal}`
+        `${openCageURL}/json?key=${openCageKey}&q=${cityNameAndType},${provinceName}`
       );
       const lattitude = location.data.results[0].geometry.lat;
       const longitude = location.data.results[0].geometry.lng;
@@ -67,12 +75,16 @@ module.exports = {
         longitude,
         defaultAddress: false,
         UserId: req.params.id,
+        BranchId: branchCity,
       });
+
+      await branch.findOne({});
       res.status(200).json({
         message: "New Address created",
         data: response,
       });
     } catch (err) {
+      console.log(err )
       res.status(400).send(err);
     }
   },
@@ -91,14 +103,14 @@ module.exports = {
       } = req.body;
       const { id } = req.params;
       const provinceAndCity = await axios.get(
-        `https://api.rajaongkir.com/starter/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
+        `${rajaOngkirURL}/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
       );
       const provinceName = provinceAndCity.data.rajaongkir.results.province;
       const cityName = provinceAndCity.data.rajaongkir.results.city_name;
       const cityType = provinceAndCity.data.rajaongkir.results.type;
       const cityNameAndType = `${cityType} ${cityName}`;
       const location = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?key=${openCageKey}&q=${district},${cityNameAndType},${provinceName}`
+        `${openCageURL}/json?key=${openCageKey}&q=${cityNameAndType},${provinceName}`
       );
       const lattitude = location.data.results[0].geometry.lat;
       const longitude = location.data.results[0].geometry.lng;
@@ -129,6 +141,7 @@ module.exports = {
         data: findData,
       });
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -152,57 +165,29 @@ module.exports = {
   setDefault: async (req, res) => {
     try {
       const { id } = req.params;
-      const findDefault = await address.findOne({
-        where: {
-          defaultAddress: true,
-          UserId: req.user.id,
+      const toFalse = await address.update(
+        {
+          defaultAddress: false,
         },
-      });
-      if (findDefault) {
-        await address.update(
-          {
-            defaultAddress: false,
+        {
+          where: {
+            UserId: req.params.UserId,
           },
-          {
-            where: {
-              id: findDefault.id,
-            },
-          }
-        );
-        await address.update(
-          {
-            defaultAddress: true,
+        }
+      );
+      const toTrue = await address.update(
+        {
+          defaultAddress: true,
+        },
+        {
+          where: {
+            id: req.params.id,
           },
-          {
-            where: {
-              id: id,
-            },
-          }
-        );
-        res.status(200).json({
-          message: "success",
-        });
-      }
-      if (!findDefault) {
-        await address.update(
-          {
-            defaultAddress: true,
-          },
-          {
-            where: {
-              id: id,
-            },
-          }
-        );
-        res.status(200).send({
-          message: "success",
-        });
-      }
-      res.status(200).send({
-        message: "Address set as default",
-        data: findDefault,
-      });
+        }
+      );
+      res.status(200).send("Set default success");
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },

@@ -14,11 +14,15 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
   Select,
-  Tab,
   Table,
   TableContainer,
-  TabList,
   TabPanel,
   TabPanels,
   Tabs,
@@ -29,15 +33,18 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { syncCategory } from "../../redux/categorySlice";
 import { BsFilterLeft } from "react-icons/bs";
 import { BiReset, BiSearchAlt } from "react-icons/bi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { UpdateCategoryComp } from "./UpdateCategoryComp";
 
 export const CategoryComp = () => {
   const data = useSelector((state) => state.categorySlice.value);
@@ -51,7 +58,15 @@ export const CategoryComp = () => {
   const [searchCategory, setSearchCategory] = useState("");
   const [totalPage, setTotalPage] = useState(0);
   const [state, setState] = useState(0);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const OverlayOne = () => (
+    <ModalOverlay
+    />
+  );
+  const [overlay, setOverlay] = useState(<OverlayOne />);
 
   const getCategory = async () => {
     try {
@@ -115,7 +130,6 @@ export const CategoryComp = () => {
       Swal.fire({
         icon: "success",
         text: " Delete Success",
-        width: "370",
       });
     } catch (err) {
       console.log(err);
@@ -143,6 +157,10 @@ export const CategoryComp = () => {
   useEffect(() => {
     fetchSort();
   }, []);
+
+  const toAddProductCategory = () => {
+    navigate("/adminPage/productAdminPage/addProductCategory");
+  };
 
   return (
     <div>
@@ -280,12 +298,12 @@ export const CategoryComp = () => {
                   color="gray.800"
                   width={"100%"}
                   justifyContent="center"
-                  // onClick={ toAddProduct()}
                   size="md"
+                  onClick={toAddProductCategory}
                 >
                   Add Category
                 </Button>
-                </Box>
+              </Box>
             </Center>
             <TabPanel ml="46px" w="85vw" bgColor={"white"}>
               <TableContainer>
@@ -297,7 +315,7 @@ export const CategoryComp = () => {
                       <Th color={"#285430"}>Actions</Th>
                     </Tr>
                   </Thead>
-                  <Tbody >
+                  <Tbody>
                     {data?.map((item) => {
                       return (
                         <Tr>
@@ -338,7 +356,13 @@ export const CategoryComp = () => {
                             </ButtonGroup>
                           </Td>
                           <Td>
-                            <Button onClick={() => setEdit(item)}>
+                            <Button
+                              onClick={() => {
+                                setEdit(item);
+                                setOverlay(<OverlayOne />);
+                                onOpen();
+                              }}
+                            >
                               <EditIcon color={"#285430"} />
                             </Button>
                             <Button onClick={() => onDeleteCategory(item.id)}>
@@ -406,6 +430,16 @@ export const CategoryComp = () => {
             </TabPanel>
           </TabPanel>
         </TabPanels>
+        <Modal isCentered isOpen={isOpen} onClose={onClose}>
+          {overlay}
+          <ModalContent bgColor={"#E5D9B6"} color="#285430" border="2px">
+            <ModalHeader textColor={"#285430"}>Edit Category</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <UpdateCategoryComp data={edit} />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </Tabs>
     </div>
   );

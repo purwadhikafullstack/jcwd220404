@@ -154,7 +154,6 @@ export const ProfilePage = (user) => {
             </Text>
           </Box>
         </Box>
-
         <Box
           mt={"80px"}
           className="body"
@@ -186,11 +185,11 @@ export const ProfilePage = (user) => {
             isOpen={isOpen}
             onClose={onClose}
             closeOnBlur={false}
-            >
+          >
             <PopoverContent w={"380px"} ml="530px" mt="170px">
               <PopoverBody
                 backgroundColor="#E5D9B6"
-                border="2px"
+                border="1px"
                 borderRadius="xl"
                 borderColor="#285430"
               >
@@ -230,20 +229,20 @@ export const ProfilePage = (user) => {
             </PopoverContent>
           </Popover>
 
-          <Heading mt={"20px"} ml="8" size={"md"} color="#285430">
+          <Heading mt={"20px"} ml="10px" size={"md"} color="#285430">
             Personal Data
           </Heading>
           <Stack spacing={"20px"} mt={"20px"}>
             <FormControl>
-              <FormLabel color={"#285430"} ml="8">
+              <FormLabel color={"#285430"} ml="10px">
                 Name
               </FormLabel>
               <Flex>
                 <Input
-                  width="83%"
-                  ml={"8"}
+                  width="370px"
+                  ml={"10px"}
                   borderColor="#285430"
-                  border="2px"
+                  border="1px"
                   ref={inputName}
                   placeholder="Name"
                   _placeholder={{ color: "#285430" }}
@@ -253,15 +252,15 @@ export const ProfilePage = (user) => {
               </Flex>
             </FormControl>
             <FormControl>
-              <FormLabel color={"#285430"} ml={"8"}>
+              <FormLabel color={"#285430"} ml={"10px"}>
                 Birthdate
               </FormLabel>
               <Input
                 color={"#285430"}
                 borderColor="#285430"
-                border="2px"
-                width="83%"
-                ml="8"
+                border="1px"
+                width="370px"
+                ml="10px"
                 placeholder="Select Date and Time"
                 _placeholder={{ color: "#285430" }}
                 size="md"
@@ -272,15 +271,15 @@ export const ProfilePage = (user) => {
               />
             </FormControl>
             <FormControl>
-              <FormLabel color={"#285430"} ml="8">
+              <FormLabel color={"#285430"} ml="10px">
                 Gender
               </FormLabel>
               <Select
                 color={"#285430"}
                 borderColor="#285430"
-                border="2px"
-                width="83%"
-                ml="8"
+                border="1px"
+                width="370px"
+                ml="10px"
                 ref={inputGender}
               >
                 <option selected={data.Profile?.gender === ""} value="">
@@ -300,51 +299,52 @@ export const ProfilePage = (user) => {
             <Center>
               <Button
                 onClick={() => updateData(data.id)}
+                mt={"10px"}
                 bgColor={"#A4BE7B"}
                 borderColor="#285430"
                 border="2px"
                 fontSize="18px"
                 color="gray.800"
-                width={"180px"}
-                justifyContent="center"
+                width={"370px"}
               >
                 Save
               </Button>
             </Center>
           </Stack>
-          <Heading ml="8" mt={"20px"} mb={"20px"} size={"md"} color="#285430">
+          <Heading
+            ml="10px"
+            mt={"20px"}
+            mb={"20px"}
+            size={"md"}
+            color="#285430"
+          >
             Account Information
           </Heading>
           <Stack spacing={"20px"}>
             <Box display={"flex"} justifyContent="space-between">
-              <Text ml="8" color={"#285430"}>
+              <Text ml="10px" color={"#285430"}>
                 Phone Number
               </Text>
             </Box>
-            <Text pl="8" color={"#285430"} as={"u"}>
+            <Text pl="10px" color={"#285430"} as={"u"}>
               {data.phoneNumber}
             </Text>
             <Box display={"flex"} justifyContent="space-between">
-              <Text ml="8" color={"#285430"}>
+              <Text ml="10px" color={"#285430"}>
                 Email
               </Text>
-              <Box
-                color={"#285430"}
-                width="200px"
-                as="button"
-                onClick={toEmail}
-              >
+              <Box mr="30px" color={"#285430"} as="button" onClick={toEmail}>
                 <EditIcon />
               </Box>
             </Box>
-            <Text pl="8" color={"#285430"} as={"u"}>
+            <Text pl="10px" color={"#285430"} as={"u"}>
               {data.email}
             </Text>
             <Box display={"flex"} justifyContent="space-between">
-              <Text ml="8" color={"#285430"}>
+              <Text ml="10px" color={"#285430"}>
                 Password
               </Text>
-              <Box color={"#285430"} width="200px" as="button" onClick={toPass}>
+              <Box mr="30px" color={"#285430"} as="button" onClick={toPass}>
                 <EditIcon />
               </Box>
             </Box>

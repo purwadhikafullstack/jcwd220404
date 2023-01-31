@@ -13,7 +13,7 @@ import { GoPackage } from "react-icons/go";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdDoneOutline } from "react-icons/md";
 
-export const DashboardComp = () => {
+export const BranchComp = () => {
   
   return (
     <div>

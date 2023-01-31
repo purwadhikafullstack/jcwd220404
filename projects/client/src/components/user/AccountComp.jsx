@@ -165,7 +165,7 @@ export const AccountComp = () => {
             display={"flex"}
             bgColor={"#FF0000"}
             textColor="gray.800"
-            width={"100px"}
+            width={"370px"}
             m="auto"
             justifyContent={"center"}
             borderColor="#285430"

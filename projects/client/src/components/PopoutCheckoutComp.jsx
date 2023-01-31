@@ -1,18 +1,14 @@
 import { Center, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { cartSync } from "../redux/cartSlice";
+import { useSelector } from "react-redux";
 
 export const PopoutCheckoutComp = ({ props }) => {
   console.log(props);
   const [data, setData] = useState([]);
   const [totalCheckout, setTotalCheckout] = useState(0);
-  const navigate = useNavigate();
   const { id } = useSelector((state) => state.userSlice.value);
-  const dispatch = useDispatch();
 
   const getData = async () => {
     try {
@@ -42,7 +38,7 @@ export const PopoutCheckoutComp = ({ props }) => {
         <Flex
           as={"b"}
           textColor="#285430"
-          border={"2px"}
+          border={"1px"}
           borderRadius="md"
           borderColor={"#285430"}
           justifyContent="space-evenly"
@@ -50,7 +46,10 @@ export const PopoutCheckoutComp = ({ props }) => {
           w={[300, 350, 370]}
         >
           <Flex justify={"space-between"}>
-            <Text>Rp.{totalCheckout}</Text>
+            <Text>{new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(totalCheckout)}</Text>
           </Flex>
         </Flex>
       </Center>

@@ -1,8 +1,9 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Flex, Grid, GridItem } from "@chakra-ui/react";
+import { AddCategoryComp } from "../../components/admin/AddCategoryComp";
+import { AddProductComp } from "../../components/admin/AddProductComp";
 import { SidebarBranchComp } from "../../components/admin/SidebarBranchComp";
-import { TransactionComp } from "../../components/admin/TransactionComp";
 
-export const TransactionAdminPage = () => {
+export const AddProductCategoryPage = () => {
   return (
     <div>
       <Grid
@@ -20,9 +21,10 @@ export const TransactionAdminPage = () => {
         <GridItem>
           <SidebarBranchComp />
         </GridItem>
-        <GridItem>
-          <TransactionComp />
-        </GridItem>
+        <Flex>
+          <AddProductComp />
+          <AddCategoryComp />
+        </Flex>
       </Grid>
     </div>
   );

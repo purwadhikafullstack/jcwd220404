@@ -11,30 +11,18 @@ import {
   Grid,
   GridItem,
   Image,
-  Radio,
-  RadioGroup,
-  Select,
-  Stack,
   Text,
-  Textarea,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { syncData } from "../../redux/addressSlice";
-import { DefaultAddressComp } from "../../components/DefaultAddressComp";
-import { CartComp } from "../../components/user/CartComp";
+import { useSelector } from "react-redux";
 
 export const Checkout = () => {
-  const [value, setValue] = useState("0");
   const [data, setData] = useState([]);
-  const [product, setProduct] = useState([]);
   const [totalCheckout, setTotalCheckout] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
-  // const { data } = useSelector((state) => state.addressSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const getData = async () => {
@@ -46,13 +34,10 @@ export const Checkout = () => {
         .filter((item) => item.status === true)
         .map((item) => item.totalCheckout)
         .reduce((a, b) => a + b);
-      console.log(selectedItem);
-      console.log(res.data);
       const selectedWeight = res.data
         .filter((item) => item.status === true)
         .map((item) => item.totalWeight)
         .reduce((a, b) => a + b);
-      console.log(selectedWeight);
       setTotalCheckout(selectedItem);
       setTotalWeight(selectedWeight);
       setData(res.data);
@@ -102,13 +87,14 @@ export const Checkout = () => {
             </Box>
           </Box>
           <Box
-            mt={"100px"}
+            mt={"80px"}
             className="body"
             bgColor="white"
             h={"100%"}
+            pb={"75px"}
             w={"390px"}
           >
-            <FormControl>
+            <FormControl mt={"10px"} ml={"10px"} textColor="#285430">
               <FormLabel>Payment Option</FormLabel>
               <Box variant={"unstyled"}>
                 <Checkbox value="1">
@@ -117,74 +103,146 @@ export const Checkout = () => {
               </Box>
             </FormControl>
             <FormControl>
-              <FormLabel>Order Detail</FormLabel>
+              <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+                Order Detail
+              </FormLabel>
               {data?.map((item) => {
                 return (
-                  <Card margin={"10px"}>
+                  <Card
+                    margin={"10px"}
+                    w="370px"
+                    border={"1px"}
+                    borderColor="#285430"
+                    borderRadius={"md"}
+                    bgColor="white"
+                    textColor={"#285430"}
+                  >
                     <Flex mb={"50px"} justify={"space-between"}>
                       <Grid
                         templateAreas={`"nav main""nav footer"`}
                         gridTemplateRows={"50px 1fr 30px"}
                         gridTemplateColumns={"120px 1fr"}
-                        h="50px"
-                        gap="1"
-                        color="blackAlpha.700"
+                        h="30px"
                         fontWeight="bold"
                       >
-                        <GridItem pl="1" area={"nav"}>
+                        <GridItem pl="10px" pt="10px" area={"nav"}>
                           <Image
-                            boxSize={"50px"}
+                            boxSize={"60px"}
                             src={
                               `${process.env.REACT_APP_API_BASE_URL}/` +
                               item.Product.picture
                             }
                           ></Image>
                         </GridItem>
-                        <GridItem fontSize={"small"} pl="1" area={"main"}>
+                        <GridItem
+                          textColor={"#285430"}
+                          fontSize={"small"}
+                          pt="10px"
+                          area={"main"}
+                        >
                           {item.Product?.productName}
                         </GridItem>
-                        <GridItem fontSize={"small"} pl="1" area={"footer"}>
-                          Rp{item.totalCheckout}
+                        <GridItem
+                          textColor={"#285430"}
+                          fontSize={"small"}
+                          area={"footer"}
+                        >
+                          <Text mt={"10px"} ml={"10px"} textColor="#285430">
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalCheckout)}
+                          </Text>
                         </GridItem>
                       </Grid>
-                      <Text>{item.totalWeight} g</Text>
-                      <Text>{item.qty}x</Text>
+                      <Text fontSize={"small"} pt="10px" pr={"40px"} as="b">
+                        {item.totalWeight} g
+                      </Text>
+                      <Text fontSize={"small"} pt="10px" pr={"40px"} as="b">
+                        {item.qty}x
+                      </Text>
                     </Flex>
                   </Card>
                 );
               })}
             </FormControl>
-
             <FormControl>
-              <FormLabel>Voucher</FormLabel>
-              <Button w={"100%"}>Apply Voucher</Button>
+              <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+                Voucher
+              </FormLabel>
+              <Button
+                ml={"10px"}
+                w={"370px"}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="16px"
+                color="gray.800"
+                justifyContent="center"
+              >
+                Apply Voucher
+              </Button>
             </FormControl>
             <FormControl>
-              <FormLabel>Payment Detail</FormLabel>
+              <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+                Payment Detail
+              </FormLabel>
               <Flex justify={"space-between"}>
                 <Box>
-                  <Text>Subtotal Produk</Text>
-                  <Text>Voucher</Text>
+                  <Text mt={"10px"} ml={"10px"} textColor="#285430">
+                    Subtotal Produk
+                  </Text>
+                  <Text mt={"10px"} ml={"10px"} textColor="#285430">
+                    Voucher
+                  </Text>
                 </Box>
                 <Box>
-                  <Text>Rp{totalCheckout}</Text>
-                  <Text>xx.xxx</Text>
+                  <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
+                    {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(totalCheckout)}
+                  </Text>
+                  <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
+                    xx.xxx
+                  </Text>
                 </Box>
               </Flex>
             </FormControl>
             <FormControl>
-              <FormLabel>Payment Subtotal</FormLabel>
+              <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+                Payment Subtotal
+              </FormLabel>
 
               <Flex justify={"space-between"}>
-                <Text>Delivery Charge</Text>
-                <Text>xx.xxx</Text>
+                <Text mt={"10px"} ml={"10px"} textColor="#285430">
+                  Delivery Charge
+                </Text>
+                <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
+                  xx.xxx
+                </Text>
               </Flex>
             </FormControl>
             <Flex justify={"space-between"}>
-              <Text as={"b"}>Total</Text>
-              <Text as={"b"}>xx.xxx</Text>
+              <Text as={"b"} mt={"10px"} ml={"10px"} color="#285430">
+                Total
+              </Text>
+              <Text as={"b"} mt={"10px"} ml={"10px"} mr="10px" color="#285430">
+                xx.xxx
+              </Text>
             </Flex>
-            <Button onClick={toPayment} w={"100%"}>
+            <Button
+              ml={"10px"}
+              onClick={toPayment}
+              mt={"20px"}
+              w={"370px"}
+              bgColor={"#A4BE7B"}
+              borderColor="#285430"
+              border="2px"
+              fontSize="16px"
+              color="gray.800"
+              justifyContent="center"
+            >
               Checkout
             </Button>
           </Box>

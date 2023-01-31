@@ -3,10 +3,10 @@ import Axios from "axios";
 import {
   Box,
   Button,
+  Center,
   FormControl,
   FormLabel,
   Input,
-  Stack,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 
@@ -36,10 +36,11 @@ export const UpdateCategoryComp = ({ data }) => {
 
   return (
     <div>
-      <Box w="36vw">
+      <Box>
         <FormControl>
           <FormLabel color="#285430">Category Name</FormLabel>
           <Input
+            bgColor={"white"}
             _placeholder={{ color: "#5F8D4E" }}
             borderColor="#285430"
             textColor="#285430"
@@ -47,18 +48,20 @@ export const UpdateCategoryComp = ({ data }) => {
             ref={inputCategoryName}
           ></Input>
         </FormControl>
-        <Button
-          mt="1vw"
-          bgColor={"#A4BE7B"}
-          borderColor="#285430"
-          border="2px"
-          color="gray.800"
-          width={"100%"}
-          justifyContent="center"
-          onClick={() => onUpdate(data.id)}
-        >
-          Save
-        </Button>
+        <Center>
+          <Button
+            mt="1.5vw"
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            color="gray.800"
+            width={"40%"}
+            justifyContent="center"
+            onClick={() => onUpdate(data.id)}
+          >
+            Save
+          </Button>
+        </Center>
       </Box>
     </div>
   );

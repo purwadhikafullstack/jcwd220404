@@ -19,7 +19,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { logoutAdmin } from "../../redux/adminSlice";
 import { syncData } from "../../redux/branchSlice";
 
-export const SidebarComp = () => {
+export const SidebarBranchComp = () => {
   const { username, id } = useSelector((state) => state.adminSlice.value);
   const { isOpen, onClose, onToggle } = useDisclosure();
   const data = useSelector((state) => state.branchSlice.value);
@@ -90,7 +90,7 @@ export const SidebarComp = () => {
       >
         <Box margin={"auto"} alignItems={"center"} textColor="#285430">
           <Image
-            ml={"3vw"}
+            ml={"3.5vw"}
             boxSize={"8vw"}
             src={`${process.env.REACT_APP_API_BASE_URL}/upload/OnlyFreshLogo.png`}
           />
@@ -110,6 +110,7 @@ export const SidebarComp = () => {
           </Text>
           <Text ml="5.5vw">{data?.branchName}</Text>
           <Button
+            bgColor={"#E5D9B6"}
             mt={"2vw"}
             ml={"3vw"}
             textColor={"#285430"}
@@ -119,6 +120,7 @@ export const SidebarComp = () => {
             Dashboard
           </Button>
           <Button
+            bgColor={"#E5D9B6"}
             mt={"1vw"}
             ml={"3vw"}
             textColor={"#285430"}
@@ -128,6 +130,7 @@ export const SidebarComp = () => {
             Product
           </Button>
           <Button
+            bgColor={"#E5D9B6"}
             mt={"1vw"}
             ml={"3vw"}
             textColor={"#285430"}
@@ -137,6 +140,7 @@ export const SidebarComp = () => {
             Category
           </Button>
           <Button
+            bgColor={"#E5D9B6"}
             mt={"1vw"}
             ml={"3vw"}
             textColor={"#285430"}
@@ -146,6 +150,7 @@ export const SidebarComp = () => {
             Inventory
           </Button>
           <Button
+            bgColor={"#E5D9B6"}
             mt={"1vw"}
             ml={"3vw"}
             textColor={"#285430"}
@@ -155,6 +160,7 @@ export const SidebarComp = () => {
             Transaction
           </Button>
           <Button
+            bgColor={"#E5D9B6"}
             mt={"1vw"}
             ml={"3vw"}
             textColor={"#285430"}
@@ -172,7 +178,7 @@ export const SidebarComp = () => {
             borderColor="#gray.800"
             border="2px"
             onClick={onToggle}
-            mt="17vw"
+            mt="8vw"
             ml="4vw"
             position="absolute"
           >

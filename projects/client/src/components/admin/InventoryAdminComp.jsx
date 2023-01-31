@@ -137,15 +137,16 @@ export const InventoryAdminComp = () => {
           </TableContainer>
         </Box>
         <Box
-          ml="120px"
+          p="10px"
+          ml="50px"
           mt="215px"
           color={useColorModeValue("#285430")}
           border="2px"
           borderRadius="2xl"
         >
           <Box
-            w={"300px"}
-            m="20px"
+            w={"385px"}
+            m="10px"
             mb="25px"
             borderWidth="2px"
             boxShadow="xl"
@@ -174,7 +175,7 @@ export const InventoryAdminComp = () => {
                 <FormLabel
                   color="#285430"
                   mt="10px"
-                  ml="8px"
+                  ml="10px"
                   fontSize="18px"
                   as={"b"}
                 >
@@ -184,8 +185,8 @@ export const InventoryAdminComp = () => {
                   ref={inputBranch}
                   color={"#285430"}
                   borderColor="#285430"
-                  ml="5px"
-                  w="97%"
+                  ml="10px"
+                  w="360px"
                 >
                   <option>Select Branch</option>
                   {branch?.map((item) => {
@@ -203,7 +204,7 @@ export const InventoryAdminComp = () => {
                 <FormLabel
                   color="#285430"
                   mt="10px"
-                  ml="8px"
+                  ml="10px"
                   fontSize="18px"
                   as={"b"}
                 >
@@ -214,8 +215,8 @@ export const InventoryAdminComp = () => {
                   ref={inputProductName}
                   color={"#285430"}
                   borderColor="#285430"
-                  ml="5px"
-                  w="97%"
+                  ml="10px"
+                  w="360px"
                 >
                   <option>Select Product</option>
                   {data3?.map((item) => {
@@ -231,7 +232,7 @@ export const InventoryAdminComp = () => {
                 <FormLabel
                   color="#285430"
                   mt="10px"
-                  ml="8px"
+                  ml="10px"
                   fontSize="18px"
                   as={"b"}
                 >
@@ -240,8 +241,8 @@ export const InventoryAdminComp = () => {
                 <Input
                   textColor="gray.800"
                   borderColor="#285430"
-                  ml="5px"
-                  w="97%"
+                  ml="10px"
+                  w="360px"
                   ref={inputQty}
                 ></Input>
               </FormControl>
@@ -249,7 +250,7 @@ export const InventoryAdminComp = () => {
                 <FormLabel
                   color="#285430"
                   mt="10px"
-                  ml="8px"
+                  ml="10px"
                   fontSize="18px"
                   as={"b"}
                 >
@@ -258,20 +259,21 @@ export const InventoryAdminComp = () => {
                 <Input
                   textColor="gray.800"
                   borderColor="#285430"
-                  ml="5px"
-                  w="97%"
+                  ml="10px"
+                  w="360px"
                   ref={inputEntryDate}
                 ></Input>
               </FormControl>
               <Center>
                 <Button
-                  mb="20px"
+                  mt={"20px"}
+                  mb={"20px"}
+                  w={"360px"}
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"
-                  fontSize="18px"
+                  fontSize="16px"
                   color="gray.800"
-                  width={"50%"}
                   justifyContent="center"
                   onClick={onCreate}
                 >

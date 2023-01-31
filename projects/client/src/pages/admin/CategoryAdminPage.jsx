@@ -1,5 +1,5 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { SidebarComp } from "../../components/admin/SidebarComp";
+import { SidebarBranchComp } from "../../components/admin/SidebarBranchComp";
 import { CategoryComp } from "../../components/admin/CategoryComp";
 
 export const CategoryAdminPage = () => {
@@ -18,7 +18,7 @@ export const CategoryAdminPage = () => {
       bgColor={"white"}
     >
       <GridItem>
-        <SidebarComp />
+        <SidebarBranchComp />
       </GridItem>
       <GridItem>
         <CategoryComp/>

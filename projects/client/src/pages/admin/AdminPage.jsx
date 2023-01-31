@@ -1,6 +1,6 @@
 import { Box, Center } from "@chakra-ui/react";
-import { SuperComp } from "../../components/admin/SuperComp";
-import {DashboardPage } from "../admin/DashboardPage";
+import { SuperPage } from "./SuperPage";
+import { BranchPage } from "./BranchPage";
 import { ForbiddenPage } from "../403ForbiddenPage";
 
 export const AdminPage = () => {
@@ -16,9 +16,9 @@ export const AdminPage = () => {
         bgColor="white"
         >
           {tokenLocalStorage ? (
-            <SuperComp />
+            <SuperPage />
           ) : tokenLocalStorage2 ? (
-            <DashboardPage/>
+            <BranchPage/>
           ) : (
             <ForbiddenPage />
           )}
