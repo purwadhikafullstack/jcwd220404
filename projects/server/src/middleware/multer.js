@@ -5,9 +5,7 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(
       null,
-      // path.join(__dirname,
-      "upload"
-      //  )
+      "./src/upload"
     );
   },
 
@@ -20,7 +18,6 @@ const storage = multer.diskStorage({
         Math.round(Math.random() * 100000) +
         "." +
         file.mimetype.split("/")[1]
-      // + path.extname(file.originalname)
     );
     console.log(file);
   },

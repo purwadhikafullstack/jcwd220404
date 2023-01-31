@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       productPrice: DataTypes.INTEGER,
       startDate: DataTypes.DATEONLY,
       endDate: DataTypes.DATEONLY,
-      
+      isDisc: DataTypes.BOOLEAN,
       discPrice: DataTypes.INTEGER
     },
     {

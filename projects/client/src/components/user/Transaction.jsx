@@ -74,7 +74,7 @@ export const TransactionComp = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded-picture/4`,
+      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded/4`,
       data,
       {
         headers: {
@@ -92,7 +92,7 @@ export const TransactionComp = () => {
       text: "Success",
       width: "370px",
     });
-    window.location.replace("/admin");
+    window.location.replace("/transaction");
   };
 
   return (

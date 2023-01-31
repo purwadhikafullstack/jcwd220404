@@ -1,4 +1,4 @@
-const { Op, where } = require("sequelize");
+const { Op } = require("sequelize");
 const axios = require("axios");
 const db = require("../../models");
 const address = db.Address;
@@ -75,7 +75,7 @@ module.exports = {
         longitude,
         defaultAddress: false,
         UserId: req.params.id,
-        BranchId: branchCity.id,
+        BranchId: branchCity,
       });
 
       await branch.findOne({});
@@ -84,6 +84,7 @@ module.exports = {
         data: response,
       });
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },

@@ -2,7 +2,7 @@ const db = require("../../models");
 const transaction = db.Transaction;
 const transactionDetail = db.Transaction_Detail;
 const productCart = db.Product_Cart;
-const payment = db.Payment
+const payment = db.Payment;
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -50,6 +50,15 @@ module.exports = {
           },
         });
       });
+
+      data?.map(async (item) => {
+        await payment.create({
+          where: {
+            TransactionId: item.Transaction.id,
+          },
+        });
+      });
+
       res.status(200).send(result);
     } catch (err) {
       console.log(err);
@@ -89,17 +98,17 @@ module.exports = {
     try {
       let fileUploaded = req.file;
       console.log("controller", fileUploaded);
-      await payment.update(
+      await transaction.update(
         {
           picture: `upload/${fileUploaded.filename}`,
         },
         {
           where: {
-            TransactionId: req.params.TransactionId,
+            id: req.params.id,
           },
         }
       );
-      const getPicture = await payment.findOne({
+      const getPicture = await transaction.findOne({
         where: {
           id: req.params.id,
         },
@@ -110,7 +119,77 @@ module.exports = {
         picture: getPicture.picture,
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findWaitingPayment: async (req, res) => {
+    try {
+      const transactions = await transaction.findAll({
+        where: {
+          status: 1,
+        },
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findConfirmPayment: async (req, res) => {
+    try {
+      const transactions = await transaction.findAll({
+        where: {
+          status: 2,
+        },
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findOnProcess: async (req, res) => {
+    try {
+      const transactions = await transaction.findAll({
+        where: {
+          status: 3,
+        },
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findDelivery: async (req, res) => {
+    try {
+      const transactions = await transaction.findAll({
+        where: {
+          status: 4
+        },
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findDone: async (req, res) => {
+    try {
+      const transactions = await transaction.findAll({
+        where: {
+          status: 5
+        },
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },

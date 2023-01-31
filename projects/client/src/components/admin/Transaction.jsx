@@ -174,6 +174,9 @@ export const TransactionComp = () => {
                       <Th textAlign={"center"} color={"#285430"}>
                         Weight
                       </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        ACTIONS
+                      </Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -217,10 +220,14 @@ export const TransactionComp = () => {
                         Weight
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
+                        Picture
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
                         ACTIONS
                       </Th>
                     </Tr>
                   </Thead>
+
                   <Tbody>
                     {data2?.map((item) => {
                       return (
@@ -237,6 +244,7 @@ export const TransactionComp = () => {
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
                           </Td>
+                          <Td textAlign={"center"} color={"#285430"}></Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
                           </Td>
@@ -263,6 +271,9 @@ export const TransactionComp = () => {
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
                         Weight
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        ACTIONS
                       </Th>
                     </Tr>
                   </Thead>
@@ -305,6 +316,9 @@ export const TransactionComp = () => {
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
                         Weight
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        ACTIONS
                       </Th>
                     </Tr>
                   </Thead>
