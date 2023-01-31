@@ -67,14 +67,14 @@ export const AddProduct = () => {
   return (
     <>
       <h2>
-        <AccordionButton>
+        {/* <AccordionButton> */}
           <Box color="#285430" as="span" flex="1" textAlign="left">
             Add Product
           </Box>
-          <AccordionIcon color="gray.800" />
-        </AccordionButton>
+          {/* <AccordionIcon color="gray.800" /> */}
+        {/* </AccordionButton> */}
       </h2>
-      <AccordionPanel pb={4}>
+      {/* <AccordionPanel pb={4}> */}
         <Stack spacing={"10px"}>
           <FormControl>
             <FormLabel color="#285430">Nama Produk</FormLabel>
@@ -130,7 +130,7 @@ export const AddProduct = () => {
             </Button>
           </Center>
         </Stack>
-      </AccordionPanel>
+      {/* </AccordionPanel> */}
     </>
   );
 };

@@ -12,9 +12,9 @@ module.exports = {
         pictureName: `upload/${fileUploaded.filename}`,
       });
       const getPicture = await picture.findOne({
-        where: {
-          id: req.params.id,
-        },
+        // where: {
+        //   id: req.params.id,
+        // },
         raw: true,
       });
       res.status(200).send({

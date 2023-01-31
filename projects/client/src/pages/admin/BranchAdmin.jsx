@@ -142,7 +142,7 @@ export const BranchComp = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/49`,
       data,
       {
         headers: {
@@ -328,12 +328,13 @@ export const BranchComp = () => {
         </Box>
       </Box>
       <Box
+      ml={"100px"}
         mt={"70px"}
         className="body"
         bgColor="white"
         color="gray.800"
         h={"1580px"}
-        w={"390px"}
+        // w={"390px"}
         // pos="fixed"
       >
         <Grid

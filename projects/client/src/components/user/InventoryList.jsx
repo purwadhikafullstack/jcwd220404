@@ -34,6 +34,7 @@ import { Link } from "react-router-dom";
 export const InventoryList = () => {
   const [state, setState] = useState();
   const [state2, setState2] = useState();
+  const [state3, setState3] = useState();
   const dispatch = useDispatch();
   const { id, cart } = useSelector((state) => state.userSlice.value);
   const data = useSelector((state) => state.inventorySlice.value);
@@ -45,7 +46,9 @@ export const InventoryList = () => {
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
       console.log(result.data.defaultAdd);
+      console.log(result.data.defaultAdd["Branch.id"]);
       setState2(result.data.defaultAdd);
+      setState3(result.data.defaultAdd["Branch.id"])
     } catch (err) {
       console.log(err);
     }
@@ -74,13 +77,14 @@ export const InventoryList = () => {
     getProduct();
   }, [state2]);
 
-  const onAddCart = async (ProductId) => {
+  const onAddCart = async (ProductId, BranchId) => {
     try {
       const result = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/cart/create`,
         {
           UserId: id,
           ProductId,
+          BranchId
         }
       );
       setState(result.data);
@@ -334,7 +338,7 @@ export const InventoryList = () => {
                     </CardBody>
                   </Center>
                   <CardFooter>
-                    <Button onClick={() => onAddCart(item.Product.id)}>
+                    <Button onClick={() => onAddCart(item.Product.id, item.Branch.id)}>
                       <AddIcon />
                       Cart
                     </Button>

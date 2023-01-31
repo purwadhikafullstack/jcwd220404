@@ -118,6 +118,17 @@ export const ProductList = () => {
     }
   };
 
+  const onDiscount = async () => {
+    try {
+      const res = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/promo/update/${id}`
+      )
+    } catch (err) {
+      console.log(err)
+
+    }
+  }
+
   return (
     <div>
       <Center>

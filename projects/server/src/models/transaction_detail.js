@@ -11,12 +11,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Transaction_Detail.belongsTo(models.Product);
       Transaction_Detail.belongsTo(models.Transaction);
+      Transaction_Detail.belongsTo(models.Branch);
     }
   }
   Transaction_Detail.init(
     {
       qty: DataTypes.INTEGER,
-      id_order: DataTypes.STRING
+      id_order: DataTypes.STRING,
+      totalCheckout: DataTypes.INTEGER,
+      totalWeight: DataTypes.INTEGER
     },
     {
       sequelize,

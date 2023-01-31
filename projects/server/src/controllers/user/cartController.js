@@ -7,6 +7,8 @@ const user = db.User;
 const inventory = db.Inventory;
 const branch = db.Branch;
 const productCart = db.Product_Cart;
+const transaction = db.Transaction;
+const transactionDetail = db.Transaction_Detail;
 var request = require("request");
 const rajaOngkirKey = process.env.RAJA_KEY;
 const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR_COST;
@@ -14,12 +16,13 @@ const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR_COST;
 module.exports = {
   createCart: async (req, res) => {
     try {
-      const { ProductId, UserId } = req.body;
+      const { ProductId, UserId, BranchId } = req.body;
       if (!UserId) throw `You have to Login First`;
       const data = await productCart.create({
         ProductId,
         UserId,
         qty: 1,
+        BranchId,
       });
       res.status(200).send(data);
     } catch (err) {
@@ -184,12 +187,17 @@ module.exports = {
         include: [
           {
             model: product,
-            include: [{ model: inventory }, { model: price }],
+            include: [{ model: price }],
           },
+          // {
+          //   model: inventory,
+          //   include: [{ model: branch }],
+          // },
         ],
       });
       res.status(200).send(carts);
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },

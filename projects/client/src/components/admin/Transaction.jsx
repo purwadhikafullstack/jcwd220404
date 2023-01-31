@@ -1,6 +1,8 @@
 import {
   Box,
+  Button,
   Flex,
+  Image,
   Stat,
   StatLabel,
   StatNumber,
@@ -27,6 +29,7 @@ import React from "react";
 
 import Axios from "axios";
 import { useState, useEffect } from "react";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 export const TransactionComp = () => {
   const [data, setData] = useState();
@@ -174,10 +177,133 @@ export const TransactionComp = () => {
                       <Th textAlign={"center"} color={"#285430"}>
                         Weight
                       </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        ACTIONS
+                      </Th>
                     </Tr>
                   </Thead>
                   <Tbody>
                     {data?.map((item) => {
+                      return (
+                        <Tr>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.id}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalOrder}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalCharge}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalWeight}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                          <Box
+                        mr="28px"
+                        display={"flex"}
+                        justifyContent="space-evenly"
+                      >
+                        <Button
+                          onClick={() => {
+                            // setEdit(item);
+                            // console.log("test2")
+                          }}
+                        >
+                          <EditIcon color={"#285430"} />
+                        </Button>
+                        <Button 
+                        // onClick={() => onDelete(item.id)}
+                        >
+                          <DeleteIcon color={"#285430"} />
+                        </Button>
+                      </Box>
+                            
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </TabPanel>
+            <TabPanel>
+              <TableContainer mt="30px" w="60vw" bgColor={"white"}>
+                <Table variant="simple" colorScheme="#285430">
+                  <Thead alignContent={"center"}>
+                    <Tr>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Transaction ID
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Total Product
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Delivery Cost
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Weight
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Picture
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        ACTIONS
+                      </Th>
+                    </Tr>
+                  </Thead>
+
+                  <Tbody>
+                    {data2?.map((item) => {
+                      return (
+                        <Tr>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.id}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalOrder}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalCharge}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalWeight}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}></Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalWeight}
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </TabPanel>
+            <TabPanel>
+              <TableContainer mt="30px" w="60vw" bgColor={"white"}>
+                <Table variant="simple" colorScheme="#285430">
+                  <Thead alignContent={"center"}>
+                    <Tr>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Transaction ID
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Total Product
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Delivery Cost
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Weight
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        ACTIONS
+                      </Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {data3?.map((item) => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
@@ -222,93 +348,6 @@ export const TransactionComp = () => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {data2?.map((item) => {
-                      return (
-                        <Tr>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalOrder}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalCharge}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalWeight}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalWeight}
-                          </Td>
-                        </Tr>
-                      );
-                    })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
-            </TabPanel>
-            <TabPanel>
-              <TableContainer mt="30px" w="60vw" bgColor={"white"}>
-                <Table variant="simple" colorScheme="#285430">
-                  <Thead alignContent={"center"}>
-                    <Tr>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
-                      </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Total Product
-                      </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Delivery Cost
-                      </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Weight
-                      </Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {data3?.map((item) => {
-                      return (
-                        <Tr>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalOrder}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalCharge}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalWeight}
-                          </Td>
-                        </Tr>
-                      );
-                    })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
-            </TabPanel>
-            <TabPanel>
-              <TableContainer mt="30px" w="60vw" bgColor={"white"}>
-                <Table variant="simple" colorScheme="#285430">
-                  <Thead alignContent={"center"}>
-                    <Tr>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
-                      </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Total Product
-                      </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Delivery Cost
-                      </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Weight
-                      </Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
                     {data4?.map((item) => {
                       return (
                         <Tr>
@@ -348,6 +387,9 @@ export const TransactionComp = () => {
                       <Th textAlign={"center"} color={"#285430"}>
                         Weight
                       </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Picture
+                      </Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -365,6 +407,15 @@ export const TransactionComp = () => {
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            <Image
+                              boxSize={"50px"}
+                              src={
+                                `${process.env.REACT_APP_API_BASE_URL}/` +
+                                item.picture
+                              }
+                            ></Image>
                           </Td>
                         </Tr>
                       );

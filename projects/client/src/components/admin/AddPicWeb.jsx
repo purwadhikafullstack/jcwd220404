@@ -46,6 +46,7 @@ export const AddPicWeb = () => {
     });
     window.location.replace("/admin");
   };
+  
   return (
     <div>
       <h2>
