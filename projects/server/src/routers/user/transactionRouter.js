@@ -4,6 +4,7 @@ const { multerUpload } = require("../../middleware/multer");
 
 // router.patch("/checkout/:id", transactionController.checkout);
 // router.post("/createCart", transactionController.createCart)
+router.post("/create/:id", transactionController.create);
 router.post(
     "/single-uploaded/:id",
     multerUpload.single("file"),

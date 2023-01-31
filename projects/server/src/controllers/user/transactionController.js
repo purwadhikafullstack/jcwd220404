@@ -3,6 +3,8 @@ const transaction = db.Transaction;
 const transactionDetail = db.Transaction_Detail;
 const productCart = db.Product_Cart;
 const payment = db.Payment;
+const product = db.Product
+const price = db.Price
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -84,51 +86,35 @@ module.exports = {
   //       }
   //     );
 
-  //     // data?.map(async (item) => {
-  //     //   await productCart.destroy({
-  //     //     where: {
-  //     //       id: item.id,
-  //     //     },
-  //     //   });
-  //     // });
+  // data?.map(async (item) => {
+  //   await productCart.destroy({
+  //     where: {
+  //       id: item.id,
+  //     },
+  //   });
+  // });
 
-  //     // const {
-  //     //   totalOrder,
-  //     //   totalWeight,
-  //     //   totalCharge,
-  //     //   status,
-  //     //   UserId,
-  //     //   AdminId,
-  //     //   id_order,
-  //     //   data,
-  //     // } = req.body;
-  //     // console.log(req.body);
+  // const {
+  //   totalOrder,
+  //   totalWeight,
+  //   totalCharge,
+  //   status,
+  //   UserId,
+  //   AdminId,
+  //   id_order,
+  //   data,
+  // } = req.body;
+  // console.log(req.body);
 
-  //     // const result = await transaction.create({
-  //     //   totalOrder,
-  //     //   totalWeight,
-  //     //   totalCharge,
-  //     //   status: 1,
-  //     //   UserId,
-  //     //   AdminId,
-  //     //   id_order: no_order,
-  //     // });
-
-  //     // data?.map(async (item) => {
-  //     //   await transactionDetail.create({
-  //     //     ProductId: item.Product_Cart.id,
-  //     //     id_order: no_order,
-  //     //   });
-  //     // });
-
-
-  //     // data?.map(async (item) => {
-  //     //   await payment.create({
-  //     //     where: {
-  //     //       TransactionId: item.Transaction.id,
-  //     //     },
-  //     //   });
-  //     // });
+  // const result = await transaction.create({
+  //   totalOrder,
+  //   totalWeight,
+  //   totalCharge,
+  //   status: 1,
+  //   UserId,
+  //   AdminId,
+  //   id_order: no_order,
+  // });
 
   //     res.status(200).send(toCheckout);
   //   } catch (err) {
@@ -136,6 +122,85 @@ module.exports = {
   //     res.status(400).send(err);
   //   }
   // },
+
+  create: async (req, res) => {
+    let date = new Date();
+    date.setDate(date.getDate());
+    try {
+      let year = date.getFullYear();
+      const order = await transaction.findAll();
+      const no_order = `OF-${year}${order.length + 1}`;
+
+      const {
+        totalOrder,
+        totalWeight,
+        totalCharge,
+        status,
+        UserId,
+        AdminId,
+        id_order,
+        ProductId,
+        totalCheckout,
+        qty,
+        BranchId,
+        TransactionId
+      } = req.body;
+      console.log(req.body);
+      const result = await transaction.create({
+        totalOrder,
+        totalWeight,
+        totalCharge,
+        status: 1,
+        UserId,
+        AdminId,
+        id_order: no_order,
+      });
+      const data = await productCart.findAll({
+        where: [
+          { UserId: req.params.id },
+          {
+            status: 1,
+          },
+        ],
+        include: [
+          {
+            model: product,
+            include: [{ model: price }],
+          },
+          // {
+          //   model: inventory,
+          //   include: [{ model: branch }],
+          // },
+        ],
+      });
+      // console.log(data)
+      data.map(async (item) => {
+        console.log(item.dataValues)
+        await transactionDetail.create({
+          TransactionId: result.id,
+          ProductId: item.dataValues.ProductId,
+          id_order: result.id_order,
+          totalCheckout: item.dataValues.totalCheckout,
+          totalWeight: item.dataValues.totalWeight,
+          qty: item.dataValues.qty,
+          BranchId: item.dataValues.BranchId
+        });
+      });
+
+      data.map(async (item) => {
+        await productCart.destroy({
+          where: {
+            id: item.dataValues.id
+          },
+        });
+      });
+
+      res.status(200).send(result);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
 
   findAllById: async (req, res) => {
     try {

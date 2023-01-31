@@ -21,25 +21,29 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAdmin } from "../../redux/adminSlice";
 
 export const InventoryAdminComp = () => {
   const [branch, setBranch] = useState();
   const inputProductName = useRef("");
-  const inputQty = useRef("");
+  const inputQty = useRef(0);
   const inputEntryDate = useRef("");
   const inputBranch = useRef("");
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
+  const [data4, setData4] = useState([]);
   const { id } = useSelector((state) => state.adminSlice.value);
+  const dispatch = useDispatch();
 
-  const getData = async () => {
+  const getData = async (BranchId) => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/inventory/findAll/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
       console.log(res.data);
+      console.log(res.data[0]?.id);
     } catch (err) {
       console.log(err);
     }
@@ -47,7 +51,7 @@ export const InventoryAdminComp = () => {
 
   useEffect(() => {
     getData();
-  }, [id]);
+  }, [data4]);
 
   const getProduct = async () => {
     try {
@@ -72,7 +76,7 @@ export const InventoryAdminComp = () => {
         ProductId: inputProductName.current.value,
         stockQty: inputQty.current.value,
         entryDate: inputEntryDate.current.value,
-        BranchId: inputBranch.current.value,
+        BranchId: data4
       };
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/inventory/create`,
@@ -89,13 +93,16 @@ export const InventoryAdminComp = () => {
     }
   };
 
-  const getBranch = async () => {
+  const getBranch = async (AdminId) => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/branch/findAll`
+        `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/2`
       );
+      // dispatch(loginAdmin(res.data))
       setBranch(res.data);
       console.log(res.data);
+      setData4(res.data?.id)
+      console.log(res.data.id);
     } catch (err) {
       console.log(err);
     }
@@ -178,24 +185,14 @@ export const InventoryAdminComp = () => {
                 >
                   Branch
                 </FormLabel>
-                <Select
+                <Input
                   ref={inputBranch}
                   color={"#285430"}
                   borderColor="#285430"
                   ml="5px"
                   w="97%"
-                >
-                  <option>Select Branch</option>
-                  {branch?.map((item) => {
-                    return (
-                      <>
-                        <option value={item.id} color="#285430">
-                          {item.branchName}
-                        </option>
-                      </>
-                    );
-                  })}
-                </Select>
+                  defaultValue={branch?.branchName}
+                ></Input>
               </FormControl>
               <FormControl>
                 <FormLabel
@@ -240,7 +237,7 @@ export const InventoryAdminComp = () => {
                   borderColor="#285430"
                   ml="5px"
                   w="97%"
-                  ref={inputQty}
+                  ref={inputEntryDate}
                 ></Input>
               </FormControl>
               <FormControl>
@@ -258,7 +255,7 @@ export const InventoryAdminComp = () => {
                   borderColor="#285430"
                   ml="5px"
                   w="97%"
-                  ref={inputEntryDate}
+                  ref={inputQty}
                 ></Input>
               </FormControl>
               <Center>

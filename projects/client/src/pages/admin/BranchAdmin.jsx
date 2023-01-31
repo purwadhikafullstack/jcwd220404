@@ -142,7 +142,7 @@ export const BranchComp = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/49`,
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
       data,
       {
         headers: {
@@ -328,7 +328,7 @@ export const BranchComp = () => {
         </Box>
       </Box>
       <Box
-      ml={"100px"}
+        ml={"100px"}
         mt={"70px"}
         className="body"
         bgColor="white"
@@ -579,7 +579,7 @@ export const BranchComp = () => {
                                 color="gray.800"
                                 width={"100%"}
                                 justifyContent="center"
-                                onClick={handleUpload}
+                                onClick={() => handleUpload(item.id)}
                                 size="sm"
                               >
                                 Upload
@@ -831,7 +831,7 @@ export const BranchComp = () => {
                               color="gray.800"
                               width={"100%"}
                               justifyContent="center"
-                              onClick={handleUpload1}
+                              onClick={() => handleUpload1(item.id)}
                               size="sm"
                             >
                               Upload

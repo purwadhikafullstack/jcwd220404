@@ -229,13 +229,17 @@ export const CartComp = () => {
   const onCreate = async () => {
     try {
       const res = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/create`,
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/create/${id}`,
+
         {
+          UserId: data3[0]?.UserId,
           totalOrder: data5,
           totalWeight: data6,
           totalCharge: data8,
-          UserId: data3[0]?.UserId,
-          AdminId: data3[0]?.Product?.Inventories[1]?.AdminId,
+          ProductId: data3[0]?.ProductId,
+          BranchId: data3[0]?.BranchId,
+
+          //   AdminId: data3[0]?.Product?.Inventories[1]?.AdminId,
         }
       );
       console.log(res.data);
