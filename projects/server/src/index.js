@@ -2,13 +2,16 @@ require("dotenv/config");
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
-const db = require("../models");
-const bearerToken = require("express-bearer-token")
+const db = require("./models");
+const bearerToken = require("express-bearer-token");
+const path = require("path");
 const app = express();
 
 const PORT = process.env.PORT || 8000;
 app.use(express.json());
-app.use(cors())
+app.use(cors());
+app.use("/upload", express.static(path.join(__dirname, "/upload")));
+app.use(bearerToken());
 
 // app.use(
 //   cors({
@@ -19,16 +22,32 @@ app.use(cors())
 //   })
 // );
 
-app.use(express.static("../Public"));
-app.use(bearerToken())
-
-
 //#region API ROUTES
-const { userRouter } = require("../routers");
+const {
+  userRouter,
+  addressRouter,
+  adminRouter,
+  branchRouter,
+  productRouter,
+  pictureRouter,
+  cartRouter,
+  inventoryRouter,
+  transactionRouter,
+  promoRouter,
+} = require("../../server/src/routers");
 
 // ===========================
 // NOTE : Add your routes here
 app.use("/user", userRouter);
+app.use("/address", addressRouter);
+app.use("/admin", adminRouter);
+app.use("/branch", branchRouter);
+app.use("/product", productRouter);
+app.use("/picture", pictureRouter);
+app.use("/cart", cartRouter);
+app.use("/inventory", inventoryRouter);
+app.use("/transaction", transactionRouter);
+app.use("/promo", promoRouter);
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);
@@ -65,11 +84,11 @@ app.use((err, req, res, next) => {
 
 //#region CLIENT
 const clientPath = "../../client/build";
-app.use(express.static(join(__dirname, clientPath)));
+// app.use(express.static(join(__dirname, clientPath)));
 
 // Serve the HTML page
 app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, clientPath, "index.html"));
+  // res.sendFile(join(__dirname, clientPath, "index.html"));
 });
 
 //#endregion
@@ -78,7 +97,7 @@ app.listen(PORT, (err) => {
   if (err) {
     console.log(`ERROR: ${err}`);
   } else {
-    // db.sequelize.sync({alter: true})
+    // db.sequelize.sync({ alter: true });
     console.log(`APP RUNNING at ${PORT} ✅`);
   }
 });
