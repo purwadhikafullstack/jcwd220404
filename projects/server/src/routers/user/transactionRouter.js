@@ -2,7 +2,8 @@ const router = require("express").Router();
 const { transactionController } = require("../../controllers/index");
 const { multerUpload } = require("../../middleware/multer");
 
-router.post("/create", transactionController.create);
+// router.patch("/checkout/:id", transactionController.checkout);
+// router.post("/createCart", transactionController.createCart)
 router.post(
     "/single-uploaded/:id",
     multerUpload.single("file"),

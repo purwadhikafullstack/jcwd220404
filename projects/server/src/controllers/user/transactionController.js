@@ -6,65 +6,136 @@ const payment = db.Payment;
 const { Op } = require("sequelize");
 
 module.exports = {
-  create: async (req, res) => {
-    let date = new Date();
-    date.setDate(date.getDate());
-    try {
-      let year = date.getFullYear();
-      const order = await transaction.findAll();
-      const no_order = `OF-${year}${order.length + 1}`;
+  // createCart: async (req, res) => {
+  //   try {
+  //     const {
+  //       UserId,
+  //       status,
+  //       qty,
+  //       ProductId,
+  //       // totalCheckout,
+  //       // totalWeight,
+  //       BranchId,
+  //     } = req.body;
+  //     const [transactions, created] = await transaction.findOrCreate({
+  //       where: {
+  //         [Op.and]: [{ UserId }, { status: 1 }],
+  //       },
+  //       defaults: {
+  //         status: 1,
+  //         UserId,
+  //       },
+  //       raw: true,
+  //     });
 
-      const {
-        totalOrder,
-        totalWeight,
-        totalCharge,
-        status,
-        UserId,
-        AdminId,
-        id_order,
-        data,
-      } = req.body;
-      console.log(req.body);
+  //     console.log(transactions.id); // 'sdepold'
+  //     console.log(created); // The boolean indicating whether this instance was just created
+  //     const transDetail = await transactionDetail.findOne({
+  //       where: {
+  //         [Op.and]: [{ TransactionId: transactions.id }, { ProductId }],
+  //       },
+  //     });
+  //     // console.log(transDetail.dataValues.id);
+  //     if (transDetail) {
+  //       await transDetail.update(
+  //         {
+  //           qty,
+  //         },
+  //         {
+  //           where: {
+  //             id: transDetail.dataValues.id,
+  //           },
+  //         }
+  //       );
+  //     } else {
+  //       await transactionDetail.create({
+  //         TransactionId: transactions.id,
+  //         qty,
+  //         ProductId,
+  //         totalCheckout,
+  //         totalWeight,
+  //         BranchId,
+  //       });
+  //     }
 
-      const result = await transaction.create({
-        totalOrder,
-        totalWeight,
-        totalCharge,
-        status: 1,
-        UserId,
-        AdminId,
-        id_order: no_order,
-      });
+  //     res.status(200).send("success");
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.status(400).send(err);
+  //   }
+  // },
 
-      data?.map(async (item) => {
-        await transactionDetail.create({
-          ProductId: item.Product_Cart.id,
-          id_order: no_order,
-        });
-      });
+  // checkout: async (req, res) => {
+  //   let date = new Date();
+  //   date.setDate(date.getDate());
+  //   try {
+  //     // let year = date.getFullYear();
+  //     // const order = await transaction.findAll();
+  //     // const no_order = `OF-${year}${order.length + 1}`;
 
-      data?.map(async (item) => {
-        await productCart.destroy({
-          where: {
-            id: item.id,
-          },
-        });
-      });
+  //     const toCheckout = await transaction.update(
+  //       {
+  //         status: 2,
+  //       },
+  //       {
+  //         where: {
+  //           id: req.params.id,
+  //         },
+  //       }
+  //     );
 
-      data?.map(async (item) => {
-        await payment.create({
-          where: {
-            TransactionId: item.Transaction.id,
-          },
-        });
-      });
+  //     // data?.map(async (item) => {
+  //     //   await productCart.destroy({
+  //     //     where: {
+  //     //       id: item.id,
+  //     //     },
+  //     //   });
+  //     // });
 
-      res.status(200).send(result);
-    } catch (err) {
-      console.log(err);
-      res.status(400).send(err);
-    }
-  },
+  //     // const {
+  //     //   totalOrder,
+  //     //   totalWeight,
+  //     //   totalCharge,
+  //     //   status,
+  //     //   UserId,
+  //     //   AdminId,
+  //     //   id_order,
+  //     //   data,
+  //     // } = req.body;
+  //     // console.log(req.body);
+
+  //     // const result = await transaction.create({
+  //     //   totalOrder,
+  //     //   totalWeight,
+  //     //   totalCharge,
+  //     //   status: 1,
+  //     //   UserId,
+  //     //   AdminId,
+  //     //   id_order: no_order,
+  //     // });
+
+  //     // data?.map(async (item) => {
+  //     //   await transactionDetail.create({
+  //     //     ProductId: item.Product_Cart.id,
+  //     //     id_order: no_order,
+  //     //   });
+  //     // });
+
+
+  //     // data?.map(async (item) => {
+  //     //   await payment.create({
+  //     //     where: {
+  //     //       TransactionId: item.Transaction.id,
+  //     //     },
+  //     //   });
+  //     // });
+
+  //     res.status(200).send(toCheckout);
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.status(400).send(err);
+  //   }
+  // },
 
   findAllById: async (req, res) => {
     try {
@@ -170,7 +241,7 @@ module.exports = {
     try {
       const transactions = await transaction.findAll({
         where: {
-          status: 4
+          status: 4,
         },
       });
       res.status(200).send(transactions);
@@ -184,7 +255,7 @@ module.exports = {
     try {
       const transactions = await transaction.findAll({
         where: {
-          status: 5
+          status: 5,
         },
       });
       res.status(200).send(transactions);
@@ -193,4 +264,78 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  // cartStatus: async (req, res) => {
+  //   try {
+  //     const user = await productCart.findOne({
+  //       where: {
+  //         UserId: req.params,
+  //       },
+  //     });
+
+  //     const { status, id } = req.body;
+
+  //     const data = await productCart.update(
+  //       {
+  //         status,
+  //       },
+  //       {
+  //         where: { id },
+  //       }
+  //     );
+  //     res.status(200).send({
+  //       message: "Update success",
+  //       data,
+  //     });
+  //   } catch (err) {
+  //     res.status(400).send(err);
+  //   }
+  // },
+
+  // updateQty: async (req, res) => {
+  //   try {
+  //     const { id, qty } = req.body;
+  //     const response = await productCart.findOne({
+  //       where: [
+  //         {
+  //           UserId: req.params.id,
+  //         },
+  //         {
+  //           id,
+  //         },
+  //       ],
+
+  //       include: [
+  //         {
+  //           model: product,
+  //           include: [
+  //             {
+  //               model: price,
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //       raw: true,
+  //     });
+  //     console.log(response["Product.Price.productPrice"]);
+  //     const data = await productCart.update(
+  //       {
+  //         qty,
+  //         totalCheckout: qty * response["Product.Price.productPrice"],
+  //         totalWeight: qty * response["Product.weight"],
+  //       },
+  //       {
+  //         where: { id },
+  //       }
+  //     );
+  //     console.log(data);
+  //     res.status(200).send({
+  //       message: "Update success",
+  //       data,
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.status(400).send(err);
+  //   }
+  // },
 };
