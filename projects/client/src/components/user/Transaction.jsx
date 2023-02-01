@@ -50,9 +50,9 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/findById/${id}`
       );
       console.log(result.data);
-      console.log(result.data);
       setData(result.data);
-      setData2(result.data)
+      setData2(result.data[0]?.id);
+      console.log(result.data[0]?.id);
     } catch (err) {
       console.log(err);
     }
@@ -74,7 +74,7 @@ export const TransactionComp = () => {
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded/${id}`,
+      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded/${data2}`,
       data,
       {
         headers: {

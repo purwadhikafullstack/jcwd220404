@@ -37,6 +37,7 @@ export const CartComp = () => {
   const [data6, setData6] = useState();
   const [data7, setData7] = useState(0);
   const [data8, setData8] = useState();
+  const [data9, setData9] = useState();
   const data = useSelector((state) => state.cartSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const inputRef = useRef("");
@@ -237,12 +238,13 @@ export const CartComp = () => {
           totalWeight: data6,
           totalCharge: data8,
           ProductId: data3[0]?.ProductId,
-          BranchId: data3[0]?.BranchId,
-
+          BranchId: data9,
           //   AdminId: data3[0]?.Product?.Inventories[1]?.AdminId,
         }
       );
       console.log(res.data);
+      console.log(res.data[0]?.BranchId);
+      setData9(res.data[0]?.BranchId)
       navigate("/checkout");
     } catch (err) {
       console.log(err);
@@ -377,7 +379,7 @@ export const CartComp = () => {
               {/* </Checkbox> */}
             </Box>
           </FormControl>
-          <Button onClick={() => onCreate()} w={"100%"}>
+          <Button onClick={ onCreate} w={"100%"}>
             Checkout
           </Button>
         </Stack>

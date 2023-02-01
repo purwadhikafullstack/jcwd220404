@@ -15,6 +15,7 @@ import {
   Tabs,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -121,42 +122,25 @@ export const TransactionComp = () => {
   return (
     <div>
       <Box>
-        <Tabs mt="50px" ml="140px" variant="solid-rounded" colorScheme="">
+        <Tabs mt="50px" ml="140px">
           <TabList>
-            <Tab spacing={{ base: 5, lg: 2 }}>
-              <StatsCard
-                title={"Waiting Payment"}
-                stat={data?.length}
-                icon={<MdOutlinePayment size={"2.5em"} />}
-              />
+            <Tab borderRadius={"5px"}>
+              <Text>Cancelled</Text>
             </Tab>
             <Tab>
-              <StatsCard
-                title={"Confirm Payment"}
-                stat={data2?.length}
-                icon={<MdOutlinePayments size={"2.5em"} />}
-              />
+              <Text>Waiting Payment</Text>
             </Tab>
             <Tab>
-              <StatsCard
-                title={"On Process"}
-                stat={data3?.length}
-                icon={<GoPackage size={"2.5em"} />}
-              />
+              <Text>Confirm Payment</Text>
             </Tab>
             <Tab>
-              <StatsCard
-                title={"Delivery"}
-                stat={data4?.length}
-                icon={<TbTruckDelivery size={"2.5em"} />}
-              />
+              <Text>On Process</Text>
             </Tab>
             <Tab>
-              <StatsCard
-                title={"Done"}
-                stat={data5?.length}
-                icon={<MdDoneOutline size={"2.5em"} />}
-              />
+              <Text>On Delivery</Text>
+            </Tab>
+            <Tab>
+              <Text>Done</Text>
             </Tab>
           </TabList>
           <TabPanels>
@@ -269,7 +253,13 @@ export const TransactionComp = () => {
                             {item.totalWeight}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.picture}
+                            <Image
+                              boxSize={"50px"}
+                              src={
+                                `${process.env.REACT_APP_API_BASE_URL}/` +
+                                item.picture
+                              }
+                            ></Image>
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             <Box

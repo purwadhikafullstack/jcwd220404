@@ -149,12 +149,35 @@ module.exports = {
         id: getPicture.id,
         picture: getPicture.picture,
       });
+      await transaction.update(
+        {
+          where: {
+            status: 1,
+          },
+        },
+        {
+          status: 2,
+        }
+      );
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
     }
   },
 
+  findCancelled: async (req, res) => {
+    try {
+      const transactions = await transaction.findAll({
+        where: {
+          status: 0,
+        },
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
   findWaitingPayment: async (req, res) => {
     try {
       const transactions = await transaction.findAll({

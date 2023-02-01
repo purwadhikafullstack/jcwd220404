@@ -235,7 +235,7 @@ export const OrderDetail = () => {
               </Box>
 
               <Box>{data5 === true ? <CancelButton /> : ""}</Box>
-              <Box>{data5 === 5 ? <CompleteButton /> : ""}</Box>
+              <Box>{data5 === 4 ? <CompleteButton /> : ""}</Box>
             </Stack>
           </Box>
         </Box>
