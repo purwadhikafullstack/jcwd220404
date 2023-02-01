@@ -1,7 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import { SidebarComp } from "../../components/admin/Sidebar";
 import { AddCategory } from "../../components/admin/AddCategory";
-import { BranchComp } from "./BranchAdmin";
+import { Category } from "../../components/admin/Category";
 
 export const CategoryAdminPage = () => {
   return (
@@ -22,7 +22,7 @@ export const CategoryAdminPage = () => {
           <SidebarComp />
         </GridItem>
         <GridItem>
-          <BranchComp/>
+          <Category/>
           {/* <AddCategory /> */}
         </GridItem>
       </Grid>

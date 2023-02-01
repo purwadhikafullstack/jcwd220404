@@ -2,8 +2,6 @@ const router = require("express").Router();
 const { transactionController } = require("../../controllers/index");
 const { multerUpload } = require("../../middleware/multer");
 
-// router.patch("/checkout/:id", transactionController.checkout);
-// router.post("/createCart", transactionController.createCart)
 router.post("/create/:id", transactionController.create);
 router.post(
     "/single-uploaded/:id",
@@ -12,6 +10,7 @@ router.post(
   );
 router.get("/findById/:id", transactionController.findAllById);
 router.get("/list/:id", transactionController.findById)
+router.get("/listProduct/:id", transactionController.findProductById)
 router.get("/listWaitingPayment", transactionController.findWaitingPayment)
 router.get("/listConfirmPayment", transactionController.findConfirmPayment)
 router.get("/listOnProcess", transactionController.findOnProcess)

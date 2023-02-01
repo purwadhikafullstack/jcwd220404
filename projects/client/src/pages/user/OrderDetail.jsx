@@ -33,10 +33,12 @@ export const OrderDetail = () => {
   const [data3, setData3] = useState();
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
+  const [data6, setData6] = useState();
   const [totalCheckout, setTotalCheckout] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
+  console.log(data3);
 
   let dateNow = new Date(
     new Date().getFullYear(),
@@ -67,6 +69,8 @@ export const OrderDetail = () => {
       );
       setData(result.data);
       console.log(result.data);
+      setData6(result.data.id)
+      console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
 
@@ -89,22 +93,11 @@ export const OrderDetail = () => {
   const getCheckout = async () => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listProduct/${data6}`
       );
-      const selectedItem = res.data
-        .filter((item) => item.status === true)
-        .map((item) => item.totalCheckout)
-        .reduce((a, b) => a + b);
-      console.log(selectedItem);
-      console.log(res.data);
-      const selectedWeight = res.data
-        .filter((item) => item.status === true)
-        .map((item) => item.totalWeight)
-        .reduce((a, b) => a + b);
-      console.log(selectedWeight);
-      setTotalCheckout(selectedItem);
-      setTotalWeight(selectedWeight);
+
       setData3(res.data);
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -112,7 +105,7 @@ export const OrderDetail = () => {
 
   useEffect(() => {
     getCheckout();
-  }, [id]);
+  }, [data6]);
 
   const getDefault = async () => {
     try {
@@ -181,7 +174,7 @@ export const OrderDetail = () => {
                   </Flex>
                   <Flex justify={"space-between"}>
                     <Text>Total</Text>
-                    <Text>{data2} </Text>
+                    <Text>Rp{data2} </Text>
                   </Flex>
                 </FormControl>
                 <FormControl>

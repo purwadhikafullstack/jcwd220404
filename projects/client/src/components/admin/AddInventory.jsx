@@ -76,7 +76,7 @@ export const InventoryAdminComp = () => {
         ProductId: inputProductName.current.value,
         stockQty: inputQty.current.value,
         entryDate: inputEntryDate.current.value,
-        BranchId: data4
+        BranchId: data4,
       };
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/inventory/create`,
@@ -101,7 +101,7 @@ export const InventoryAdminComp = () => {
       // dispatch(loginAdmin(res.data))
       setBranch(res.data);
       console.log(res.data);
-      setData4(res.data?.id)
+      setData4(res.data?.id);
       console.log(res.data.id);
     } catch (err) {
       console.log(err);
@@ -114,9 +114,9 @@ export const InventoryAdminComp = () => {
 
   return (
     <div>
-      <Flex>
+      <Flex mt={"80px"} ml={"150px"}>
         <Box>
-          <TableContainer ml="78px" mt="215px" w="45vw" bgColor={"white"}>
+          <TableContainer mt={"50px"} w="45vw" bgColor={"white"}>
             <Table variant="simple" colorScheme="#285430">
               <Thead alignContent={"center"}>
                 <Tr>
@@ -143,7 +143,6 @@ export const InventoryAdminComp = () => {
         </Box>
         <Box
           ml="120px"
-          mt="215px"
           color={useColorModeValue("#285430")}
           border="2px"
           borderRadius="2xl"

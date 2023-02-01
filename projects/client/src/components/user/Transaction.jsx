@@ -119,8 +119,8 @@ export const TransactionComp = () => {
                 <Box>
                   <Text align={"left"}>Bill Total: Rp{item.totalOrder}</Text>
                   <Flex>
-                    <Text mb={"10px"}>{item.status}</Text>
-                    <ButtonGroup size="xs">
+                    {/* <Text mb={"10px"}>{item.status}</Text> */}
+                    <ButtonGroup fontSize={"10px"} size="10px">
                       <form encType="multipart/form-data">
                         <input
                           type={"file"}
@@ -132,10 +132,11 @@ export const TransactionComp = () => {
                       <Button
                         bgColor={"#A4BE7B"}
                         borderColor="#285430"
-                        border="2px"
+                        border="1px"
                         color="gray.800"
                         onClick={handleUpload}
-                        size="sm"
+                        w="50px"
+                        fontSize={"10px"}
                       >
                         Upload
                       </Button>

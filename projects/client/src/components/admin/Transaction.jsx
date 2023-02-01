@@ -29,7 +29,7 @@ import React from "react";
 
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 export const TransactionComp = () => {
   const [data, setData] = useState();
@@ -199,26 +199,25 @@ export const TransactionComp = () => {
                             {item.totalWeight}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                          <Box
-                        mr="28px"
-                        display={"flex"}
-                        justifyContent="space-evenly"
-                      >
-                        <Button
-                          onClick={() => {
-                            // setEdit(item);
-                            // console.log("test2")
-                          }}
-                        >
-                          <EditIcon color={"#285430"} />
-                        </Button>
-                        <Button 
-                        // onClick={() => onDelete(item.id)}
-                        >
-                          <DeleteIcon color={"#285430"} />
-                        </Button>
-                      </Box>
-                            
+                            <Box
+                              mr="28px"
+                              display={"flex"}
+                              justifyContent="space-evenly"
+                            >
+                              <Button
+                                onClick={() => {
+                                  // setEdit(item);
+                                  // console.log("test2")
+                                }}
+                              >
+                                <CheckIcon color={"#285430"} />
+                              </Button>
+                              <Button
+                              // onClick={() => onDelete(item.id)}
+                              >
+                                <CloseIcon color={"#285430"} />
+                              </Button>
+                            </Box>
                           </Td>
                         </Tr>
                       );
@@ -269,9 +268,29 @@ export const TransactionComp = () => {
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
                           </Td>
-                          <Td textAlign={"center"} color={"#285430"}></Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalWeight}
+                            {item.picture}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            <Box
+                              mr="28px"
+                              display={"flex"}
+                              justifyContent="space-evenly"
+                            >
+                              <Button
+                                onClick={() => {
+                                  // setEdit(item);
+                                  // console.log("test2")
+                                }}
+                              >
+                                <CheckIcon color={"#285430"} />
+                              </Button>
+                              <Button
+                              // onClick={() => onDelete(item.id)}
+                              >
+                                <CloseIcon color={"#285430"} />
+                              </Button>
+                            </Box>
                           </Td>
                         </Tr>
                       );
@@ -318,6 +337,27 @@ export const TransactionComp = () => {
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
                           </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            <Box
+                              mr="28px"
+                              display={"flex"}
+                              justifyContent="space-evenly"
+                            >
+                              <Button
+                                onClick={() => {
+                                  // setEdit(item);
+                                  // console.log("test2")
+                                }}
+                              >
+                                <CheckIcon color={"#285430"} />
+                              </Button>
+                              <Button
+                              // onClick={() => onDelete(item.id)}
+                              >
+                                <CloseIcon color={"#285430"} />
+                              </Button>
+                            </Box>
+                          </Td>
                         </Tr>
                       );
                     })}
@@ -362,6 +402,27 @@ export const TransactionComp = () => {
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            <Box
+                              mr="28px"
+                              display={"flex"}
+                              justifyContent="space-evenly"
+                            >
+                              <Button
+                                onClick={() => {
+                                  // setEdit(item);
+                                  // console.log("test2")
+                                }}
+                              >
+                                <CheckIcon color={"#285430"} />
+                              </Button>
+                              <Button
+                              // onClick={() => onDelete(item.id)}
+                              >
+                                <CloseIcon color={"#285430"} />
+                              </Button>
+                            </Box>
                           </Td>
                         </Tr>
                       );

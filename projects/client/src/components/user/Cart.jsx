@@ -349,11 +349,11 @@ export const CartComp = () => {
               })}
             </Select>
           </FormControl>
-          <FormControl>
+          {/* <FormControl>
             <FormLabel>Buyer Information</FormLabel>
             <Text>{data2?.["User.name"]}</Text>
             <Text>{data2?.["User.phoneNumber"]}</Text>
-          </FormControl>
+          </FormControl> */}
           <FormControl>
             <FormLabel>Delivery Address</FormLabel>
             <Box>
@@ -372,9 +372,9 @@ export const CartComp = () => {
           <FormControl>
             <FormLabel>Payment Option</FormLabel>
             <Box variant={"unstyled"}>
-              <Checkbox value="1">
-                <Text>Bank Transfer via Only Fresh Account</Text>
-              </Checkbox>
+              {/* <Checkbox value="1"> */}
+              <Text>Bank Transfer via Only Fresh Account</Text>
+              {/* </Checkbox> */}
             </Box>
           </FormControl>
           <Button onClick={() => onCreate()} w={"100%"}>

@@ -1,14 +1,18 @@
 import {
   Avatar,
+  Badge,
   Box,
   Button,
   ButtonGroup,
+  Center,
+  Grid,
   Image,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
   PopoverFooter,
+  Stack,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -25,7 +29,6 @@ export const SidebarComp = () => {
   const { username, id } = useSelector((state) => state.adminSlice.value);
   const { isOpen, onClose, onToggle } = useDisclosure();
   const [data, setData] = useState();
-  // const data = useSelector((state) => state.branchSlice.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
@@ -87,83 +90,78 @@ export const SidebarComp = () => {
         borderRight={"2px"}
         borderColor="#285430"
       >
-        <Box margin={"auto"} alignItems={"center"} textColor="#285430">
-          <Image
-            ml={"50px"}
-            boxSize={"100px"}
-            src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`}
-          />
-          <Text color={"#285430"} as="b" ml={"3vw"}>
-            BRANCH ADMIN
-          </Text>
-          <Avatar
-            bgColor={"gray.500"}
-            size={"lg"}
-            mt="2vw"
-            ml="5vw"
-            pb={""}
-            name={username}
-          ></Avatar>
-          <Text textColor={"#285430"} fontSize="md" as={"b"} ml="5vw">
-            {username}
-          </Text>
-          <Text ml="5.5vw">{data?.branchName}</Text>
+        <Stack>
+          {/* <Center> */}
+          <Box ml={"80px"}>
+            <Image
+              width={"100px"}
+              src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`}
+            />
+            <Text color={"#285430"} as="b">
+              BRANCH ADMIN
+            </Text>
+            <Avatar
+              bgColor={"gray.500"}
+              size={"xl"}
+              pb={""}
+              name={username}
+              mb="20px"
+            ></Avatar>
+            
+            <Text ml={"20px"}>{username}</Text>
+          </Box>
+          {/* </Center> */}
           <Button
-            mt={"2vw"}
-            ml={"3vw"}
             textColor={"#285430"}
             fontSize="md"
             onClick={toDashboard}
+            variant="unstyled"
           >
             Dashboard
           </Button>
           <Button
-            mt={"1vw"}
-            ml={"3vw"}
             textColor={"#285430"}
             fontSize="md"
             onClick={toProduct}
+            variant="unstyled"
           >
             Product
           </Button>
           <Button
-            mt={"1vw"}
-            ml={"3vw"}
             textColor={"#285430"}
             fontSize="md"
             onClick={toCategory}
+            variant="unstyled"
           >
             Category
           </Button>
           <Button
-            mt={"1vw"}
-            ml={"3vw"}
             textColor={"#285430"}
             fontSize="md"
+            variant="unstyled"
             onClick={toInventory}
           >
             Inventory
           </Button>
           <Button
-            mt={"1vw"}
-            ml={"3vw"}
             textColor={"#285430"}
             fontSize="md"
+            variant="unstyled"
             onClick={toTransaction}
           >
             Transaction
           </Button>
           <Button
-            mt={"1vw"}
-            ml={"3vw"}
             textColor={"#285430"}
             fontSize="md"
             onClick={toDiscount}
+            variant="unstyled"
           >
             Discount
+            <Badge>Under Maintenance</Badge>
           </Button>
           <LogoutBranch />
-        </Box>
+        </Stack>
       </Box>
     </div>
   );

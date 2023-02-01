@@ -154,6 +154,7 @@ export const AccountComp = () => {
               fontSize="sm"
             >
               VERIFY MY ACCOUNT
+              <Badge variant={"subtle"}>Under Maintenance</Badge>
             </Button>
             <LogoutUser />
           </Stack>

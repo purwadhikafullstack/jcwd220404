@@ -1,8 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import { SidebarComp } from "../../components/admin/Sidebar";
-import { AddProduct } from "../../components/admin/AddProduct";
-import { ListProduct } from "../../components/admin/ListProduct";
-import { BranchComp } from "./BranchAdmin";
+import { Product } from "../../components/admin/Product";
 
 export const ProductAdminPage = () => {
   return (
@@ -23,7 +21,7 @@ export const ProductAdminPage = () => {
           <SidebarComp />
         </GridItem>
         <GridItem>
-          <BranchComp />
+          <Product />
           {/* <AddProduct /> */}
         </GridItem>
       </Grid>
