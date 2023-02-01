@@ -1,7 +1,7 @@
 import {
   Box,
+  Button,
   Flex,
-  SimpleGrid,
   Stat,
   StatLabel,
   StatNumber,
@@ -21,6 +21,8 @@ import {
 } from "@chakra-ui/react";
 import { MdOutlinePayment } from "react-icons/md";
 import { MdOutlinePayments } from "react-icons/md";
+import { BsFillCheckSquareFill } from "react-icons/bs";
+import { FaWindowClose } from "react-icons/fa";
 import { GoPackage } from "react-icons/go";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdDoneOutline } from "react-icons/md";
@@ -207,6 +209,20 @@ export const TransactionComp = () => {
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {/* {item.totalWeight} */}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                          <Button
+                              onClick={() => {
+                              }}
+                            >
+                            <BsFillCheckSquareFill color={"green"} size="22"/>
+                            </Button>
+                            <Button onClick={() => {}}>
+                              <FaWindowClose color={"red"} size="25"/>
+                            </Button>
                           </Td>
                         </Tr>
                       );

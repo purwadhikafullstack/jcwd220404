@@ -18,7 +18,7 @@ export const RegisterPage = () => {
           <Box
             className="body"
             bgColor="#E5D9B6"
-            h={"100vh"}
+            h={"100%"}
             w={"390px"}
           >
             <Flex align={"center"} justify={"center"}>

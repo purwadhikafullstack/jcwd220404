@@ -47,6 +47,7 @@ export const RegisterUserComp = () => {
           title: "Oooops ...",
           text: "make sure password and confirm password match",
           timer: 2000,
+          width: "370px",
           customClass: {
             container: "my-swal",
           },
@@ -60,6 +61,7 @@ export const RegisterUserComp = () => {
         icon: "success",
         text: `${result.data.message}`,
         timer: 2000,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
@@ -70,10 +72,10 @@ export const RegisterUserComp = () => {
         icon: "error",
         title: "Oops...",
         text: `${err.response.data}`,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
-        width: "370px",
       });
     }
   };
@@ -193,7 +195,7 @@ export const RegisterUserComp = () => {
 
                       <InputRightElement h={"full"}>
                         <Button
-                         color={"black"}
+                          color={"black"}
                           variant={"unstyled"}
                           onClick={() =>
                             setShowPassword((showPassword) => !showPassword)
@@ -232,7 +234,7 @@ export const RegisterUserComp = () => {
                       />
                       <InputRightElement h={"full"}>
                         <Button
-                        color={"black"}
+                          color={"black"}
                           variant={"unstyled"}
                           onClick={() =>
                             setShowComfirmPassword(
@@ -251,13 +253,14 @@ export const RegisterUserComp = () => {
                     />
                   </FormControl>
                   <Button
-                 mt={"15px"}
-                 bgColor={"#A4BE7B"}
-                 borderColor="#285430"
-                 border="2px"
-                 fontSize="18px"
-                 color="gray.800"
-                 width={"370px"}
+                    type="submit"
+                    mt={"15px"}
+                    bgColor={"#A4BE7B"}
+                    borderColor="#285430"
+                    border="2px"
+                    fontSize="18px"
+                    color="gray.800"
+                    width={"370px"}
                   >
                     Sign up
                   </Button>

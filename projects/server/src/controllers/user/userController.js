@@ -47,7 +47,7 @@ module.exports = {
         expiresIn: "1h",
       });
 
-      const tempEmail = fs.readFileSync("./template/codeotp.html", "utf-8");
+      const tempEmail = fs.readFileSync("./src/template/codeotp.html", "utf-8");
       const tempCompile = handlebars.compile(tempEmail);
       const tempResult = tempCompile({
         phoneNumber,
@@ -68,6 +68,7 @@ module.exports = {
       });
     } catch (err) {
       res.status(400).send(err);
+      console.log(err)
     }
   },
 
@@ -215,7 +216,7 @@ module.exports = {
         id: isAccountExist.id,
         isVerified: isAccountExist.isVerified,
       };
-      const token = jwt.sign(payload, "jcwd2204");
+      const token = jwt.sign(payload, secretKey);
 
       const isValid = await bcrypt.compare(password, isAccountExist.password);
 
@@ -233,7 +234,7 @@ module.exports = {
 
   keepLogin: async (req, res) => {
     try {
-      const verify = jwt.verify(req.token, "jcwd2204");
+      const verify = jwt.verify(req.token, secretKey);
       const result = await user.findOne({
         where: {
           phoneNumber: verify.phoneNumber,
