@@ -7,5 +7,3 @@ router.get("/keepLogin", adminController.keepLogin);
 router.get("/findAll",  adminController.findAll);
 
 module.exports = router;
-
-module.exports = router;
