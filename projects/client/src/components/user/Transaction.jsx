@@ -51,7 +51,7 @@ export const TransactionComp = () => {
       );
       console.log(result.data);
       setData(result.data);
-      setData2(result.data[0]?.id);
+      setData2(result.data[1]?.id);
       console.log(result.data[0]?.id);
     } catch (err) {
       console.log(err);
@@ -94,6 +94,8 @@ export const TransactionComp = () => {
     });
     window.location.replace("/transaction");
   };
+
+  
 
   return (
     <div>

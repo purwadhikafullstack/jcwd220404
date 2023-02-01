@@ -38,6 +38,7 @@ export const TransactionComp = () => {
   const [data3, setData3] = useState();
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
+  const [data6, setData6] = useState();
 
   const getData = async () => {
     try {
@@ -119,6 +120,58 @@ export const TransactionComp = () => {
     getData5();
   }, []);
 
+  const getData6 = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancelled`
+      );
+      setData6(result.data);
+      console.log(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData6();
+  }, []);
+
+  const setOrder = async (id) => {
+    try {
+      const result = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/setOrder/${id}`
+      );
+      console.log(result.data)
+      getData3()
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  const setDelivery = async (id) => {
+    try {
+      const result = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/setDelivery/${id}`
+      );
+      console.log(result.data)
+      getData4()
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const setCancelled = async (id) => {
+    try {
+      const result = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/setCancelled/${id}`
+      );
+      console.log(result.data)
+      getData()
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <Box>
@@ -167,7 +220,7 @@ export const TransactionComp = () => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {data?.map((item) => {
+                    {data6?.map((item) => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
@@ -198,6 +251,65 @@ export const TransactionComp = () => {
                               </Button>
                               <Button
                               // onClick={() => onDelete(item.id)}
+                              >
+                                <CloseIcon color={"#285430"} />
+                              </Button>
+                            </Box>
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </TabPanel>
+            <TabPanel>
+              <TableContainer mt="30px" w="60vw" bgColor={"white"}>
+                <Table variant="simple" colorScheme="#285430">
+                  <Thead alignContent={"center"}>
+                    <Tr>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Transaction ID
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Total Product
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Delivery Cost
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Weight
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        ACTIONS
+                      </Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {data?.map((item) => {
+                      return (
+                        <Tr>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.id}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalOrder}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalCharge}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {item.totalWeight}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            <Box
+                              mr="28px"
+                              display={"flex"}
+                              justifyContent="space-evenly"
+                            >
+                              
+                              <Button
+                              onClick={() => setCancelled(item.id)}
                               >
                                 <CloseIcon color={"#285430"} />
                               </Button>
@@ -269,7 +381,7 @@ export const TransactionComp = () => {
                             >
                               <Button
                                 onClick={() => {
-                                  // setEdit(item);
+                                  setOrder(item.id);
                                   // console.log("test2")
                                 }}
                               >
@@ -335,7 +447,7 @@ export const TransactionComp = () => {
                             >
                               <Button
                                 onClick={() => {
-                                  // setEdit(item);
+                                  setDelivery(item.id);
                                   // console.log("test2")
                                 }}
                               >

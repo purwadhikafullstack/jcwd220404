@@ -145,20 +145,30 @@ module.exports = {
         },
         raw: true,
       });
+      const toFalse = await transaction.update(
+        {
+          status: false,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      const toTwo = await transaction.update(
+        {
+          status: 2,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
       res.status(200).send({
         id: getPicture.id,
         picture: getPicture.picture,
       });
-      await transaction.update(
-        {
-          where: {
-            status: 1,
-          },
-        },
-        {
-          status: 2,
-        }
-      );
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
@@ -242,6 +252,117 @@ module.exports = {
         },
       });
       res.status(200).send(transactions);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  setProcess: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const toFalse = await transaction.update(
+        {
+          status: false,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      const toThree = await transaction.update(
+        {
+          status: 3,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      res.status(200).send("Set Order Success");
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  setDelivery: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const toFalse = await transaction.update(
+        {
+          status: false,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      const toFour = await transaction.update(
+        {
+          status: 4,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      res.status(200).send("Set Delivery Success");
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  setDone: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const toFalse = await transaction.update(
+        {
+          status: false,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      const toFour = await transaction.update(
+        {
+          status: 5,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+      res.status(200).send("Set Done Success");
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  setCancelled: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const toFalse = await transaction.update(
+        {
+          status: false,
+        },
+        {
+          where: {
+            id: req.params.id,
+          },
+        }
+      );
+
+      res.status(200).send("Set Cancelled Success");
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

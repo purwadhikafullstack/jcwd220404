@@ -122,6 +122,8 @@ export const OrderDetail = () => {
     getDefault();
   }, [id]);
 
+  
+
   return (
     <div>
       <Center>
@@ -236,6 +238,7 @@ export const OrderDetail = () => {
 
               <Box>{data5 === true ? <CancelButton /> : ""}</Box>
               <Box>{data5 === 4 ? <CompleteButton /> : ""}</Box>
+              <Box>{data5 === 5 || false ? "" : ""}</Box>
             </Stack>
           </Box>
         </Box>
