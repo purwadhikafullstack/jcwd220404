@@ -19,7 +19,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/addressSlice";
@@ -29,6 +29,10 @@ import { CartComp } from "../../components/user/Cart";
 export const Checkout = () => {
   const [value, setValue] = useState("0");
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState();
+  const [data3, setData3] = useState();
+  const [data5, setData5] = useState();
+  const [data6, setData6] = useState();
   const [product, setProduct] = useState([]);
   const [totalCheckout, setTotalCheckout] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
@@ -36,26 +40,28 @@ export const Checkout = () => {
   const { id } = useSelector((state) => state.userSlice.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
+  console.log(data3);
 
   const getData = async () => {
     try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/cart/findCheckout/${id}`
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${data6}`
       );
-      const selectedItem = res.data
-        .filter((item) => item.status === true)
-        .map((item) => item.totalCheckout)
-        .reduce((a, b) => a + b);
-      console.log(selectedItem);
-      console.log(res.data);
-      const selectedWeight = res.data
-        .filter((item) => item.status === true)
-        .map((item) => item.totalWeight)
-        .reduce((a, b) => a + b);
-      console.log(selectedWeight);
-      setTotalCheckout(selectedItem);
-      setTotalWeight(selectedWeight);
-      setData(res.data);
+      setData(result.data);
+      console.log(result.data);
+      setData6(result.data.id);
+      console.log(result.data.id);
+      const selectedItem = result.data.totalOrder;
+      const selectedCharge = result.data.totalCharge;
+
+      let totalOrder = selectedItem + selectedCharge;
+      setData2(totalOrder);
+      console.log(totalOrder);
+
+      const statusDone = result.data.status;
+      setData5(statusDone);
+      console.log(statusDone);
     } catch (err) {
       console.log(err);
     }
@@ -63,7 +69,23 @@ export const Checkout = () => {
 
   useEffect(() => {
     getData();
-  }, [id]);
+  }, [data6]);
+
+  const getCheckout = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listProduct/${data6}`
+      );
+      setData3(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCheckout();
+  }, [data6]);
 
   const toPayment = () => {
     navigate("/checkout/payment/success");
@@ -108,46 +130,6 @@ export const Checkout = () => {
             h={"100%"}
             w={"390px"}
           >
-           
-            <FormControl>
-              <FormLabel>Order Detail</FormLabel>
-              {data?.map((item) => {
-                return (
-                  <Card margin={"10px"}>
-                    <Flex mb={"50px"} justify={"space-between"}>
-                      <Grid
-                        templateAreas={`"nav main""nav footer"`}
-                        gridTemplateRows={"50px 1fr 30px"}
-                        gridTemplateColumns={"120px 1fr"}
-                        h="50px"
-                        gap="1"
-                        color="blackAlpha.700"
-                        fontWeight="bold"
-                      >
-                        <GridItem pl="1" area={"nav"}>
-                          <Image
-                            boxSize={"50px"}
-                            src={
-                              `${process.env.REACT_APP_API_BASE_URL}/` +
-                              item.Product.picture
-                            }
-                          ></Image>
-                        </GridItem>
-                        <GridItem fontSize={"small"} pl="1" area={"main"}>
-                          {item.Product?.productName}
-                        </GridItem>
-                        <GridItem fontSize={"small"} pl="1" area={"footer"}>
-                          Rp{item.totalCheckout}
-                        </GridItem>
-                      </Grid>
-                      <Text>{item.totalWeight} g</Text>
-                      <Text>{item.qty}x</Text>
-                    </Flex>
-                  </Card>
-                );
-              })}
-            </FormControl>
-
             <FormControl>
               <FormLabel>Voucher</FormLabel>
               <Button w={"100%"}>Apply Voucher</Button>
@@ -160,7 +142,7 @@ export const Checkout = () => {
                   <Text>Voucher</Text>
                 </Box>
                 <Box>
-                  <Text>Rp{totalCheckout}</Text>
+                  <Text>Rp{data?.totalOrder}</Text>
                   <Text>xx.xxx</Text>
                 </Box>
               </Flex>
@@ -170,15 +152,15 @@ export const Checkout = () => {
 
               <Flex justify={"space-between"}>
                 <Text>Delivery Charge</Text>
-                <Text>xx.xxx</Text>
+                <Text>Rp{data?.totalCharge}</Text>
               </Flex>
             </FormControl>
             <Flex justify={"space-between"}>
               <Text as={"b"}>Total</Text>
-              <Text as={"b"}>xx.xxx</Text>
+              <Text as={"b"}>Rp{data2}</Text>
             </Flex>
             <Button onClick={toPayment} w={"100%"}>
-              Checkout
+              Proceed Payment
             </Button>
           </Box>
         </Center>

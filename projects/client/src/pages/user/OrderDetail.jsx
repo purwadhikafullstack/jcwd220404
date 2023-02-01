@@ -38,7 +38,6 @@ export const OrderDetail = () => {
   const [totalWeight, setTotalWeight] = useState(0);
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
-  console.log(data3);
 
   let dateNow = new Date(
     new Date().getFullYear(),
