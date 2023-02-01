@@ -215,7 +215,7 @@ module.exports = {
         id: isAccountExist.id,
         isVerified: isAccountExist.isVerified,
       };
-      const token = jwt.sign(payload, "jcwd2204");
+      const token = jwt.sign(payload, secretKey);
 
       const isValid = await bcrypt.compare(password, isAccountExist.password);
 
@@ -233,7 +233,7 @@ module.exports = {
 
   keepLogin: async (req, res) => {
     try {
-      const verify = jwt.verify(req.token, "jcwd2204");
+      const verify = jwt.verify(req.token, secretKey);
       const result = await user.findOne({
         where: {
           phoneNumber: verify.phoneNumber,

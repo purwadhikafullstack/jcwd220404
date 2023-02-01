@@ -1,40 +1,43 @@
 import { Routes, Route } from "react-router-dom";
-import { LandingPage } from "./pages/user/LandingPage";
-import { AccountPage } from "./pages/user/AccountPage";
-import { RegisterPage } from "./pages/user/RegisterPage";
-import { VerificationPage } from "./pages/user/VerificationPage";
-import { ForgotPasswordPage } from "./pages/user/ForgotPassPage";
-import { ResetPassPage } from "./pages/user/ResetPassPage";
-import { ProfilePage } from "./pages/user/ProfilePage";
-import { AddressPage } from "./pages/user/AddressPage";
-import { CategoryPage } from "./pages/user/CategoryPage";
-import { CartPage } from "./pages/user/CartPage";
-import { TransactionPage } from "./pages/user/TransactionPage";
-import { NotificationPage } from "./pages/user/NotificationPage";
-import { ChangeEmail } from "./pages/user/ChangeEmail";
-import { ChangePassword } from "./pages/user/ChangePassword";
-import { NotFoundPage } from "./pages/user/404NotFoundPage";
-import { LoginUserComp } from "./components/user/EnterComp";
-import { LoginAdminPage } from "./pages/admin/LoginAdminPage";
-import { AdminPage } from "./pages/admin/AdminPage";
-import { ProductAdminPage } from "./pages/admin/ProductAdminPage";
-import { CategoryAdminPage } from "./pages/admin/CategoryAdminPage";
-import { InventoryAdminPage } from "./pages/admin/InventoryAdminPage";
-import { TransactionAdminPage } from "./pages/admin/TransactionAdminPage";
-import { DiscountAdminPage } from "./pages/admin/DiscountAdminPage";
-import { useDispatch } from "react-redux";
+import Axios from "axios";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { loginUser } from "./redux/userSlice";
 import { loginAdmin } from "./redux/adminSlice";
-import Axios from "axios";
-import { ListAddressPage } from "./pages/user/ListAddressPage";
-import { UpdateAddressPage } from "./pages/user/UpdateAddressPage";
-import { AddProductComp } from "./components/admin/AddProductComp"
-import { Checkout } from "./pages/user/CheckoutPage";
+import { LandingPage } from "./pages/user/Landing";
+import { AccountPage } from "./pages/user/Account";
+import { NotificationPage } from "./pages/user/Notification";
+import { TransactionPage } from "./pages/user/Transaction";
+import { CategoryPage } from "./pages/user/Category";
+import { CartPage } from "./pages/user/Cart";
+import { RegisterPage } from "./pages/user/Register";
+import { VerificationPage } from "./pages/user/Verification";
+import { ProfilePage } from "./pages/user/Profile";
+import { AddressPage } from "./pages/user/Address";
+import { ForgotPasswordPage } from "./pages/user/ForgotPassword";
+import { ResetPassPage } from "./pages/user/ResetPassword";
+import { ChangePassword } from "./pages/user/ChangePassword";
+import { ChangeEmail } from "./pages/user/ChangeEmail";
+import { ListAddressPage } from "./pages/user/ListAddress";
+import { RestrictedPage } from "./pages/403ResultPage";
+import { LoginAdminPage } from "./pages/admin/Login";
+import { AdminPage } from "./pages/admin/AdminPage";
+import { UpdateAddressPage } from "./pages/user/UpdateAddress";
+import { NotFoundPage } from "./pages/user/404Result";
+import { WindowComp } from "./components/user/Window";
+import { EnterComp } from "./components/user/Enter";
+import { Checkout } from "./pages/user/Checkout";
+import { ListCheckoutAddress } from "./pages/user/ListCheckoutAddress";
+import { PaymentMethod } from "./pages/user/PaymentMethod";
 import { OrderSuccess } from "./pages/user/OrderSuccess";
-import { ProductDetail } from "./pages/user/ProductDetailPage";
+import { ProductDetail } from "./pages/user/ProductDetail";
 import { CategoryDetail } from "./pages/user/CategoryDetail";
 import { OrderDetail } from "./pages/user/OrderDetail";
+import { ProductAdminPage } from "./pages/admin/Product";
+import { CategoryAdminPage } from "./pages/admin/Category";
+import { InventoryAdminPage } from "./pages/admin/Inventory";
+import { TransactionAdminPage } from "./pages/admin/Transaction";
+import { Discount } from "./pages/admin/Discount";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +55,7 @@ function App() {
           },
         }
       );
+
       dispatch(
         loginUser({
           id: user.data.id,
@@ -80,7 +84,6 @@ function App() {
       );
       dispatch(
         loginAdmin({
-          id: Super.data.id,
           username: Super.data.username,
           email: Super.data.email,
           isSuper: Super.data.isSuper,
@@ -103,7 +106,6 @@ function App() {
       );
       dispatch(
         loginAdmin({
-          id: Branch.data.id,
           username: Branch.data.username,
           email: Branch.data.email,
           isSuper: Branch.data.isSuper,
@@ -130,74 +132,66 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
-        <Route path="/register" element={<RegisterPage />}></Route>
-        <Route path="/login-user" element={<LoginUserComp />}></Route>
-        <Route path="/account" element={<AccountPage />}></Route>
-        <Route path="/resetPassword/:token" element={<ResetPassPage />}></Route>
-        <Route path="/forgotPassword" element={<ForgotPasswordPage />}></Route>
+        <Route path="/notification" element={<NotificationPage />}></Route>
+        <Route path="/transaction" element={<TransactionPage />}></Route>
         <Route path="/category" element={<CategoryPage />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
-        <Route path="/transaction" element={<TransactionPage />}></Route>
-        <Route path="/notification" element={<NotificationPage />}></Route>
+        <Route path="/product/:id" element={<ProductDetail />}></Route>
+        <Route path="/category/:id" element={<CategoryDetail />}></Route>
+        <Route path="/transaction/:id" element={<OrderDetail />}></Route>
+        <Route path="/checkout" element={<Checkout />}></Route>
+        <Route
+          path="/checkout/address"
+          element={<ListCheckoutAddress />}
+        ></Route>
+        <Route path="/checkout/payment" element={<PaymentMethod />}></Route>
+        <Route
+          path="/checkout/payment/success"
+          element={<OrderSuccess />}
+        ></Route>
+        <Route path="/register" element={<RegisterPage />}></Route>
+        <Route
+          path="/verification/:token"
+          element={<VerificationPage />}
+        ></Route>
+        <Route path="/login-user" element={<EnterComp />}></Route>
+        <Route path="/account" element={<AccountPage />}></Route>
         <Route path="/account/profile/:id" element={<ProfilePage />}></Route>
+        <Route path="/account/profile/email" element={<ChangeEmail />}></Route>
         <Route
           path="/account/profile/password"
           element={<ChangePassword />}
         ></Route>
-        <Route path="/account/profile/email" element={<ChangeEmail />}></Route>
         <Route
           path="/account/address/:id"
           element={<ListAddressPage />}
         ></Route>
         <Route path="/account/address" element={<ListAddressPage />}></Route>
         <Route
-          path="/account/address/addAddress/:id"
+          path="/account/address/add/:id"
           element={<AddressPage />}
         ></Route>
         <Route
-          path="/account/address/updateAddress/:id"
+          path="/account/address/update/:id"
           element={<UpdateAddressPage />}
         ></Route>
-        <Route path="/loginAdmin" element={<LoginAdminPage />}></Route>
-        <Route path="/adminPage" element={<AdminPage />}></Route>
+        <Route path="/forgot-password" element={<ForgotPasswordPage />}></Route>
         <Route
-          path="/adminPage/productAdminPage"
-          element={<ProductAdminPage />}
+          path="/reset-password/:token"
+          element={<ResetPassPage />}
         ></Route>
-        {/* <Route
-          path="/adminPage/productAdminPage/addProduct"
-          element={<AddProductComp />}
-        ></Route> */}
+        <Route path="/restricted" element={<RestrictedPage />}></Route>
+        <Route path="/login-admin" element={<LoginAdminPage />}></Route>
+        <Route path="/admin" element={<AdminPage />}></Route>
+        <Route path="/*" element={<NotFoundPage />}></Route>
+        <Route path="/admin/product" element={<ProductAdminPage />}></Route>
+        <Route path="/admin/category" element={<CategoryAdminPage />}></Route>
+        <Route path="/admin/inventory" element={<InventoryAdminPage />}></Route>
         <Route
-          path="/adminPage/categoryAdminPage"
-          element={<CategoryAdminPage />}
-        ></Route>
-        <Route
-          path="/adminPage/inventoryAdminPage"
-          element={<InventoryAdminPage />}
-        ></Route>
-        <Route
-          path="/adminPage/transactionAdminPage"
+          path="/admin/transaction"
           element={<TransactionAdminPage />}
         ></Route>
-        <Route
-          path="/adminPage/discountAdminPage"
-          element={<DiscountAdminPage />}
-        ></Route>
-        <Route path="/*" element={<NotFoundPage />}></Route>
-        <Route
-          path="/verification/:token"
-          element={<VerificationPage />}
-        ></Route>
-        <Route path="/checkout" element={<Checkout />}></Route>
-        <Route
-          path="/checkout/payment/success"
-          element={<OrderSuccess />}
-        ></Route>
-        <Route path="/product/:id" element={<ProductDetail />}></Route>
-        <Route path="/category/:id" element={<CategoryDetail />}></Route>
-        <Route path="/transaction/:id" element={<OrderDetail />}></Route>
-        
+        <Route path="/admin/discount" element={<Discount />}></Route>
       </Routes>
     </div>
   );

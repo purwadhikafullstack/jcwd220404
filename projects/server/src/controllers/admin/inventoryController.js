@@ -19,6 +19,7 @@ module.exports = {
       });
       res.status(200).send(data);
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },
@@ -41,22 +42,7 @@ module.exports = {
       });
       res.status(200).send(inventories);
     } catch (err) {
-      res.status(400).send(err);
-    }
-  },
-
-  findAll: async (req, res) => {
-    console.log(req)
-    try {
-      const inventories = await inventory.findAll({
-        where: {
-          AdminId: req.params.id
-        },
-        // attributes: ["id", "productName", "description", "picture"],
-        include: [{ model: product }],
-      });
-      res.status(200).send(inventories);
-    } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },
@@ -169,6 +155,32 @@ module.exports = {
       });
       res.status(200).send(products);
     } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findAllByBranch: async (req, res) => {
+    try {
+      const inventories = await inventory.findAll({
+        where: {
+          BranchId: req.params.BranchId
+        },
+        include: [
+          {
+            model: product,
+            include: [{ model: price }],
+          },
+          // {
+          //   model: branch,
+          //   where: {
+          //     longitude: { [Op.between]: [req.params.from, req.params.to] },
+          //   },
+          // },
+        ],
+      });
+      res.status(200).send(inventories);
+    } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },

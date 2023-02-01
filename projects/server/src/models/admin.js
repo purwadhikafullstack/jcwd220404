@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       Admin.hasMany(models.Branch);
       Admin.hasMany(models.Inventory);
       Admin.hasMany(models.Price);
-      Admin.hasMany(models.Transaction);
+      // Admin.hasMany(models.Transaction);
     }
   }
   Admin.init(

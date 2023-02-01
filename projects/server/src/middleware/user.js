@@ -19,11 +19,11 @@ module.exports = {
 
   checkRole: async (req, res, next) => {
     if (req.user.isAdmin) return next();
-    res.status(400).send("You Not Admin");
+    res.status(400).send("You are not admin");
   },
-  
+
   checkUser: async (req, res, next) => {
     if (!req.user.isAdmin) return next();
-    res.status(400).send("You Admin");
+    res.status(400).send("You are admin");
   },
 };

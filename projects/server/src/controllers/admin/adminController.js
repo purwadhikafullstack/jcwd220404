@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const admin = db.Admin;
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
+const secretKey = process.env.SECRET_KEY
 
 module.exports = {
   register: async (req, res) => {
@@ -25,7 +26,7 @@ module.exports = {
         isSuper,
       });
 
-      const token = jwt.sign({ username: username, email: email }, "jcwd2204");
+      const token = jwt.sign({ username: username, email: email }, secretKey);
 
       res.status(200).send({
         message: "Register Succes",
@@ -54,7 +55,7 @@ module.exports = {
       if (!isUserExist) throw "Account not found";
 
       const payload = { username: isUserExist.username };
-      const token = jwt.sign(payload, "jcwd2204");
+      const token = jwt.sign(payload, secretKey);
 
       const isValid = await bcrypt.compare(password, isUserExist.password);
 
@@ -72,7 +73,7 @@ module.exports = {
 
   keepLogin: async (req, res) => {
     try {
-      const verify = jwt.verify(req.token, "jcwd2204");
+      const verify = jwt.verify(req.token, secretKey);
       const result = await admin.findOne({
         where: {
           username: verify.username,
@@ -85,6 +86,22 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  findAll: async (req, res) => {
+    try {
+      const admins = await admin.findAll({
+        where: {
+          isSuper: 1,
+        },
+        attributes: ["username", "email", "isSuper"],
+        raw: true,
+      });
+      res.status(200).send(admins);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+};
 
   findAll: async (req, res) => {
     try {

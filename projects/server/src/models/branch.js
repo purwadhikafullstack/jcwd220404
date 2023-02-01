@@ -12,8 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       Branch.belongsTo(models.Admin);
       Branch.hasMany(models.Inventory);
       Branch.hasMany(models.Address);
+      Branch.hasMany(models.Product_Cart)
+      Branch.hasMany(models.Transaction_Detail)
       // Branch.belongsTo(models.City);
-      // Branch.hasMany(models.Transaction);
+      Branch.hasMany(models.Transaction);
     }
   }
   Branch.init(
