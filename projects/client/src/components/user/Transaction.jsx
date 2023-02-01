@@ -95,8 +95,6 @@ export const TransactionComp = () => {
     window.location.replace("/transaction");
   };
 
-  
-
   return (
     <div>
       {data?.map((item) => {
