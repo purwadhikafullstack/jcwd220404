@@ -5,6 +5,7 @@ const productCart = db.Product_Cart;
 const payment = db.Payment;
 const product = db.Product;
 const price = db.Price;
+const branch = db.Branch;
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -190,6 +191,7 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
   findWaitingPayment: async (req, res) => {
     try {
       const transactions = await transaction.findAll({
@@ -252,12 +254,19 @@ module.exports = {
 
   findDone: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 5,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
+      console.log(transactions);
       res.status(200).send(transactions);
     } catch (err) {
       console.log(err);

@@ -22,6 +22,7 @@ import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 
 export const TransactionComp = () => {
   const [data, setData] = useState();
@@ -30,11 +31,12 @@ export const TransactionComp = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
+  const { username, id } = useSelector((state) => state.adminSlice.value);
 
-  const getData = async (BranchId) => {
+  const getData = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment/${BranchId}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment/${id}`
       );
       setData(result.data);
       console.log(result.data);
@@ -47,10 +49,10 @@ export const TransactionComp = () => {
     getData();
   }, []);
 
-  const getData2 = async (BranchId) => {
+  const getData2 = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment/${BranchId}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment/${id}`
       );
       setData2(result.data);
       console.log(result.data);
@@ -63,10 +65,10 @@ export const TransactionComp = () => {
     getData2();
   }, []);
 
-  const getData3 = async (BranchId) => {
+  const getData3 = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess/${BranchId}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess/${id}`
       );
       setData3(result.data);
       console.log(result.data);
@@ -79,10 +81,10 @@ export const TransactionComp = () => {
     getData3();
   }, []);
 
-  const getData4 = async (BranchId) => {
+  const getData4 = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery/${BranchId}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery/${id}`
       );
       setData4(result.data);
       console.log(result.data);
@@ -95,10 +97,10 @@ export const TransactionComp = () => {
     getData4();
   }, []);
 
-  const getData5 = async (BranchId) => {
+  const getData5 = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone/${BranchId}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone/${id}`
       );
       setData5(result.data);
       console.log(result.data);
@@ -111,10 +113,10 @@ export const TransactionComp = () => {
     getData5();
   }, []);
 
-  const getData6 = async (BranchId) => {
+  const getData6 = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancelled/${BranchId}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancelled/${id}`
       );
       setData6(result.data);
       console.log(result.data);

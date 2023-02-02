@@ -20,7 +20,7 @@ router.get("/listWaitingPayment/:BranchId", transactionController.findWaitingPay
 router.get("/listConfirmPayment/:BranchId", transactionController.findConfirmPayment);
 router.get("/listOnProcess/:BranchId", transactionController.findOnProcess);
 router.get("/listDelivery/:BranchId", transactionController.findDelivery);
-router.get("/listDone/:BranchId", transactionController.findDone);
+router.get("/listDone/:AdminId", transactionController.findDone);
 router.get("/salesDepok", transactionController.findSalesDepok);
 router.get("/salesJaksel", transactionController.findSalesJaksel);
 router.get("/salesJaktim", transactionController.findSalesJaktim);
