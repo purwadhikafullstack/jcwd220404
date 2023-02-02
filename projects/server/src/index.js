@@ -84,11 +84,11 @@ app.use((err, req, res, next) => {
 
 //#region CLIENT
 const clientPath = "../../client/build";
-// app.use(express.static(join(__dirname, clientPath)));
+app.use(express.static(join(__dirname, clientPath)));
 
 // Serve the HTML page
 app.get("*", (req, res) => {
-  // res.sendFile(join(__dirname, clientPath, "index.html"));
+  res.sendFile(join(__dirname, clientPath, "index.html"));
 });
 
 //#endregion
