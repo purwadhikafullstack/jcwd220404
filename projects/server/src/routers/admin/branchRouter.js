@@ -5,6 +5,7 @@ require("dotenv/config");
 
 router.post("/create", branchController.newBranch);
 router.get("/branchById/:id", branchController.findBranchById);
+router.get("/branchByAdmin/:AdminId", branchController.findBranchByAdmin);
 router.get("/adminByBranch/:id", branchController.findAdminByBranch);
 router.get("/findAll", branchController.findAll);
 router.patch("/updateBranch/:id", branchController.updateBranch);

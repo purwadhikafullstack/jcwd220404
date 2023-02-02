@@ -4,6 +4,7 @@ const db = require("../../models");
 const address = db.Address;
 const user = db.User;
 const branch = db.Branch;
+const productCart = db.Product_Cart;
 const rajaOngkirKey = process.env.RAJA_KEY;
 const openCageKey = process.env.GEO_KEY;
 const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR;
@@ -39,7 +40,7 @@ module.exports = {
         detail,
         district,
       } = req.body;
-      console.log(req.body)
+      console.log(req.body);
       const provinceAndCity = await axios.get(
         `${rajaOngkirURL}/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
       );
@@ -85,7 +86,7 @@ module.exports = {
         data: response,
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -185,7 +186,12 @@ module.exports = {
             id: req.params.id,
           },
         }
-      );
+        );
+        await productCart.destroy({
+          where: {
+            UserId: req.params.UserId,
+          },
+        });
       res.status(200).send("Set default success");
     } catch (err) {
       console.log(err);

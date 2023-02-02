@@ -35,10 +35,11 @@ export const InventoryList = () => {
   const [state, setState] = useState();
   const [state2, setState2] = useState();
   const [state3, setState3] = useState();
+  const [state4, setState4] = useState();
+  const [state5, setState5] = useState();
   const dispatch = useDispatch();
   const { id, cart } = useSelector((state) => state.userSlice.value);
   const data = useSelector((state) => state.inventorySlice.value);
-  console.log(data)
 
   const getData2 = async () => {
     try {
@@ -48,7 +49,7 @@ export const InventoryList = () => {
       console.log(result.data.defaultAdd);
       console.log(result.data.defaultAdd["Branch.id"]);
       setState2(result.data.defaultAdd);
-      setState3(result.data.defaultAdd["Branch.id"])
+      setState3(result.data.defaultAdd["Branch.id"]);
     } catch (err) {
       console.log(err);
     }
@@ -57,7 +58,6 @@ export const InventoryList = () => {
   useEffect(() => {
     getData2();
   }, [id]);
-
 
   const getProduct = async () => {
     try {
@@ -68,6 +68,8 @@ export const InventoryList = () => {
       );
       dispatch(syncInventory(res.data));
       console.log(res.data);
+      console.log(res.data[3]?.Product?.Price?.productPrice)
+      setState5(res.data[3]?.Product?.Price?.productPrice)
     } catch (err) {
       console.log(err);
     }
@@ -84,7 +86,7 @@ export const InventoryList = () => {
         {
           UserId: id,
           ProductId,
-          BranchId
+          BranchId,
         }
       );
       setState(result.data);
@@ -113,6 +115,38 @@ export const InventoryList = () => {
           container: "my-swal",
         },
       });
+    }
+  };
+
+  const getDiscount = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/product/listDiscount`
+      );
+      console.log(res.data.nominal);
+      setState4(res.data.nominal)
+      const discNominal = res.data.nominal;
+      console.log(discNominal);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getDiscount();
+  }, []);
+
+  const onDiscount = async () => {
+    try {
+      const res = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/product/discItem`,
+        {
+          discPrice: state5 - state4
+        }
+      );
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -338,7 +372,9 @@ export const InventoryList = () => {
                     </CardBody>
                   </Center>
                   <CardFooter>
-                    <Button onClick={() => onAddCart(item.Product.id, item.Branch.id)}>
+                    <Button
+                      onClick={() => onAddCart(item.Product.id, item.Branch.id)}
+                    >
                       <AddIcon />
                       Cart
                     </Button>
@@ -348,6 +384,7 @@ export const InventoryList = () => {
             );
           })}
         </SimpleGrid>
+        <Button onClick={onDiscount}>anjing</Button>
       </Box>
     </div>
   );

@@ -31,10 +31,10 @@ export const TransactionComp = () => {
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
 
-  const getData = async (id) => {
+  const getData = async (BranchId) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment/${BranchId}`
       );
       setData(result.data);
       console.log(result.data);
@@ -47,10 +47,10 @@ export const TransactionComp = () => {
     getData();
   }, []);
 
-  const getData2 = async (id) => {
+  const getData2 = async (BranchId) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment/${BranchId}`
       );
       setData2(result.data);
       console.log(result.data);
@@ -63,10 +63,10 @@ export const TransactionComp = () => {
     getData2();
   }, []);
 
-  const getData3 = async (id) => {
+  const getData3 = async (BranchId) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess/${BranchId}`
       );
       setData3(result.data);
       console.log(result.data);
@@ -79,10 +79,10 @@ export const TransactionComp = () => {
     getData3();
   }, []);
 
-  const getData4 = async (id) => {
+  const getData4 = async (BranchId) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery/${BranchId}`
       );
       setData4(result.data);
       console.log(result.data);
@@ -95,10 +95,10 @@ export const TransactionComp = () => {
     getData4();
   }, []);
 
-  const getData5 = async (id) => {
+  const getData5 = async (BranchId) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone/${BranchId}`
       );
       setData5(result.data);
       console.log(result.data);
@@ -111,10 +111,10 @@ export const TransactionComp = () => {
     getData5();
   }, []);
 
-  const getData6 = async (id) => {
+  const getData6 = async (BranchId) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancelled/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancelled/${BranchId}`
       );
       setData6(result.data);
       console.log(result.data);
