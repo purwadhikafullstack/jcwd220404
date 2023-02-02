@@ -47,7 +47,7 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
 
   const getData2 = async () => {
     try {
@@ -63,7 +63,7 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData2();
-  }, []);
+  }, [id]);
 
   const getData3 = async () => {
     try {
@@ -79,7 +79,7 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData3();
-  }, []);
+  }, [id]);
 
   const getData4 = async () => {
     try {
@@ -95,7 +95,7 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData4();
-  }, []);
+  }, [id]);
 
   const getData5 = async () => {
     try {
@@ -111,7 +111,7 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData5();
-  }, []);
+  }, [id]);
 
   const getData6 = async () => {
     try {
@@ -127,7 +127,7 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData6();
-  }, []);
+  }, [id]);
 
   const setOrder = async (id) => {
     try {
