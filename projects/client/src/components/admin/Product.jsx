@@ -6,20 +6,9 @@ import { BiReset, BiSearchAlt } from "react-icons/bi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
-  Accordion,
-  AccordionItem,
-  Avatar,
-  Badge,
   Box,
   Button,
   ButtonGroup,
-  Collapse,
-  Grid,
-  GridItem,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
   Tabs,
   Text,
   useColorMode,
@@ -32,12 +21,6 @@ import {
   Tbody,
   Td,
   Image,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
   ModalOverlay,
   Center,
   Flex,
@@ -52,12 +35,8 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import { UpdateProductComp } from "./UpdateProduct";
-import { UpdateCategoryComp } from "./UpdateCategory";
 import { AddProduct } from "./AddProduct";
-import { AddCategory } from "./AddCategory";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { LogoutBranch } from "./LogoutBranch";
-import { AddPicWeb } from "./AddPicWeb";
 import { syncData } from "../../redux/productSlice";
 import { syncCategory } from "../../redux/categorySlice";
 

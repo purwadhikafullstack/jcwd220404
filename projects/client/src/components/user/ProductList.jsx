@@ -25,8 +25,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { cartSync } from "../../redux/cartSlice";
-import { addCart } from "../../redux/userSlice";
+
 import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/productSlice";
 import { useFormik } from "formik";
@@ -34,7 +33,6 @@ import * as Yup from "yup";
 
 export const ProductList = () => {
   const [state, setState] = useState();
-  const [product, setProduct] = useState();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("ASC");
@@ -121,13 +119,12 @@ export const ProductList = () => {
     try {
       const res = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/product/discItem`
-      )
-      console.log(res.data)
+      );
+      console.log(res.data);
     } catch (err) {
-      console.log(err)
-
+      console.log(err);
     }
-  }
+  };
 
   return (
     <div>
@@ -162,9 +159,7 @@ export const ProductList = () => {
                   </Box>
                   <Flex m={2} wrap="wrap">
                     <FormControl w="" m={1}>
-                      <InputGroup 
-                      mt={"-30px"}
-                      >
+                      <InputGroup mt={"-30px"}>
                         <Input
                           placeholder="Only Fresh Here..."
                           _placeholder={{ color: "#5F8D4E" }}

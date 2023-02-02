@@ -1,11 +1,8 @@
 import {
-  Badge,
   Box,
-  Button,
   Center,
   Container,
   Flex,
-  Heading,
   Image,
   List,
   ListItem,
@@ -14,7 +11,6 @@ import {
   StackDivider,
   Text,
   useColorModeValue,
-  VStack,
 } from "@chakra-ui/react";
 import Axios from "axios";
 import React from "react";

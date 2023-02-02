@@ -8,18 +8,13 @@ import {
   Center,
   Flex,
   FormControl,
-  FormHelperText,
-  Icon,
   Image,
-  Input,
-  InputGroup,
-  InputRightElement,
   SimpleGrid,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { BiSearchAlt } from "react-icons/bi";
+
 import Axios from "axios";
 import { syncInventory } from "../../redux/inventorySlice";
 import Swal from "sweetalert2";
@@ -27,8 +22,7 @@ import { cartSync } from "../../redux/cartSlice";
 import { addCart } from "../../redux/userSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+
 import { Link } from "react-router-dom";
 
 export const InventoryList = () => {

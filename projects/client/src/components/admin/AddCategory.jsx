@@ -8,9 +8,6 @@ import {
   Input,
   Stack,
   Center,
-  AccordionPanel,
-  AccordionButton,
-  AccordionIcon,
   Box,
 } from "@chakra-ui/react";
 
@@ -45,38 +42,37 @@ export const AddCategory = () => {
     <div>
       <h2>
         {/* <AccordionButton> */}
-          <Box color="#285430" as="span" flex="1" textAlign="left">
-            Add Category
-          </Box>
-          {/* <AccordionIcon color="gray.800" /> */}
+        <Box color="#285430" as="span" flex="1" textAlign="left">
+          Add Category
+        </Box>
+        {/* <AccordionIcon color="gray.800" /> */}
         {/* </AccordionButton> */}
       </h2>
-      {/* <AccordionPanel pb={4}> */}
-        <Stack spacing={"10px"}>
-          <FormControl>
-            <FormLabel color="#285430">Nama Category</FormLabel>
-            <Input
-              ref={inputCategoryName}
-              placeholder="Category"
-              _placeholder={{ color: "#5F8D4E" }}
-            ></Input>
-          </FormControl>
-          <Center>
-            <Button
-              bgColor={"#A4BE7B"}
-              borderColor="#285430"
-              border="2px"
-              fontSize="18px"
-              color="gray.800"
-              width={"100%"}
-              justifyContent="center"
-              onClick={onCreateCategory}
-            >
-              Add Category
-            </Button>
-          </Center>
-        </Stack>
-      {/* </AccordionPanel> */}
+
+      <Stack spacing={"10px"}>
+        <FormControl>
+          <FormLabel color="#285430">Nama Category</FormLabel>
+          <Input
+            ref={inputCategoryName}
+            placeholder="Category"
+            _placeholder={{ color: "#5F8D4E" }}
+          ></Input>
+        </FormControl>
+        <Center>
+          <Button
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="18px"
+            color="gray.800"
+            width={"100%"}
+            justifyContent="center"
+            onClick={onCreateCategory}
+          >
+            Add Category
+          </Button>
+        </Center>
+      </Stack>
     </div>
   );
 };

@@ -1,10 +1,8 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Center,
-  Checkbox,
-  Flex,
+
   FormControl,
   FormLabel,
   Text,

@@ -15,12 +15,10 @@ import { logoutUser } from "../../redux/userSlice";
 export const LogoutUser = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const onLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("tokenUser");
-    // navigate("/");
     window.location.replace("/", 2000);
   };
 

@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/button";
-import { Center, Flex, Stack, Text } from "@chakra-ui/layout";
+import {  Flex, Stack, Text } from "@chakra-ui/layout";
 import React from "react";
 
 export const BlankAddress = () => {

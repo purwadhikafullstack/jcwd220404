@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Box, Center, Text, Flex, Avatar } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import * as Yup from "yup";
+import { Link } from "react-router-dom";
+import { Center, Text, Flex, Avatar } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+
 import { InventoryList } from "./InventoryList";
 import { ProductList } from "./ProductList";
 
 export const MenuComp = () => {
   const [category, setCategory] = useState();
   const [state3, setState3] = useState();
-  const data = useSelector((state) => state.inventorySlice.value);
-  const { id, cart } = useSelector((state) => state.userSlice.value);
+
+  const { id } = useSelector((state) => state.userSlice.value);
   const tokenLocalStorage = localStorage.getItem("tokenUser");
 
   const getCategory = async () => {

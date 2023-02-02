@@ -14,7 +14,6 @@ import {
   Table,
   TableContainer,
   Tbody,
-  Td,
   Text,
   Th,
   Thead,
@@ -22,7 +21,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAdmin } from "../../redux/adminSlice";
 
 export const InventoryAdminComp = () => {
   const [branch, setBranch] = useState();
@@ -34,7 +32,6 @@ export const InventoryAdminComp = () => {
   const [data3, setData3] = useState([]);
   const [data4, setData4] = useState([]);
   const { id } = useSelector((state) => state.adminSlice.value);
-  const dispatch = useDispatch();
 
   const getBranch = async (AdminId) => {
     try {
@@ -112,7 +109,24 @@ export const InventoryAdminComp = () => {
     }
   };
 
-  
+  const getBranch = async (AdminId) => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
+      );
+
+      setBranch(res.data);
+      console.log(res.data);
+      setData4(res.data?.id);
+      console.log(res.data.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getBranch();
+  }, [id]);
 
   return (
     <div>

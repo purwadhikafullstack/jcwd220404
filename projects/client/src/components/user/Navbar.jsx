@@ -11,25 +11,14 @@ import {
   IoPersonOutline,
   IoPerson,
 } from "react-icons/io5";
-
-import { Badge, Box, Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-
-import Axios from "axios";
-import { cartSync } from "../../redux/cartSlice";
-import { useEffect } from "react";
-import { transSync } from "../../redux/transactionSlice";
+import { Badge, Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 export const NavbarComp = () => {
   const data = useSelector((state) => state.cartSlice.value);
   const data2 = useSelector((state) => state.transactionSlice.value);
   const location = useLocation();
   const navigate = useNavigate();
-  const { id, cart } = useSelector((state) => state.userSlice.value);
-  const dispatch = useDispatch();
-
-
 
   const menuBar = [
     {
@@ -69,13 +58,11 @@ export const NavbarComp = () => {
     },
   ];
 
-
   const toPage = (url) => {
     navigate(url);
   };
 
   return (
-
     <>
       <Center ml={"70px"}>
         <Badge zIndex={2} borderRadius="2xl" mb={"10px"} ml="30px">
@@ -86,7 +73,6 @@ export const NavbarComp = () => {
         </Badge>
       </Center>
       <Center>
-
         <Flex
           w={[300, 350, 390]}
           h="70px"
@@ -94,7 +80,6 @@ export const NavbarComp = () => {
           color="gray.800"
           dropShadow="2xl"
           position="fixed"
-
         >
           <Flex
             justifyContent="space-evenly"

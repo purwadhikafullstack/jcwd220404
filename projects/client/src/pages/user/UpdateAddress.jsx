@@ -1,13 +1,12 @@
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import {
   Box,
   Button,
   Center,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,

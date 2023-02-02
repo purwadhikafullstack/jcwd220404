@@ -10,8 +10,6 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  InputRightElement,
-  Text,
 } from "@chakra-ui/react";
 import Axios from "axios";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";

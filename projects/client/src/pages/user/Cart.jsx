@@ -1,13 +1,11 @@
 import { Box, Center } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { PopoutCheckout } from "../../components/user/PopoutCheckout";
+
 import { CartComp } from "../../components/user/Cart";
 import { NavbarComp } from "../../components/user/Navbar";
 import { OrderNowComp } from "../../components/user/OrderNow";
-import { AccountPage } from "./Account";
 
 export const CartPage = () => {
-  const navigate = useNavigate();
   const tokenLocalStorage = localStorage.getItem("tokenUser");
 
   return (
