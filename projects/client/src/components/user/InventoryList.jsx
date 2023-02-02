@@ -8,18 +8,13 @@ import {
   Center,
   Flex,
   FormControl,
-  FormHelperText,
-  Icon,
   Image,
-  Input,
-  InputGroup,
-  InputRightElement,
   SimpleGrid,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { BiSearchAlt } from "react-icons/bi";
+
 import Axios from "axios";
 import { syncInventory } from "../../redux/inventorySlice";
 import Swal from "sweetalert2";
@@ -27,8 +22,7 @@ import { cartSync } from "../../redux/cartSlice";
 import { addCart } from "../../redux/userSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+
 import { Link } from "react-router-dom";
 
 export const InventoryList = () => {
@@ -68,8 +62,8 @@ export const InventoryList = () => {
       );
       dispatch(syncInventory(res.data));
       console.log(res.data);
-      console.log(res.data[3]?.Product?.Price?.productPrice)
-      setState5(res.data[3]?.Product?.Price?.productPrice)
+      console.log(res.data[3]?.Product?.Price?.productPrice);
+      setState5(res.data[3]?.Product?.Price?.productPrice);
     } catch (err) {
       console.log(err);
     }
@@ -124,7 +118,7 @@ export const InventoryList = () => {
         `${process.env.REACT_APP_API_BASE_URL}/product/listDiscount`
       );
       console.log(res.data.nominal);
-      setState4(res.data.nominal)
+      setState4(res.data.nominal);
       const discNominal = res.data.nominal;
       console.log(discNominal);
     } catch (err) {
@@ -141,7 +135,7 @@ export const InventoryList = () => {
       const res = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/product/discItem`,
         {
-          discPrice: state5 - state4
+          discPrice: state5 - state4,
         }
       );
       console.log(res.data);

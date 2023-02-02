@@ -54,8 +54,7 @@ export const Category = () => {
   const [edit2, setEdit2] = useState({});
   const [image2, setImage2] = useState("");
   const [profile2, setProfile2] = useState("upload");
-  const [show, setShow] = useState(false);
-  const [show2, setShow2] = useState(false);
+ 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [sort, setSort] = useState("ASC");
@@ -70,7 +69,7 @@ export const Category = () => {
   const [searchCategory2, setSearchCategory2] = useState("");
   const [totalPage2, setTotalPage2] = useState(0);
   const [state2, setState2] = useState(0);
-  const { username, BranchId } = useSelector((state) => state.adminSlice.value);
+
   const data = useSelector((state) => state.productSlice.value);
   const data2 = useSelector((state) => state.categorySlice.value);
   const { isOpen, onOpen, onClose } = useDisclosure();

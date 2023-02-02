@@ -1,26 +1,22 @@
 import {
   Box,
-  Button,
   Card,
   CardBody,
-  CardFooter,
-  CardHeader,
   Center,
   Image,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { syncData } from "../../redux/productSlice";
+
 import { syncCategory } from "../../redux/categorySlice";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const CategoryDetail = (id) => {
   const data = useSelector((state) => state.categorySlice.value);
-  // const [data, setData] = useState([]);
   const params = useParams();
   const dispatch = useDispatch();
 

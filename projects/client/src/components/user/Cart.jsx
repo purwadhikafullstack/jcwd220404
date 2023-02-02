@@ -16,7 +16,6 @@ import {
   Stack,
   Text,
   Textarea,
-  useNumberInput,
 } from "@chakra-ui/react";
 import { Calculator } from "./Calculator";
 import { useDispatch, useSelector } from "react-redux";
@@ -79,7 +78,7 @@ export const CartComp = () => {
       setTotalWeight(selectedWeight);
       setData3(res.data);
       console.log(res.data);
-      setData9(res.data)
+      setData9(res.data);
     } catch (err) {
       console.log(err);
     }

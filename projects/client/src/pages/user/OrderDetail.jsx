@@ -4,7 +4,6 @@ import Axios from "axios";
 import { useState } from "react";
 import {
   Box,
-  Button,
   Card,
   Center,
   Flex,
@@ -34,8 +33,6 @@ export const OrderDetail = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
-  const [totalCheckout, setTotalCheckout] = useState(0);
-  const [totalWeight, setTotalWeight] = useState(0);
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
 
@@ -68,7 +65,7 @@ export const OrderDetail = () => {
       );
       setData(result.data);
       console.log(result.data);
-      setData6(result.data.id)
+      setData6(result.data.id);
       console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
@@ -121,8 +118,6 @@ export const OrderDetail = () => {
   useEffect(() => {
     getDefault();
   }, [id]);
-
-  
 
   return (
     <div>

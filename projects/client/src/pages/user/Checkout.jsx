@@ -2,46 +2,24 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
-  Card,
   Center,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
-  Grid,
-  GridItem,
-  Image,
-  Radio,
-  RadioGroup,
-  Select,
-  Stack,
   Text,
-  Textarea,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { syncData } from "../../redux/addressSlice";
-import { DefaultAddress } from "../../components/user/DefaultAddress";
-import { CartComp } from "../../components/user/Cart";
 
 export const Checkout = () => {
-  const [value, setValue] = useState("0");
   const [data, setData] = useState([]);
   const [data2, setData2] = useState();
   const [data3, setData3] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
-  const [product, setProduct] = useState([]);
-  const [totalCheckout, setTotalCheckout] = useState(0);
-  const [totalWeight, setTotalWeight] = useState(0);
-  // const { data } = useSelector((state) => state.addressSlice.value);
-  const { id } = useSelector((state) => state.userSlice.value);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const params = useParams();
-  console.log(data3);
 
   const getData = async () => {
     try {

@@ -19,13 +19,12 @@ import {
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { loginUser } from "../../redux/userSlice";
 import { ForgotPasswordPage } from "../../pages/user/ForgotPassword";
-import { cartSync } from "../../redux/cartSlice";
 
 export const EnterComp = () => {
   const { id, isVerified, profilePic, cart } = useSelector(
     (state) => state.userSlice.value
   );
-  const data = useSelector((state) => state.cartSlice.value);
+  
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const inputPhoneEmail = useRef("");

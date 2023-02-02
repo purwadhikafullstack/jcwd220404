@@ -13,15 +13,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { logoutAdmin } from "../../redux/adminSlice";
-import { syncData } from "../../redux/branchSlice";
+
 import { LogoutBranch } from "../../components/admin/LogoutBranch";
 
 export const SidebarComp = () => {
   const { username, id } = useSelector((state) => state.adminSlice.value);
-  const { isOpen, onClose, onToggle } = useDisclosure();
   const [data, setData] = useState();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
   console.log(id);

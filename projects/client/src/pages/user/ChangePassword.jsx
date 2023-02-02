@@ -18,14 +18,12 @@ import { ArrowBackIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { logoutUser } from "../../redux/userSlice";
 
 export const ChangePassword = (data) => {
-  const [move, setMove] = useState(false);
   const [currentPassword, setCurrentPassword] = useState(false);
   const [newPassword, setNewPassword] = useState(false);
   const { id } = useSelector((state) => state.userSlice.value);
   const inputPass = useRef("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const params = useParams();
 
   const updatePass = async () => {
     try {

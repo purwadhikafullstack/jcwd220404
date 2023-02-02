@@ -11,16 +11,14 @@ import {
   IoPersonOutline,
   IoPerson,
 } from "react-icons/io5";
-import { Badge, Box, Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import { Badge, Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import Axios from "axios";
 import { cartSync } from "../../redux/cartSlice";
 import { useEffect } from "react";
 import { transSync } from "../../redux/transactionSlice";
 
 export const NavbarComp = () => {
-  // const [data, setData] = useState();
   const data = useSelector((state) => state.cartSlice.value);
   const data2 = useSelector((state) => state.transactionSlice.value);
   const location = useLocation();

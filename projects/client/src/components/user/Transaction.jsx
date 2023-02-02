@@ -2,14 +2,9 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Card,
   Center,
-  Checkbox,
   Flex,
-  Grid,
-  GridItem,
   HStack,
-  Progress,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -134,7 +129,7 @@ export const TransactionComp = () => {
                         borderColor="#285430"
                         border="1px"
                         color="gray.800"
-                        onClick={()=>handleUpload(item.id)}
+                        onClick={() => handleUpload(item.id)}
                         w="50px"
                         fontSize={"10px"}
                       >

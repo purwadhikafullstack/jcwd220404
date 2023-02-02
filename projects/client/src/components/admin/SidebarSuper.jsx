@@ -3,33 +3,21 @@ import {
   Avatar,
   Box,
   Button,
-  ButtonGroup,
   Image,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverFooter,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import Axios from "axios";
-import { useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { logoutAdmin } from "../../redux/adminSlice";
-import { syncData } from "../../redux/branchSlice";
+
 import { LogoutSuper } from "./LogoutSuper";
 
 export const SidebarSuper = () => {
-  const { username, id } = useSelector((state) => state.adminSlice.value);
-  const { isOpen, onClose, onToggle } = useDisclosure();
+  const { username } = useSelector((state) => state.adminSlice.value);
   const data = useSelector((state) => state.branchSlice.value);
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
-  const params = useParams();
-  console.log(data);
-  console.log(params);
 
   const toDashboard = () => {
     navigate("/admin");
@@ -38,7 +26,7 @@ export const SidebarSuper = () => {
   const toManagementBranch = () => {
     navigate("/admin/branch-management");
   };
-  
+
   const toSalesBranch = () => {
     navigate("/admin/sales");
   };

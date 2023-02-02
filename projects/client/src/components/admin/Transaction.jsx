@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Flex,
   Image,
   Tab,
   Table,
@@ -16,12 +15,11 @@ import {
   Th,
   Thead,
   Tr,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
 
 export const TransactionComp = () => {
@@ -31,7 +29,7 @@ export const TransactionComp = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
-  const { username, id } = useSelector((state) => state.adminSlice.value);
+  const { id } = useSelector((state) => state.adminSlice.value);
 
   const getData = async () => {
     try {

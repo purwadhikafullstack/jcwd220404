@@ -3,11 +3,9 @@ import {
   Box,
   Button,
   Center,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
-  Radio,
   Text,
 } from "@chakra-ui/react";
 import React from "react";

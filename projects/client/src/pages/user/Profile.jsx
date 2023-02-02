@@ -39,7 +39,6 @@ export const ProfilePage = () => {
   const inputProfilePic = useRef("");
   const inputName = useRef("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const params = useParams();
 
   const updateData = async () => {
