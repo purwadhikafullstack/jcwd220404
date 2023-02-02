@@ -67,14 +67,14 @@ export const TransactionComp = () => {
     setImage(e.target.files[0]);
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (TransactionId) => {
     const data = new FormData();
     console.log(data);
     data.append("file", image);
     console.log(data.get("file"));
 
     const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded/${data2}`,
+      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded/${TransactionId}`,
       data,
       {
         headers: {
@@ -134,7 +134,7 @@ export const TransactionComp = () => {
                         borderColor="#285430"
                         border="1px"
                         color="gray.800"
-                        onClick={handleUpload}
+                        onClick={()=>handleUpload(item.id)}
                         w="50px"
                         fontSize={"10px"}
                       >

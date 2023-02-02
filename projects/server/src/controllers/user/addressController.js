@@ -76,7 +76,7 @@ module.exports = {
         longitude,
         defaultAddress: false,
         UserId: req.params.id,
-        BranchId: branchCity,
+        BranchId: branchCity.id,
       });
 
       await branch.findOne({});

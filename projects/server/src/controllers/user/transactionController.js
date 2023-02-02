@@ -39,6 +39,7 @@ module.exports = {
         UserId,
         AdminId,
         id_order: no_order,
+        BranchId,
       });
       const data = await productCart.findAll({
         where: [
@@ -180,6 +181,7 @@ module.exports = {
       const transactions = await transaction.findAll({
         where: {
           status: 0,
+          BranchId: req.params.BranchId,
         },
       });
       res.status(200).send(transactions);
@@ -193,6 +195,7 @@ module.exports = {
       const transactions = await transaction.findAll({
         where: {
           status: 1,
+          BranchId: req.params.BranchId,
         },
       });
       res.status(200).send(transactions);
@@ -207,6 +210,7 @@ module.exports = {
       const transactions = await transaction.findAll({
         where: {
           status: 2,
+          BranchId: req.params.BranchId,
         },
       });
       res.status(200).send(transactions);
@@ -221,6 +225,7 @@ module.exports = {
       const transactions = await transaction.findAll({
         where: {
           status: 3,
+          BranchId: req.params.BranchId,
         },
       });
       res.status(200).send(transactions);
@@ -235,6 +240,7 @@ module.exports = {
       const transactions = await transaction.findAll({
         where: {
           status: 4,
+          BranchId: req.params.BranchId,
         },
       });
       res.status(200).send(transactions);
@@ -249,6 +255,7 @@ module.exports = {
       const transactions = await transaction.findAll({
         where: {
           status: 5,
+          BranchId: req.params.BranchId,
         },
       });
       res.status(200).send(transactions);
@@ -363,6 +370,48 @@ module.exports = {
       );
 
       res.status(200).send("Set Cancelled Success");
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findSalesDepok: async (req, res) => {
+    try {
+      const salesDepok = await transaction.findAll({
+        where: {
+          BranchId: 1,
+        },
+      });
+      res.status(200).send(salesDepok);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findSalesJaksel: async (req, res) => {
+    try {
+      const salesJaksel = await transaction.findAll({
+        where: {
+          BranchId: 2,
+        },
+      });
+      res.status(200).send(salesJaksel);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findSalesJaktim: async (req, res) => {
+    try {
+      const salesJaktim = await transaction.findAll({
+        where: {
+          BranchId: 3,
+        },
+      });
+      res.status(200).send(salesJaktim);
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

@@ -23,6 +23,6 @@ export default configureStore({
     inventorySlice,
     categorySlice,
     transactionSlice,
-    branchSlice
+    branchSlice,
   },
 });
