@@ -32,7 +32,7 @@ export const UpdateAddressPage = () => {
   const inputDetail = useRef("");
   const inputDistrict = useRef("");
   const inputPostalCode = useRef("");
-  const inputDefaultAddress = useRef("");
+
   const inputReceiverName = useRef("");
   const inputReceiverPhone = useRef("");
   const inputReceiverEmail = useRef("");

@@ -21,9 +21,9 @@ import { loginUser } from "../../redux/userSlice";
 import { ForgotPasswordPage } from "../../pages/user/ForgotPassword";
 
 export const EnterComp = () => {
-  const { id, isVerified, profilePic, cart } = useSelector(
-    (state) => state.userSlice.value
-  );
+  // const { id, isVerified, profilePic, cart } = useSelector(
+  //   (state) => state.userSlice.value
+  // );
   
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();

@@ -9,9 +9,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 
 export const Checkout = () => {
   const [data, setData] = useState([]);

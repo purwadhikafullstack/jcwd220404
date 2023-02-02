@@ -11,8 +11,7 @@ import {
   ButtonGroup,
   Tabs,
   Text,
-  useColorMode,
-  useDisclosure,
+ 
   Table,
   TableContainer,
   Thead,
@@ -21,7 +20,7 @@ import {
   Tbody,
   Td,
   Image,
-  ModalOverlay,
+ 
   Center,
   Flex,
   useColorModeValue,
@@ -47,10 +46,8 @@ export const Product = () => {
   const [profile, setProfile] = useState("upload");
   const [edit, setEdit] = useState({});
   const [edit2, setEdit2] = useState({});
-  const [image2, setImage2] = useState("");
-  const [profile2, setProfile2] = useState("upload");
-  const [show, setShow] = useState(false);
-  const [show2, setShow2] = useState(false);
+  
+ 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [sort, setSort] = useState("ASC");
@@ -68,13 +65,7 @@ export const Product = () => {
   const data = useSelector((state) => state.productSlice.value);
   const dispatch = useDispatch();
 
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg="blackAlpha.300"
-      backdropFilter="blur(10px) hue-rotate(90deg)"
-    />
-  );
-
+  
   const getData = async () => {
     try {
       const res = await Axios.get(

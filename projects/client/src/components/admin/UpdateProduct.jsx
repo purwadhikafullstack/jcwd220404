@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -9,7 +9,6 @@ import {
   Stack,
   Textarea,
   Center,
-  useDisclosure,
   ModalOverlay,
 } from "@chakra-ui/react";
 
@@ -17,12 +16,6 @@ export const UpdateProductComp = ({ data }) => {
   const inputProductName = useRef("");
   const inputDescription = useRef("");
   const inputDistributor = useRef("");
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg="blackAlpha.300"
-      backdropFilter="blur(10px) hue-rotate(90deg)"
-    />
-  );
 
   const onUpdate = async (id) => {
     try {

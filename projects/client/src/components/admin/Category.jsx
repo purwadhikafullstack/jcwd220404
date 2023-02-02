@@ -47,8 +47,7 @@ import { syncCategory } from "../../redux/categorySlice";
 export const Category = () => {
   const [product, setProduct] = useState([]);
   const [category, setCategory] = useState([]);
-  const [image, setImage] = useState("");
-  const [profile, setProfile] = useState("upload");
+  
   const [edit, setEdit] = useState({});
   const [edit2, setEdit2] = useState({});
   const [image2, setImage2] = useState("");
@@ -69,7 +68,7 @@ export const Category = () => {
   const [totalPage2, setTotalPage2] = useState(0);
   const [state2, setState2] = useState(0);
 
-  const data = useSelector((state) => state.productSlice.value);
+  
   const data2 = useSelector((state) => state.categorySlice.value);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
