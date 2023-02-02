@@ -6,21 +6,9 @@ import { BiReset, BiSearchAlt } from "react-icons/bi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
-  Accordion,
-  AccordionItem,
-  Avatar,
-  Badge,
   Box,
   Button,
   ButtonGroup,
-  Collapse,
-  Grid,
-  GridItem,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
   Text,
   useColorMode,
   useDisclosure,
@@ -51,13 +39,9 @@ import {
   InputRightElement,
   FormHelperText,
 } from "@chakra-ui/react";
-import { UpdateProductComp } from "./UpdateProduct";
 import { UpdateCategoryComp } from "./UpdateCategory";
-import { AddProduct } from "./AddProduct";
 import { AddCategory } from "./AddCategory";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { LogoutBranch } from "./LogoutBranch";
-import { AddPicWeb } from "./AddPicWeb";
 import { syncData } from "../../redux/productSlice";
 import { syncCategory } from "../../redux/categorySlice";
 
@@ -89,11 +73,8 @@ export const Category = () => {
   const { username, BranchId } = useSelector((state) => state.adminSlice.value);
   const data = useSelector((state) => state.productSlice.value);
   const data2 = useSelector((state) => state.categorySlice.value);
-  const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
-  const handleToggle = () => setShow(!show);
-  const handleToggle1 = () => setShow2(!show2);
   const OverlayOne = () => (
     <ModalOverlay
       bg="blackAlpha.300"
@@ -128,34 +109,6 @@ export const Category = () => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage(e.target.files[0]);
-  };
-
-  const handleUpload = async (id) => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile(resultImage.data.picture);
-    setImage({ images: "" });
-    console.log(image);
-    console.log(profile);
-    window.location.replace("/admin");
   };
 
   const getCategory = async () => {

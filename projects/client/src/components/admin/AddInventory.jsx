@@ -14,7 +14,6 @@ import {
   Table,
   TableContainer,
   Tbody,
-  Td,
   Text,
   Th,
   Thead,
@@ -22,7 +21,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAdmin } from "../../redux/adminSlice";
 
 export const InventoryAdminComp = () => {
   const [branch, setBranch] = useState();
@@ -34,7 +32,6 @@ export const InventoryAdminComp = () => {
   const [data3, setData3] = useState([]);
   const [data4, setData4] = useState([]);
   const { id } = useSelector((state) => state.adminSlice.value);
-  const dispatch = useDispatch();
 
   const getData = async (BranchId) => {
     try {
@@ -98,7 +95,7 @@ export const InventoryAdminComp = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
       );
-      // dispatch(loginAdmin(res.data))
+
       setBranch(res.data);
       console.log(res.data);
       setData4(res.data?.id);
@@ -126,7 +123,7 @@ export const InventoryAdminComp = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {data2?.map((item) => {
+                {/* {data2?.map((item) => {
                   return (
                     <Tr>
                       <Td color={"#285430"}>{item.Product.productName}</Td>
@@ -136,7 +133,7 @@ export const InventoryAdminComp = () => {
                       </Td>
                     </Tr>
                   );
-                })}
+                })} */}
               </Tbody>
             </Table>
           </TableContainer>
