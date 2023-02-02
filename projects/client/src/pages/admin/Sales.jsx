@@ -1,14 +1,11 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { SalesComp } from "../../components/admin/Sales";
 import { SidebarSuper } from "../../components/admin/SidebarSuper";
 
-export const SuperComp = () => {
-  const [data2, setData2] = useState([]);
-  const { username } = useSelector((state) => state.adminSlice.value);
-
+export const Sales = () => {
   return (
-    <>
+    <div>
       <Grid
         templateAreas={`"header header"
                   "nav main"
@@ -24,7 +21,10 @@ export const SuperComp = () => {
         <GridItem>
           <SidebarSuper />
         </GridItem>
+        <GridItem>
+          <SalesComp />
+        </GridItem>
       </Grid>
-    </>
+    </div>
   );
 };

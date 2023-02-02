@@ -77,9 +77,9 @@ export const CartComp = () => {
 
       setTotalCheckout(selectedItem);
       setTotalWeight(selectedWeight);
-
       setData3(res.data);
       console.log(res.data);
+      setData9(res.data)
     } catch (err) {
       console.log(err);
     }
@@ -238,13 +238,10 @@ export const CartComp = () => {
           totalWeight: data6,
           totalCharge: data8,
           ProductId: data3[0]?.ProductId,
-          BranchId: data9,
-          //   AdminId: data3[0]?.Product?.Inventories[1]?.AdminId,
+          BranchId: data9[0]?.BranchId,
         }
       );
       console.log(res.data);
-      console.log(res.data[0]?.BranchId);
-      setData9(res.data[0]?.BranchId)
       navigate("/checkout");
     } catch (err) {
       console.log(err);
@@ -379,7 +376,7 @@ export const CartComp = () => {
               {/* </Checkbox> */}
             </Box>
           </FormControl>
-          <Button onClick={ onCreate} w={"100%"}>
+          <Button onClick={onCreate} w={"100%"}>
             Checkout
           </Button>
         </Stack>

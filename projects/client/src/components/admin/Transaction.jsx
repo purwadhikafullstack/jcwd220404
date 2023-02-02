@@ -3,9 +3,6 @@ import {
   Button,
   Flex,
   Image,
-  Stat,
-  StatLabel,
-  StatNumber,
   Tab,
   Table,
   TableContainer,
@@ -21,13 +18,7 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { MdOutlinePayment } from "react-icons/md";
-import { MdOutlinePayments } from "react-icons/md";
-import { GoPackage } from "react-icons/go";
-import { TbTruckDelivery } from "react-icons/tb";
-import { MdDoneOutline } from "react-icons/md";
 import React from "react";
-
 import Axios from "axios";
 import { useState, useEffect } from "react";
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
@@ -40,10 +31,10 @@ export const TransactionComp = () => {
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
 
-  const getData = async () => {
+  const getData = async (id) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment/${id}`
       );
       setData(result.data);
       console.log(result.data);
@@ -56,10 +47,10 @@ export const TransactionComp = () => {
     getData();
   }, []);
 
-  const getData2 = async () => {
+  const getData2 = async (id) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment/${id}`
       );
       setData2(result.data);
       console.log(result.data);
@@ -72,10 +63,10 @@ export const TransactionComp = () => {
     getData2();
   }, []);
 
-  const getData3 = async () => {
+  const getData3 = async (id) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess/${id}`
       );
       setData3(result.data);
       console.log(result.data);
@@ -88,10 +79,10 @@ export const TransactionComp = () => {
     getData3();
   }, []);
 
-  const getData4 = async () => {
+  const getData4 = async (id) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery/${id}`
       );
       setData4(result.data);
       console.log(result.data);
@@ -104,10 +95,10 @@ export const TransactionComp = () => {
     getData4();
   }, []);
 
-  const getData5 = async () => {
+  const getData5 = async (id) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone/${id}`
       );
       setData5(result.data);
       console.log(result.data);
@@ -120,10 +111,10 @@ export const TransactionComp = () => {
     getData5();
   }, []);
 
-  const getData6 = async () => {
+  const getData6 = async (id) => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancelled`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancelled/${id}`
       );
       setData6(result.data);
       console.log(result.data);
@@ -141,20 +132,20 @@ export const TransactionComp = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setOrder/${id}`
       );
-      console.log(result.data)
-      getData3()
+      console.log(result.data);
+      getData3();
     } catch (err) {
       console.log(err);
     }
   };
-  
+
   const setDelivery = async (id) => {
     try {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setDelivery/${id}`
       );
-      console.log(result.data)
-      getData4()
+      console.log(result.data);
+      getData4();
     } catch (err) {
       console.log(err);
     }
@@ -165,8 +156,8 @@ export const TransactionComp = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setCancelled/${id}`
       );
-      console.log(result.data)
-      getData()
+      console.log(result.data);
+      getData();
     } catch (err) {
       console.log(err);
     }
@@ -203,7 +194,7 @@ export const TransactionComp = () => {
                   <Thead alignContent={"center"}>
                     <Tr>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
                         Total Product
@@ -214,9 +205,6 @@ export const TransactionComp = () => {
                       <Th textAlign={"center"} color={"#285430"}>
                         Weight
                       </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        ACTIONS
-                      </Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -224,7 +212,7 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                            {item.id_order}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalOrder}
@@ -234,27 +222,6 @@ export const TransactionComp = () => {
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            <Box
-                              mr="28px"
-                              display={"flex"}
-                              justifyContent="space-evenly"
-                            >
-                              <Button
-                                onClick={() => {
-                                  // setEdit(item);
-                                  // console.log("test2")
-                                }}
-                              >
-                                <CheckIcon color={"#285430"} />
-                              </Button>
-                              <Button
-                              // onClick={() => onDelete(item.id)}
-                              >
-                                <CloseIcon color={"#285430"} />
-                              </Button>
-                            </Box>
                           </Td>
                         </Tr>
                       );
@@ -269,7 +236,7 @@ export const TransactionComp = () => {
                   <Thead alignContent={"center"}>
                     <Tr>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
                         Total Product
@@ -290,7 +257,7 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                            {item.id_order}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalOrder}
@@ -307,10 +274,7 @@ export const TransactionComp = () => {
                               display={"flex"}
                               justifyContent="space-evenly"
                             >
-                              
-                              <Button
-                              onClick={() => setCancelled(item.id)}
-                              >
+                              <Button onClick={() => setCancelled(item.id)}>
                                 <CloseIcon color={"#285430"} />
                               </Button>
                             </Box>
@@ -328,7 +292,7 @@ export const TransactionComp = () => {
                   <Thead alignContent={"center"}>
                     <Tr>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
                         Total Product
@@ -353,7 +317,7 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                            {item.id_order}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalOrder}
@@ -382,14 +346,11 @@ export const TransactionComp = () => {
                               <Button
                                 onClick={() => {
                                   setOrder(item.id);
-                                  // console.log("test2")
                                 }}
                               >
                                 <CheckIcon color={"#285430"} />
                               </Button>
-                              <Button
-                              // onClick={() => onDelete(item.id)}
-                              >
+                              <Button>
                                 <CloseIcon color={"#285430"} />
                               </Button>
                             </Box>
@@ -407,7 +368,7 @@ export const TransactionComp = () => {
                   <Thead alignContent={"center"}>
                     <Tr>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
                         Total Product
@@ -428,7 +389,7 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                            {item.id_order}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalOrder}
@@ -448,14 +409,11 @@ export const TransactionComp = () => {
                               <Button
                                 onClick={() => {
                                   setDelivery(item.id);
-                                  // console.log("test2")
                                 }}
                               >
                                 <CheckIcon color={"#285430"} />
                               </Button>
-                              <Button
-                              // onClick={() => onDelete(item.id)}
-                              >
+                              <Button>
                                 <CloseIcon color={"#285430"} />
                               </Button>
                             </Box>
@@ -473,7 +431,7 @@ export const TransactionComp = () => {
                   <Thead alignContent={"center"}>
                     <Tr>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
                         Total Product
@@ -484,9 +442,6 @@ export const TransactionComp = () => {
                       <Th textAlign={"center"} color={"#285430"}>
                         Weight
                       </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        ACTIONS
-                      </Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -494,7 +449,7 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                            {item.id_order}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalOrder}
@@ -504,27 +459,6 @@ export const TransactionComp = () => {
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            <Box
-                              mr="28px"
-                              display={"flex"}
-                              justifyContent="space-evenly"
-                            >
-                              <Button
-                                onClick={() => {
-                                  // setEdit(item);
-                                  // console.log("test2")
-                                }}
-                              >
-                                <CheckIcon color={"#285430"} />
-                              </Button>
-                              <Button
-                              // onClick={() => onDelete(item.id)}
-                              >
-                                <CloseIcon color={"#285430"} />
-                              </Button>
-                            </Box>
                           </Td>
                         </Tr>
                       );
@@ -539,7 +473,7 @@ export const TransactionComp = () => {
                   <Thead alignContent={"center"}>
                     <Tr>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
                         Total Product
@@ -560,7 +494,7 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                            {item.id_order}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalOrder}
@@ -593,38 +527,3 @@ export const TransactionComp = () => {
     </div>
   );
 };
-
-function StatsCard(props) {
-  const { title, stat, icon } = props;
-  return (
-    <div>
-      <Stat
-        px={{ base: 2, md: 4 }}
-        py={"5"}
-        shadow={"xl"}
-        border={"2px solid"}
-        borderColor={useColorModeValue("#285430")}
-        bgColor="#E5D9B6"
-        rounded={"lg"}
-      >
-        <Flex justifyContent={"space-between"}>
-          <Box pl={{ base: 2, md: 4 }}>
-            <StatLabel fontWeight={"medium"} isTruncated>
-              {title}
-            </StatLabel>
-            <StatNumber fontSize={"2xl"} fontWeight={"medium"}>
-              {stat}
-            </StatNumber>
-          </Box>
-          <Box
-            my={"auto"}
-            color={useColorModeValue("#285430")}
-            alignContent={"center"}
-          >
-            {icon}
-          </Box>
-        </Flex>
-      </Stat>
-    </div>
-  );
-}

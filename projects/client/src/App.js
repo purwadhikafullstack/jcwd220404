@@ -38,6 +38,8 @@ import { CategoryAdminPage } from "./pages/admin/Category";
 import { InventoryAdminPage } from "./pages/admin/Inventory";
 import { TransactionAdminPage } from "./pages/admin/Transaction";
 import { Discount } from "./pages/admin/Discount";
+import { BranchAdminMgt } from "./pages/admin/BranchAdminMgt";
+import { Sales } from "./pages/admin/Sales";
 
 function App() {
   const dispatch = useDispatch();
@@ -192,6 +194,11 @@ function App() {
           element={<TransactionAdminPage />}
         ></Route>
         <Route path="/admin/discount" element={<Discount />}></Route>
+        <Route
+          path="/admin/branch-management"
+          element={<BranchAdminMgt />}
+        ></Route>
+        <Route path="/admin/sales" element={<Sales />}></Route>
       </Routes>
     </div>
   );

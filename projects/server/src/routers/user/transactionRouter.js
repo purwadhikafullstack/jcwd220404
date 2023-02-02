@@ -15,11 +15,14 @@ router.patch("/setCancelled/:id", transactionController.setCancelled)
 router.get("/findById/:id", transactionController.findAllById);
 router.get("/list/:id", transactionController.findById);
 router.get("/listProduct/:id", transactionController.findProductById);
-router.get("/listCancelled", transactionController.findCancelled);
-router.get("/listWaitingPayment", transactionController.findWaitingPayment);
-router.get("/listConfirmPayment", transactionController.findConfirmPayment);
-router.get("/listOnProcess", transactionController.findOnProcess);
-router.get("/listDelivery", transactionController.findDelivery);
-router.get("/listDone", transactionController.findDone);
+router.get("/listCancelled/:BranchId", transactionController.findCancelled);
+router.get("/listWaitingPayment/:BranchId", transactionController.findWaitingPayment);
+router.get("/listConfirmPayment/:BranchId", transactionController.findConfirmPayment);
+router.get("/listOnProcess/:BranchId", transactionController.findOnProcess);
+router.get("/listDelivery/:BranchId", transactionController.findDelivery);
+router.get("/listDone/:BranchId", transactionController.findDone);
+router.get("/salesDepok", transactionController.findSalesDepok);
+router.get("/salesJaksel", transactionController.findSalesJaksel);
+router.get("/salesJaktim", transactionController.findSalesJaktim);
 
 module.exports = router;
