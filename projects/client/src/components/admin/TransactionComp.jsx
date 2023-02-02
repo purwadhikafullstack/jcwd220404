@@ -19,6 +19,7 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { MdOutlineCancel } from "react-icons/md";
 import { MdOutlinePayment } from "react-icons/md";
 import { MdOutlinePayments } from "react-icons/md";
 import { BsFillCheckSquareFill } from "react-icons/bs";
@@ -27,9 +28,10 @@ import { GoPackage } from "react-icons/go";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdDoneOutline } from "react-icons/md";
 import React from "react";
-
 import Axios from "axios";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 
 export const TransactionComp = () => {
   const [data, setData] = useState();
@@ -37,11 +39,13 @@ export const TransactionComp = () => {
   const [data3, setData3] = useState();
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
+  const [data6, setData6] = useState();
+  const { username, id } = useSelector((state) => state.adminSlice.value);
 
   const getData = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment/${id}`
       );
       setData(result.data);
       console.log(result.data);
@@ -57,7 +61,7 @@ export const TransactionComp = () => {
   const getData2 = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment/${id}`
       );
       setData2(result.data);
       console.log(result.data);
@@ -73,7 +77,7 @@ export const TransactionComp = () => {
   const getData3 = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess/${id}`
       );
       setData3(result.data);
       console.log(result.data);
@@ -89,7 +93,7 @@ export const TransactionComp = () => {
   const getData4 = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery/${id}`
       );
       setData4(result.data);
       console.log(result.data);
@@ -105,7 +109,7 @@ export const TransactionComp = () => {
   const getData5 = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone/${id} `
       );
       setData5(result.data);
       console.log(result.data);
@@ -117,6 +121,58 @@ export const TransactionComp = () => {
   useEffect(() => {
     getData5();
   }, []);
+  
+  const getData6 = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancel/${id}`
+      );
+      setData6(result.data);
+      console.log(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData6();
+  }, []);
+
+  const setOrder = async (id) => {
+    try {
+      const result = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/setOrder/${id}`
+      );
+      console.log(result.data)
+      getData3()
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  const setDelivery = async (id) => {
+    try {
+      const result = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/setDelivery/${id}`
+      );
+      console.log(result.data)
+      getData4()
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const setCancelled = async (id) => {
+    try {
+      const result = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/setCancelled/${id}`
+      );
+      console.log(result.data)
+      getData()
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
@@ -132,7 +188,14 @@ export const TransactionComp = () => {
             </Tab>
             <Tab>
               <StatsCard
-                title={"Confirm Payment"}
+                title={"Cancel Order"}
+                stat={data6?.length}
+                icon={<MdOutlineCancel size={"2.5em"} />}
+              />
+            </Tab>
+            <Tab>
+              <StatsCard
+                title={"Waiting Confirm Payment"}
                 stat={data2?.length}
                 icon={<MdOutlinePayments size={"2.5em"} />}
               />
@@ -166,25 +229,16 @@ export const TransactionComp = () => {
                   <Thead alignContent={"center"}>
                     <Tr>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Total Product
+                        Detail Order
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Delivery Cost
-                      </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Weight
+                        Total Price
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
                         Transfer Proof
-                      </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Action
-                      </Th>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Status
                       </Th>
                     </Tr>
                   </Thead>
@@ -193,22 +247,16 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                            {item.id_order}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {/* {item.totalWeight} */}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {new Intl.NumberFormat("IND", {
                               style: "currency",
                               currency: "IDR",
                             }).format(item.totalOrder)}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {new Intl.NumberFormat("IND", {
-                              style: "currency",
-                              currency: "IDR",
-                            }).format(item.totalCharge)}
-                          </Td>
-                          <Td textAlign={"center"} color={"#285430"}>
-                            {item.totalWeight}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {/* {item.totalWeight} */}
@@ -232,21 +280,66 @@ export const TransactionComp = () => {
               </TableContainer>
             </TabPanel>
             <TabPanel>
-              <TableContainer mt="30px" w="60vw" bgColor={"white"}>
+              <TableContainer mt="30px" w="83vw" bgColor={"white"}>
                 <Table variant="simple" colorScheme="#285430">
                   <Thead alignContent={"center"}>
                     <Tr>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                    <Th textAlign={"center"} color={"#285430"}>
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Total Product
+                        Detail Order
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Delivery Cost
+                        Total Price
+                      </Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {data6?.map((item) => {
+                      return (
+                        <Tr>
+                          <Td textAlign={"center"} color={"#285430"}>
+                          {item.id_order}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalOrder)}
+                          </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.totalCharge)}
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </TabPanel>
+            <TabPanel>
+              <TableContainer mt="30px" w="83vw" bgColor={"white"}>
+                <Table variant="simple" colorScheme="#285430">
+                  <Thead alignContent={"center"}>
+                    <Tr>
+                    <Th textAlign={"center"} color={"#285430"}>
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Weight
+                        Detail Order
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Total Price
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Transfer Proof
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Action
                       </Th>
                     </Tr>
                   </Thead>
@@ -255,7 +348,7 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                          {item.id_order}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {new Intl.NumberFormat("IND", {
@@ -272,6 +365,17 @@ export const TransactionComp = () => {
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
                           </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                          <Button
+                              onClick={() => {
+                              }}
+                            >
+                            <BsFillCheckSquareFill color={"green"} size="22"/>
+                            </Button>
+                            <Button onClick={() => {}}>
+                              <FaWindowClose color={"red"} size="25"/>
+                            </Button>
+                          </Td>
                         </Tr>
                       );
                     })}
@@ -280,21 +384,24 @@ export const TransactionComp = () => {
               </TableContainer>
             </TabPanel>
             <TabPanel>
-              <TableContainer mt="30px" w="60vw" bgColor={"white"}>
+              <TableContainer mt="30px" w="83vw" bgColor={"white"}>
                 <Table variant="simple" colorScheme="#285430">
                   <Thead alignContent={"center"}>
                     <Tr>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                    <Th textAlign={"center"} color={"#285430"}>
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Total Product
+                        Detail Order
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Delivery Cost
+                        Total Price
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Weight
+                        Transfer Proof
+                      </Th>
+                      <Th textAlign={"center"} color={"#285430"}>
+                        Action
                       </Th>
                     </Tr>
                   </Thead>
@@ -303,7 +410,7 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                          {item.id_order}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {new Intl.NumberFormat("IND", {
@@ -320,6 +427,17 @@ export const TransactionComp = () => {
                           <Td textAlign={"center"} color={"#285430"}>
                             {item.totalWeight}
                           </Td>
+                          <Td textAlign={"center"} color={"#285430"}>
+                          <Button
+                              onClick={() => {
+                              }}
+                            >
+                            <BsFillCheckSquareFill color={"green"} size="22"/>
+                            </Button>
+                            <Button onClick={() => {}}>
+                              <FaWindowClose color={"red"} size="25"/>
+                            </Button>
+                          </Td>
                         </Tr>
                       );
                     })}
@@ -328,21 +446,21 @@ export const TransactionComp = () => {
               </TableContainer>
             </TabPanel>
             <TabPanel>
-              <TableContainer mt="30px" w="60vw" bgColor={"white"}>
+              <TableContainer mt="30px" w="83vw" bgColor={"white"}>
                 <Table variant="simple" colorScheme="#285430">
                   <Thead alignContent={"center"}>
                     <Tr>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                    <Th textAlign={"center"} color={"#285430"}>
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Total Product
+                        Detail Order
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Delivery Cost
+                        Total Price
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Weight
+                        Transfer Proof
                       </Th>
                     </Tr>
                   </Thead>
@@ -351,7 +469,7 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                          {item.id_order}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {new Intl.NumberFormat("IND", {
@@ -376,21 +494,21 @@ export const TransactionComp = () => {
               </TableContainer>
             </TabPanel>
             <TabPanel>
-              <TableContainer mt="30px" w="60vw" bgColor={"white"}>
+              <TableContainer mt="30px" w="83vw" bgColor={"white"}>
                 <Table variant="simple" colorScheme="#285430">
                   <Thead alignContent={"center"}>
                     <Tr>
-                      <Th textAlign={"center"} color={"#285430"}>
-                        Transaction ID
+                    <Th textAlign={"center"} color={"#285430"}>
+                        Invoice
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Total Product
+                        Detail Order
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Delivery Cost
+                        Total Price
                       </Th>
                       <Th textAlign={"center"} color={"#285430"}>
-                        Weight
+                        Transfer Proof
                       </Th>
                     </Tr>
                   </Thead>
@@ -399,7 +517,7 @@ export const TransactionComp = () => {
                       return (
                         <Tr>
                           <Td textAlign={"center"} color={"#285430"}>
-                            {item.id}
+                          {item.id_order}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
                             {new Intl.NumberFormat("IND", {
@@ -435,16 +553,16 @@ function StatsCard(props) {
   return (
     <div>
       <Stat
-        px={{ base: 2, md: 5 }}
+        px={{ base: 2, md: 1 }}
         py={"5"}
         shadow={"xl"}
-        border={"2px solid"}
+        border={"2px"}
         borderColor={useColorModeValue("#285430")}
         bgColor="#E5D9B6"
         rounded={"lg"}
       >
-        <Flex justifyContent={"space-between"}>
-          <Box w={"120px"}>
+        <Flex justifyContent={"space-around"}>
+          <Box w={"110px"} ml="6px">
             <StatLabel fontWeight={"medium"} isTruncated>
               {title}
             </StatLabel>

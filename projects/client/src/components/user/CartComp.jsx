@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { cartSync } from "../../redux/cartSlice";
 import { delCart } from "../../redux/userSlice";
-import { PopoutCheckoutComp } from "../PopoutCheckoutComp";
+import { PopoutCheckoutComp } from "./PopoutCheckoutComp";
 import { useRef } from "react";
 
 export const CartComp = () => {
@@ -35,6 +35,7 @@ export const CartComp = () => {
   const [data6, setData6] = useState();
   const [data7, setData7] = useState(0);
   const [data8, setData8] = useState();
+  const [data9, setData9] = useState();
   const data = useSelector((state) => state.cartSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const inputRef = useRef("");
@@ -74,9 +75,9 @@ export const CartComp = () => {
 
       setTotalCheckout(selectedItem);
       setTotalWeight(selectedWeight);
-
       setData3(res.data);
       console.log(res.data);
+      setData9(res.data)
     } catch (err) {
       console.log(err);
     }
@@ -97,6 +98,7 @@ export const CartComp = () => {
       );
       getData();
       setCheckout(!checkout);
+      getCheckout();
     } catch (err) {
       console.log(err);
     }
@@ -226,13 +228,15 @@ export const CartComp = () => {
   const onCreate = async () => {
     try {
       const res = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/create`,
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/create/${id}`,
+
         {
+          UserId: data3[0]?.UserId,
           totalOrder: data5,
           totalWeight: data6,
           totalCharge: data8,
-          UserId: data3[0]?.UserId,
-          AdminId: data3[0]?.Product?.Inventories[1]?.AdminId,
+          ProductId: data3[0]?.ProductId,
+          BranchId: data9[0]?.BranchId,
         }
       );
       console.log(res.data);
@@ -286,10 +290,11 @@ export const CartComp = () => {
                         ml="-6"
                         mt={"1"}
                         area={"footer"}
-                      >{new Intl.NumberFormat("IND", {
-                        style: "currency",
-                        currency: "IDR",
-                      }).format(item.Product?.Price?.productPrice)}
+                      >
+                        {new Intl.NumberFormat("IND", {
+                          style: "currency",
+                          currency: "IDR",
+                        }).format(item.Product?.Price?.productPrice)}
                       </GridItem>
                     </Grid>
                   </Checkbox>
@@ -399,6 +404,8 @@ export const CartComp = () => {
             </Text>
             <Text ml={"10px"} color="#285430">
               {data2?.receiverPhone}
+            </Text>
+            <Text ml={"10px"} color="#285430">
               {data2?.addressLine},{data2?.district},{data2?.city},
               {data2?.province}
             </Text>
@@ -421,7 +428,7 @@ export const CartComp = () => {
         </FormControl>
         <Center>
           <Button
-            onClick={() => onCreate()}
+           onClick={onCreate}
             mt={"20px"}
             w={"370px"}
             bgColor={"#A4BE7B"}
@@ -431,7 +438,7 @@ export const CartComp = () => {
             color="gray.800"
             justifyContent="center"
           >
-           Checkout
+            Checkout
           </Button>
         </Center>
       </Box>

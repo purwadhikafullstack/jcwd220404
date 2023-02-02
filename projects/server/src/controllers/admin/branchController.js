@@ -141,7 +141,7 @@ module.exports = {
       const response = await branch.findOne({
         where: {
           AdminId: req.params.id,
-          id: req.body.id,
+          // id: req.body.id,
         },
       });
       res.status(200).send(response);

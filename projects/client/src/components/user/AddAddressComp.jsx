@@ -27,7 +27,6 @@ export const AddAddressComp = () => {
   const inputDetail = useRef("");
   const inputDistrict = useRef("");
   const inputPostalCode = useRef("");
-  const inputDefaultAddress = useRef("");
   const inputReceiverName = useRef("");
   const inputReceiverPhone = useRef("");
   const inputReceiverEmail = useRef("");
@@ -155,6 +154,7 @@ export const AddAddressComp = () => {
   useEffect(() => {
     fetchPostal();
   }, [selectedCity]);
+  
   return (
     <div>
       <Stack ml="10px" spacing={"10px"} mt={"20px"} textColor="#285430">
@@ -219,6 +219,7 @@ export const AddAddressComp = () => {
             borderColor="#285430"
             placeholder="Select Postal Code"
             onChange={postalHandler}
+            ref={inputPostalCode}
           >
             {renderPostal()}
           </Select>
@@ -230,9 +231,9 @@ export const AddAddressComp = () => {
             width="370px"
             border="1px"
             borderColor="#285430"
-            ref={inputDetail}
             placeholder="e.g. Blok/Lantai"
             _placeholder={{ color: "#5F8D4E" }}
+            ref={inputDetail}
           />
         </FormControl>
         <FormControl>

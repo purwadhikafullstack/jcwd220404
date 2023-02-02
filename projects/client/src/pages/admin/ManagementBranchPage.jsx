@@ -1,6 +1,5 @@
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
-import { AddBranchAdminComp } from "../../components/admin/AddBranchAdminComp";
-import { ListAdminComp } from "../../components/admin/ListAdminComp";
+import { ManagementBranchComp } from "../../components/admin/ManagementBranchComp";
 import { SidebarSuperComp } from "../../components/admin/SidebarSuperComp";
 
 export const ManagementBranchPage = () => {
@@ -22,8 +21,7 @@ export const ManagementBranchPage = () => {
           <SidebarSuperComp />
         </GridItem>
         <Flex>
-          {/* <ListAdminComp /> */}
-          {/* <AddBranchAdminComp /> */}
+          <ManagementBranchComp/>
         </Flex>
       </Grid>
     </div>

@@ -5,7 +5,7 @@ import { SearchComp } from "../../components/user/SearchComp";
 import { NavbarComp } from "../../components/user/NavbarComp";
 import { CarouselComp } from "../../components/user/CarouselComp";
 import { MenuComp } from "../../components/user/MenuComp";
-import { DefaultAddressComp } from "../../components/DefaultAddressComp";
+import { DefaultAddressComp } from "../../components/user/DefaultAddressComp";
 
 export const LandingPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");

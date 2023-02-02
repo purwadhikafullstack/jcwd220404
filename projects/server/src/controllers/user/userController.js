@@ -47,7 +47,7 @@ module.exports = {
         expiresIn: "1h",
       });
 
-      const tempEmail = fs.readFileSync("./src/template/codeotp.html", "utf-8");
+      const tempEmail = fs.readFileSync("./template/codeotp.html", "utf-8");
       const tempCompile = handlebars.compile(tempEmail);
       const tempResult = tempCompile({
         phoneNumber,
@@ -68,7 +68,6 @@ module.exports = {
       });
     } catch (err) {
       res.status(400).send(err);
-      console.log(err)
     }
   },
 

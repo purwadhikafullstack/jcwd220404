@@ -12,9 +12,9 @@ module.exports = {
         pictureName: `upload/${fileUploaded.filename}`,
       });
       const getPicture = await picture.findOne({
-        where: {
-          id: req.params.id,
-        },
+        // where: {
+        //   id: req.params.id,
+        // },
         raw: true,
       });
       res.status(200).send({
@@ -22,6 +22,7 @@ module.exports = {
         picture: getPicture.pictureName,
       });
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },

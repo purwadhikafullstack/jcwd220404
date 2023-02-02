@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Product_Cart.belongsTo(models.Product);
       Product_Cart.belongsTo(models.User);
-      Product_Cart.belongsTo(models.Price);
+      // Product_Cart.belongsTo(models.Price);
+      Product_Cart.belongsTo(models.Branch)
       // Product_Cart.belongsTo(models.Cart);
     }
   }

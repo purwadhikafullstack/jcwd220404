@@ -1,4 +1,4 @@
-const { Op, where } = require("sequelize");
+const { Op } = require("sequelize");
 const axios = require("axios");
 const db = require("../../models");
 const address = db.Address;
@@ -39,6 +39,7 @@ module.exports = {
         detail,
         district,
       } = req.body;
+      console.log(req.body)
       const provinceAndCity = await axios.get(
         `${rajaOngkirURL}/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
       );
@@ -75,7 +76,7 @@ module.exports = {
         longitude,
         defaultAddress: false,
         UserId: req.params.id,
-        BranchId: branchCity,
+        BranchId: branchCity.id,
       });
 
       await branch.findOne({});
@@ -84,7 +85,7 @@ module.exports = {
         data: response,
       });
     } catch (err) {
-      console.log(err )
+      console.log(err)
       res.status(400).send(err);
     }
   },
@@ -105,10 +106,17 @@ module.exports = {
       const provinceAndCity = await axios.get(
         `${rajaOngkirURL}/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
       );
+      const branchCity = await branch.findOne({
+        where: {
+          cityId: city,
+        },
+        raw: true,
+      });
       const provinceName = provinceAndCity.data.rajaongkir.results.province;
       const cityName = provinceAndCity.data.rajaongkir.results.city_name;
       const cityType = provinceAndCity.data.rajaongkir.results.type;
       const cityNameAndType = `${cityType} ${cityName}`;
+      const postal = provinceAndCity.data.rajaongkir.results.postal_code;
       const location = await axios.get(
         `${openCageURL}/json?key=${openCageKey}&q=${cityNameAndType},${provinceName}`
       );
@@ -123,11 +131,14 @@ module.exports = {
           province: provinceName,
           cityId: city,
           city: cityNameAndType,
-          postalCode,
+          postalCode: postal,
           detail,
           district,
           lattitude,
           longitude,
+          defaultAddress: false,
+        UserId: req.params.id,
+        BranchId: branchCity.id,
         },
         {
           where: {

@@ -264,6 +264,7 @@ export const UpdateAddressPage = () => {
                   width="370px"
                   border="1px"
                   borderColor="#285430"
+                  defaultValue={data?.province}
                 >
                   {renderProvince()}
                 </Select>
@@ -277,20 +278,26 @@ export const UpdateAddressPage = () => {
                   width="370px"
                   border="1px"
                   borderColor="#285430"
+                  defaultValue={data?.city}
                 >
                   {renderCity()}
                 </Select>
               </FormControl>
               <FormControl>
                 <FormLabel ml={"10px"}>Kode Pos</FormLabel>
-                <Input
+                <Select
                   ref={inputPostalCode}
+                  onChange={postalHandler}
+                  placeholder="Select Postal Code"
                   ml={"10px"}
                   width="370px"
                   border="1px"
                   borderColor="#285430"
                   defaultValue={data?.postalCode}
-                ></Input>
+                >
+                  {" "}
+                  {renderPostal()}
+                </Select>
               </FormControl>
               <FormControl>
                 <FormLabel ml={"10px"}>Detail Alamat</FormLabel>

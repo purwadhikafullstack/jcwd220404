@@ -1,6 +1,8 @@
 const db = require("../../models");
 const discount = db.Discount;
 const voucher = db.Voucher;
+const transaction = db.Transaction;
+const price = db.Price;
 const promotion = db.Promotion;
 
 module.exports = {
@@ -27,11 +29,38 @@ module.exports = {
 
   findDiscount: async (req, res) => {
     try {
-        const result = await discount.findAll({
-            
-        })
+      const result = await discount.findOne({});
+      res.status(200).send(result);
     } catch (err) {
-        res.status(400).send(err)
+      res.status(400).send(err);
     }
-  }
+  },
+
+  updatePrice: async (req, res) => {
+    try {
+      const { discPrice, productPrice } = req.body;
+      const result = await discount.findOne({
+        raw: true,
+      });
+      console.log(result.nominal);
+      const data = await price.update(
+        {
+          discPrice: productPrice - result.nominal
+          // totalCheckout: qty * response["Product.Price.productPrice"],
+          // totalWeight: qty * response["Product.weight"],
+        },
+        {
+          where: { id: req.params.id },
+        }
+      );
+      console.log(data);
+      res.status(200).send({
+        message: "Update success",
+        data,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
 };
