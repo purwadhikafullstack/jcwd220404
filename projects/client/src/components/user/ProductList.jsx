@@ -35,7 +35,6 @@ import * as Yup from "yup";
 export const ProductList = () => {
   const [state, setState] = useState();
   const [product, setProduct] = useState();
-
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("ASC");
@@ -121,8 +120,9 @@ export const ProductList = () => {
   const onDiscount = async () => {
     try {
       const res = await Axios.patch(
-        `${process.env.REACT_APP_API_BASE_URL}/promo/update/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/product/discItem`
       )
+      console.log(res.data)
     } catch (err) {
       console.log(err)
 

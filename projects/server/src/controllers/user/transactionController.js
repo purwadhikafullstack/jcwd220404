@@ -5,6 +5,7 @@ const productCart = db.Product_Cart;
 const payment = db.Payment;
 const product = db.Product;
 const price = db.Price;
+const branch = db.Branch;
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -178,10 +179,16 @@ module.exports = {
 
   findCancelled: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 0,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
@@ -190,12 +197,19 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
   findWaitingPayment: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 1,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
@@ -207,10 +221,16 @@ module.exports = {
 
   findConfirmPayment: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 2,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
@@ -222,10 +242,16 @@ module.exports = {
 
   findOnProcess: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 3,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
@@ -237,10 +263,16 @@ module.exports = {
 
   findDelivery: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 4,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
@@ -252,12 +284,19 @@ module.exports = {
 
   findDone: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 5,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
+      console.log(transactions);
       res.status(200).send(transactions);
     } catch (err) {
       console.log(err);

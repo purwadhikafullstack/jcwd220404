@@ -22,6 +22,7 @@ import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 
 export const TransactionComp = () => {
   const [data, setData] = useState();
@@ -30,8 +31,9 @@ export const TransactionComp = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
+  const { username, id } = useSelector((state) => state.adminSlice.value);
 
-  const getData = async (id) => {
+  const getData = async () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment/${id}`
@@ -45,9 +47,9 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
 
-  const getData2 = async (id) => {
+  const getData2 = async () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment/${id}`
@@ -61,9 +63,9 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData2();
-  }, []);
+  }, [id]);
 
-  const getData3 = async (id) => {
+  const getData3 = async () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess/${id}`
@@ -77,9 +79,9 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData3();
-  }, []);
+  }, [id]);
 
-  const getData4 = async (id) => {
+  const getData4 = async () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery/${id}`
@@ -93,9 +95,9 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData4();
-  }, []);
+  }, [id]);
 
-  const getData5 = async (id) => {
+  const getData5 = async () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone/${id}`
@@ -109,9 +111,9 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData5();
-  }, []);
+  }, [id]);
 
-  const getData6 = async (id) => {
+  const getData6 = async () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancelled/${id}`
@@ -125,7 +127,7 @@ export const TransactionComp = () => {
 
   useEffect(() => {
     getData6();
-  }, []);
+  }, [id]);
 
   const setOrder = async (id) => {
     try {

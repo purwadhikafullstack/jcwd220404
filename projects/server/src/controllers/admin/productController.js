@@ -1,8 +1,9 @@
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const db = require("../../models");
 const product = db.Product;
 const price = db.Price;
 const category = db.Category;
+const discount = db.Discount;
 const productCategory = db.Product_Category;
 
 module.exports = {
@@ -402,7 +403,7 @@ module.exports = {
         startDate,
         endDate,
         ProductId,
-        DiscountId,
+        // DiscountId,
       });
       res.status(200).send({
         message: "Success Added",
@@ -435,6 +436,60 @@ module.exports = {
         },
       });
       res.status(200).send(multiCategory);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  discountItem: async (req, res) => {
+    try {
+      const { discPrice } = req.body;
+      const discounts = await price.update(
+        {
+          isDisc: 1,
+          DiscountId: 1,
+        },
+        {
+          where: {
+            productPrice: {
+              [Op.gte]: 50000,
+            },
+          },
+        }
+      );
+
+      const disc = await price.findAll({
+        where: {
+          isDisc: 1,
+        },
+        include: [{ model: discount }],
+      });
+      console.log(disc[0].Discount.nominal);
+
+      const discItem = await price.update(
+        {
+          discPrice,
+        },
+        {
+          where: {
+            isDisc: 1,
+          },
+        }
+      );
+      res.status(200).send(disc);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findDiscount: async (req, res) => {
+    try {
+      const list = await discount.findOne({
+        where: {
+          id: 1,
+        },
+      });
+      res.status(200).send(list)
     } catch (err) {
       res.status(400).send(err);
     }

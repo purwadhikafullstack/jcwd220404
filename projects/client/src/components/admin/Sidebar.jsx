@@ -3,15 +3,7 @@ import {
   Badge,
   Box,
   Button,
-  ButtonGroup,
-  Center,
-  Grid,
   Image,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverFooter,
   Stack,
   Text,
   useDisclosure,
@@ -58,14 +50,14 @@ export const SidebarComp = () => {
     navigate("/admin/discount");
   };
 
-  const getBranch = async (id) => {
+  const getBranch = async () => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/branch/branchById/1`
+        `${process.env.REACT_APP_API_BASE_URL}/branch/branchByAdmin/${id}`
       );
-      setData(res.data.response);
+      setData(res.data);
       // dispatch(syncData(res.data));
-      console.log(res.data.response);
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -107,7 +99,7 @@ export const SidebarComp = () => {
               name={username}
               mb="20px"
             ></Avatar>
-            
+
             <Text ml={"20px"}>{username}</Text>
           </Box>
           {/* </Center> */}

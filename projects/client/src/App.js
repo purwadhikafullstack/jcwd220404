@@ -86,6 +86,7 @@ function App() {
       );
       dispatch(
         loginAdmin({
+          id: Super.data.id,
           username: Super.data.username,
           email: Super.data.email,
           isSuper: Super.data.isSuper,
@@ -108,6 +109,7 @@ function App() {
       );
       dispatch(
         loginAdmin({
+          id: Branch.data.id,
           username: Branch.data.username,
           email: Branch.data.email,
           isSuper: Branch.data.isSuper,

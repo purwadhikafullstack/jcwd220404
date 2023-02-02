@@ -8,23 +8,6 @@ const rajaOngkirURL = process.env.BASE_URL_RAJAONGKIR;
 const openCageURL = process.env.OPENCAGE_URL;
 
 module.exports = {
-  // branchById: async (req, res) => {
-  //   try {
-  //     const response = await branch.findAll({
-  //       where: {
-  //         // id: req.params.id,
-  //       },
-  //       order: [["defaultAddress", "DESC"]],
-  //     });
-  //     return res.status(200).send({
-  //       message: "Get Branch Address",
-  //       response,
-  //     });
-  //   } catch (err) {
-  //     res.status(400).send(err);
-  //   }
-  // },
-
   newBranch: async (req, res) => {
     try {
       const { branchName, address, city, province, postalCode, phoneNumber } =
@@ -162,6 +145,20 @@ module.exports = {
         message: "Get Branch Address",
         response,
       });
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findBranchByAdmin: async (req, res) => {
+    try {
+      const response = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+        // order: [["defaultAddress", "DESC"]],
+      });
+      return res.status(200).send(response);
     } catch (err) {
       res.status(400).send(err);
     }

@@ -96,7 +96,7 @@ export const InventoryAdminComp = () => {
   const getBranch = async (AdminId) => {
     try {
       const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/2`
+        `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
       );
       // dispatch(loginAdmin(res.data))
       setBranch(res.data);
@@ -110,7 +110,7 @@ export const InventoryAdminComp = () => {
 
   useEffect(() => {
     getBranch();
-  }, []);
+  }, [id]);
 
   return (
     <div>
