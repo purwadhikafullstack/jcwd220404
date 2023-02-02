@@ -9,13 +9,8 @@ export const NotificationComp = () => {
     navigate("/notification");
   };
   return (
-<<<<<<<< HEAD:projects/client/src/components/user/NotificationComp.jsx
-    <div>
-      <Box pr={"23px"} pt="5px" as="button" onClick={toNotification} mt="3">
-========
     <>
       <Box pr={"23px"} as="button" onClick={toNotification}>
->>>>>>>> stage:projects/client/src/components/user/Notification.jsx
         <Badge
           ml="1"
           mt="-2"

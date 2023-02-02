@@ -1,17 +1,5 @@
 import { useState } from "react";
-<<<<<<<< HEAD:projects/client/src/components/user/CarouselComp.jsx
-import {
-  Box,
-  Button,
-  Flex,
-  IconButton,
-  Stack,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-========
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
->>>>>>>> stage:projects/client/src/components/user/Carousel.jsx
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
 
@@ -33,11 +21,8 @@ export const CarouselComp = () => {
         height={"300px"}
         width={"375px"}
         overflow={"hidden"}
-<<<<<<<< HEAD:projects/client/src/components/user/CarouselComp.jsx
-        pt={"20px"}
-========
+
         mt={"10px"}
->>>>>>>> stage:projects/client/src/components/user/Carousel.jsx
       >
         <link
           rel="stylesheet"
@@ -56,11 +41,9 @@ export const CarouselComp = () => {
           background={"transparent"}
           left={side}
           top={top}
-<<<<<<<< HEAD:projects/client/src/components/user/CarouselComp.jsx
-          transform={"translate(0%, -50%)"}
-========
+
           transform={"translate(0%, -220%)"}
->>>>>>>> stage:projects/client/src/components/user/Carousel.jsx
+
           zIndex={1}
           onClick={() => slider?.slickPrev()}
           variant="unstyled"
@@ -73,11 +56,8 @@ export const CarouselComp = () => {
           position="absolute"
           right={side}
           top={top}
-<<<<<<<< HEAD:projects/client/src/components/user/CarouselComp.jsx
-          transform={"translate(50%, -50%)"}
-========
+
           transform={"translate(50%, -220%)"}
->>>>>>>> stage:projects/client/src/components/user/Carousel.jsx
           zIndex={1}
           onClick={() => slider?.slickNext()}
           variant="unstyled"

@@ -114,20 +114,3 @@ export const CategoryDetail = (id) => {
     </div>
   );
 };
-
-                  <Image
-                    boxSize={"50px"}
-                    src={
-                      `${process.env.REACT_APP_API_BASE_URL}/` +
-                      item?.Product?.picture
-                    }
-                  />
-                </CardBody>
-              </Card>
-            </>
-          );
-        })}
-      </Box>
-    </div>
-  );
-};

@@ -1,9 +1,6 @@
 import { Box, Center, VStack } from "@chakra-ui/react";
-<<<<<<<< HEAD:projects/client/src/pages/user/NotificationPage.jsx
-import { NavbarComp } from "../../components/user/NavbarComp";
-========
+
 import { NavbarComp } from "../../components/user/Navbar";
->>>>>>>> stage:projects/client/src/pages/user/Notification.jsx
 
 export const NotificationPage = () => {
   return (

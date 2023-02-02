@@ -27,7 +27,6 @@ import { NotFoundPage } from "./pages/user/404Result";
 import { WindowComp } from "./components/user/Window";
 import { EnterComp } from "./components/user/Enter";
 import { Checkout } from "./pages/user/Checkout";
-import { ListCheckoutAddress } from "./pages/user/ListCheckoutAddress";
 import { PaymentMethod } from "./pages/user/PaymentMethod";
 import { OrderSuccess } from "./pages/user/OrderSuccess";
 import { ProductDetail } from "./pages/user/ProductDetail";
@@ -144,10 +143,7 @@ function App() {
         <Route path="/category/:id" element={<CategoryDetail />}></Route>
         <Route path="/transaction/:id" element={<OrderDetail />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
-        <Route
-          path="/checkout/address"
-          element={<ListCheckoutAddress />}
-        ></Route>
+        
         <Route path="/checkout/payment" element={<PaymentMethod />}></Route>
         <Route
           path="/checkout/payment/success"

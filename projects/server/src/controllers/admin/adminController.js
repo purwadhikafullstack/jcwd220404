@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const admin = db.Admin;
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
-const secretKey = process.env.SECRET_KEY
+const secretKey = process.env.SECRET_KEY;
 
 module.exports = {
   register: async (req, res) => {
@@ -101,7 +101,6 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-};
 
   findAll: async (req, res) => {
     try {

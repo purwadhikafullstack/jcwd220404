@@ -68,8 +68,8 @@ export const InventoryList = () => {
       );
       dispatch(syncInventory(res.data));
       console.log(res.data);
-      console.log(res.data[3]?.Product?.Price?.productPrice)
-      setState5(res.data[3]?.Product?.Price?.productPrice)
+      console.log(res.data[3]?.Product?.Price?.productPrice);
+      setState5(res.data[3]?.Product?.Price?.productPrice);
     } catch (err) {
       console.log(err);
     }
@@ -124,7 +124,7 @@ export const InventoryList = () => {
         `${process.env.REACT_APP_API_BASE_URL}/product/listDiscount`
       );
       console.log(res.data.nominal);
-      setState4(res.data.nominal)
+      setState4(res.data.nominal);
       const discNominal = res.data.nominal;
       console.log(discNominal);
     } catch (err) {
@@ -141,7 +141,7 @@ export const InventoryList = () => {
       const res = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/product/discItem`,
         {
-          discPrice: state5 - state4
+          discPrice: state5 - state4,
         }
       );
       console.log(res.data);
