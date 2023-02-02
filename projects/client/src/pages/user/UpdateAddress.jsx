@@ -160,7 +160,7 @@ export const UpdateAddressPage = () => {
 
   useEffect(() => {
     fetchCity();
-  }, [selectedProvince]);
+  }, []);
 
   const onRefresh = () => {
     window.location.replace(`/account/address/${id}`);
