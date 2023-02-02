@@ -179,10 +179,16 @@ module.exports = {
 
   findCancelled: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 0,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
@@ -194,10 +200,16 @@ module.exports = {
 
   findWaitingPayment: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 1,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
@@ -209,10 +221,16 @@ module.exports = {
 
   findConfirmPayment: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 2,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
@@ -224,10 +242,16 @@ module.exports = {
 
   findOnProcess: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 3,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
@@ -239,10 +263,16 @@ module.exports = {
 
   findDelivery: async (req, res) => {
     try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: 4,
-          BranchId: req.params.BranchId,
+          BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
