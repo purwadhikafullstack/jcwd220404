@@ -1,6 +1,5 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+
 import { SidebarSuper } from "../../components/admin/SidebarSuper";
 
 export const SuperComp = () => {

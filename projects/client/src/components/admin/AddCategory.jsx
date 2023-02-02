@@ -41,12 +41,9 @@ export const AddCategory = () => {
   return (
     <div>
       <h2>
-        {/* <AccordionButton> */}
         <Box color="#285430" as="span" flex="1" textAlign="left">
           Add Category
         </Box>
-        {/* <AccordionIcon color="gray.800" /> */}
-        {/* </AccordionButton> */}
       </h2>
 
       <Stack spacing={"10px"}>

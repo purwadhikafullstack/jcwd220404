@@ -1,6 +1,4 @@
 import { Box, Center } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-
 import { CartComp } from "../../components/user/Cart";
 import { NavbarComp } from "../../components/user/Navbar";
 import { OrderNowComp } from "../../components/user/OrderNow";

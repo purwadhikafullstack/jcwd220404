@@ -65,21 +65,15 @@ export const Product = () => {
   const [searchCategory2, setSearchCategory2] = useState("");
   const [totalPage2, setTotalPage2] = useState(0);
   const [state2, setState2] = useState(0);
-  const { username, BranchId } = useSelector((state) => state.adminSlice.value);
   const data = useSelector((state) => state.productSlice.value);
-  const data2 = useSelector((state) => state.categorySlice.value);
-  const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const dispatch = useDispatch();
-  const handleToggle = () => setShow(!show);
-  const handleToggle1 = () => setShow2(!show2);
+
   const OverlayOne = () => (
     <ModalOverlay
       bg="blackAlpha.300"
       backdropFilter="blur(10px) hue-rotate(90deg)"
     />
   );
-  const [overlay, setOverlay] = useState(<OverlayOne />);
 
   const getData = async () => {
     try {
@@ -152,46 +146,6 @@ export const Product = () => {
   useEffect(() => {
     getCategory();
   }, [edit2]);
-
-  const onDeleteCategory = async (id) => {
-    try {
-      const res = await Axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/product/removeCategory/${id}`
-      );
-      console.log(res);
-      getCategory();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleChoose1 = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage2(e.target.files[0]);
-  };
-
-  const handleUpload1 = async (id) => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image2);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded-category/${id}`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile2(resultImage.data.categoryPicture);
-    setImage2({ images: "" });
-    console.log(image2);
-    console.log(profile2);
-    window.location.replace("/admin");
-  };
 
   const getProduct = async () => {
     try {

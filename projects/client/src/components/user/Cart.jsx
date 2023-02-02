@@ -17,9 +17,8 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { Calculator } from "./Calculator";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { cartSync } from "../../redux/cartSlice";
 import { delCart } from "../../redux/userSlice";
 import { PopoutCheckout } from "./PopoutCheckout";

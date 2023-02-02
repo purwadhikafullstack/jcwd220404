@@ -6,12 +6,12 @@ import {
   Image,
   Stack,
   Text,
-  useDisclosure,
+  
 } from "@chakra-ui/react";
 import Axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { LogoutBranch } from "../../components/admin/LogoutBranch";

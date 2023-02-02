@@ -1,9 +1,8 @@
 import { Center, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const PopoutCheckout = ({ props }) => {
   console.log(props);

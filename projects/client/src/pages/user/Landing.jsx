@@ -1,7 +1,6 @@
 import { Box, Center, VStack } from "@chakra-ui/react";
 import { LogoComp } from "../../components/user/Logo";
 import { NotificationComp } from "../../components/user/Notification";
-import { SearchComp } from "../../components/user/Search";
 import { NavbarComp } from "../../components/user/Navbar";
 import { CarouselComp } from "../../components/user/Carousel";
 import { MenuComp } from "../../components/user/Menu";

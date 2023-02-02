@@ -10,7 +10,6 @@ import {
   Button,
   ButtonGroup,
   Text,
-  useColorMode,
   useDisclosure,
   Table,
   TableContainer,
@@ -54,7 +53,7 @@ export const Category = () => {
   const [edit2, setEdit2] = useState({});
   const [image2, setImage2] = useState("");
   const [profile2, setProfile2] = useState("upload");
- 
+
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [sort, setSort] = useState("ASC");
@@ -97,18 +96,6 @@ export const Category = () => {
   useEffect(() => {
     getData();
   }, [edit]);
-
-  const onDelete = async (id) => {
-    try {
-      const res = await Axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
-      );
-      console.log(res);
-      getData();
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const getCategory = async () => {
     try {

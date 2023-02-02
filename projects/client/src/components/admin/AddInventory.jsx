@@ -20,7 +20,7 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const InventoryAdminComp = () => {
   const [branch, setBranch] = useState();
@@ -38,7 +38,7 @@ export const InventoryAdminComp = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
       );
-      // dispatch(loginAdmin(res.data))
+
       setBranch(res.data);
       console.log(res.data);
       setData4(res.data.id);
@@ -104,21 +104,6 @@ export const InventoryAdminComp = () => {
       });
       setTimeout(() => window.location.replace("/admin"), 2000);
       console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getBranch = async (AdminId) => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
-      );
-
-      setBranch(res.data);
-      console.log(res.data);
-      setData4(res.data?.id);
-      console.log(res.data.id);
     } catch (err) {
       console.log(err);
     }

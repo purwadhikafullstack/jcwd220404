@@ -221,7 +221,7 @@ export const AddAddress = () => {
           <FormLabel>Detail Alamat</FormLabel>
           <Textarea ref={inputDetail} placeholder="e.g. Blok/Lantai"></Textarea>
         </FormControl>
-        {/* <Checkbox mb={"20px"}>Set as Default Address</Checkbox> */}
+
         <FormControl>
           <FormLabel>Nama Penerima</FormLabel>
           <Flex>
