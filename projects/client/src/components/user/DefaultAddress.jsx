@@ -36,7 +36,11 @@ export const DefaultAddress = () => {
             textColor="black"
             borderColor={"#285430"}
           >
-            <Text color={"#285430"}>
+            {data === null   }
+          
+            
+          
+           <Text color={"#285430"}>
               Deliver to: {data?.city}, {data?.province}
             </Text>
           </Button>
