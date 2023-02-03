@@ -20,7 +20,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import {  BiSearchAlt } from "react-icons/bi";
+import { BiSearchAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState } from "react";

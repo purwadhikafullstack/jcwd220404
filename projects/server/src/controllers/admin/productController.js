@@ -459,14 +459,22 @@ module.exports = {
       );
 
       const disc = await price.findAll({
+        // attributes: [
+        //   "productPrice"
+        // ],
         where: {
           isDisc: 1,
         },
+
         include: [{ model: discount }],
       });
+      console.log(disc[0].productPrice)
+      console.log(disc[0].discPrice)
       console.log(disc[0].Discount.nominal);
 
       const discItem = await price.update(
+        // Sequelize.query
+        // SELECT disc[0].productPrice, disc[0].Discount.nominal,(disc[0].productPrice-disc[0].Discount.nominal) as discPrice FROM
         {
           discPrice,
         },
@@ -478,6 +486,7 @@ module.exports = {
       );
       res.status(200).send(disc);
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -489,7 +498,7 @@ module.exports = {
           id: 1,
         },
       });
-      res.status(200).send(list)
+      res.status(200).send(list);
     } catch (err) {
       res.status(400).send(err);
     }

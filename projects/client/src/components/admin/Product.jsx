@@ -62,7 +62,9 @@ export const Product = () => {
   const [searchCategory2, setSearchCategory2] = useState("");
   const [totalPage2, setTotalPage2] = useState(0);
   const [state2, setState2] = useState(0);
+
   const data = useSelector((state) => state.productSlice.value);
+
   const dispatch = useDispatch();
 
   

@@ -1,10 +1,11 @@
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const db = require("../../models");
 const inventory = db.Inventory;
 const product = db.Product;
 const price = db.Price;
 const branch = db.Branch;
 const category = db.Category;
+const transactionDetail = db.Transaction_Detail;
 
 module.exports = {
   create: async (req, res) => {
@@ -19,7 +20,7 @@ module.exports = {
       });
       res.status(200).send(data);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -42,7 +43,7 @@ module.exports = {
       });
       res.status(200).send(inventories);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -163,7 +164,7 @@ module.exports = {
     try {
       const inventories = await inventory.findAll({
         where: {
-          BranchId: req.params.BranchId
+          BranchId: req.params.BranchId,
         },
         include: [
           {
@@ -180,7 +181,41 @@ module.exports = {
       });
       res.status(200).send(inventories);
     } catch (err) {
-      console.log(err)
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  totalInventory: async (req, res) => {
+    try {
+      const total = await inventory.findAll({
+        attributes: ["id", "ProductId", "stockQty", "BranchId"],
+        where: {
+          BranchId: req.params.BranchId,
+        },
+      });
+      const stock = await transactionDetail.findAll(
+        {
+          attributes: [
+            "ProductId",
+            [Sequelize.fn("sum", Sequelize.col("qty")), "total_qty"],
+          ],
+          group: ["ProductId"],
+        },
+        {
+          where: {
+            BranchId: req.params.BranchId,
+          },
+        }
+      );
+      const totalStock = await
+      console.log(total);
+      res.status(200).send({
+        total,
+        stock,
+      });
+    } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },

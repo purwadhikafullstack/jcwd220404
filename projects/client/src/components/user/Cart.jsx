@@ -288,8 +288,11 @@ export const CartComp = () => {
                           {item.Product?.productName}
                         </GridItem>
                         <GridItem fontSize={"small"} ml="-12" area={"footer"}>
-                          Rp{item.Product?.Price?.productPrice}
+                          <Text as={"s"}>Rp{item.Product?.Price?.productPrice}</Text>
+                          <Text>Rp{item.Product?.Price?.discPrice}</Text>
                         </GridItem>
+                        {/* <GridItem fontSize={"small"} ml="-12" area={"footer"}>
+                        </GridItem> */}
                       </Grid>
                     </Checkbox>
                     <Box>
