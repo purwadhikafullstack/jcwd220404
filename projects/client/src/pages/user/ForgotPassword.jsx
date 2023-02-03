@@ -13,7 +13,6 @@ import {
   Stack,
   Text,
   Heading,
- 
 } from "@chakra-ui/react";
 
 export const ForgotPasswordPage = () => {

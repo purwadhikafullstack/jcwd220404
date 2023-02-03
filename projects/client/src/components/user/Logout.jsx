@@ -9,7 +9,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-
 import { logoutUser } from "../../redux/userSlice";
 
 export const LogoutUser = () => {

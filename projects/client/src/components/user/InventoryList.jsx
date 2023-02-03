@@ -63,7 +63,7 @@ export const InventoryList = () => {
       dispatch(syncInventory(res.data));
       console.log(res.data);
       console.log(res.data[3]?.Product?.Price?.productPrice);
-      setState5(res.data[3]?.Product?.Price?.productPrice);
+      setState5(res.data?.Product?.Price?.productPrice);
     } catch (err) {
       console.log(err);
     }
@@ -359,9 +359,14 @@ export const InventoryList = () => {
                       <Text as={"b"} size="sm">
                         {item.Product.productName}
                       </Text>
-                      <Text fontSize={"xs"}>
-                        Rp{item.Product.Price.productPrice}
-                      </Text>
+                      <Box>
+                        <Text mt as={"s"} fontSize={"xs"}>
+                          Rp{item.Product.Price.productPrice}
+                        </Text>
+                        <Text fontSize={"xs"}>
+                          Rp{item.Product.Price.discPrice}
+                        </Text>
+                      </Box>
                       <Text>{item.stockQty} pcs</Text>
                     </CardBody>
                   </Center>

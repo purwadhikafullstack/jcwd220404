@@ -40,6 +40,7 @@ export const LandingPage = () => {
           <Box
             className="footer"
             w={"390px"}
+            bgColor="E5D9B6"
             pos="fixed"
             bottom={"35px"}
             zIndex="2"

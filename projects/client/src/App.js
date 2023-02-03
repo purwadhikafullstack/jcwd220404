@@ -24,7 +24,6 @@ import { LoginAdminPage } from "./pages/admin/Login";
 import { AdminPage } from "./pages/admin/AdminPage";
 import { UpdateAddressPage } from "./pages/user/UpdateAddress";
 import { NotFoundPage } from "./pages/user/404Result";
-import { WindowComp } from "./components/user/Window";
 import { EnterComp } from "./components/user/Enter";
 import { Checkout } from "./pages/user/Checkout";
 import { PaymentMethod } from "./pages/user/PaymentMethod";
