@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Image,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Avatar, Box, Button, Image, Text } from "@chakra-ui/react";
 
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { LogoutSuper } from "./LogoutSuper";
 

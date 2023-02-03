@@ -1,10 +1,9 @@
 import { Button, Flex, Stack, Text } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Axios from "axios";
 
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
 export const DefaultAddress = () => {
   const [data, setData] = useState([]);

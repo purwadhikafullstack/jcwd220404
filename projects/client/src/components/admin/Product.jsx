@@ -65,21 +65,10 @@ export const Product = () => {
   const [searchCategory2, setSearchCategory2] = useState("");
   const [totalPage2, setTotalPage2] = useState(0);
   const [state2, setState2] = useState(0);
-  const { username, BranchId } = useSelector((state) => state.adminSlice.value);
+
   const data = useSelector((state) => state.productSlice.value);
-  const data2 = useSelector((state) => state.categorySlice.value);
-  const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+
   const dispatch = useDispatch();
-  const handleToggle = () => setShow(!show);
-  const handleToggle1 = () => setShow2(!show2);
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg="blackAlpha.300"
-      backdropFilter="blur(10px) hue-rotate(90deg)"
-    />
-  );
-  const [overlay, setOverlay] = useState(<OverlayOne />);
 
   const getData = async () => {
     try {

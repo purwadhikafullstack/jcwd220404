@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { logoutAdmin } from "../../redux/adminSlice";
 
 export const LogoutBranch = () => {
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+  const { isOpen, onClose, onToggle } = useDisclosure();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

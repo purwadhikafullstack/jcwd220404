@@ -20,7 +20,7 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const InventoryAdminComp = () => {
   const [branch, setBranch] = useState();

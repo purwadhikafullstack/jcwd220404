@@ -10,7 +10,6 @@ import {
   Button,
   ButtonGroup,
   Text,
-  useColorMode,
   useDisclosure,
   Table,
   TableContainer,
@@ -48,13 +47,12 @@ import { syncCategory } from "../../redux/categorySlice";
 export const Category = () => {
   const [product, setProduct] = useState([]);
   const [category, setCategory] = useState([]);
-  const [image, setImage] = useState("");
-  const [profile, setProfile] = useState("upload");
+
   const [edit, setEdit] = useState({});
   const [edit2, setEdit2] = useState({});
   const [image2, setImage2] = useState("");
   const [profile2, setProfile2] = useState("upload");
- 
+
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [sort, setSort] = useState("ASC");
@@ -70,7 +68,6 @@ export const Category = () => {
   const [totalPage2, setTotalPage2] = useState(0);
   const [state2, setState2] = useState(0);
 
-  const data = useSelector((state) => state.productSlice.value);
   const data2 = useSelector((state) => state.categorySlice.value);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();

@@ -20,7 +20,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { BiReset, BiSearchAlt } from "react-icons/bi";
+import { BiSearchAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState } from "react";
@@ -40,7 +40,7 @@ export const ProductList = () => {
   const [searchProduct, setSearchProduct] = useState("");
   const [totalPage, setTotalPage] = useState(0);
   const dispatch = useDispatch();
-  const { id, cart } = useSelector((state) => state.userSlice.value);
+  const { id } = useSelector((state) => state.userSlice.value);
   const data = useSelector((state) => state.productSlice.value);
 
   const getData = async () => {
