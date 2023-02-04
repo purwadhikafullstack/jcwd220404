@@ -29,36 +29,7 @@ export const RegisterUser = () => {
       .required("Phone Number is a required field")
       .min(10, "Phone Number minimum 10 numbers")
       .max(12, "Phone Number must max 12 numbers"),
-    // .test("Phone Number", "Phone Number already exist", function (value) {
-    //   return new Promise((resolve, reject) => {
-    //     Axios.get(`http://localhost:8000/user/${value}/availableNumber`)
-    //       .then((res) => {
-    //         resolve(!res.data);
-    //       })
-    //       .catch((err) => {
-    //         if (
-    //           err.response.data.content === `The phone number already used`
-    //         ) {
-    //           resolve(false);
-    //         }
-    //       });
-    //   });
-    // }),
     email: Yup.string().email().required("Email is a required field"),
-    // .test("Email", "Email already exist", function (value) {
-    //   return new Promise((resolve, reject) => {
-    //     Axios.get(`http://localhost:8000/user/${value}/available`)
-    //       .then((res) => {
-    //         resolve(!res.data);
-    //       })
-    //       .catch((err) => {
-    //         if (err.response.data.content === `The email already used`) {
-    //           resolve(false);
-    //         }
-    //       });
-    //   });
-    // }),
-
     password: Yup.string()
       .required("Password is a required field")
       .min(8, "Password min. 8 characters"),
@@ -131,7 +102,7 @@ export const RegisterUser = () => {
           return (
             <>
               <Form>
-                <VStack spacing={"8px"} align="center">
+                <VStack spacing={"15px"} align="center">
                   <FormControl isRequired>
                     <FormLabel textColor={"#285430"} htmlFor="name">
                       Name
@@ -146,8 +117,8 @@ export const RegisterUser = () => {
                       bgColor={"white"}
                       textColor="#285430"
                       borderColor={"#285430"}
-                      border={"2px"}
-                      w={"340px"}
+                      border={"1px"}
+                      w={"370px"}
                     />
                     <ErrorMessage
                       style={{ color: "red" }}
@@ -169,8 +140,8 @@ export const RegisterUser = () => {
                       bgColor={"white"}
                       textColor="#285430"
                       borderColor={"#285430"}
-                      border={"2px"}
-                      w={"340px"}
+                      border={"1px"}
+                      w={"370px"}
                     />
                     <ErrorMessage
                       style={{ color: "red" }}
@@ -192,8 +163,8 @@ export const RegisterUser = () => {
                       bgColor={"white"}
                       textColor="#285430"
                       borderColor={"#285430"}
-                      border={"2px"}
-                      w={"340px"}
+                      border={"1px"}
+                      w={"370px"}
                     />
                     <ErrorMessage
                       style={{ color: "red" }}
@@ -216,12 +187,13 @@ export const RegisterUser = () => {
                         bgColor={"white"}
                         textColor="#285430"
                         borderColor={"#285430"}
-                        border={"2px"}
-                        w={"340px"}
+                        border={"1px"}
+                        w={"370px"}
                       />
 
                       <InputRightElement h={"full"}>
                         <Button
+                          color={"black"}
                           variant={"unstyled"}
                           onClick={() =>
                             setShowPassword((showPassword) => !showPassword)
@@ -255,11 +227,12 @@ export const RegisterUser = () => {
                         bgColor={"white"}
                         textColor="#285430"
                         borderColor={"#285430"}
-                        border={"2px"}
-                        w={"340px"}
+                        border={"1px"}
+                        w={"370px"}
                       />
                       <InputRightElement h={"full"}>
                         <Button
+                          color={"black"}
                           variant={"unstyled"}
                           onClick={() =>
                             setShowComfirmPassword(
@@ -279,15 +252,13 @@ export const RegisterUser = () => {
                   </FormControl>
                   <Button
                     type="submit"
-                    _hover={{
-                      bg: "#E5D9B6",
-                    }}
+                    mt={"15px"}
                     bgColor={"#A4BE7B"}
                     borderColor="#285430"
                     border="2px"
                     fontSize="18px"
                     color="gray.800"
-                    w={"230px"}
+                    width={"370px"}
                   >
                     Sign up
                   </Button>

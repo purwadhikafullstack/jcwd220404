@@ -4,7 +4,7 @@ import Axios from "axios"
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const CompleteButton = () => {
+export const CompleteOrder = () => {
   const [data, setData] = useState()
   const [data2, setData2] = useState()
   const [data5, setData5] = useState()

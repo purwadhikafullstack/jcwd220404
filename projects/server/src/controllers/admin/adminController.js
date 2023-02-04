@@ -101,19 +101,4 @@ module.exports = {
       res.status(400).send(err);
     }
   },
-
-  findAll: async (req, res) => {
-    try {
-      const admins = await admin.findAll({
-        where: {
-          isSuper: 1,
-        },
-        attributes: ["username", "email", "isSuper"],
-        raw: true,
-      });
-      res.status(200).send(admins);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
 };

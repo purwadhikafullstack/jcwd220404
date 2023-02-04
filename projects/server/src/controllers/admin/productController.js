@@ -9,18 +9,16 @@ const productCategory = db.Product_Category;
 module.exports = {
   create: async (req, res) => {
     try {
-      const { productName, distributor, description } = req.body;
+      const { productName, description } = req.body;
 
       if (
         !productName &&
-        // !distributor &&
         !description
       )
         throw "required field";
 
       await product.create({
         productName,
-        // distributor,
         description,
       });
       res.status(200).send({
@@ -58,7 +56,6 @@ module.exports = {
         attributes: [
           "id",
           "productName",
-          // "distributor",
           "description",
           "picture",
         ],
@@ -280,12 +277,6 @@ module.exports = {
       });
       const totalPage = Math.ceil(totalRows / limit);
       const result = await product.findAll({
-        // include: [
-        //   {
-        //     model: cart,
-        //     attributes: ["id"],
-        //   },
-        // ],
         where: {
           [Op.or]: [
             {
@@ -304,14 +295,7 @@ module.exports = {
         offset: offset,
         limit: list_limit,
         order: [[orderby, direction]],
-        // include: [
-        //   {
-        //     model: cart,
-        //     attributes: ["id"],
-        //   },
-        // ],
       });
-
       res.status(200).send({
         result: result,
         page: productlist_page,

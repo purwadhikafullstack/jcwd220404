@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import Axios from "axios";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginAdmin } from "../../redux/adminSlice";
@@ -69,16 +69,11 @@ export const LoginAdminPage = () => {
   };
 
   return (
-    <>
+    <div>
       <Center>
-        <Box py={3} px={3} bgColor="#E5D9B6" w={"390px"} h={"100%"}>
-          <Image
-            src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`}
-            height="160px"
-            w={"auto"}
-            ml={"75px"}
-          />
+        <Box py={3} px={3} bgColor="#E5D9B6" w={"100%"} h={"820px"}>
           <Stack align={"center"}>
+            <Image src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`} height="160px" w={"auto"} />
             <Heading mt={"10px"} size={"lg"} textColor="#285430">
               Sign in to Admin
             </Heading>
@@ -120,7 +115,6 @@ export const LoginAdminPage = () => {
                       zIndex="1"
                     />
                     <Button
-                      variant={"unstyled"}
                       color={"black"}
                       onClick={() =>
                         setShowPassword((showPassword) => !showPassword)
@@ -144,7 +138,7 @@ export const LoginAdminPage = () => {
                   border="2px"
                   fontSize="18px"
                   color="gray.800"
-                  w={"90px"}
+                  w={"150px"}
                   alignItems="center"
                 >
                   <b>Sign In</b>
@@ -152,15 +146,17 @@ export const LoginAdminPage = () => {
               </Box>
             </Stack>
           </Center>
-          <Box justifyContent="center">
-            <Image
-              src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358160512169392.gif`}
-              width="100%"
-              height="250px"
-            ></Image>
-          </Box>
+          <Center>
+            <React.StrictMode>
+              <Image
+                src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358160512169392.gif`}
+                width="390px"
+                height="338px"
+              ></Image>
+            </React.StrictMode>
+          </Center>
         </Box>
       </Center>
-    </>
+    </div>
   );
 };

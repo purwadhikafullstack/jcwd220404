@@ -23,6 +23,7 @@ import { RestrictedPage } from "./pages/403ResultPage";
 import { LoginAdminPage } from "./pages/admin/Login";
 import { AdminPage } from "./pages/admin/AdminPage";
 import { UpdateAddressPage } from "./pages/user/UpdateAddress";
+import { AddProductCategoryPage } from "./pages/admin/AddProductCategoryPage";
 import { NotFoundPage } from "./pages/user/404Result";
 import { EnterComp } from "./components/user/Enter";
 import { Checkout } from "./pages/user/Checkout";
@@ -36,7 +37,7 @@ import { CategoryAdminPage } from "./pages/admin/Category";
 import { InventoryAdminPage } from "./pages/admin/Inventory";
 import { TransactionAdminPage } from "./pages/admin/Transaction";
 import { Discount } from "./pages/admin/Discount";
-import { BranchAdminMgt } from "./pages/admin/BranchAdminMgt";
+import { BranchManagement } from "./pages/admin/BranchManagement";
 import { Sales } from "./pages/admin/Sales";
 
 function App() {
@@ -184,6 +185,10 @@ function App() {
         <Route path="/admin" element={<AdminPage />}></Route>
         <Route path="/*" element={<NotFoundPage />}></Route>
         <Route path="/admin/product" element={<ProductAdminPage />}></Route>
+        <Route
+          path="/admin/product/addProductCategory"
+          element={<AddProductCategoryPage />}
+        ></Route>
         <Route path="/admin/category" element={<CategoryAdminPage />}></Route>
         <Route path="/admin/inventory" element={<InventoryAdminPage />}></Route>
         <Route
@@ -193,7 +198,7 @@ function App() {
         <Route path="/admin/discount" element={<Discount />}></Route>
         <Route
           path="/admin/branch-management"
-          element={<BranchAdminMgt />}
+          element={<BranchManagement />}
         ></Route>
         <Route path="/admin/sales" element={<Sales />}></Route>
       </Routes>

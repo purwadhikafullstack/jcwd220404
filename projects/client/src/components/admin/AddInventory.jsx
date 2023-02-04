@@ -59,7 +59,6 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
-      // console.log(res.data);
       console.log(res.data[0]?.id);
     } catch (err) {
       console.log(err);
@@ -103,7 +102,7 @@ export const InventoryAdminComp = () => {
         icon: "success",
         text: "Stock Updated",
       });
-      setTimeout(() => window.location.replace("/admin"), 2000);
+      setTimeout(() => window.location.replace("/admin/inventory"), 2000);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -116,9 +115,9 @@ export const InventoryAdminComp = () => {
 
   return (
     <div>
-      <Flex mt={"80px"} ml={"150px"}>
+      <Flex>
         <Box>
-          <TableContainer mt={"50px"} w="45vw" bgColor={"white"}>
+          <TableContainer ml="78px" mt="215px" w="45vw" bgColor={"white"}>
             <Table variant="simple" colorScheme="#285430">
               <Thead alignContent={"center"}>
                 <Tr>
@@ -145,6 +144,7 @@ export const InventoryAdminComp = () => {
         </Box>
         <Box
           ml="120px"
+          mt="215px"
           color={useColorModeValue("#285430")}
           border="2px"
           borderRadius="2xl"
@@ -271,7 +271,7 @@ export const InventoryAdminComp = () => {
                   justifyContent="center"
                   onClick={onCreate}
                 >
-                  Confirm
+                  Add Stock
                 </Button>
               </Center>
             </Stack>

@@ -36,7 +36,6 @@ module.exports = {
         lattitude,
         longitude,
         phoneNumber,
-        // UserId: req.user.id,
       });
       res.status(200).send({
         message: "New Branch added",
