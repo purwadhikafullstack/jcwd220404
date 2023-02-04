@@ -27,11 +27,12 @@ export const LogoutBranch = () => {
   return (
     <div>
       <Button
+        mt={"60px"}
+        ml="58px"
         display={"flex"}
         bgColor={"#FF0000"}
         textColor="gray.800"
         width={"100px"}
-        m="auto"
         justifyContent={"center"}
         borderColor="#gray.800"
         border="2px"

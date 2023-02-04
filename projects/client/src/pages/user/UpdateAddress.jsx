@@ -20,19 +20,20 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { syncData } from "../../redux/addressSlice";
 
 export const UpdateAddressPage = () => {
-  const [province, setProvince] = useState([]);
-  const [city, setCity] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState(0);
-  const [selectedCity, setSelectedCity] = useState(0);
   const { data } = useSelector((state) => state.addressSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
+  const [province, setProvince] = useState([]);
+  const [city, setCity] = useState([]);
+  const [postal, setPostal] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState(0);
+  const [selectedCity, setSelectedCity] = useState(0);
+  const [selectedPostal, setSelectedPostal] = useState(0);
   const inputAddressLine = useRef("");
   const inputCity = useRef("");
   const inputProvince = useRef("");
   const inputDetail = useRef("");
   const inputDistrict = useRef("");
   const inputPostalCode = useRef("");
-
   const inputReceiverName = useRef("");
   const inputReceiverPhone = useRef("");
   const inputReceiverEmail = useRef("");
@@ -60,6 +61,7 @@ export const UpdateAddressPage = () => {
       Swal.fire({
         icon: "success",
         text: "Success",
+        width: "370px"
       });
       setTimeout(() => window.location.replace("/account/address"), 2000);
     } catch (err) {
@@ -127,6 +129,28 @@ export const UpdateAddressPage = () => {
     });
   };
 
+  const fetchPostal = async () => {
+    try {
+      const response = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/address/postal/${selectedCity}`
+      );
+      console.log(response);
+      setPostal(response.data.rajaongkir.results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderPostal = () => {
+    return Array.from(postal).map((val, i) => {
+      return (
+        <option value={val.city_id} key={i}>
+          {val.type + " "} {val.postal_code}
+        </option>
+      );
+    });
+  };
+
   const provinceHandler = ({ target }) => {
     const { value } = target;
     setSelectedProvince(value);
@@ -137,6 +161,11 @@ export const UpdateAddressPage = () => {
     setSelectedCity(value);
   };
 
+  const postalHandler = ({ target }) => {
+    const { value } = target;
+    setSelectedPostal(value);
+  };
+
   useEffect(() => {
     fetchProvince();
   }, []);
@@ -145,12 +174,16 @@ export const UpdateAddressPage = () => {
     fetchCity();
   }, [selectedProvince]);
 
-  const onRefresh = () => {
+  useEffect(() => {
+    fetchPostal();
+  }, [selectedCity]);
+
+  const toListAddress = () => {
     window.location.replace(`/account/address/${id}`);
   };
 
   return (
-    <>
+    <div>
       <Center>
         <Box>
           <Box
@@ -166,7 +199,7 @@ export const UpdateAddressPage = () => {
             top={"0"}
             zIndex={"2"}
           >
-            <Box as="button" onClick={onRefresh}>
+            <Box as="button" onClick={toListAddress}>
               <ArrowBackIcon
                 mt={"-15px"}
                 ml={"20px"}
@@ -186,102 +219,96 @@ export const UpdateAddressPage = () => {
             pt={"3px"}
             className="body"
             bgColor="white"
-            h={"850px"}
+            h={"900px"}
             w={"390px"}
           >
             <Stack spacing={"10px"} mt={"10px"} textColor="#285430">
               <FormControl>
-                <FormLabel ml={"20px"}>Alamat</FormLabel>
+                <FormLabel ml={"10px"}>Alamat</FormLabel>
                 <Input
                   ref={inputAddressLine}
                   placeholder="Alamat"
-                  ml="20px"
-                  width="340px"
-                  border="2px"
+                  ml={"10px"}
+                  width="370px"
+                  border="1px"
                   borderColor="#285430"
                   defaultValue={data?.addressLine}
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>Kecamatan</FormLabel>
+                <FormLabel ml={"10px"}>Kecamatan</FormLabel>
                 <Input
                   ref={inputDistrict}
-                  ml={"20px"}
-                  width="340px"
-                  border="2px"
+                  ml={"10px"}
+                  width="370px"
+                  border="1px"
                   borderColor="#285430"
                   defaultValue={data?.district}
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>Province</FormLabel>
+                <FormLabel ml={"10px"}>Province</FormLabel>
                 <Select
-                  placeholder={data?.province}
+                  placeholder="Select Province"
                   onChange={provinceHandler}
-                  ml={"20px"}
-                  width="340px"
-                  border="2px"
+                  ml={"10px"}
+                  width="370px"
+                  border="1px"
                   borderColor="#285430"
                   defaultValue={data?.province}
-                  ref={inputProvince}
                 >
                   {renderProvince()}
                 </Select>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>City</FormLabel>
+                <FormLabel ml={"10px"}>City</FormLabel>
                 <Select
-                  placeholder={data?.city}
+                  placeholder="Select City"
                   onChange={cityHandler}
-                  ml={"20px"}
-                  width="340px"
-                  border="2px"
+                  ml={"10px"}
+                  width="370px"
+                  border="1px"
                   borderColor="#285430"
-                  ref={inputCity}
                   defaultValue={data?.city}
                 >
                   {renderCity()}
                 </Select>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>Kode Pos</FormLabel>
-                <Input
+                <FormLabel ml={"10px"}>Kode Pos</FormLabel>
+                <Select
                   ref={inputPostalCode}
-                  ml={"20px"}
-                  width="340px"
-                  border="2px"
+                  onChange={postalHandler}
+                  placeholder="Select Postal Code"
+                  ml={"10px"}
+                  width="370px"
+                  border="1px"
                   borderColor="#285430"
                   defaultValue={data?.postalCode}
-                ></Input>
+                >
+                  {" "}
+                  {renderPostal()}
+                </Select>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>Detail Alamat</FormLabel>
+                <FormLabel ml={"10px"}>Detail Alamat</FormLabel>
                 <Textarea
                   ref={inputDetail}
                   placeholder="e.g. Blok/Lantai"
-                  ml={"20px"}
+                  ml={"10px"}
                   width="340px"
-                  border="2px"
+                  border="1px"
                   borderColor="#285430"
                   defaultValue={data?.detail}
                 ></Textarea>
-                {/* <Checkbox
-                  iconColor="#285430"
-                  iconSize="1rem"
-                  mt="10px"
-                  mb={"10px"}
-                  ml={"20px"}
-                >
-                  Set as Default Address
-                </Checkbox> */}
                 <FormControl>
-                  <FormLabel ml={"20px"}>Nama Penerima</FormLabel>
+                  <FormLabel ml={"10px"}>Nama Penerima</FormLabel>
                   <Flex>
                     <Input
                       ref={inputReceiverName}
-                      ml={"20px"}
-                      width="340px"
-                      border="2px"
+                      ml={"10px"}
+                      width="370px"
+                      border="1px"
                       borderColor="#285430"
                       defaultValue={data?.receiverName}
                       placeholder="Name"
@@ -289,26 +316,26 @@ export const UpdateAddressPage = () => {
                   </Flex>
                 </FormControl>
                 <FormControl>
-                  <FormLabel ml={"20px"}>No. Telepon Penerima</FormLabel>
+                  <FormLabel ml={"10px"}>No. Telepon Penerima</FormLabel>
                   <Input
                     ref={inputReceiverPhone}
                     placeholder="08xxx"
-                    ml={"20px"}
-                    width="340px"
-                    border="2px"
+                    ml={"10px"}
+                    width="370px"
+                    border="1px"
                     borderColor="#285430"
                     type={"text"}
                     defaultValue={data?.receiverPhone}
                   ></Input>
                 </FormControl>
                 <FormControl>
-                  <FormLabel ml={"20px"}>Email Penerima</FormLabel>
+                  <FormLabel ml={"10px"}>Email Penerima</FormLabel>
                   <Input
                     ref={inputReceiverEmail}
                     placeholder="yourname@example.com"
-                    ml={"20px"}
-                    width="340px"
-                    border="2px"
+                    ml={"10px"}
+                    width="370px"
+                    border="1px"
                     borderColor="#285430"
                     defaultValue={data?.receiverEmail}
                   ></Input>
@@ -317,13 +344,13 @@ export const UpdateAddressPage = () => {
               <Center>
                 <Button
                   onClick={() => onUpdate(data.id)}
+                  mt={"15px"}
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"
                   fontSize="18px"
                   color="gray.800"
-                  width={"160px"}
-                  justifyContent="center"
+                  width={"370px"}
                 >
                   Confirm
                 </Button>
@@ -332,6 +359,6 @@ export const UpdateAddressPage = () => {
           </Box>
         </Box>
       </Center>
-    </>
+    </div>
   );
 };

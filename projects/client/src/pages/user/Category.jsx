@@ -24,9 +24,9 @@ export const CategoryPage = () => {
   }, []);
 
   return (
-    <>
-      <Box>
-        <Center>
+    <div>
+      <Center>
+        <Box>
           <Box
             className="header"
             w={"390px"}
@@ -40,21 +40,22 @@ export const CategoryPage = () => {
             top={"0"}
             zIndex="2"
           >
-            <Box margin={"auto"} alignItems={"center"} textColor="black">
-              CATEGORIES
-            </Box>
+             <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+          <Text as={"b"} fontSize="xl">
+            CATEGORY
+          </Text>
+        </Box>
           </Box>
           <Box
-            mt={"100px"}
+            mt={"80px"}
             className="body"
             bgColor={"white"}
-            h={"1750px"}
+            h={"100vh"}
             w={"390px"}
           >
             <Center>
               <Flex
                 flexWrap="wrap"
-                mt="-5"
                 w={[330, 330, 380]}
                 justifyContent="center"
               >
@@ -63,7 +64,7 @@ export const CategoryPage = () => {
                     <div>
                       <Avatar
                         border="1px"
-                        bgColor="#A4BE7B"
+                        bgColor="#E5D9B6"
                         _hover={{ border: "2px" }}
                         mr={[2, 3, 4]}
                         ml={[2, 3, 4]}
@@ -77,7 +78,7 @@ export const CategoryPage = () => {
                         as={Link}
                         to={`/category/${item.id}`}
                       ></Avatar>
-                      <Text>{item.categoryName}</Text>
+                      <Text textAlign="center" color="#285430">{item.categoryName}</Text>
                     </div>
                   );
                 })}
@@ -87,8 +88,8 @@ export const CategoryPage = () => {
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>
-        </Center>
-      </Box>
-    </>
+        </Box>
+      </Center>
+    </div>
   );
 };

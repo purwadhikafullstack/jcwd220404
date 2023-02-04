@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import { Center, Text, Flex, Avatar } from "@chakra-ui/react";
+import { Center, Text, Flex, Avatar, Box } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
 import { InventoryList } from "./InventoryList";
@@ -47,51 +47,44 @@ export const MenuComp = () => {
   }, [id]);
 
   return (
-    <>
+    <div>
       <Center>
         <Flex
           flexWrap="wrap"
-          mt="-140"
+          mt="-150px"
           w={[330, 330, 380]}
           justifyContent="center"
         >
-          {/* <Input
-            placeholder="Only Fresh Here..."
-            _placeholder={{ color: "#5F8D4E" }}
-            bgColor={"white"}
-            w={"400px"}
-            textColor="black"
-            borderColor={"#285430"}
-          /> */}
-
           {category?.map((item) => {
             return (
               <div>
-                <Avatar
-                  border="1px"
-                  bgColor="#A4BE7B"
-                  _hover={{ border: "2px" }}
-                  mr={[2, 3, 4]}
-                  ml={[2, 3, 4]}
-                  mt="20px"
-                  size="md"
-                  name="Grocery"
-                  src={
-                    `${process.env.REACT_APP_API_BASE_URL}/` +
-                    item.categoryPicture
-                  }
-                  as={Link}
-                  to={`/category/${item.id}`}
-                ></Avatar>
-                <Text fontSize="x-small" color={"#285430"}>
-                  {item.categoryName}
-                </Text>
+                <Box>
+                  <Avatar
+                    border="1px"
+                    bgColor="#E5D9B6"
+                    _hover={{ border: "2px" }}
+                    mr={[2, 3, 4]}
+                    ml={[2, 3, 4]}
+                    mt="20px"
+                    size="md"
+                    name="Grocery"
+                    src={
+                      `${process.env.REACT_APP_API_BASE_URL}/` +
+                      item.categoryPicture
+                    }
+                    as={Link}
+                    to={`/category/${item.id}`}
+                  ></Avatar>
+                  <Text textAlign="center" fontSize="x-small" color={"#285430"}>
+                    {item.categoryName}
+                  </Text>
+                </Box>
               </div>
             );
           })}
         </Flex>
       </Center>
       {tokenLocalStorage ? <InventoryList /> : <ProductList />}
-    </>
+    </div>
   );
 };

@@ -38,13 +38,22 @@ export const OrderNowComp = () => {
   };
 
   return (
-    <>
-      <Box>
+    <div>
+      <Box h="70vh">
         <Image
           src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167331034678635995.png`}
         ></Image>
         <Center>
-          <Button onClick={toLandingPage}>Order Now</Button>
+          <Button
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="18px"
+            color="gray.800"
+            onClick={toLandingPage}
+          >
+            Order Now
+          </Button>
         </Center>
         <Box>
           {product?.map((item) => {
@@ -70,6 +79,6 @@ export const OrderNowComp = () => {
           })}
         </Box>
       </Box>
-    </>
+    </div>
   );
 };

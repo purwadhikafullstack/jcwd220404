@@ -35,7 +35,7 @@ export const UpdateProductComp = ({ data }) => {
         text: "Product Updated",
         width: "370px",
       });
-      setTimeout(() => window.location.replace("/admin"), 900);
+      setTimeout(() => window.location.replace("/admin/product"), 900);
     } catch (err) {
       console.log(err);
     }

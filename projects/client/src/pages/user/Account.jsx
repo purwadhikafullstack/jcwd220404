@@ -7,16 +7,15 @@ export const AccountPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
 
   return (
-    <>
+    <div>
       <Center>
-        <Box pos={"fixed"} w={"390px"} h={"10px"} bgColor="white">
+        <Box classsName="header" w={"390px"} h={"844px"} bgColor="white">
           {tokenLocalStorage ? <AccountComp /> : <WindowComp />}
-
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>
         </Box>
       </Center>
-    </>
+    </div>
   );
 };

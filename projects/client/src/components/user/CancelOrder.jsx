@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Axios from "axios"
 
-export const CancelButton = () => {
+export const CancelOrder = () => {
   const [data, setData] = useState()
   const [data2, setData2] = useState()
   const [data5, setData5] = useState()

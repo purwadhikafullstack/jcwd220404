@@ -28,13 +28,15 @@ export const DefaultAddress = () => {
 
   return (
     <div>
-      <Flex pr={"20px"} mt="100px">
+      <Flex  mt="90px"
+      >
         <Stack>
           <Button
             _placeholder={{ color: "#5F8D4E" }}
-            // bgColor="#E5D9B6"
-            w={"390px"}
-            textColor="black"
+            w={"370px"}
+            backgroundColor="#E5D9B6"
+            textColor="#285430"
+            border="1px"
             borderColor={"#285430"}
           >
             <Text color={"#285430"}>

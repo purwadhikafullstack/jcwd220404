@@ -11,8 +11,9 @@ import {
   IoPersonOutline,
   IoPerson,
 } from "react-icons/io5";
-import { Badge, Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import { Badge, Center, color, Flex, Icon, Text, VStack } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+import "../NavbarComp.css";
 
 export const NavbarComp = () => {
   const data = useSelector((state) => state.cartSlice.value);
@@ -63,16 +64,23 @@ export const NavbarComp = () => {
   };
 
   return (
-    <>
-      <Center ml={"70px"}>
-        <Badge zIndex={2} borderRadius="2xl" mb={"10px"} ml="30px">
+    <div>
+        <Center>
+
+      <Badge zIndex={2} borderRadius="2xl" mb={"10px"} 
+      ml="100px"   bg="#FE0013"
+      color={"gray.800"}
+      >
           {data?.length}
         </Badge>
-        <Badge zIndex={2} borderRadius="2xl" mb={"10px"} ml="50px">
+        <Badge zIndex={2} borderRadius="2xl" mb={"10px"} 
+        ml="50px"   bg="#FE0013"
+        color={"gray.800"}
+        >
           {data2?.length}
         </Badge>
-      </Center>
-      <Center>
+        </Center>
+        <Center>
         <Flex
           w={[300, 350, 390]}
           h="70px"
@@ -80,7 +88,7 @@ export const NavbarComp = () => {
           color="gray.800"
           dropShadow="2xl"
           position="fixed"
-        >
+          >
           <Flex
             justifyContent="space-evenly"
             align="center"
@@ -123,6 +131,6 @@ export const NavbarComp = () => {
           </Flex>
         </Flex>
       </Center>
-    </>
+    </div>
   );
 };

@@ -21,7 +21,7 @@ export const UpdateCategoryComp = ({ data }) => {
         icon: "success",
         text: "Data Updated",
       });
-      setTimeout(() => window.location.replace("/admin"), 900);
+      setTimeout(() => window.location.replace("/admin/category"), 900);
     } catch (err) {
       console.log(err);
     }

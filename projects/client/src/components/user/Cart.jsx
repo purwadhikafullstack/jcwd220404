@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Card,
+  Center,
   Checkbox,
   Flex,
   FormControl,
@@ -13,7 +14,6 @@ import {
   HStack,
   Image,
   Select,
-  Stack,
   Text,
   Textarea,
 } from "@chakra-ui/react";
@@ -247,138 +247,201 @@ export const CartComp = () => {
   };
 
   return (
-    <>
+    <div>
       <Box>
-        <Stack spacing={"10px"}>
-          <FormControl>
-            <FormLabel>Products</FormLabel>
-            <Card margin={"10px"}>
-              {data?.map((item) => {
-                return (
-                  <Flex
-                    borderBottom={"1px"}
-                    borderColor="grey"
-                    borderRadius={"10px"}
-                    mt={"10px"}
-                    justify={"space-between"}
+        <FormControl ml={"10px"} mr={"10px"}>
+          <FormLabel textColor="#285430">Products</FormLabel>
+          <Card w="370px" bgColor={"white"}>
+            {data?.map((item) => {
+              return (
+                <Flex
+                  border={"1px"}
+                  borderColor="#285430"
+                  borderRadius={"md"}
+                  mt={"5px"}
+                >
+                  <Checkbox
+                    ml={"10px"}
+                    defaultChecked={item.status ? true : false}
+                    onChange={() => onCheckout(item.id, item.status)}
                   >
-                    <Checkbox
-                      defaultChecked={item.status ? true : false}
-                      onChange={() => onCheckout(item.id, item.status)}
+                    <Grid
+                      templateAreas={`"nav main""nav footer"`}
+                      gridTemplateRows={" 1fr 30px"}
+                      gridTemplateColumns={"120px 1fr"}
+                      h="50px"
+                      color="#285430"
+                      fontWeight="bold"
                     >
-                      <Grid
-                        templateAreas={`"nav main""nav footer"`}
-                        gridTemplateRows={" 1fr 30px"}
-                        gridTemplateColumns={"120px 1fr"}
-                        h="50px"
-                        // gap="1"
-                        color="blackAlpha.700"
-                        fontWeight="bold"
+                      <GridItem ml="8px" area={"nav"}>
+                        <Image
+                          boxSize={"55px"}
+                          src={
+                            `${process.env.REACT_APP_API_BASE_URL}/` +
+                            item.Product?.picture
+                          }
+                        ></Image>
+                      </GridItem>
+                      <GridItem fontSize={"small"} ml="-6" area={"main"}>
+                        {item.Product?.productName}
+                      </GridItem>
+                      <GridItem
+                        fontSize={"small"}
+                        ml="-6"
+                        mt={"1"}
+                        area={"footer"}
                       >
-                        <GridItem pl="1" area={"nav"}>
-                          <Image
-                            boxSize={"50px"}
-                            src={
-                              `${process.env.REACT_APP_API_BASE_URL}/` +
-                              item.Product?.picture
-                            }
-                          ></Image>
-                        </GridItem>
-                        <GridItem fontSize={"small"} ml="-12" area={"main"}>
-                          {item.Product?.productName}
-                        </GridItem>
-                        <GridItem fontSize={"small"} ml="-12" area={"footer"}>
-                          Rp{item.Product?.Price?.productPrice}
-                        </GridItem>
-                      </Grid>
-                    </Checkbox>
-                    <Box>
+                        {new Intl.NumberFormat("IND", {
+                          style: "currency",
+                          currency: "IDR",
+                        }).format(item.Product?.Price?.productPrice)}
+                      </GridItem>
+                    </Grid>
+                  </Checkbox>
+                  <Box>
+                    <Button
+                      pt={"10px"}
+                      ml={"50px"}
+                      variant={"unstyled"}
+                      onClick={() => onDelete(item.id)}
+                      fontSize="sm"
+                      textColor={"#285430"}
+                    >
+                      Delete
+                    </Button>
+                    <HStack
+                      ml={"20px"}
+                      mr="20px"
+                      maxW="200px"
+                      textColor={"#285430"}
+                    >
                       <Button
-                        pl={"50px"}
+                        pb={"4"}
                         variant={"unstyled"}
-                        onClick={() => onDelete(item.id)}
-                        fontSize="sm"
+                        onClick={() => {
+                          onQty(item.id, item.qty - 1);
+                        }}
                       >
-                        Hapus
+                        -
                       </Button>
-                      <HStack maxW="200px">
-                        <Button
-                          variant={"unstyled"}
-                          onClick={() => {
-                            var qtyMin = item.qty - 1;
-                            onQty(item.id, qtyMin);
-                            qtyMin = onQty <= 0 ? 1 : onQty;
-                            document.getElementById("qtyInput").value =
-                              parseInt(qtyMin);
-                          }}
-                        >
-                          -
-                        </Button>
-                        <Text w={"10px"}>{item.qty}</Text>
-                        <Button
-                          variant={"unstyled"}
-                          onClick={() => {
-                            onQty(item.id, item.qty + 1);
-                          }}
-                        >
-                          +
-                        </Button>
-                      </HStack>
-                    </Box>
-                  </Flex>
-                );
-              })}
-            </Card>
-          </FormControl>
-          <FormControl>
-            <FormLabel>Total</FormLabel>
-            <PopoutCheckout props={checkout} />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Shipping Method</FormLabel>
-            <Select
-              ref={inputRef}
-              onChange={() => setData7(inputRef.current.value)}
-            >
-              <option>Select Shipping Method</option>
-              {data4?.map((item, index) => {
-                return <option value={index}>{item.cost[0].etd} days</option>;
-              })}
-            </Select>
-          </FormControl>
-          {/* <FormControl>
-            <FormLabel>Buyer Information</FormLabel>
-            <Text>{data2?.["User.name"]}</Text>
-            <Text>{data2?.["User.phoneNumber"]}</Text>
-          </FormControl> */}
-          <FormControl>
-            <FormLabel>Delivery Address</FormLabel>
-            <Box>
-              <Text as={"b"}>{data2?.receiverName}</Text>
-              <Text>{data2?.receiverPhone}</Text>
-              <Text>{data2?.addressLine}</Text>
-              <Text>
-                {data2?.district} {data2?.city}, {data2?.province}
-              </Text>
-            </Box>
-          </FormControl>
-          <FormControl>
-            <FormLabel>Order Note</FormLabel>
-            <Textarea></Textarea>
-          </FormControl>
-          <FormControl>
-            <FormLabel>Payment Option</FormLabel>
-            <Box variant={"unstyled"}>
-              {/* <Checkbox value="1"> */}
-              <Text>Bank Transfer via Only Fresh Account</Text>
-              {/* </Checkbox> */}
-            </Box>
-          </FormControl>
-          <Button onClick={onCreate} w={"100%"}>
+                      <Text pb={"4"} fontSize={"small"} as="b">
+                        {item.qty}
+                      </Text>
+                      <Button
+                        pb={"4"}
+                        variant={"unstyled"}
+                        onClick={() => {
+                          onQty(item.id, item.qty + 1);
+                        }}
+                      >
+                        +
+                      </Button>
+                    </HStack>
+                  </Box>
+                </Flex>
+              );
+            })}
+          </Card>
+        </FormControl>
+        <FormControl>
+          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+            Total
+          </FormLabel>
+          <PopoutCheckout props={checkout} />
+        </FormControl>
+        <FormControl>
+          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+            Shipping Method
+          </FormLabel>
+          <Select
+            w={"370px"}
+            ml="10px"
+            border={"1px"}
+            borderColor="#285430"
+            borderRadius={"md"}
+            textColor="#285430"
+            ref={inputRef}
+            onChange={() => setData7(inputRef.current.value)}
+          >
+            <option>Select Shipping Method</option>
+            {data4?.map((item, index) => {
+              return <option value={index}>{item.cost[0].etd} days</option>;
+            })}
+          </Select>
+        </FormControl>
+        <FormControl>
+          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+            Buyer Information
+          </FormLabel>
+          <Box
+            border={"1px"}
+            borderColor="#285430"
+            borderRadius={"md"}
+            w="370px"
+            ml={"10px"}
+          >
+            <Text ml={"10px"} color="#285430">
+              {data2?.["User.name"]}
+            </Text>
+            <Text ml={"10px"} color="#285430">
+              {data2?.["User.phoneNumber"]}
+            </Text>
+          </Box>
+        </FormControl>
+        <FormControl>
+          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+            Delivery Address
+          </FormLabel>
+          <Box
+            ml="10px"
+            border={"1px"}
+            borderColor="#285430"
+            borderRadius={"md"}
+            w="370px"
+          >
+            <Text ml={"10px"} color="#285430">
+              {data2?.receiverName}
+            </Text>
+            <Text ml={"10px"} color="#285430">
+              {data2?.receiverPhone}
+            </Text>
+            <Text ml={"10px"} color="#285430">
+              {data2?.addressLine},{data2?.district},{data2?.city},
+              {data2?.province}
+            </Text>
+            <Text ml={"10px"} color="#285430">
+              {data2?.detail}
+            </Text>
+          </Box>
+        </FormControl>
+        <FormControl>
+          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+            Order Note
+          </FormLabel>
+          <Textarea
+            color={"#285430"}
+            border="1px"
+            borderColor={"#285430"}
+            w="370px"
+            ml={"10px"}
+          ></Textarea>
+        </FormControl>
+        <Center>
+          <Button
+           onClick={onCreate}
+            mt={"20px"}
+            w={"370px"}
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="16px"
+            color="gray.800"
+            justifyContent="center"
+          >
             Checkout
           </Button>
-        </Stack>
+        </Center>
       </Box>
-    </>
+    </div>
   );
 };

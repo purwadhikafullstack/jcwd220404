@@ -15,14 +15,14 @@ export const CarouselComp = () => {
   ];
 
   return (
-    <>
+    <div>
       <Box
         position={"relative"}
         height={"300px"}
         width={"375px"}
         overflow={"hidden"}
 
-        mt={"10px"}
+        mt={"15px"}
       >
         <link
           rel="stylesheet"
@@ -80,7 +80,7 @@ export const CarouselComp = () => {
           ))}
         </Slider>
       </Box>
-    </>
+    </div>
   );
 };
 
