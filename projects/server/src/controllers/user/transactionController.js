@@ -42,6 +42,7 @@ module.exports = {
         id_order: no_order,
         BranchId,
       });
+
       const data = await productCart.findAll({
         where: [
           { UserId: req.params.id },
@@ -459,20 +460,16 @@ module.exports = {
 
   totalSales: async (req, res) => {
     try {
-      const total = await transaction.findOne(
-        {
-          attributes: [
-            "BranchId",
-            [Sequelize.fn("sum", Sequelize.col("totalOrder")), "total_order"],
-          ],
-          group: ["BranchId"],
+      const total = await transaction.findOne({
+        attributes: [
+          "BranchId",
+          [Sequelize.fn("sum", Sequelize.col("totalOrder")), "total_order"],
+        ],
+        group: ["BranchId"],
+        where: {
+          BranchId: req.params.BranchId,
         },
-        {
-          where: {
-            BranchId: req.params.BranchId,
-          },
-        }
-      );
+      });
       res.status(200).send(total);
     } catch (err) {
       console.log(err);

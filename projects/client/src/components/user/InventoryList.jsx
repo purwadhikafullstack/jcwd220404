@@ -383,7 +383,7 @@ export const InventoryList = () => {
             );
           })}
         </SimpleGrid>
-        <Button onClick={onDiscount}>anjing</Button>
+        <Button onClick={onDiscount}>discount</Button>
       </Box>
     </div>
   );

@@ -193,23 +193,44 @@ module.exports = {
         where: {
           BranchId: req.params.BranchId,
         },
+        raw: true,
       });
-      const stock = await transactionDetail.findAll(
-        {
-          attributes: [
-            "ProductId",
-            [Sequelize.fn("sum", Sequelize.col("qty")), "total_qty"],
-          ],
-          group: ["ProductId"],
+
+      const stock = await transactionDetail.findAll({
+        attributes: [
+          "ProductId",
+          "BranchId",
+          [Sequelize.fn("sum", Sequelize.col("qty")), "total_qty"],
+        ],
+        group: ["ProductId"],
+        where: {
+          BranchId: req.params.BranchId,
         },
-        {
-          where: {
-            BranchId: req.params.BranchId,
-          },
-        }
-      );
-      const totalStock = await
-      console.log(total);
+        raw: true,
+      });
+
+      total.map(async (item) => {
+        console.log(item.stockQty);
+      });
+
+      stock.map(async (item) => {
+        console.log(item.total_qty);
+      });
+
+      // const data = await inventory.findAll({
+      //   where: { BranchId: req.params.BranchId },
+      //   include: [
+      //     {
+      //       model: branch,
+      //       include: [{ model: transactionDetail }],
+      //     },
+      //   ],
+      //   raw: true,
+      // });
+
+      // console.log(total);
+      // console.log(stock);
+      // console.log(data);
       res.status(200).send({
         total,
         stock,
