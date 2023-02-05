@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   City.init(
     {
-      cityName: DataTypes.STRING,
-      kelurahan: DataTypes.STRING,
-      kecamatan: DataTypes.STRING,
-      province: DataTypes.STRING,
-      longitude: DataTypes.STRING,
-      lattitude: DataTypes.STRING,
+      // cityName: DataTypes.STRING,
+      // kelurahan: DataTypes.STRING,
+      // kecamatan: DataTypes.STRING,
+      // province: DataTypes.STRING,
+      // longitude: DataTypes.STRING,
+      // lattitude: DataTypes.STRING,
     },
     {
       sequelize,

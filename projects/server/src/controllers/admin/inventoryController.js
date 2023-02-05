@@ -6,6 +6,7 @@ const price = db.Price;
 const branch = db.Branch;
 const category = db.Category;
 const transactionDetail = db.Transaction_Detail;
+const transaction = db.Transaction;
 
 module.exports = {
   create: async (req, res) => {
@@ -171,12 +172,6 @@ module.exports = {
             model: product,
             include: [{ model: price }],
           },
-          // {
-          //   model: branch,
-          //   where: {
-          //     longitude: { [Op.between]: [req.params.from, req.params.to] },
-          //   },
-          // },
         ],
       });
       res.status(200).send(inventories);
@@ -206,31 +201,41 @@ module.exports = {
         where: {
           BranchId: req.params.BranchId,
         },
+        include: [{ model: transaction, attributes: ["status"] }],
         raw: true,
       });
 
-      total.map(async (item) => {
-        console.log(item.stockQty);
+      const statusOK = stock.map((item) => item["Transaction.status"] === 3);
+      console.log(statusOK);
+
+      const qtyOne = total.map((item) => item.stockQty);
+      console.log(qtyOne);
+      const qtyTwo = stock.map((item) => item.total_qty);
+      // console.log(qtyTwo);
+      let numberQtyTwo = [];
+      length = qtyTwo.length;
+      for (let i = 0; i < length; i++) numberQtyTwo.push(parseInt(qtyTwo[i]));
+      // console.log(numberQtyTwo);
+
+      let finalQty = qtyOne.map((item, index) => {
+        return item - numberQtyTwo[index];
       });
+      console.log(finalQty);
 
-      stock.map(async (item) => {
-        console.log(item.total_qty);
-      });
+      for (let i = 0; i < finalQty.length; i++) {
+        await inventory.update(
+          {
+            totalQty: finalQty[i],
+          },
+          {
+            where: {
+              // status: stock[i].status,
+              id: total[i].id,
+            },
+          }
+        );
+      }
 
-      // const data = await inventory.findAll({
-      //   where: { BranchId: req.params.BranchId },
-      //   include: [
-      //     {
-      //       model: branch,
-      //       include: [{ model: transactionDetail }],
-      //     },
-      //   ],
-      //   raw: true,
-      // });
-
-      // console.log(total);
-      // console.log(stock);
-      // console.log(data);
       res.status(200).send({
         total,
         stock,

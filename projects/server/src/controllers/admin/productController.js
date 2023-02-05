@@ -468,26 +468,34 @@ module.exports = {
         include: [{ model: discount }],
         raw: true,
       });
+      console.log(disc);
 
       const priceOne = disc.map((item) => item.productPrice);
       const priceTwo = disc.map((item) => item["Discount.nominal"]);
       console.log(priceOne);
       console.log(priceTwo);
 
-      // const discItem = await price.update(
-      //   // Sequelize.query
-      //   // SELECT disc[0].productPrice, disc[0].Discount.nominal,(disc[0].productPrice-disc[0].Discount.nominal) as discPrice FROM
-      //   {
-      //     discPrice,
-      //   },
-      //   {
-      //     where: {
-      //       isDisc: 1,
-      //     },
-      //   }
-      // );
+      let finalDisc = priceOne.map((item, index) => {
+        // console.log(item);
+        return item - priceTwo[index];
+      });
+      console.log(finalDisc);
 
-      res.status(200).send(disc);
+      for (let i = 0; i < finalDisc.length; i++) {
+        await price.update(
+          {
+            discPrice: finalDisc[i],
+          },
+          {
+            where: {
+              id: disc[i].id,
+            },
+          }
+        );
+      }
+      res.status(200).send({
+        disc,
+      });
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

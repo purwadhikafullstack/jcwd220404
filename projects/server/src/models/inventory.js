@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       stockQty: DataTypes.INTEGER,
       entryDate: DataTypes.DATEONLY,
+      totalQty: DataTypes.INTEGER
     },
     {
       sequelize,

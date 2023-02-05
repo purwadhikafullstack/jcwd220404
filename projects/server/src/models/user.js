@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Address);
       User.hasMany(models.Transaction);
       // User.hasMany(models.Cart);
-      User.belongsTo(models.Voucher);
+      // User.belongsTo(models.Voucher);
       User.hasMany(models.Product_Cart)
       
     }
@@ -41,10 +41,10 @@ module.exports = (sequelize, DataTypes) => {
           len: [8],
         },
       },
-      status: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-      },
+      // status: {
+      //   type: DataTypes.BOOLEAN,
+      //   defaultValue: true,
+      // },
       code_otp: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -53,10 +53,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      attempt: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-      },
+      // attempt: {
+      //   type: DataTypes.INTEGER,
+      //   defaultValue: 0,
+      // },
     },
     {
       sequelize,

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       // Transaction.belongsTo(models.Inventory);
       // Transaction.hasOne(models.Payment);
       Transaction.hasOne(models.Transaction_Detail);
-      Transaction.hasMany(models.Voucher);
+      // Transaction.hasMany(models.Voucher);
       Transaction.hasMany(models.Notification);
     }
   }

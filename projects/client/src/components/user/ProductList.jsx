@@ -294,9 +294,26 @@ export const ProductList = () => {
                           <Text as={"b"} size="sm">
                             {item.productName}
                           </Text>
-                          <Text fontSize={"xs"}>
-                            Rp{item.Price?.productPrice}
-                          </Text>
+                          <Box>
+                            {!item?.Price.discPrice ? (
+                              <Text fontSize={"xs"}>
+                                Rp{item?.Price.productPrice}
+                              </Text>
+                            ) : (
+                              <Text fontSize={"xs"} as="s">
+                                Rp{item?.Price.productPrice}
+                              </Text>
+                            )}
+                          </Box>
+                          <Box>
+                            {!item?.Price.discPrice ? (
+                              ""
+                            ) : (
+                              <Text fontSize={"xs"}>
+                                Rp{item?.Price.discPrice}
+                              </Text>
+                            )}
+                          </Box>
                         </CardBody>
                       </Center>
                       <CardFooter>

@@ -288,8 +288,26 @@ export const CartComp = () => {
                           {item.Product?.productName}
                         </GridItem>
                         <GridItem fontSize={"small"} ml="-12" area={"footer"}>
-                          <Text as={"s"}>Rp{item.Product?.Price?.productPrice}</Text>
-                          <Text>Rp{item.Product?.Price?.discPrice}</Text>
+                        <Box>
+                        {!item.Product.Price.discPrice ? (
+                          <Text fontSize={"xs"}>
+                            Rp{item.Product.Price.productPrice}
+                          </Text>
+                        ) : (
+                          <Text fontSize={"xs"} as="s">
+                            Rp{item.Product.Price.productPrice}
+                          </Text>
+                        )}
+                      </Box>
+                      <Box>
+                        {!item.Product.Price.discPrice ? (
+                          ""
+                        ) : (
+                          <Text fontSize={"xs"}>
+                            Rp{item.Product.Price.discPrice}
+                          </Text>
+                        )}
+                      </Box>
                         </GridItem>
                         {/* <GridItem fontSize={"small"} ml="-12" area={"footer"}>
                         </GridItem> */}
