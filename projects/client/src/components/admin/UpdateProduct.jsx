@@ -90,19 +90,6 @@ export const UpdateProductComp = ({ data }) => {
           >
             Edit Product
           </Button>
-          {/* <Modal isCentered isOpen={isOpen} onClose={onClose}>
-            {overlay}
-            <ModalContent>
-              <ModalHeader>Modal Title</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <Text>Custom backdrop filters!</Text>
-              </ModalBody>
-              <ModalFooter>
-                <Button onClick={onClose}>Close</Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal> */}
         </Center>
       </Stack>
     </div>

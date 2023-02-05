@@ -21,6 +21,7 @@ export const RegisterAdmin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowComfirmPassword] = useState(false);
   const [branch, setBranch] = useState()
+  const [selectedBranch, setSelectedBranch] = useState()
   const inputBranch = useRef(0);
 
   const registerSchema = Yup.object().shape({
@@ -90,15 +91,31 @@ export const RegisterAdmin = () => {
         `${process.env.REACT_APP_API_BASE_URL}/branch/findAll`
       );
       console.log(res.data);
+      // console.log(res.data?.id)
       setData2(res.data);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const renderBranch = () => {
+    return data2.map((val) => {
+      return (
+        <option value={val.id} key={val.id.toString()}>
+          {val.branchName}
+        </option>
+      );
+    });
+  };
+
+  const branchHandler = ({ target }) => {
+    const { value } = target;
+    setSelectedBranch(value);
+  };
+
   useEffect(() => {
     getBranch();
-  }, []);
+  }, [selectedBranch]);
 
   return (
     <div>
@@ -108,7 +125,7 @@ export const RegisterAdmin = () => {
           email: "",
           password: "",
           password_confirmation: "",
-          BranchId: 0,
+          // BranchId: 0,
         }}
         validationSchema={registerSchema}
         onSubmit={(values, action) => {
@@ -117,7 +134,7 @@ export const RegisterAdmin = () => {
           action.setFieldValue("email", "");
           action.setFieldValue("password", "");
           action.setFieldValue("password_confirmation", "");
-          action.setFieldValue("BranchId", 0);
+          // action.setFieldValue("BranchId", 0);
         }}
       >
         {(props) => {
@@ -176,6 +193,7 @@ export const RegisterAdmin = () => {
                       Branch
                     </FormLabel>
                     <Select
+                    onChange={branchHandler}
                     // value={req?.body?.BranchId}
                       as={Select}
                       ml="3"
@@ -187,13 +205,14 @@ export const RegisterAdmin = () => {
                       border={"2px"}
                       w={"330px"}
                     >
-                      {data2.map((item) => {
+                      {renderBranch()}
+                      {/* {data2.map((item) => {
                         return (
                           <>
                             <option>{item.branchName}</option>
                           </>
                         );
-                      })}
+                      })} */}
                     </Select>
                   </FormControl>
                   <FormControl isRequired>

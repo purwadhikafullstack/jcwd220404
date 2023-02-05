@@ -11,8 +11,6 @@ import {
   ButtonGroup,
   Tabs,
   Text,
-  useColorMode,
-  useDisclosure,
   Table,
   TableContainer,
   Thead,
@@ -21,7 +19,6 @@ import {
   Tbody,
   Td,
   Image,
-  ModalOverlay,
   Center,
   Flex,
   useColorModeValue,
@@ -65,9 +62,7 @@ export const Product = () => {
   const [searchCategory2, setSearchCategory2] = useState("");
   const [totalPage2, setTotalPage2] = useState(0);
   const [state2, setState2] = useState(0);
-
   const data = useSelector((state) => state.productSlice.value);
-
   const dispatch = useDispatch();
 
   const getData = async () => {
@@ -141,46 +136,6 @@ export const Product = () => {
   useEffect(() => {
     getCategory();
   }, [edit2]);
-
-  const onDeleteCategory = async (id) => {
-    try {
-      const res = await Axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/product/removeCategory/${id}`
-      );
-      console.log(res);
-      getCategory();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleChoose1 = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage2(e.target.files[0]);
-  };
-
-  const handleUpload1 = async (id) => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image2);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded-category/${id}`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile2(resultImage.data.categoryPicture);
-    setImage2({ images: "" });
-    console.log(image2);
-    console.log(profile2);
-    window.location.replace("/admin");
-  };
 
   const getProduct = async () => {
     try {
@@ -259,20 +214,6 @@ export const Product = () => {
   useEffect(() => {
     fetchSort2();
   }, []);
-
-  const formik2 = useFormik({
-    initialValues: {
-      searchName: ``,
-    },
-    validationSchema: Yup.object().shape({
-      searchName: Yup.string().min(3, "Minimal 3 huruf"),
-    }),
-    validationOnChange: false,
-    onSubmit: async () => {
-      const { searchName } = formik.values;
-      setSearchCategory2(searchName);
-    },
-  });
 
   return (
     <>

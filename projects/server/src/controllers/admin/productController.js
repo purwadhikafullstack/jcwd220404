@@ -10,23 +10,38 @@ module.exports = {
   create: async (req, res) => {
     try {
       const { productName, distributor, description } = req.body;
-
       if (
-        !productName &&
+        !productName
         // !distributor &&
-        !description
+        // !description
       )
         throw "required field";
 
-      await product.create({
+      const result = await product.create({
         productName,
         // distributor,
         description,
+        CategoryId: [2, 5],
+      });
+      
+      const data = await product.findAll({
+        where: {
+          id: result.id,
+        },
+      });
+
+      data.map(async (item) => {
+        await productCategory.create({
+          CategoryId: item["CategoryId"],
+          ProductId: item.id,
+        });
       });
       res.status(200).send({
         message: "Successfully Added",
+        data,
       });
     } catch (err) {
+      console.log(err);
       res.status(400).send({
         message: "Process error",
         err,

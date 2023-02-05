@@ -95,18 +95,6 @@ export const Category = () => {
     getData();
   }, [edit]);
 
-  const onDelete = async (id) => {
-    try {
-      const res = await Axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
-      );
-      console.log(res);
-      getData();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const getCategory = async () => {
     try {
       const res = await Axios.get(

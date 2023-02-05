@@ -7,6 +7,8 @@ const product = db.Product;
 const price = db.Price;
 const branch = db.Branch;
 const { Op, Sequelize } = require("sequelize");
+const moment = require("moment")
+const schedule = require("node-schedule")
 
 module.exports = {
   create: async (req, res) => {
@@ -36,12 +38,29 @@ module.exports = {
         totalOrder,
         totalWeight,
         totalCharge,
-        status: 1,
+        status: "Waiting Payment",
         UserId,
         AdminId,
         id_order: no_order,
         BranchId,
       });
+
+      const afterSend = moment().add(30, "seconds").format("YYYY-MM-DD HH:mm:ss");
+
+      schedule.scheduleJob(
+        afterSend,
+        async () =>
+          await transaction.update(
+            {
+              status: "Order Cancelled",
+            },
+            {
+              where: {
+                id: result.id,
+              },
+            }
+          )
+      );
 
       const data = await productCart.findAll({
         where: [
@@ -79,7 +98,13 @@ module.exports = {
         });
       });
 
-      res.status(200).send(result);
+      // await transaction.findAll({
+      //   order: ["id", "DESC"],
+      // });
+      res.status(200).send(
+        result,
+        
+      );
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

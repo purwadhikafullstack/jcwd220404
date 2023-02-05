@@ -53,6 +53,7 @@ module.exports = {
           id: req.body.BranchId
         }
       });
+
       // data.map(async (item) => {
       //   console.log(item);
       // });

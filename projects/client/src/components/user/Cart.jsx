@@ -36,6 +36,7 @@ export const CartComp = () => {
   const [data7, setData7] = useState(0);
   const [data8, setData8] = useState();
   const [data9, setData9] = useState();
+  const [data10, setData10] = useState();
   const data = useSelector((state) => state.cartSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const inputRef = useRef("");
@@ -225,11 +226,10 @@ export const CartComp = () => {
     findOngkir();
   }, [data7]);
 
-  const onCreate = async () => {
+  const onCreate = async (data10) => {
     try {
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/create/${id}`,
-
         {
           UserId: data3[0]?.UserId,
           totalOrder: data5,
@@ -240,7 +240,11 @@ export const CartComp = () => {
         }
       );
       console.log(res.data);
-      navigate("/checkout");
+      console.log(res.data.id);
+      // setData10(res.data.id);
+
+      navigate(`/checkout/${res.data.id}`);
+      // navigate(`/checkout/`);
     } catch (err) {
       console.log(err);
     }
@@ -288,26 +292,26 @@ export const CartComp = () => {
                           {item.Product?.productName}
                         </GridItem>
                         <GridItem fontSize={"small"} ml="-12" area={"footer"}>
-                        <Box>
-                        {!item.Product.Price.discPrice ? (
-                          <Text fontSize={"xs"}>
-                            Rp{item.Product.Price.productPrice}
-                          </Text>
-                        ) : (
-                          <Text fontSize={"xs"} as="s">
-                            Rp{item.Product.Price.productPrice}
-                          </Text>
-                        )}
-                      </Box>
-                      <Box>
-                        {!item.Product.Price.discPrice ? (
-                          ""
-                        ) : (
-                          <Text fontSize={"xs"}>
-                            Rp{item.Product.Price.discPrice}
-                          </Text>
-                        )}
-                      </Box>
+                          <Box>
+                            {!item.Product.Price.discPrice ? (
+                              <Text fontSize={"xs"}>
+                                Rp{item.Product.Price.productPrice}
+                              </Text>
+                            ) : (
+                              <Text fontSize={"xs"} as="s">
+                                Rp{item.Product.Price.productPrice}
+                              </Text>
+                            )}
+                          </Box>
+                          <Box>
+                            {!item.Product.Price.discPrice ? (
+                              ""
+                            ) : (
+                              <Text fontSize={"xs"}>
+                                Rp{item.Product.Price.discPrice}
+                              </Text>
+                            )}
+                          </Box>
                         </GridItem>
                         {/* <GridItem fontSize={"small"} ml="-12" area={"footer"}>
                         </GridItem> */}
@@ -395,7 +399,7 @@ export const CartComp = () => {
               {/* </Checkbox> */}
             </Box>
           </FormControl>
-          <Button onClick={onCreate} w={"100%"}>
+          <Button onClick={() => onCreate()} w={"100%"}>
             Checkout
           </Button>
         </Stack>
