@@ -104,7 +104,7 @@ export const Checkout = () => {
             mt={"80px"}
             className="body"
             bgColor="white"
-            h={"100%"}
+            h={"90vh"}
             pb={"75px"}
             w={"390px"}
           >

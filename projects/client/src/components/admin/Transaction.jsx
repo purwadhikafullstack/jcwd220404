@@ -32,8 +32,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { MdDoneOutline } from "react-icons/md";
 import React from "react";
 import Axios from "axios";
-import { useState, useEffect } from "react";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { useState, useEffect } from "react";  
 import { useSelector } from "react-redux";
 
 export const TransactionComp = () => {
@@ -364,7 +363,9 @@ export const TransactionComp = () => {
                             ></Image>
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Button onClick={() => {}}>
+                            <Button onClick={() => {
+                                  setOrder(item.id);
+                                }}>
                               <BsFillCheckSquareFill
                                 color={"green"}
                                 size="22"
@@ -435,7 +436,9 @@ export const TransactionComp = () => {
                                 size="22"
                               />
                             </Button>
-                            <Button onClick={() => {}}>
+                            <Button onClick={() => {
+                                  setDelivery(item.id);
+                                }}>
                               <FaWindowClose color={"red"} size="25" />
                             </Button>
                           </Td>

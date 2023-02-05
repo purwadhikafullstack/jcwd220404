@@ -225,21 +225,28 @@ export const OrderDetail = () => {
                   </Center>
                 </FormControl>
                 <FormControl>
-                  <FormLabel mt="10px" ml={"10px"} textColor="#285430">Order Detail</FormLabel>
+                  <FormLabel mt="10px" ml={"10px"} textColor="#285430">
+                    Order Detail
+                  </FormLabel>
                   {data3?.map((item) => {
                     return (
-                      <Card margin={"10px"} w="370px" bgColor={"white"}  border={"1px"}
-                      borderColor="#285430"
-                      borderRadius={"md"}
-                      mt={"5px"}>
-                        <Flex mb={"8px"} justify={"space-between"} >
+                      <Card
+                        margin={"10px"}
+                        w="370px"
+                        bgColor={"white"}
+                        border={"1px"}
+                        borderColor="#285430"
+                        borderRadius={"md"}
+                        mt={"5px"}
+                      >
+                        <Flex mb={"8px"} justify={"space-between"}>
                           <Grid
-                             templateAreas={`"nav main""nav footer"`}
-                             gridTemplateRows={" 1fr 30px"}
-                             gridTemplateColumns={"120px 1fr"}
-                             h="50px"
-                             color="#285430"
-                             fontWeight="bold"
+                            templateAreas={`"nav main""nav footer"`}
+                            gridTemplateRows={" 1fr 30px"}
+                            gridTemplateColumns={"120px 1fr"}
+                            h="50px"
+                            color="#285430"
+                            fontWeight="bold"
                           >
                             <GridItem ml="20px" mt={"1px"} area={"nav"}>
                               <Image
@@ -250,7 +257,12 @@ export const OrderDetail = () => {
                                 }
                               ></Image>
                             </GridItem>
-                            <GridItem mt="10px" fontSize={"small"} pl="1" area={"main"}>
+                            <GridItem
+                              mt="10px"
+                              fontSize={"small"}
+                              pl="1"
+                              area={"main"}
+                            >
                               {item.Product?.productName}
                             </GridItem>
                             <GridItem fontSize={"small"} pl="1" area={"footer"}>
@@ -262,20 +274,26 @@ export const OrderDetail = () => {
                               </Text>
                             </GridItem>
                           </Grid>
-                          <Text color={"#285430"} mr="30px" mt={"15px"}>{item.totalWeight} g</Text>
-                          <Text color={"#285430"} mr="30px" mt={"15px"}>{item.qty}x</Text>
+                          <Text fontSize={"small"} color={"#285430"} mr="30px" mt={"15px"}>
+                            {item.totalWeight} g
+                          </Text>
+                          <Text fontSize={"small"} color={"#285430"} mr="30px" mt={"15px"}>
+                            {item.qty}x
+                          </Text>
                         </Flex>
                       </Card>
                     );
                   })}
                 </FormControl>
-                <FormControl  pl="10px" color={"#285430"}>
+                <FormControl pl="10px" color={"#285430"}>
                   <FormLabel pt={"1px"}>Delivery Address</FormLabel>
-                  <Box border={"1px"}
-            borderColor="#285430"
-            borderRadius={"md"}
-            w="370px"
-            pl={"10px"}>
+                  <Box
+                    border={"1px"}
+                    borderColor="#285430"
+                    borderRadius={"md"}
+                    w="370px"
+                    pl={"10px"}
+                  >
                     <Text as={"b"}>{data2?.receiverName}</Text>
                     <Text>{data4?.receiverPhone}</Text>
                     <Text>{data4?.addressLine}</Text>
@@ -290,7 +308,7 @@ export const OrderDetail = () => {
                 </FormControl>
               </Box>
 
-              <Box>{data5 === true ? <CancelOrder /> : ""}</Box>
+              <Box color="red">{data5 === true ? <CancelOrder /> : ""}</Box>
               <Box>{data5 === 4 ? <CompleteOrder /> : ""}</Box>
               <Box>{data5 === 5 || false ? "" : ""}</Box>
             </Stack>
