@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
@@ -20,6 +20,8 @@ export const RegisterAdmin = () => {
   const [data2, setData2] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowComfirmPassword] = useState(false);
+  const [branch, setBranch] = useState()
+  const inputBranch = useRef(0);
 
   const registerSchema = Yup.object().shape({
     username: Yup.string()
@@ -35,9 +37,9 @@ export const RegisterAdmin = () => {
     ),
   });
 
-  const onRegister = async (data) => {
+  const onRegister = async (result) => {
     try {
-      if (data.password !== data.password_confirmation) {
+      if (result.password !== result.password_confirmation) {
         return Swal.fire({
           icon: "error",
           title: "Oooops ...",
@@ -49,14 +51,17 @@ export const RegisterAdmin = () => {
           width: "370px",
         });
       }
-      const result = await Axios.post(
+      const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/admin/register`,
-        data
+        {
+          result,
+          BranchId: inputBranch.current.value,
+        }
       );
       Swal.fire({
         icon: "success",
         title: "Good Job",
-        text: `${result.data.message}`,
+        text: `${res.data.message}`,
         timer: 2000,
         customClass: {
           container: "my-swal",
@@ -103,6 +108,7 @@ export const RegisterAdmin = () => {
           email: "",
           password: "",
           password_confirmation: "",
+          BranchId: 0,
         }}
         validationSchema={registerSchema}
         onSubmit={(values, action) => {
@@ -111,6 +117,7 @@ export const RegisterAdmin = () => {
           action.setFieldValue("email", "");
           action.setFieldValue("password", "");
           action.setFieldValue("password_confirmation", "");
+          action.setFieldValue("BranchId", 0);
         }}
       >
         {(props) => {
@@ -141,7 +148,6 @@ export const RegisterAdmin = () => {
                       name="username"
                     />
                   </FormControl>
-
                   <FormControl isRequired>
                     <FormLabel ml="3" color="#285430" htmlFor="email">
                       Email
@@ -170,6 +176,8 @@ export const RegisterAdmin = () => {
                       Branch
                     </FormLabel>
                     <Select
+                    // value={req?.body?.BranchId}
+                      as={Select}
                       ml="3"
                       placeholder="Select Branch"
                       _placeholder={{ color: "#5F8D4E" }}

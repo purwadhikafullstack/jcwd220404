@@ -1,15 +1,23 @@
 const db = require("../../models");
 const bcrypt = require("bcrypt");
 const admin = db.Admin;
+const branch = db.Branch;
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
-const secretKey = process.env.SECRET_KEY
+const secretKey = process.env.SECRET_KEY;
 
 module.exports = {
   register: async (req, res) => {
     try {
-      const { username, email, password, password_confirmation, isSuper } =
-        req.body;
+      const {
+        username,
+        email,
+        password,
+        password_confirmation,
+        isSuper,
+        BranchId,
+      } = req.body;
+      console.log(req.body)
 
       if (password !== password_confirmation) throw `password not match`;
 
@@ -19,21 +27,44 @@ module.exports = {
 
       const hashPass = await bcrypt.hash(password, salt);
 
-      const data = await admin.create({
+      const result = await admin.create({
         username,
         email,
         password: hashPass,
         isSuper,
+        BranchId,
       });
+      console.log(result)
 
       const token = jwt.sign({ username: username, email: email }, secretKey);
 
+      const data = await branch.findOne({
+        where: {
+          id: req.body.BranchId,
+        },
+        include: [{model: admin}]
+      });
+
+      await branch.update({
+        AdminId: result.dataValues.id,
+      },
+      {
+        where: {
+          id: req.body.BranchId
+        }
+      });
+      // data.map(async (item) => {
+      //   console.log(item);
+      // });
+
       res.status(200).send({
         message: "Register Succes",
+        result,
         data,
         token,
       });
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },
