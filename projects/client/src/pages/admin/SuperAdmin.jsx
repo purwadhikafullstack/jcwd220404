@@ -1,5 +1,4 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-
 import { SidebarSuper } from "../../components/admin/SidebarSuper";
 
 export const SuperComp = () => {

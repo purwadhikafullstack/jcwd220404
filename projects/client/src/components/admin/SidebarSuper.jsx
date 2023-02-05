@@ -5,10 +5,10 @@ import {
   Button,
   Image,
   Text,
-  
+  useDisclosure,
 } from "@chakra-ui/react";
 
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { LogoutSuper } from "./LogoutSuper";

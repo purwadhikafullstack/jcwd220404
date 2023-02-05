@@ -1,10 +1,8 @@
 import { Button, Flex, Stack, Text } from "@chakra-ui/react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Axios from "axios";
-
 import { useEffect } from "react";
 import { useState } from "react";
-
 
 export const DefaultAddress = () => {
   const [data, setData] = useState([]);
@@ -39,7 +37,11 @@ export const DefaultAddress = () => {
             border="1px"
             borderColor={"#285430"}
           >
-            <Text color={"#285430"}>
+            {data === null   }
+          
+            
+          
+           <Text color={"#285430"}>
               Deliver to: {data?.city}, {data?.province}
             </Text>
           </Button>

@@ -6,7 +6,7 @@ const payment = db.Payment;
 const product = db.Product;
 const price = db.Price;
 const branch = db.Branch;
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 
 module.exports = {
   create: async (req, res) => {
@@ -451,6 +451,29 @@ module.exports = {
         },
       });
       res.status(200).send(salesJaktim);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  totalSales: async (req, res) => {
+    try {
+      const total = await transaction.findOne(
+        {
+          attributes: [
+            "BranchId",
+            [Sequelize.fn("sum", Sequelize.col("totalOrder")), "total_order"],
+          ],
+          group: ["BranchId"],
+        },
+        {
+          where: {
+            BranchId: req.params.BranchId,
+          },
+        }
+      );
+      res.status(200).send(total);
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

@@ -63,7 +63,7 @@ export const InventoryList = () => {
       dispatch(syncInventory(res.data));
       console.log(res.data);
       console.log(res.data[3]?.Product?.Price?.productPrice);
-      setState5(res.data[3]?.Product?.Price?.productPrice);
+      setState5(res.data?.Product?.Price?.productPrice);
     } catch (err) {
       console.log(err);
     }
