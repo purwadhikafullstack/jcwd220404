@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import Axios from "axios";
+import Select from "react-select";
 import {
   Button,
   FormControl,
   FormLabel,
   Input,
-  Select,
+  // Select,
   Stack,
   Textarea,
   Center,
@@ -15,6 +16,7 @@ import {
 
 export const AddProduct = () => {
   const [data2, setData2] = useState([]);
+  const [data3, setData3] = useState([]);
   const [edit2, setEdit2] = useState({});
   const inputProductName = useRef("");
   const inputDescription = useRef("");
@@ -52,6 +54,9 @@ export const AddProduct = () => {
       );
       console.log(res.data);
       setData2(res.data);
+      const categories = res.data.map((item) => item.categoryName);
+      console.log(categories);
+      setData3(categories);
     } catch (err) {
       console.log(err);
     }
@@ -60,6 +65,19 @@ export const AddProduct = () => {
   useEffect(() => {
     getCategory();
   }, [edit2]);
+
+  const categoryOptions = [
+    { value: 1, label: "Sayuran" },
+    { value: 2, label: "Seafood" },
+    { value: 3, label: "Buah-Buahan" },
+    { value: 4, label: "Beli 1 Gratis 1" },
+    { value: 5, label: "Daging" },
+    { value: 6, label: "Protein" },
+    { value: 7, label: "Unggas" },
+    { value: 8, label: "Ibu dan Anak" },
+    { value: 9, label: "Makanan Jadi" },
+    { value: 10, label: "Paket Masak" },
+  ];
 
   return (
     <>
@@ -90,7 +108,15 @@ export const AddProduct = () => {
         ></Input>
         <FormControl>
           <FormLabel color="#285430">Category 1</FormLabel>
-          <Select color={"#285430"} borderColor="#285430" width="100%">
+          <Select
+            // defaultValue={[colourOptions[2], colourOptions[3]]}
+            isMulti
+            name="colors"
+            options={categoryOptions}
+            className="basic-multi-select"
+            classNamePrefix="select"
+          />
+          {/* <Select color={"#285430"} borderColor="#285430" width="100%">
             <option>Select Category</option>
             {data2?.map((item) => {
               return (
@@ -99,7 +125,7 @@ export const AddProduct = () => {
                 </>
               );
             })}
-          </Select>
+          </Select> */}
         </FormControl>
         <FormControl>
           <FormLabel color={"#285430"}>Description</FormLabel>
