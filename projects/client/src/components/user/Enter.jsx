@@ -129,12 +129,12 @@ export const EnterComp = () => {
               </FormControl>
               <Center>
                 <Button
-                  mt={"15px"}
-                  mb={"15px"}
                   onClick={onLogin}
                   _hover={{
                     bg: "#E5D9B6",
                   }}
+                  mt={"15px"}
+                  mb={"15px"}
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"

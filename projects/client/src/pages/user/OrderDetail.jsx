@@ -308,7 +308,7 @@ export const OrderDetail = () => {
                 </FormControl>
               </Box>
 
-              <Box color="red">{data5 === true ? <CancelOrder /> : ""}</Box>
+              <Box >{data5 === true ? <CancelOrder /> : ""}</Box>
               <Box>{data5 === 4 ? <CompleteOrder /> : ""}</Box>
               <Box>{data5 === 5 || false ? "" : ""}</Box>
             </Stack>
