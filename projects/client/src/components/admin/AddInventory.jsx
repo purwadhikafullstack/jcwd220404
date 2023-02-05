@@ -22,6 +22,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export const InventoryAdminComp = () => {
   const [branch, setBranch] = useState();
@@ -29,19 +30,37 @@ export const InventoryAdminComp = () => {
   const inputQty = useRef(0);
   const inputEntryDate = useRef("");
   const inputBranch = useRef("");
-  const [data2, setData2] = useState([]);
+  const [data2, setData2] = useState();
   const [data3, setData3] = useState([]);
-  const [data4, setData4] = useState([]);
+  const [data4, setData4] = useState();
   const { id } = useSelector((state) => state.adminSlice.value);
+  const params = useParams()
 
-  const getData = async (BranchId) => {
+  const getBranch = async (AdminId) => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
+      );
+      setBranch(res.data);
+      console.log(res.data);
+      setData4(res.data.id);
+      console.log(res.data.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getBranch();
+  }, [id]);
+
+  const getData = async () => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
       console.log(res.data);
-      console.log(res.data[0]?.id);
     } catch (err) {
       console.log(err);
     }
@@ -91,25 +110,6 @@ export const InventoryAdminComp = () => {
     }
   };
 
-  const getBranch = async (AdminId) => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
-      );
-
-      setBranch(res.data);
-      console.log(res.data);
-      setData4(res.data?.id);
-      console.log(res.data.id);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getBranch();
-  }, [id]);
-
   return (
     <div>
       <Flex mt={"80px"} ml={"150px"}>
@@ -124,7 +124,7 @@ export const InventoryAdminComp = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {/* {data2?.map((item) => {
+                {data2?.map((item) => {
                   return (
                     <Tr>
                       <Td color={"#285430"}>{item.Product.productName}</Td>
@@ -134,7 +134,7 @@ export const InventoryAdminComp = () => {
                       </Td>
                     </Tr>
                   );
-                })} */}
+                })}
               </Tbody>
             </Table>
           </TableContainer>
