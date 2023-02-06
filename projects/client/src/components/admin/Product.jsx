@@ -20,7 +20,6 @@ import {
   FormHelperText,
   FormLabel,
   Icon,
-  Image,
   Input,
   InputGroup,
   InputRightElement,
@@ -31,17 +30,14 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
-  Table,
-  TableContainer,
   TabPanel,
   TabPanels,
-  Tabs,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
+  
+  
+ 
+
+
+
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";

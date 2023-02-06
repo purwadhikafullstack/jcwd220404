@@ -327,7 +327,7 @@ export const InventoryList = () => {
           </Button>
         </Box> */}
 
-        <Button
+        {/* <Button
         mt={"15px"}
         ml={"15px"}
           onClick={onDiscount}
@@ -340,7 +340,7 @@ export const InventoryList = () => {
           justifyContent="center"
         >
           DISCOUNT
-        </Button>
+        </Button> */}
         <Center>
           <SimpleGrid
             mt={"10px"}
