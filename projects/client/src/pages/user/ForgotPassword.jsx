@@ -46,7 +46,7 @@ export const ForgotPasswordPage = () => {
 
   return (
     <>
-      <Button onClick={onOpen} as="u" variant={"unstyled"} color="#5F8D4E">
+       <Button onClick={onOpen} as="u" variant={"unstyled"} color="#5F8D4E">
         Click Here
       </Button>
       <Modal

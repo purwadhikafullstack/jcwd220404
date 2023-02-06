@@ -72,7 +72,7 @@ export const Checkout = () => {
 
   return (
     <div>
-      <Box>
+       <Box>
         <Center>
           <Box
             className="header"
@@ -106,18 +106,33 @@ export const Checkout = () => {
             mt={"80px"}
             className="body"
             bgColor="white"
-            h={"90vh"}
+            h={"100%"}
             pb={"75px"}
             w={"390px"}
           >
-            <FormControl>
-              <FormLabel>Payment Detail</FormLabel>
+             <FormControl>
+              <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+                Payment Detail
+              </FormLabel>
               <Flex justify={"space-between"}>
                 <Box>
-                  <Text>Subtotal Produk</Text>
+                  <Text mt={"10px"} ml={"10px"} textColor="#285430">
+                    Subtotal Produk
+                  </Text>
+                  <Text mt={"10px"} ml={"10px"} textColor="#285430">
+                    Voucher
+                  </Text>
                 </Box>
                 <Box>
-                  <Text>Rp{data?.totalOrder}</Text>
+                  <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
+                    {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format()}
+                  </Text>
+                  <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
+                    xx.xxx
+                  </Text>
                 </Box>
               </Flex>
             </FormControl>

@@ -253,210 +253,168 @@ export const CartComp = () => {
   return (
     <div>
       <Box>
-        <Box>
-          <Center>
-            <FormControl ml={"10px"} mr={"10px"}>
-              <FormLabel textColor="#285430">Products</FormLabel>
-              <Card w="370px" bgColor={"white"}>
-                {data?.map((item) => {
-                  return (
-                    <>
-                      <Flex
-                        border={"1px"}
-                        borderColor="#285430"
-                        borderRadius={"md"}
-                        mt={"5px"}
+        <Stack spacing={"10px"}>
+          <FormControl ml={"10px"} mr={"10px"}>
+            <FormLabel textColor="#285430">Products</FormLabel>
+            <Card w="370px" bgColor={"white"}>
+              {data?.map((item) => {
+                return (
+                  <Flex
+                    border={"1px"}
+                    borderColor="#285430"
+                    borderRadius={"md"}
+                    mt={"5px"}
+                  >
+                    <Checkbox
+                      ml={"10px"}
+                      defaultChecked={item.status ? true : false}
+                      onChange={() => onCheckout(item.id, item.status)}
+                    >
+                      <Grid
+                        templateAreas={`"nav main""nav footer"`}
+                        gridTemplateRows={" 1fr 30px"}
+                        gridTemplateColumns={"120px 1fr"}
+                        h="50px"
+                        color="#285430"
+                        fontWeight="bold"
                       >
-                        <Checkbox
-                          ml={"10px"}
-                          defaultChecked={item.status ? true : false}
-                          onChange={() => onCheckout(item.id, item.status)}
+                        <GridItem ml="8px" area={"nav"}>
+                          <Image
+                            boxSize={"55px"}
+                            src={
+                              `${process.env.REACT_APP_API_BASE_URL}/` +
+                              item.Product?.picture
+                            }
+                          ></Image>
+                        </GridItem>
+                        <GridItem fontSize={"small"} ml="-6" area={"main"}>
+                          {item.Product?.productName}
+                        </GridItem>
+                        <GridItem
+                          fontSize={"small"}
+                          ml="-6"
+                          mt={"1"}
+                          area={"footer"}
                         >
-                          <Grid
-                            templateAreas={`"nav main""nav footer"`}
-                            gridTemplateRows={" 1fr 30px"}
-                            gridTemplateColumns={"120px 1fr"}
-                            h="50px"
-                            color="#285430"
-                            fontWeight="bold"
-                          >
-                            <GridItem ml="8px" area={"nav"}>
-                              <Image
-                                boxSize={"55px"}
-                                src={
-                                  `${process.env.REACT_APP_API_BASE_URL}/` +
-                                  item.Product?.picture
-                                }
-                              ></Image>
-                            </GridItem>
-                            <GridItem fontSize={"small"} ml="-6" area={"main"}>
-                              {item.Product?.productName}
-                            </GridItem>
-                            <GridItem
-                              fontSize={"small"}
-                              ml="-6"
-                              mt={"1"}
-                              area={"footer"}
-                            ></GridItem>
-                            <GridItem pl="1" area={"nav"}>
-                              <Image
-                                boxSize={"50px"}
-                                src={
-                                  `${process.env.REACT_APP_API_BASE_URL}/` +
-                                  item.Product?.picture
-                                }
-                              ></Image>
-                            </GridItem>
-                            <GridItem fontSize={"small"} ml="-12" area={"main"}>
-                              {item.Product?.productName}
-                            </GridItem>
-                            <GridItem
-                              fontSize={"small"}
-                              ml="-12"
-                              area={"footer"}
-                            >
-                              <Box>
-                                {!item.Product.Price.discPrice ? (
-                                  <Text fontSize={"xs"}>
-                                    Rp{item.Product.Price.productPrice}
-                                  </Text>
-                                ) : (
-                                  <Text fontSize={"xs"} as="s">
-                                    Rp{item.Product.Price.productPrice}
-                                  </Text>
-                                )}
-                              </Box>
-                              <Box>
-                                {!item.Product.Price.discPrice ? (
-                                  ""
-                                ) : (
-                                  <Text fontSize={"xs"}>
-                                    Rp{item.Product.Price.discPrice}
-                                  </Text>
-                                )}
-                              </Box>
-                            </GridItem>
-                            {/* <GridItem fontSize={"small"} ml="-12" area={"footer"}>
+                          <Box>
+                            {!item.Product.Price.discPrice ? (
+                              <Text fontSize={"xs"}>
+                                Rp{item.Product.Price.productPrice}
+                              </Text>
+                            ) : (
+                              <Text fontSize={"xs"} as="s">
+                                Rp{item.Product.Price.productPrice}
+                              </Text>
+                            )}
+                          </Box>
+                          <Box>
+                            {!item.Product.Price.discPrice ? (
+                              ""
+                            ) : (
+                              <Text fontSize={"xs"}>
+                                Rp{item.Product.Price.discPrice}
+                              </Text>
+                            )}
+                          </Box>
+                        </GridItem>
+                        {/* <GridItem fontSize={"small"} ml="-12" area={"footer"}>
                         </GridItem> */}
-                          </Grid>
-                        </Checkbox>
-                        <Box>
-                          <Grid>
-                            <GridItem>
-                              {new Intl.NumberFormat("IND", {
-                                style: "currency",
-                                currency: "IDR",
-                              }).format(item.Product?.Price?.productPrice)}
-                            </GridItem>
-                          </Grid>
-                        </Box>
-
+                      </Grid>
+                    </Checkbox>
+                    <Box>
+                      <Button
+                        pl={"50px"}
+                        variant={"unstyled"}
+                        onClick={() => onDelete(item.id)}
+                        fontSize="sm"
+                      >
+                        Hapus
+                      </Button>
+                      <HStack maxW="200px">
                         <Button
-                          pt={"10px"}
-                          ml={"50px"}
                           variant={"unstyled"}
-                          onClick={() => onDelete(item.id)}
-                          fontSize="sm"
-                          textColor={"#285430"}
+                          onClick={() => {
+                            var qtyMin = item.qty - 1;
+                            onQty(item.id, qtyMin);
+                            qtyMin = onQty <= 0 ? 1 : onQty;
+                            document.getElementById("qtyInput").value =
+                              parseInt(qtyMin);
+                          }}
                         >
-                          Delete
+                          -
                         </Button>
-                        <Box>
-                          <HStack
-                            ml={"20px"}
-                            mr="20px"
-                            maxW="200px"
-                            textColor={"#285430"}
-                          >
-                            <Button
-                              pb={"4"}
-                              variant={"unstyled"}
-                              onClick={() => {
-                                onQty(item.id, item.qty - 1);
-                              }}
-                            >
-                              -
-                            </Button>
-                          </HStack>
-                          <HStack maxW="200px">
-                            <Button
-                              variant={"unstyled"}
-                              onClick={() => {
-                                var qtyMin = item.qty - 1;
-                                onQty(item.id, qtyMin);
-                                qtyMin = onQty <= 0 ? 1 : onQty;
-                                document.getElementById("qtyInput").value =
-                                  parseInt(qtyMin);
-                              }}
-                            >
-                              -
-                            </Button>
-                            <Text w={"10px"}>{item.qty}</Text>
-                            <Button
-                              variant={"unstyled"}
-                              onClick={() => {
-                                onQty(item.id, item.qty + 1);
-                              }}
-                            >
-                              +
-                            </Button>
-                          </HStack>
-                        </Box>
-                      </Flex>
-                    </>
-                  );
-                })}
-              </Card>
-            </FormControl>
-            <FormControl>
-              <FormLabel>Total</FormLabel>
-              <PopoutCheckout props={checkout} />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Shipping Method</FormLabel>
-              <Select
-                ref={inputRef}
-                onChange={() => setData7(inputRef.current.value)}
-              >
-                <option>Select Shipping Method</option>
-                {data4?.map((item, index) => {
-                  return <option value={index}>{item.cost[0].etd} days</option>;
-                })}
-              </Select>
-            </FormControl>
-            {/* <FormControl>
+                        <Text w={"10px"}>{item.qty}</Text>
+                        <Button
+                          variant={"unstyled"}
+                          onClick={() => {
+                            onQty(item.id, item.qty + 1);
+                          }}
+                        >
+                          +
+                        </Button>
+                      </HStack>
+                    </Box>
+                  </Flex>
+                );
+              })}
+            </Card>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Total</FormLabel>
+            <PopoutCheckout props={checkout} />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Shipping Method</FormLabel>
+            <Select
+              ref={inputRef}
+              onChange={() => setData7(inputRef.current.value)}
+            >
+              <option>Select Shipping Method</option>
+              {data4?.map((item, index) => {
+                return <option value={index}>{item.cost[0].etd} days</option>;
+              })}
+            </Select>
+          </FormControl>
+          {/* <FormControl>
             <FormLabel>Buyer Information</FormLabel>
             <Text>{data2?.["User.name"]}</Text>
             <Text>{data2?.["User.phoneNumber"]}</Text>
           </FormControl> */}
-            <FormControl>
-              <FormLabel>Delivery Address</FormLabel>
-              <Box>
-                <Text as={"b"}>{data2?.receiverName}</Text>
-                <Text>{data2?.receiverPhone}</Text>
-                <Text>{data2?.addressLine}</Text>
-                <Text>
-                  {data2?.district} {data2?.city}, {data2?.province}
-                </Text>
-              </Box>
-            </FormControl>
-            <FormControl>
-              <FormLabel>Order Note</FormLabel>
-              <Textarea></Textarea>
-            </FormControl>
-            <FormControl>
-              <FormLabel>Payment Option</FormLabel>
-              <Box variant={"unstyled"}>
-                {/* <Checkbox value="1"> */}
-                <Text>Bank Transfer via Only Fresh Account</Text>
-                {/* </Checkbox> */}
-              </Box>
-            </FormControl>
-            <Button onClick={() => onCreate()} w={"100%"}>
-              Checkout
-            </Button>
-          </Center>
-        </Box>
+          <FormControl>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Delivery Address
+            </FormLabel>
+            <Box
+              ml="10px"
+              border={"1px"}
+              borderColor="#285430"
+              borderRadius={"md"}
+              w="370px"
+            >
+              <Text as={"b"}>{data2?.receiverName}</Text>
+              <Text>{data2?.receiverPhone}</Text>
+              <Text>{data2?.addressLine}</Text>
+              <Text>
+                {data2?.district} {data2?.city}, {data2?.province}
+              </Text>
+            </Box>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Order Note</FormLabel>
+            <Textarea></Textarea>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Payment Option</FormLabel>
+            <Box variant={"unstyled"}>
+              {/* <Checkbox value="1"> */}
+              <Text>Bank Transfer via Only Fresh Account</Text>
+              {/* </Checkbox> */}
+            </Box>
+          </FormControl>
+          <Button onClick={() => onCreate()} w={"100%"}>
+            Checkout
+          </Button>
+        </Stack>
       </Box>
     </div>
   );

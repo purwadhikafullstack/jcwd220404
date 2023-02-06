@@ -102,11 +102,9 @@ export const TransactionComp = () => {
               border="1px"
               borderRadius="10px"
               borderColor={"#285430"}
-             
             >
               <Stack textColor={"#285430"} ml={"10px"} spacing={5} mb={2}>
-                <Box  as={Link}
-              to={`/transaction/${item.id}`}>
+                <Box as={Link} to={`/transaction/${item.id}`}>
                   <Text align={"left"} mt={"10px"}>
                     Order No. {item.id_order}
                   </Text>
@@ -121,7 +119,6 @@ export const TransactionComp = () => {
                   </HStack>
                 </Flex>
                 <Box>
-                  <Text align={"left"}>Bill Total: Rp{item.totalOrder + item.totalCharge}</Text>
                   <Text align={"left"}>
                     {new Intl.NumberFormat("IND", {
                       style: "currency",

@@ -80,7 +80,7 @@ export const RegisterUser = () => {
 
   return (
     <div>
-      <Formik
+       <Formik
         initialValues={{
           name: "",
           phoneNumber: "",

@@ -90,29 +90,29 @@ export const ProductDetail = () => {
               </Flex>
               <Stack spacing={{ base: 6, md: 6 }}>
                 <Center>
-
-                <Heading
-                mt={"20px"}
-                ml={"10px"}
-                width="370px"
-                lineHeight={1.1}
-                fontWeight={400}
-                fontSize="4xl"
+                  <Heading
+                    mt={"20px"}
+                    ml={"10px"}
+                    width="370px"
+                    lineHeight={1.1}
+                    fontWeight={400}
+                    fontSize="4xl"
+                  >
+                    {data?.productName}
+                  </Heading>
+                </Center>
+                <Text
+                  pl={"10px"}
+                  color={"#285430"}
+                  fontWeight={300}
+                  fontSize={"2xl"}
                 >
-                  {data?.productName}
-                </Heading>
-                  </Center>
-                <Text pl={"10px"} color={"#285430"} fontWeight={300} fontSize={"2xl"}>
                   Berat: {data?.weight} g
                 </Text>
-                <Stack
-                  spacing={{ base: 4, sm: 6 }}
-                  direction={"column"}
-                  
-                >
-                  <Box >
+                <Stack spacing={{ base: 4, sm: 6 }} direction={"column"}>
+                  <Box>
                     <Text
-                    ml={"10px"}
+                      ml={"10px"}
                       fontSize={{ base: "16px", lg: "18px" }}
                       color={"#285430"}
                       as="b"
@@ -123,7 +123,15 @@ export const ProductDetail = () => {
                     </Text>
 
                     <List spacing={2}>
-                      <ListItem border="1px" borderRadius={"xl"} mt="10px" w="365px" p="10px">{data?.description}</ListItem>
+                      <ListItem
+                        border="1px"
+                        borderRadius={"xl"}
+                        mt="10px"
+                        w="365px"
+                        p="10px"
+                      >
+                        {data?.description}
+                      </ListItem>
                     </List>
                   </Box>
                 </Stack>

@@ -14,7 +14,7 @@ export const ListAddressPage = () => {
 
   return (
     <>
-      <Center>
+       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
           <Box
             className="header"

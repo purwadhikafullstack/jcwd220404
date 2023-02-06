@@ -86,30 +86,32 @@ export const CategoryDetail = (id) => {
               {data?.Product_Categories?.map((item) => {
                 return (
                   <div>
-                    <Card 
-                     border={"1px"}
-                     borderColor="#285430"
-                     bgColor="#E5D9B6"
-                    w={"150px"}>
-
+                    <Card
+                      border={"1px"}
+                      borderColor="#285430"
+                      bgColor="#E5D9B6"
+                      w={"150px"}
+                    >
                       <Center>
-                      <CardBody>
-                        <Image
-                          boxSize={"100px"}
-                          src={
-                            `${process.env.REACT_APP_API_BASE_URL}/` +
-                            item?.Product?.picture
-                          }
+                        <CardBody>
+                          <Image
+                            boxSize={"100px"}
+                            src={
+                              `${process.env.REACT_APP_API_BASE_URL}/` +
+                              item?.Product?.picture
+                            }
                           />
-                        <Text mt={"10px"} color={"#285430"}>{item.Product.productName}</Text>
-                        <Text mt={"10px"} fontSize={"sm"} color="#285430">
-                              {new Intl.NumberFormat("IND", {
-                                style: "currency",
-                                currency: "IDR",
-                              }).format(item?.Product?.Price?.productPrice)}
-                        </Text>
-                      </CardBody>
-                              </Center>
+                          <Text mt={"10px"} color={"#285430"}>
+                            {item.Product.productName}
+                          </Text>
+                          <Text mt={"10px"} fontSize={"sm"} color="#285430">
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item?.Product?.Price?.productPrice)}
+                          </Text>
+                        </CardBody>
+                      </Center>
                     </Card>
                   </div>
                 );

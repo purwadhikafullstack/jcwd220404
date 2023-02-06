@@ -73,7 +73,11 @@ export const LoginAdminPage = () => {
       <Center>
         <Box py={3} px={3} bgColor="#E5D9B6" w={"100%"} h={"820px"}>
           <Stack align={"center"}>
-            <Image src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`} height="160px" w={"auto"} />
+            <Image
+              src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167324294561798293.png`}
+              height="160px"
+              w={"auto"}
+            />
             <Heading mt={"10px"} size={"lg"} textColor="#285430">
               Sign in to Admin
             </Heading>
@@ -147,13 +151,11 @@ export const LoginAdminPage = () => {
             </Stack>
           </Center>
           <Center>
-            <React.StrictMode>
-              <Image
-                src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358160512169392.gif`}
-                width="390px"
-                height="338px"
-              ></Image>
-            </React.StrictMode>
+            <Image
+              src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358160512169392.gif`}
+              width="390px"
+              height="338px"
+            ></Image>
           </Center>
         </Box>
       </Center>

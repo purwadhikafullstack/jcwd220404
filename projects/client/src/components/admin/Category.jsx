@@ -4,64 +4,62 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Center,
-  Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Icon,
-  Image,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  Select,
+  Text,
+  useDisclosure,
   Table,
   TableContainer,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Tbody,
-  Td,
-  Text,
-  Th,
   Thead,
   Tr,
+  Th,
+  Tbody,
+  Td,
+  Image,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  ModalOverlay,
+  Center,
+  Flex,
   useColorModeValue,
-  useDisclosure,
+  Icon,
+  FormControl,
+  FormLabel,
+  Select,
+  InputGroup,
+  Input,
+  InputRightElement,
+  FormHelperText,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { syncCategory } from "../../redux/categorySlice";
-import { BsFilterLeft } from "react-icons/bs";
-import { BiReset, BiSearchAlt } from "react-icons/bi";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { UpdateCategoryComp } from "./UpdateCategory";
+import { useNavigate } from "react-router-dom";
 
 export const Category = () => {
-  const data = useSelector((state) => state.categorySlice.value);
+  const [product, setProduct] = useState([]);
+  const [category, setCategory] = useState([]);
   const [edit, setEdit] = useState({});
-  const [image, setImage] = useState("");
-  const [profile, setProfile] = useState("upload");
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
-  const [sort, setSort] = useState("ASC");
-  const [order, setOrder] = useState("categoryName");
-  const [searchCategory, setSearchCategory] = useState("");
-  const [totalPage, setTotalPage] = useState(0);
-  const [state, setState] = useState(0);
+  const [edit2, setEdit2] = useState({});
+  const [image2, setImage2] = useState("");
+  const [profile2, setProfile2] = useState("upload");
+  const [searchProduct, setSearchProduct] = useState("");
+  const [page2, setPage2] = useState(1);
+  const [limit2, setLimit2] = useState(5);
+  const [sort2, setSort2] = useState("ASC");
+  const [order2, setOrder2] = useState("categoryName");
+  const [searchCategory2, setSearchCategory2] = useState("");
+  const [totalPage2, setTotalPage2] = useState(0);
+  const [state2, setState2] = useState(0);
+  const data2 = useSelector((state) => state.categorySlice.value);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const OverlayOne = () => (
     <ModalOverlay
     />
@@ -71,18 +69,10 @@ export const Category = () => {
   const getCategory = async () => {
     try {
       const res = await Axios.get(
-        `${
-          process.env.REACT_APP_API_BASE_URL
-        }/product/pagCategory?search_query=${searchCategory}&page=${
-          page - 1
-        }&limit=${limit}&order=${order ? order : `categoryName`}&sort=${
-          sort ? sort : "ASC"
-        }`
+        `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
       );
-      dispatch(syncCategory(res.data.result));
-      console.log(res.data.result);
-      setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
-      setState(res.data);
+      console.log(res.data);
+      setCategory(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -90,35 +80,7 @@ export const Category = () => {
 
   useEffect(() => {
     getCategory();
-  }, [searchCategory, page, limit, sort]);
-
-  const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage(e.target.files[0]);
-  };
-
-  const handleUpload = async (item) => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded-category/${item.id}`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile(resultImage.data.categoryPicture);
-    setImage({ images: "" });
-    getCategory();
-    console.log(image);
-    console.log(profile);
-  };
+  }, [edit2]);
 
   const onDeleteCategory = async (id) => {
     try {
@@ -127,18 +89,38 @@ export const Category = () => {
       );
       console.log(res);
       getCategory();
-      Swal.fire({
-        icon: "success",
-        text: " Delete Success",
-      });
     } catch (err) {
       console.log(err);
     }
   };
 
-  async function fetchSort(filter) {
-    setSort(filter);
-  }
+  const handleChoose1 = (e) => {
+    console.log("e.target.files", e.target.files);
+    setImage2(e.target.files[0]);
+  };
+
+  const handleUpload1 = async (id) => {
+    const data = new FormData();
+    console.log(data);
+    data.append("file", image2);
+    console.log(data.get("file"));
+
+    const resultImage = await Axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded-category/${id}`,
+      data,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(resultImage.data);
+    setProfile2(resultImage.data.categoryPicture);
+    setImage2({ images: "" });
+    console.log(image2);
+    console.log(profile2);
+    window.location.replace("/admin");
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -162,8 +144,12 @@ export const Category = () => {
     navigate("/admin/product/addProductCategory");
   };
 
+  const toAddCategory = () => {
+    navigate("/admin/product/add");
+  };
+
   return (
-    <div>
+    <>
       <Tabs isFitted variant="enclosed">
         <TabPanels>
           <TabPanel>
@@ -205,7 +191,7 @@ export const Category = () => {
                         as={BiReset}
                         onClick={() => {
                           async function submit() {
-                            setSearchCategory("");
+                            setSearchCategory2("");
                             document.getElementById("search").value = "";
                             formik.values.searchName = "";
                           }
@@ -222,7 +208,7 @@ export const Category = () => {
                           color={"#285430"}
                           borderColor="#285430"
                           onChange={(event) => {
-                            fetchSort(event.target.value);
+                            fetchSort2(event.target.value);
                           }}
                         >
                           <option value="ASC">A-Z</option>
@@ -237,7 +223,7 @@ export const Category = () => {
                           color={"#285430"}
                           borderColor="#285430"
                           onChange={(event) => {
-                            setLimit(event.target.value);
+                            setLimit2(event.target.value);
                           }}
                         >
                           <option value="5">5</option>
@@ -299,7 +285,7 @@ export const Category = () => {
                   width={"100%"}
                   justifyContent="center"
                   size="md"
-                  onClick={toAddProductCategory}
+                  onClick={toAddCategory}
                 >
                   Add Category
                 </Button>
@@ -316,7 +302,7 @@ export const Category = () => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {data?.map((item) => {
+                    {data2?.map((item) => {
                       return (
                         <Tr>
                           <Td color={"#285430"} textColor="#285430">
@@ -337,7 +323,7 @@ export const Category = () => {
                                   accept="image/*"
                                   name="file"
                                   size={"100px"}
-                                  onChange={(e) => handleChoose(e)}
+                                  onChange={(e) => handleChoose1(e)}
                                 ></input>
                               </form>
                               <Button
@@ -348,7 +334,7 @@ export const Category = () => {
                                 color="gray.800"
                                 width={"100%"}
                                 justifyContent="center"
-                                onClick={() => handleUpload(item)}
+                                onClick={() => handleUpload1(item)}
                                 size="sm"
                               >
                                 Upload
@@ -379,10 +365,10 @@ export const Category = () => {
                 <Button
                   onClick={() => {
                     async function submit() {
-                      setPage(page === 1 ? 1 : page - 1);
+                      setPage2(page2 === 1 ? 1 : page2 - 1);
                     }
                     submit();
-                    var pageNow = page - 1;
+                    var pageNow = page2 - 1;
                     pageNow = pageNow <= 0 ? 1 : pageNow;
                     document.getElementById("pagingInput").value =
                       parseInt(pageNow);
@@ -401,16 +387,16 @@ export const Category = () => {
                 </Button>
                 <Text alignSelf="center" mx="10px" pt="15px">
                   {" "}
-                  {page} of {totalPage}
+                  {page2} of {totalPage2}
                 </Text>
                 <Button
                   onClick={() => {
                     async function submit() {
-                      setPage(totalPage === page ? page : page + 1);
+                      setPage2(totalPage2 === page2 ? page2 : page2 + 1);
                     }
                     submit();
-                    var pageNow = page + 1;
-                    pageNow = pageNow > totalPage ? page : pageNow;
+                    var pageNow = page2 + 1;
+                    pageNow = pageNow > totalPage2 ? page2 : pageNow;
                     document.getElementById("pagingInput").value =
                       parseInt(pageNow);
                   }}
@@ -441,6 +427,6 @@ export const Category = () => {
           </ModalContent>
         </Modal>
       </Tabs>
-    </div>
+    </>
   );
 };

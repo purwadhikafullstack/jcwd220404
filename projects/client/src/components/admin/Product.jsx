@@ -17,40 +17,28 @@ import {
   Center,
   Flex,
   FormControl,
-  FormHelperText,
   FormLabel,
-  Icon,
-  Input,
+  Select,
   InputGroup,
+  Input,
   InputRightElement,
+  FormHelperText,
+  TabPanels,
+  TabPanel,
   Modal,
-  ModalBody,
-  ModalCloseButton,
   ModalContent,
+  ModalCloseButton,
+  ModalBody,
   ModalHeader,
   ModalOverlay,
-  Select,
-  TabPanel,
-  TabPanels,
-  
-  
- 
-
-
-
-  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/productSlice";
+import { syncCategory } from "../../redux/categorySlice";
 import { useNavigate } from "react-router-dom";
-import { BsFilterLeft } from "react-icons/bs";
-import { BiReset, BiSearchAlt } from "react-icons/bi";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { UpdateProductComp } from "./UpdateProduct";
 
 export const Product = () => {
   const data = useSelector((state) => state.productSlice.value);
@@ -64,15 +52,72 @@ export const Product = () => {
   const [searchProduct, setSearchProduct] = useState("");
   const [totalPage, setTotalPage] = useState(0);
   const [state, setState] = useState(0);
+  const [page2, setPage2] = useState(1);
+  const [limit2, setLimit2] = useState(5);
+  const [sort2, setSort2] = useState("ASC");
+  const [order2, setOrder2] = useState("categoryName");
+  const [searchCategory2, setSearchCategory2] = useState("");
+  const [totalPage2, setTotalPage2] = useState(0);
+  const [state2, setState2] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const navigate = useNavigate();
+  const data = useSelector((state) => state.productSlice.value);
   const dispatch = useDispatch();
 
-  const OverlayOne = () => (
-    <ModalOverlay
-    />
-  );
-  const [overlay, setOverlay] = useState(<OverlayOne />);
+  const getData = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/product/list`
+      );
+      console.log(res.data);
+      setProduct(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [edit]);
+
+  const onDelete = async (id) => {
+    try {
+      const res = await Axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
+      );
+      console.log(res);
+      getData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleChoose = (e) => {
+    console.log("e.target.files", e.target.files);
+    setImage(e.target.files[0]);
+  };
+
+  const handleUpload = async (id) => {
+    const data = new FormData();
+    console.log(data);
+    data.append("file", image);
+    console.log(data.get("file"));
+
+    const resultImage = await Axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
+      data,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(resultImage.data);
+    setProfile(resultImage.data.picture);
+    setImage({ images: "" });
+    console.log(image);
+    console.log(profile);
+    window.location.replace("/admin");
+  };
 
   const getProduct = async () => {
     try {
@@ -164,12 +209,12 @@ export const Product = () => {
     },
   });
 
-  const toAddProductCategory = () => {
-    navigate("/admin/product/addProductCategory");
+  const toAddProduct = () => {
+    navigate("/admin/product/add");
   };
 
   return (
-    <div>
+    <>
       <Tabs isFitted variant="enclosed">
         <TabPanels>
           <TabPanel>
@@ -305,7 +350,7 @@ export const Product = () => {
                   width={"100%"}
                   justifyContent="center"
                   size="md"
-                  onClick={toAddProductCategory}
+                  onClick={toAddProduct}
                 >
                   Add Product
                 </Button>
@@ -372,12 +417,12 @@ export const Product = () => {
                               justifyContent="space-evenly"
                             >
                               <Button
-                              onClick={() => {
-                                setEdit(item);
-                                setOverlay(<OverlayOne />);
-                                onOpen();
-                              }}
-                            >
+                                onClick={() => {
+                                  setEdit(item);
+                                  setOverlay(<OverlayOne />);
+                                  onOpen();
+                                }}
+                              >
                                 <EditIcon color={"#285430"} />
                               </Button>
                               <Button onClick={() => onDelete(item.id)}>
@@ -457,6 +502,6 @@ export const Product = () => {
           </ModalContent>
         </Modal>
       </Tabs>
-    </div>
+    </>
   );
 };

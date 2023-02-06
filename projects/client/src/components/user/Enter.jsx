@@ -22,6 +22,10 @@ import { loginUser } from "../../redux/userSlice";
 import { ForgotPasswordPage } from "../../pages/user/ForgotPassword";
 
 export const EnterComp = () => {
+  const { id, isVerified, profilePic, cart } = useSelector(
+    (state) => state.userSlice.value
+  );
+
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const inputPhoneEmail = useRef("");
@@ -129,12 +133,12 @@ export const EnterComp = () => {
               </FormControl>
               <Center>
                 <Button
+                  mt={"15px"}
+                  mb={"15px"}
                   onClick={onLogin}
                   _hover={{
                     bg: "#E5D9B6",
                   }}
-                  mt={"15px"}
-                  mb={"15px"}
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"
@@ -166,14 +170,12 @@ export const EnterComp = () => {
             </Stack>
           </Center>
           <Box justifyContent="center">
-            <React.StrictMode>
-              <Center>
-                <Image
-                  w={"350px"}
-                  src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358160512169392.gif`}
-                ></Image>
-              </Center>
-            </React.StrictMode>
+            <Center>
+              <Image
+                w={"350px"}
+                src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358160512169392.gif`}
+              ></Image>
+            </Center>
           </Box>
         </Box>
       </Center>

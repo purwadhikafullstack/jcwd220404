@@ -64,18 +64,25 @@ export const NavbarComp = () => {
   };
 
   return (
-    <div>
-        <Center>
-
-      <Badge zIndex={2} borderRadius="2xl" mb={"10px"} 
-      ml="100px"   bg="#FE0013"
-      color={"gray.800"}
-      >
+    <>
+      <Center>
+        <Badge
+          zIndex={2}
+          borderRadius="2xl"
+          mb={"10px"}
+          ml="100px"
+          bg="#FE0013"
+          color={"gray.800"}
+        >
           {data?.length}
         </Badge>
-        <Badge zIndex={2} borderRadius="2xl" mb={"10px"} 
-        ml="50px"   bg="#FE0013"
-        color={"gray.800"}
+        <Badge
+          zIndex={2}
+          borderRadius="2xl"
+          mb={"10px"}
+          ml="50px"
+          bg="#FE0013"
+          color={"gray.800"}
         >
           {data2?.length}
         </Badge>

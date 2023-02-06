@@ -177,9 +177,7 @@ export const OrderDetail = () => {
                   <Text pl={"10px"} color="#285430">
                     Please proceed Payment before
                   </Text>
-                  <Text pl={"10px"} color="#285430">
-                    {dateNow}
-                  </Text>
+                  <Text>{dateNow}</Text>
                 </Box>
               </Center>
               <Box>
@@ -187,42 +185,32 @@ export const OrderDetail = () => {
                   <FormLabel mt={"1px"} pl={"10px"} color="#285430">
                     Order Information
                   </FormLabel>
-                  <Center>
-                    <Box
-                      w={"370px"}
-                      border={"1px"}
-                      borderColor="#285430"
-                      borderRadius={"md"}
-                    >
-                      <Flex justify={"space-between"}>
-                        <Text pl={"10px"} color="#285430">
-                          Order-ID
-                        </Text>
-                        <Text pr={"10px"} color="#285430">
-                          {data?.id_order}{" "}
-                        </Text>
-                      </Flex>
-                      <Flex justify={"space-between"}>
-                        <Text pl={"10px"} color="#285430">
-                          Transaction Date
-                        </Text>
-                        <Text pr={"10px"} color="#285430">
-                          {dateNow}{" "}
-                        </Text>
-                      </Flex>
-                      <Flex justify={"space-between"}>
-                        <Text pl={"10px"} color="#285430">
-                          Total
-                        </Text>
-                        <Text pr={"10px"} color="#285430">
-                          {new Intl.NumberFormat("IND", {
-                            style: "currency",
-                            currency: "IDR",
-                          }).format(data2)}{" "}
-                        </Text>
-                      </Flex>
-                    </Box>
-                  </Center>
+                  <Box
+                    w={"370px"}
+                    border={"1px"}
+                    borderColor="#285430"
+                    borderRadius={"md"}
+                  >
+                    <Flex justify={"space-between"}>
+                      <Text>Order-ID</Text>
+                      <Text>{data?.id_order} </Text>
+                    </Flex>
+                    <Flex justify={"space-between"}>
+                      <Text>Transaction Date</Text>
+                      <Text>{dateNow} </Text>
+                    </Flex>
+                    <Flex justify={"space-between"}>
+                      <Text pl={"10px"} color="#285430">
+                        Total
+                      </Text>
+                      <Text pr={"10px"} color="#285430">
+                        {new Intl.NumberFormat("IND", {
+                          style: "currency",
+                          currency: "IDR",
+                        }).format(data2)}{" "}
+                      </Text>
+                    </Flex>
+                  </Box>
                 </FormControl>
                 <FormControl>
                   <FormLabel mt="10px" ml={"10px"} textColor="#285430">
@@ -285,8 +273,8 @@ export const OrderDetail = () => {
                     );
                   })}
                 </FormControl>
-                <FormControl pl="10px" color={"#285430"}>
-                  <FormLabel pt={"1px"}>Delivery Address</FormLabel>
+                <FormControl>
+                  <FormLabel>Delivery Address</FormLabel>
                   <Box
                     border={"1px"}
                     borderColor="#285430"

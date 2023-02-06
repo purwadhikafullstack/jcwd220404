@@ -1,15 +1,8 @@
 import {
   Box,
   Button,
-  ButtonGroup,
-  Center,
   Flex,
   Image,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverFooter,
   Stat,
   StatLabel,
   StatNumber,
@@ -26,7 +19,6 @@ import {
   Thead,
   Tr,
   useColorModeValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { MdOutlineCancel } from "react-icons/md";
 import { MdOutlinePayment } from "react-icons/md";
@@ -40,6 +32,16 @@ import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import {
+  MdOutlineCancel,
+  MdOutlinePayment,
+  MdOutlinePayments,
+  MdDoneOutline,
+} from "react-icons/md";
+import { BsFillCheckSquareFill } from "react-icons/bs";
+import { FaWindowClose } from "react-icons/fa";
+import { GoPackage } from "react-icons/go";
+import { TbTruckDelivery } from "react-icons/tb";
 
 export const TransactionComp = () => {
   const [data, setData] = useState();
@@ -268,15 +270,13 @@ export const TransactionComp = () => {
                             }).format(item.totalOrder + item.totalCharge)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Center>
-                              <Image
-                                boxSize={"50px"}
-                                src={
-                                  `${process.env.REACT_APP_API_BASE_URL}/` +
-                                  item.picture
-                                }
-                              ></Image>
-                            </Center>
+                            <Image
+                              boxSize={"50px"}
+                              src={
+                                `${process.env.REACT_APP_API_BASE_URL}/` +
+                                item.picture
+                              }
+                            ></Image>
                           </Td>
                         </Tr>
                       );
@@ -363,76 +363,24 @@ export const TransactionComp = () => {
                             }).format(item.totalOrder + item.totalCharge)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Center>
-                              <Image
-                                boxSize={"50px"}
-                                src={
-                                  `${process.env.REACT_APP_API_BASE_URL}/` +
-                                  item.picture
-                                }
-                              ></Image>
-                            </Center>
+                            <Image
+                              boxSize={"50px"}
+                              src={
+                                `${process.env.REACT_APP_API_BASE_URL}/` +
+                                item.picture
+                              }
+                            ></Image>
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Button onClick={() => {
-                                        setOrder(item.id);
-                                      }}>
+                            <Button onClick={() => {}}>
                               <BsFillCheckSquareFill
                                 color={"green"}
                                 size="22"
                               />
                             </Button>
-                            <Button onClick={onToggle}>
+                            <Button onClick={() => {}}>
                               <FaWindowClose color={"red"} size="25" />
                             </Button>
-                            <Popover
-                              returnFocusOnClose={false}
-                              isOpen={isOpen}
-                              placement="auto-end"
-                              closeOnBlur={false}
-                            >
-                              <PopoverContent
-                                ml="560"
-                                mt="280"
-                                borderColor="#285430"
-                                border="2px"
-                                bgColor={"#E5D9B6"}
-                              >
-                                <PopoverArrow />
-                                <PopoverBody textColor={"#285430"}>
-                                  Are you sure you want to cancel?
-                                </PopoverBody>
-                                <PopoverFooter
-                                  display="flex"
-                                  justifyContent="flex-end"
-                                >
-                                  <ButtonGroup size="sm">
-                                    <Button
-                                      onClick={onClose}
-                                      bgColor={"#A4BE7B"}
-                                      borderColor="#285430"
-                                      border="2px"
-                                      fontSize="14px"
-                                      color="gray.800"
-                                    >
-                                      No
-                                    </Button>
-                                    <Button
-                                      onClick={() => {
-                                        setCancelled(item.id);
-                                      }}
-                                      bgColor="#A4BE7B"
-                                      borderColor="#285430"
-                                      border="2px"
-                                      fontSize="14px"
-                                      color="gray.800"
-                                    >
-                                      Yes
-                                    </Button>
-                                  </ButtonGroup>
-                                </PopoverFooter>
-                              </PopoverContent>
-                            </Popover>
                           </Td>
                         </Tr>
                       );
@@ -480,26 +428,23 @@ export const TransactionComp = () => {
                             }).format(item.totalOrder + item.totalCharge)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Center>
-                              <Image
-                                boxSize={"50px"}
-                                src={
-                                  `${process.env.REACT_APP_API_BASE_URL}/` +
-                                  item.picture
-                                }
-                              ></Image>
-                            </Center>
+                            <Image
+                              boxSize={"50px"}
+                              src={
+                                `${process.env.REACT_APP_API_BASE_URL}/` +
+                                item.picture
+                              }
+                            ></Image>
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Button
-                              onClick={() => {
-                                setDelivery(item.id);
-                              }}
-                            >
+                            <Button onClick={() => {}}>
                               <BsFillCheckSquareFill
                                 color={"green"}
                                 size="22"
                               />
+                            </Button>
+                            <Button onClick={() => {}}>
+                              <FaWindowClose color={"red"} size="25" />
                             </Button>
                           </Td>
                         </Tr>
@@ -545,15 +490,13 @@ export const TransactionComp = () => {
                             }).format(item.totalOrder + item.totalCharge)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Center>
-                              <Image
-                                boxSize={"50px"}
-                                src={
-                                  `${process.env.REACT_APP_API_BASE_URL}/` +
-                                  item.picture
-                                }
-                              ></Image>
-                            </Center>
+                            <Image
+                              boxSize={"50px"}
+                              src={
+                                `${process.env.REACT_APP_API_BASE_URL}/` +
+                                item.picture
+                              }
+                            ></Image>
                           </Td>
                         </Tr>
                       );
@@ -598,15 +541,13 @@ export const TransactionComp = () => {
                             }).format(item.totalOrder + item.totalCharge)}
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Center>
-                              <Image
-                                boxSize={"50px"}
-                                src={
-                                  `${process.env.REACT_APP_API_BASE_URL}/` +
-                                  item.picture
-                                }
-                              ></Image>
-                            </Center>
+                            <Image
+                              boxSize={"50px"}
+                              src={
+                                `${process.env.REACT_APP_API_BASE_URL}/` +
+                                item.picture
+                              }
+                            ></Image>
                           </Td>
                         </Tr>
                       );

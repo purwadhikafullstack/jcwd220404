@@ -1,5 +1,6 @@
 {
   "short_name": "Only Fresh",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "OnlyFresh.jpg",

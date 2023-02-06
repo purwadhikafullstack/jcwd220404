@@ -26,8 +26,7 @@ export const DefaultAddress = () => {
 
   return (
     <div>
-      <Flex  mt="90px"
-      >
+      <Flex mt="90px">
         <Stack>
           <Button
             _placeholder={{ color: "#5F8D4E" }}
@@ -37,11 +36,9 @@ export const DefaultAddress = () => {
             border="1px"
             borderColor={"#285430"}
           >
-            {data === null   }
-          
-            
-          
-           <Text color={"#285430"}>
+            {data === null}
+
+            <Text color={"#285430"}>
               Deliver to: {data?.city}, {data?.province}
             </Text>
           </Button>

@@ -47,24 +47,23 @@ export const OrderSuccess = () => {
     getData();
   }, [data6]);
 
-  
-  window.onload = function() {
+  window.onload = function () {
     var minute = 4;
     var sec = 59;
-    setInterval(function() {
+    setInterval(function () {
       document.getElementById("timer").innerHTML = minute + ":" + sec;
       sec--;
-  
+
       if (sec === 0) {
         minute--;
         sec = 59;
-  
+
         if (minute === 0) {
           minute = 4;
         }
       }
     }, 1000);
-  }
+  };
 
   const toHome = () => {
     navigate("/");
@@ -101,15 +100,26 @@ export const OrderSuccess = () => {
             w={"390px"}
           >
             <FormControl>
-              <FormLabel>Time Limit</FormLabel>
-              <Text>
-              <span id="timer">5:00</span>
+              <FormLabel mt="10px" ml="10px" textColor="#285430">
+                Time Limit
+              </FormLabel>
+              <Text ml="10px" textColor="#285430">
+                <span id="timer">5:00</span>
               </Text>
             </FormControl>
             <FormControl>
-              <FormLabel>Total Bill</FormLabel>
-              <Text>Rp{data2}</Text>
-              <Text>{data?.id_order}</Text>
+              <FormLabel mt="10px" ml="10px" textColor="#285430">
+                Total Bill
+              </FormLabel>
+              <Text>
+                {new Intl.NumberFormat("IND", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(data2)}{" "}
+              </Text>
+              <Text mt="10px" ml="10px" textColor="#285430">
+                {data?.id_order}
+              </Text>
             </FormControl>
             <Button onClick={toHome}  mt={"20px"} ml={"10px"}
             w={"370px"}

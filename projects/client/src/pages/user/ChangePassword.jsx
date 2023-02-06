@@ -50,7 +50,7 @@ export const ChangePassword = (data) => {
   };
 
   return (
-    <div>
+    <>
       <Box>
         <Center>
           <Box
@@ -174,6 +174,6 @@ export const ChangePassword = (data) => {
           </Box>
         </Center>
       </Box>
-    </div>
+    </>
   );
 };

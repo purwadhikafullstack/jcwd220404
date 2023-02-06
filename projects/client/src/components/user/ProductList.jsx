@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/productSlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { FaCartArrowDown } from "react-icons/fa";
 
 export const ProductList = () => {
   const [state, setState] = useState();

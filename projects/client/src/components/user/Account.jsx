@@ -49,7 +49,8 @@ export const AccountComp = () => {
   };
 
   return (
-    <div>
+    <>
+      <Box>
       <Box
         className="header"
         w={"390px"}
@@ -70,65 +71,65 @@ export const AccountComp = () => {
         </Box>
       </Box>
 
-        <Box
-          mt={"100px"}
-          className="body"
-          bgColor="white"
-          h={"844px"}
-          w={"390px"}
-          pos="fixed"
+      <Box
+        mt={"100px"}
+        className="body"
+        bgColor="white"
+        // h={"844px"}
+        w={"390px"}
+        pos="fixed"
+      >
+        <Grid
+          h="100px"
+          templateRows="repeat(2, 1fr)"
+          templateColumns="repeat(5, 1fr)"
+          gap={"10px"}
         >
-          <Grid
-            h="100px"
-            templateRows="repeat(2, 1fr)"
-            templateColumns="repeat(5, 1fr)"
-            gap={"10px"}
-          >
-            <GridItem m={"auto"} rowSpan={2} colSpan={1}>
-              <Avatar
-                bgColor={"gray.500"}
-                display={"flex"}
-                size={"lg"}
-                src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}
-                ml="8"
-              ></Avatar>
-            </GridItem>
-            <GridItem colSpan={1}>
-              <Badge textColor={"#285430"} fontSize="md" ml={"10px"} as="b">
-                {name}
-              </Badge>
-            </GridItem>
-            <GridItem rowSpan={7} colSpan={4}>
-              <Tag
-                textColor={"#285430"}
-                as={"button"}
-                ml={"10px"}
-                onClick={toProfile}
-              >
-                <EditIcon textColor={"#285430"} mr={"5px"} /> Edit Profile
-              </Tag>
-            </GridItem>
-          </Grid>
-          <HStack
-            borderColor={"#285430"}
-            display="flex"
-            justifyContent={"center"}
-            divider={<StackDivider borderColor="#E5D9B6" />}
-            align="center"
-          >
-            <Badge alignContent={"center"} mr="10px" textColor={"#285430"}>
-              Potongan Belanja
-              <Text textAlign={"center"} textColor={"#285430"}>
-                0
-              </Text>
+          <GridItem m={"auto"} rowSpan={2} colSpan={1}>
+            <Avatar
+              bgColor={"gray.500"}
+              display={"flex"}
+              size={"lg"}
+              src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}           
+               ml="8"
+            ></Avatar>
+          </GridItem>
+          <GridItem colSpan={1}>
+            <Badge textColor={"#285430"} fontSize="md" ml={"10px"} as="b">
+              {name}
             </Badge>
-            <Badge alignContent={"center"} ml="10px" textColor={"#285430"}>
-              Gratis Ongkir
-              <Text textAlign={"center"} textColor={"#285430"}>
-                0
-              </Text>
-            </Badge>
-          </HStack>
+          </GridItem>
+          <GridItem rowSpan={7} colSpan={4}>
+            <Tag
+              textColor={"#285430"}
+              as={"button"}
+              ml={"10px"}
+              onClick={toProfile}
+            >
+              <EditIcon textColor={"#285430"} mr={"5px"} /> Edit Profile
+            </Tag>
+          </GridItem>
+        </Grid>
+        {/* <HStack
+          borderColor={"#285430"}
+          display="flex"
+          justifyContent={"center"}
+          divider={<StackDivider borderColor="#E5D9B6" />}
+          align="center"
+        >
+          <Badge alignContent={"center"} mr="10px" textColor={"#285430"}>
+            Potongan Belanja
+            <Text textAlign={"center"} textColor={"#285430"}>
+              0
+            </Text>
+          </Badge>
+          <Badge alignContent={"center"} ml="10px" textColor={"#285430"}>
+            Gratis Ongkir
+            <Text textAlign={"center"} textColor={"#285430"}>
+              0
+            </Text>
+          </Badge>
+        </HStack> */}
 
         <Stack
           mt={"30px"}
@@ -146,17 +147,20 @@ export const AccountComp = () => {
           >
             MY ADDRESS
           </Button>
-            <Button
+            {data2 === true ? (
+              ""
+            ) : (
+              <Button
               textAlign={"left"}
               variant={"unstyled"}
               ml={"38px"}
               textColor={"#285430"}
               // onClick={toAddress}
               fontSize="sm"
-            >
-              VERIFY MY ACCOUNT
-              <Badge variant={"subtle"}>Under Maintenance</Badge>
-            </Button>
+              >
+                VERIFY MY ACCOUNT
+              </Button>
+            )}
             <LogoutUser />
           </Stack>
         </Box>

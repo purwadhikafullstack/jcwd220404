@@ -25,6 +25,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
+import { FaCartArrowDown } from "react-icons/fa";
 
 export const InventoryList = () => {
   const [state, setState] = useState();
@@ -147,7 +148,7 @@ export const InventoryList = () => {
 
   return (
     <div>
-      <Center>
+      {/* <Center>
         <Flex
           flexWrap="wrap"
           mt="-200"
@@ -162,9 +163,9 @@ export const InventoryList = () => {
               color={useColorModeValue("#285430")}
               // border="2px"
               borderRadius="xl"
-            >
-              <Box className="filter">
-                {/* <Box
+            > */}
+      <Box className="filter">
+        {/* <Box
                   m="10px"
                   mb="20px"
                   borderWidth="2px"
@@ -172,26 +173,26 @@ export const InventoryList = () => {
                   borderRadius="8px"
                   borderColor="#285430"
                 > */}
-                <Box
-                  alignItems={"center"}
-                  h="50px"
-                  borderTopRadius="8px"
-                  align="center"
-                  // bg="#E5D9B6"
-                  display="flex"
-                >
-                  <Box h="25px" ml="10px">
-                    {/* <Icon color="#285430" boxSize="6" as={BsFilterLeft} /> */}
-                  </Box>
-                  <Box h="25px">
-                    {/* <Text mx="10px" fontWeight="bold" color="#285430">
+        <Box
+          alignItems={"center"}
+          h="50px"
+          borderTopRadius="8px"
+          align="center"
+          // bg="#E5D9B6"
+          display="flex"
+        >
+          <Box h="25px" ml="10px">
+            {/* <Icon color="#285430" boxSize="6" as={BsFilterLeft} /> */}
+          </Box>
+          <Box h="25px">
+            {/* <Text mx="10px" fontWeight="bold" color="#285430">
                         Filter & Search
                       </Text> */}
-                  </Box>
-                </Box>
-                <Flex m={2} wrap="wrap">
-                  <FormControl w="" m={1}>
-                    {/* <InputGroup>
+          </Box>
+        </Box>
+        <Flex m={2} wrap="wrap">
+          <FormControl w="" m={1}>
+            {/* <InputGroup>
                       <Input
                         placeholder="Only Fresh Here..."
                         _placeholder={{ color: "#5F8D4E" }}
@@ -222,13 +223,13 @@ export const InventoryList = () => {
                         />
                       </InputRightElement>
                     </InputGroup> */}
-                    {/* <FormHelperText color="red">
+            {/* <FormHelperText color="red">
                       {formik.errors.searchName}
                     </FormHelperText> */}
-                  </FormControl>
-                  <Center>
-                    <FormControl w="" m={1}>
-                      {/* <Select
+          </FormControl>
+          <Center>
+            <FormControl w="" m={1}>
+              {/* <Select
                         color={"#285430"}
                         borderColor="#285430"
                         onChange={(event) => {
@@ -238,9 +239,9 @@ export const InventoryList = () => {
                         <option value="ASC">A-Z</option>
                         <option value="DESC">Z-A</option>
                       </Select> */}
-                    </FormControl>
-                    <FormControl w="" m={1}>
-                      {/* <Select
+            </FormControl>
+            <FormControl w="" m={1}>
+              {/* <Select
                         color={"#285430"}
                         borderColor="#285430"
                         onChange={(event) => {
@@ -252,9 +253,9 @@ export const InventoryList = () => {
                         <option value="30">30</option>
                         <option value="50">50</option>
                       </Select> */}
-                    </FormControl>
-                  </Center>
-                  {/* <Icon
+            </FormControl>
+          </Center>
+          {/* <Icon
                     color="#285430"
                     sx={{ _hover: { cursor: "pointer" } }}
                     boxSize="6"
@@ -268,13 +269,13 @@ export const InventoryList = () => {
                       submit();
                     }}
                   /> */}
-                </Flex>
-              </Box>
-              {/* </Box> */}
-            </Flex>
+        </Flex>
+      </Box>
+      {/* </Box> */}
+      {/* </Flex>
           </Center>
         </Flex>
-      </Center>
+      </Center> */}
       <Box>
         {/* <Box display="flex" justifyContent="center" alignContent="center">
           <Button
@@ -326,38 +327,15 @@ export const InventoryList = () => {
             Next
           </Button>
         </Box> */}
-
-        {/* <Button
-        mt={"15px"}
-        ml={"15px"}
-          onClick={onDiscount}
-          bgColor={"#A4BE7B"}
-          borderColor="#285430"
-          border="2px"
-          fontSize="14px"
-          color="gray.800"
-          width={"100px"}
-          justifyContent="center"
+        <SimpleGrid
+          spacing={4}
+          templateColumns="repeat(auto-fill, minmax(100px, 1fr))"
         >
-          DISCOUNT
-        </Button> */}
-        <Center>
-          <SimpleGrid
-            mt={"10px"}
-            spacing={3}
-            templateColumns="repeat(auto-fill, minmax(150px, 1fr))"
-            w={"350px"}
-          >
-            {data?.map((item) => {
-              return (
-                <div>
-                  <Card
-                    justify={"center"}
-                    border={"1px"}
-                    borderColor="#285430"
-                    bgColor="#E5D9B6"
-                    h={"330px"}
-                  >
+          {data?.map((item) => {
+            return (
+              <>
+                <Card>
+                  <Center>
                     <CardBody as={Link} to={`product/${item.Product?.id}`}>
                       <Image
                         ml="10px"
@@ -377,40 +355,306 @@ export const InventoryList = () => {
                       >
                         {item.Product.productName}
                       </Text>
-                      <Text mt={"10px"} fontSize={"sm"} color="#285430">
-                        {" "}
-                        {new Intl.NumberFormat("IND", {
-                          style: "currency",
-                          currency: "IDR",
-                        }).format(item.Product.Price.productPrice)}
-                      </Text>
-                      <Text fontSize={"sm"} color={"#285430"}>
-                        {item.stockQty} pcs
-                      </Text>
+                      <Box>
+                        {!item.Product.Price.discPrice ? (
+                          <Text fontSize={"xs"}>
+                            Rp{item.Product.Price.productPrice}
+                          </Text>
+                        ) : (
+                          <Text fontSize={"xs"} as="s">
+                            Rp{item.Product.Price.productPrice}
+                          </Text>
+                        )}
+                      </Box>
+                      <Box>
+                        {!item.Product.Price.discPrice ? (
+                          ""
+                        ) : (
+                          <Text fontSize={"xs"}>
+                            Rp{item.Product.Price.discPrice}
+                          </Text>
+                        )}
+                      </Box> */}
+        {/* <Box>
+                        {item.isDisc === true ? (
+                          <Text fontSize={"xs"}>
+                            Rp{item.Product.Price.discPrice}
+                          </Text>
+                        ) : (
+                          <Text fontSize={"xs"}>
+                            Rp{item.Product.Price.productPrice}
+                          </Text>
+                        )}
+                      </Box> */}
+        {/* <Text>{item.totalQty} pcs</Text>
                     </CardBody>
-                    <CardFooter>
-                      <Button
-                        onClick={() =>
-                          onAddCart(item.Product.id, item.Branch.id)
-                        }
-                        bgColor={"#A4BE7B"}
-                        borderColor="#285430"
-                        border="2px"
-                        fontSize="14px"
+                  </Center>
+                  <CardFooter>
+                    <Button
+                      onClick={() => onAddCart(item.Product.id, item.Branch.id)}
+                    >
+                      <AddIcon />
+                      Cart
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </>
+            );
+          })}
+        </SimpleGrid>
+      </Box> */}
+
+        {/* <Center>
+        <Flex
+          flexWrap="wrap"
+          mt="-200"
+          w={[330, 330, 380]}
+          justifyContent="center"
+        >
+          <Center>
+            <Flex
+              ml="3"
+              mr="3"
+              flexWrap={"wrap"}
+              color={useColorModeValue("#285430")}
+              // border="2px"
+              borderRadius="xl"
+            > */}
+        <Box className="filter">
+          {/* <Box
+                  m="10px"
+                  mb="20px"
+                  borderWidth="2px"
+                  boxShadow="md"
+                  borderRadius="8px"
+                  borderColor="#285430"
+                > */}
+          <Box
+            alignItems={"center"}
+            h="50px"
+            borderTopRadius="8px"
+            align="center"
+            // bg="#E5D9B6"
+            display="flex"
+          >
+            <Box h="25px" ml="10px">
+              {/* <Icon color="#285430" boxSize="6" as={BsFilterLeft} /> */}
+            </Box>
+            <Box h="25px">
+              {/* <Text mx="10px" fontWeight="bold" color="#285430">
+                        Filter & Search
+                      </Text> */}
+            </Box>
+          </Box>
+          <Flex m={2} wrap="wrap">
+            <FormControl w="" m={1}>
+              {/* <InputGroup>
+                      <Input
+                        placeholder="Only Fresh Here..."
+                        _placeholder={{ color: "#5F8D4E" }}
+                        bgColor={"white"}
+                        w={"400px"}
+                        textColor="black"
+                        borderColor={"#285430"}
+                        border="1px"
+                        fontSize="18px"
                         color="gray.800"
-                        width={"180px"}
-                        justifyContent="center"
+                        id="search"
+                        type="text"
+                        onChange={(event) =>
+                          formik.setFieldValue("searchName", event.target.value)
+                        }
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            formik.handleSubmit();
+                          }
+                        }}
+                      />
+                      <InputRightElement>
+                        <Icon
+                          fontSize="xl"
+                          as={BiSearchAlt}
+                          sx={{ _hover: { cursor: "pointer" } }}
+                          onClick={() => formik.handleSubmit()}
+                        />
+                      </InputRightElement>
+                    </InputGroup> */}
+              {/* <FormHelperText color="red">
+                      {formik.errors.searchName}
+                    </FormHelperText> */}
+            </FormControl>
+            <Center>
+              <FormControl w="" m={1}>
+                {/* <Select
+                        color={"#285430"}
+                        borderColor="#285430"
+                        onChange={(event) => {
+                          fetchSort(event.target.value);
+                        }}
                       >
-                        <Icon as={FaCartArrowDown} w="5" h="5" m="2" />
-                        to Cart
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </div>
-              );
-            })}
-          </SimpleGrid>
-        </Center>
+                        <option value="ASC">A-Z</option>
+                        <option value="DESC">Z-A</option>
+                      </Select> */}
+              </FormControl>
+              <FormControl w="" m={1}>
+                {/* <Select
+                        color={"#285430"}
+                        borderColor="#285430"
+                        onChange={(event) => {
+                          setLimit(event.target.value);
+                        }}
+                      >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                      </Select> */}
+              </FormControl>
+            </Center>
+            {/* <Icon
+                    color="#285430"
+                    sx={{ _hover: { cursor: "pointer" } }}
+                    boxSize="6"
+                    as={BiReset}
+                    onClick={() => {
+                      async function submit() {
+                        setSearchProduct("");
+                        document.getElementById("search").value = "";
+                        formik.values.searchName = "";
+                      }
+                      submit();
+                    }}
+                  /> */}
+          </Flex>
+        </Box>
+        {/* </Box> */}
+        {/* </Flex>
+          </Center>
+        </Flex>
+      </Center> */}
+        <Box>
+          {/* <Box display="flex" justifyContent="center" alignContent="center">
+          <Button
+            onClick={() => {
+              async function submit() {
+                setPage(page === 1 ? 1 : page - 1);
+              }
+              submit();
+              var pageNow = page - 1;
+              pageNow = pageNow <= 0 ? 1 : pageNow;
+              document.getElementById("pagingInput").value = parseInt(pageNow);
+            }}
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="14px"
+            color="gray.800"
+            width={"60px"}
+            justifyContent="center"
+            size="sm"
+            mt="1rem"
+          >
+            Prev
+          </Button>
+          <Text alignSelf="center" mx="10px" pt="15px">
+            {" "}
+            {page} of {totalPage}
+          </Text>
+          <Button
+            onClick={() => {
+              async function submit() {
+                setPage(totalPage === page ? page : page + 1);
+              }
+              submit();
+              var pageNow = page + 1;
+              pageNow = pageNow > totalPage ? page : pageNow;
+              document.getElementById("pagingInput").value = parseInt(pageNow);
+            }}
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="14px"
+            color="gray.800"
+            width={"60px"}
+            justifyContent="center"
+            size="sm"
+            mt="1rem"
+          >
+            Next
+          </Button>
+        </Box> */}
+
+          <Center>
+            <SimpleGrid
+              mt={"10px"}
+              spacing={3}
+              templateColumns="repeat(auto-fill, minmax(150px, 1fr))"
+              w={"350px"}
+            >
+              {data?.map((item) => {
+                return (
+                  <div>
+                    <Card
+                      justify={"center"}
+                      border={"1px"}
+                      borderColor="#285430"
+                      bgColor="#E5D9B6"
+                      h={"330px"}
+                    >
+                      <CardBody as={Link} to={`product/${item.Product?.id}`}>
+                        <Image
+                          ml="10px"
+                          mb={"10px"}
+                          boxSize={"100px"}
+                          src={
+                            `${process.env.REACT_APP_API_BASE_URL}/` +
+                            item.Product.picture
+                          }
+                        />
+                        <Text
+                          mt={"10"}
+                          pb={"10px"}
+                          as={"b"}
+                          size="md"
+                          color={"#285430"}
+                        >
+                          {item.Product.productName}
+                        </Text>
+                        <Text mt={"10px"} fontSize={"sm"} color="#285430">
+                          {" "}
+                          {new Intl.NumberFormat("IND", {
+                            style: "currency",
+                            currency: "IDR",
+                          }).format(item.Product.Price.productPrice)}
+                        </Text>
+                        <Text fontSize={"sm"} color={"#285430"}>
+                          {item.stockQty} pcs
+                        </Text>
+                      </CardBody>
+                      <CardFooter>
+                        <Button
+                          onClick={() =>
+                            onAddCart(item.Product.id, item.Branch.id)
+                          }
+                          bgColor={"#A4BE7B"}
+                          borderColor="#285430"
+                          border="2px"
+                          fontSize="14px"
+                          color="gray.800"
+                          width={"180px"}
+                          justifyContent="center"
+                        >
+                          <Icon as={FaCartArrowDown} w="5" h="5" m="2" />
+                          to Cart
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </div>
+                );
+              })}
+            </SimpleGrid>
+          </Center>
+        </Box>
       </Box>
     </div>
   );

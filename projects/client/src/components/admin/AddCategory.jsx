@@ -9,8 +9,10 @@ import {
   FormLabel,
   Input,
   Stack,
-  Text,
+  Center,
+  Box,
   useColorModeValue,
+  Text,
 } from "@chakra-ui/react";
 
 export const AddCategory = () => {

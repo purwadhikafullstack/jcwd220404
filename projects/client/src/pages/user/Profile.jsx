@@ -118,7 +118,8 @@ export const ProfilePage = () => {
   };
 
   return (
-    <div>
+    <>
+      <Box>
       <Center>
         <Box
           className="header"
@@ -346,6 +347,7 @@ export const ProfilePage = () => {
           </Stack>
         </Box>
       </Center>
-    </div>
+      </Box>
+    </>
   );
 };

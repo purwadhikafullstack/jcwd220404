@@ -1,5 +1,4 @@
 import { Box, Center, Text } from "@chakra-ui/react";
-
 import { NavbarComp } from "../../components/user/Navbar";
 import { OrderNowComp } from "../../components/user/OrderNow";
 import { TransactionComp } from "../../components/user/Transaction";
@@ -8,8 +7,8 @@ export const TransactionPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
 
   return (
-    <div>
-      <Center>
+    <>
+       <Center>
         <Box>
           <Box
             className="header"
@@ -35,7 +34,7 @@ export const TransactionPage = () => {
              pb={"80px"}
              className="body"
              bgColor="white"
-             h={"100%"}
+             h={"90vh"}
              w={"390px"}
           >
             {tokenLocalStorage ? <TransactionComp /> : <OrderNowComp />}
