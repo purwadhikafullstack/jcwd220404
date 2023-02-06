@@ -9,17 +9,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Voucher.hasMany(models.User);
-      Voucher.belongsTo(models.Transaction);
+      // Voucher.hasMany(models.User);
+      // Voucher.belongsTo(models.Transaction);
     }
   }
   Voucher.init(
     {
-      name: DataTypes.STRING,
-      nominal: DataTypes.INTEGER,
+      // name: DataTypes.STRING,
+      // nominal: DataTypes.INTEGER,
       // startDate: DataTypes.DATE,
       // endDate: DataTypes.DATE,
-      isUsed: DataTypes.BOOLEAN,
+      // isUsed: DataTypes.BOOLEAN,
     },
     {
       sequelize,

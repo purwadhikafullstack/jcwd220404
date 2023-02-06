@@ -141,11 +141,10 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />}></Route>
         <Route path="/category/:id" element={<CategoryDetail />}></Route>
         <Route path="/transaction/:id" element={<OrderDetail />}></Route>
-        <Route path="/checkout" element={<Checkout />}></Route>
-        
-        <Route path="/checkout/payment" element={<PaymentMethod />}></Route>
+        <Route path="/checkout/:id" element={<Checkout />}></Route>
+
         <Route
-          path="/checkout/payment/success"
+          path="/checkout/success/:id"
           element={<OrderSuccess />}
         ></Route>
         <Route path="/register" element={<RegisterPage />}></Route>

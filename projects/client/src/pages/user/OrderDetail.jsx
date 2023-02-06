@@ -231,9 +231,9 @@ export const OrderDetail = () => {
                 </FormControl>
               </Box>
 
-              <Box>{data5 === true ? <CancelButton /> : ""}</Box>
-              <Box>{data5 === 4 ? <CompleteButton /> : ""}</Box>
-              <Box>{data5 === 5 || false ? "" : ""}</Box>
+              <Box>{data5 === "Waiting Payment" ? <CancelButton /> : ""}</Box>
+              <Box>{data5 === "On Delivery" ? <CompleteButton /> : ""}</Box>
+              <Box>{data5 === "Done" || "Order Cancelled" ? "" : ""}</Box>
             </Stack>
           </Box>
         </Box>

@@ -11,7 +11,10 @@ import {
   ButtonGroup,
   Tabs,
   Text,
+<<<<<<< HEAD
  
+=======
+>>>>>>> stage
   Table,
   TableContainer,
   Thead,
@@ -20,7 +23,10 @@ import {
   Tbody,
   Td,
   Image,
+<<<<<<< HEAD
  
+=======
+>>>>>>> stage
   Center,
   Flex,
   useColorModeValue,
@@ -62,9 +68,7 @@ export const Product = () => {
   const [searchCategory2, setSearchCategory2] = useState("");
   const [totalPage2, setTotalPage2] = useState(0);
   const [state2, setState2] = useState(0);
-
   const data = useSelector((state) => state.productSlice.value);
-
   const dispatch = useDispatch();
 
   
@@ -124,6 +128,7 @@ export const Product = () => {
     window.location.replace("/admin");
   };
 
+<<<<<<< HEAD
   const getCategory = async () => {
     try {
       const res = await Axios.get(
@@ -140,6 +145,8 @@ export const Product = () => {
     getCategory();
   }, [edit2]);
 
+=======
+>>>>>>> stage
   const getProduct = async () => {
     try {
       const res = await Axios.get(
@@ -183,52 +190,6 @@ export const Product = () => {
     onSubmit: async () => {
       const { searchName } = formik.values;
       setSearchProduct(searchName);
-    },
-  });
-
-  const getCategory2 = async () => {
-    try {
-      const res = await Axios.get(
-        `${
-          process.env.REACT_APP_API_BASE_URL
-        }/product/pagCategory?search_query=${searchCategory2}&page=${
-          page2 - 1
-        }&limit=${limit2}&order=${order2 ? order2 : `categoryName`}&sort=${
-          sort2 ? sort2 : "ASC"
-        }`
-      );
-      dispatch(syncCategory(res.data.result));
-      console.log(res.data.result);
-      setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
-      setState2(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getCategory2();
-  }, [searchCategory2, page2, limit2, sort2]);
-
-  async function fetchSort2(filter) {
-    setSort2(filter);
-  }
-
-  useEffect(() => {
-    fetchSort2();
-  }, []);
-
-  const formik2 = useFormik({
-    initialValues: {
-      searchName: ``,
-    },
-    validationSchema: Yup.object().shape({
-      searchName: Yup.string().min(3, "Minimal 3 huruf"),
-    }),
-    validationOnChange: false,
-    onSubmit: async () => {
-      const { searchName } = formik.values;
-      setSearchCategory2(searchName);
     },
   });
 
@@ -408,7 +369,6 @@ export const Product = () => {
                           </Button>
                         </Box>
                       </Td>
-
                       <Td>
                         <Image
                           boxSize={"50px"}

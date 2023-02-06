@@ -22,24 +22,36 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { UpdateInventory } from "./UpdateInventory";
 
 export const InventoryAdminComp = () => {
   const [branch, setBranch] = useState();
-  const inputProductName = useRef("");
-  const inputQty = useRef(0);
-  const inputEntryDate = useRef("");
   const inputBranch = useRef("");
-  const [data2, setData2] = useState([]);
+  const [data2, setData2] = useState();
   const [data3, setData3] = useState([]);
-  const [data4, setData4] = useState([]);
+  const [data4, setData4] = useState();
+  const [edit, setEdit] = useState({});
   const { id } = useSelector((state) => state.adminSlice.value);
+  const data = useSelector((state) => state.inventorySlice.value);
+  const params = useParams();
+  console.log(data)
+  console.log(edit)
 
+<<<<<<< HEAD
   const getBranch = async (AdminId) => {
+=======
+  const getBranch = async () => {
+>>>>>>> stage
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
       );
+<<<<<<< HEAD
 
+=======
+>>>>>>> stage
       setBranch(res.data);
       console.log(res.data);
       setData4(res.data.id);
@@ -53,14 +65,22 @@ export const InventoryAdminComp = () => {
     getBranch();
   }, [id]);
 
+<<<<<<< HEAD
   const getData = async (BranchId) => {
+=======
+  const getData = async () => {
+>>>>>>> stage
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
+<<<<<<< HEAD
       // console.log(res.data);
       console.log(res.data[0]?.id);
+=======
+      console.log(res.data);
+>>>>>>> stage
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +88,7 @@ export const InventoryAdminComp = () => {
 
   useEffect(() => {
     getData();
-  }, [data4]);
+  }, [data4, edit]);
 
   const getProduct = async () => {
     try {
@@ -86,6 +106,7 @@ export const InventoryAdminComp = () => {
     getProduct();
   }, []);
 
+<<<<<<< HEAD
   const onCreate = async () => {
     try {
       const addProduct = {
@@ -113,6 +134,31 @@ export const InventoryAdminComp = () => {
   useEffect(() => {
     getBranch();
   }, [id]);
+=======
+  // const onCreate = async () => {
+  //   try {
+  //     const addProduct = {
+  //       AdminId: id,
+  //       ProductId: inputProductName.current.value,
+  //       stockQty: inputQty.current.value,
+  //       entryDate: inputEntryDate.current.value,
+  //       BranchId: data4,
+  //     };
+  //     const res = await Axios.post(
+  //       `${process.env.REACT_APP_API_BASE_URL}/inventory/create`,
+  //       addProduct
+  //     );
+  //     Swal.fire({
+  //       icon: "success",
+  //       text: "Stock Updated",
+  //     });
+  //     setTimeout(() => window.location.replace("/admin"), 2000);
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+>>>>>>> stage
 
   return (
     <div>
@@ -125,10 +171,11 @@ export const InventoryAdminComp = () => {
                   <Th color={"#285430"}>Product</Th>
                   <Th color={"#285430"}>Entry Date</Th>
                   <Th color={"#285430"}>Quantity</Th>
+                  <Th color={"#285430"}>Actions</Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {/* {data2?.map((item) => {
+                {data2?.map((item) => {
                   return (
                     <Tr>
                       <Td color={"#285430"}>{item.Product.productName}</Td>
@@ -136,147 +183,36 @@ export const InventoryAdminComp = () => {
                       <Td textAlign={"center"} color={"#285430"}>
                         {item.stockQty}
                       </Td>
+                      <Td>
+                        <Box
+                          mr="28px"
+                          display={"flex"}
+                          justifyContent="space-evenly"
+                        >
+                          <Button
+                            onClick={() => {
+                              setEdit(item);
+                            }}
+                          >
+                            <EditIcon color={"#285430"} />
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              // onDelete(item.id)
+                            }}
+                          >
+                            <DeleteIcon color={"#285430"} />
+                          </Button>
+                        </Box>
+                      </Td>
                     </Tr>
                   );
-                })} */}
+                })}
               </Tbody>
             </Table>
           </TableContainer>
         </Box>
-        <Box
-          ml="120px"
-          color={useColorModeValue("#285430")}
-          border="2px"
-          borderRadius="2xl"
-        >
-          <Box
-            w={"300px"}
-            m="20px"
-            mb="25px"
-            borderWidth="2px"
-            boxShadow="xl"
-            borderRadius="8px"
-            borderColor="#285430"
-          >
-            <Box
-              pt="10px"
-              h="50px"
-              borderTopRadius="8px"
-              align="center"
-              bg="#E5D9B6"
-              fontSize="18px"
-            >
-              <Text
-                mx="10px"
-                justifyContent="center"
-                fontWeight="bold"
-                color="#285430"
-              >
-                Add Stock
-              </Text>
-            </Box>
-            <Stack spacing={"10px"}>
-              <FormControl>
-                <FormLabel
-                  color="#285430"
-                  mt="10px"
-                  ml="8px"
-                  fontSize="18px"
-                  as={"b"}
-                >
-                  Branch
-                </FormLabel>
-                <Input
-                  ref={inputBranch}
-                  color={"#285430"}
-                  borderColor="#285430"
-                  ml="5px"
-                  w="97%"
-                  defaultValue={branch?.branchName}
-                ></Input>
-              </FormControl>
-              <FormControl>
-                <FormLabel
-                  color="#285430"
-                  mt="10px"
-                  ml="8px"
-                  fontSize="18px"
-                  as={"b"}
-                >
-                  Product{" "}
-                </FormLabel>
-
-                <Select
-                  ref={inputProductName}
-                  color={"#285430"}
-                  borderColor="#285430"
-                  ml="5px"
-                  w="97%"
-                >
-                  <option>Select Product</option>
-                  {data3?.map((item) => {
-                    return (
-                      <>
-                        <option value={item.id}>{item.productName}</option>
-                      </>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-              <FormControl>
-                <FormLabel
-                  color="#285430"
-                  mt="10px"
-                  ml="8px"
-                  fontSize="18px"
-                  as={"b"}
-                >
-                  Entry Date
-                </FormLabel>
-                <Input
-                  textColor="gray.800"
-                  borderColor="#285430"
-                  ml="5px"
-                  w="97%"
-                  ref={inputEntryDate}
-                ></Input>
-              </FormControl>
-              <FormControl>
-                <FormLabel
-                  color="#285430"
-                  mt="10px"
-                  ml="8px"
-                  fontSize="18px"
-                  as={"b"}
-                >
-                  Quantity
-                </FormLabel>
-                <Input
-                  textColor="gray.800"
-                  borderColor="#285430"
-                  ml="5px"
-                  w="97%"
-                  ref={inputQty}
-                ></Input>
-              </FormControl>
-              <Center>
-                <Button
-                  mb="20px"
-                  bgColor={"#A4BE7B"}
-                  borderColor="#285430"
-                  border="2px"
-                  fontSize="18px"
-                  color="gray.800"
-                  width={"50%"}
-                  justifyContent="center"
-                  onClick={onCreate}
-                >
-                  Confirm
-                </Button>
-              </Center>
-            </Stack>
-          </Box>
-        </Box>
+        <UpdateInventory data={edit}/>
       </Flex>
     </div>
   );

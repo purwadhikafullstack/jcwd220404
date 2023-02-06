@@ -2,15 +2,69 @@ import {
   Box,
   Button,
   Center,
-
   FormControl,
   FormLabel,
   Text,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Axios from "axios";
+import { useEffect, useState } from "react";
 
 export const OrderSuccess = () => {
+  const [data, setData] = useState();
+  const [data2, setData2] = useState();
+  const [data5, setData5] = useState();
+  const [data6, setData6] = useState();
   const navigate = useNavigate();
+  const params = useParams();
+
+  const getData = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${params.id}`
+      );
+      setData(result.data);
+
+      setData6(result.data.id);
+      console.log(result.data);
+      console.log(result.data.id);
+      const selectedItem = result.data.totalOrder;
+      const selectedCharge = result.data.totalCharge;
+
+      let totalOrder = selectedItem + selectedCharge;
+      setData2(totalOrder);
+      console.log(totalOrder);
+
+      const statusDone = result.data.status;
+      setData5(statusDone);
+      console.log(statusDone);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [data6]);
+
+  
+  window.onload = function() {
+    var minute = 4;
+    var sec = 59;
+    setInterval(function() {
+      document.getElementById("timer").innerHTML = minute + ":" + sec;
+      sec--;
+  
+      if (sec === 0) {
+        minute--;
+        sec = 59;
+  
+        if (minute === 0) {
+          minute = 4;
+        }
+      }
+    }, 1000);
+  }
 
   const toHome = () => {
     navigate("/");
@@ -48,12 +102,14 @@ export const OrderSuccess = () => {
           >
             <FormControl>
               <FormLabel>Time Limit</FormLabel>
-              <Text>00:00:00</Text>
+              <Text>
+              <span id="timer">5:00</span>
+              </Text>
             </FormControl>
             <FormControl>
               <FormLabel>Total Bill</FormLabel>
-              <Text>Rpxx.xxx</Text>
-              <Text>ID Pesanan</Text>
+              <Text>Rp{data2}</Text>
+              <Text>{data?.id_order}</Text>
             </FormControl>
             <Button onClick={toHome} w={"100%"}>
               Back to Home

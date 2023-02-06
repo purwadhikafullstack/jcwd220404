@@ -112,7 +112,7 @@ export const TransactionComp = () => {
                   </HStack>
                 </Flex>
                 <Box>
-                  <Text align={"left"}>Bill Total: Rp{item.totalOrder}</Text>
+                  <Text align={"left"}>Bill Total: Rp{item.totalOrder + item.totalCharge}</Text>
                   <Flex>
                     {/* <Text mb={"10px"}>{item.status}</Text> */}
                     <ButtonGroup fontSize={"10px"} size="10px">

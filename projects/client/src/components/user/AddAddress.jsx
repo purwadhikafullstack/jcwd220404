@@ -26,7 +26,6 @@ export const AddAddress = () => {
   const inputDetail = useRef("");
   const inputDistrict = useRef("");
   const inputPostalCode = useRef("");
-
   const inputReceiverName = useRef("");
   const inputReceiverPhone = useRef("");
   const inputReceiverEmail = useRef("");

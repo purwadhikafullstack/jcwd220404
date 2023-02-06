@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 
 export const Checkout = () => {
@@ -19,15 +19,17 @@ export const Checkout = () => {
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
   const navigate = useNavigate();
+  const params = useParams()
 
   const getData = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${data6}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${params.id}`
       );
       setData(result.data);
       console.log(result.data);
       setData6(result.data.id);
+      console.log(result.data);
       console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
@@ -48,24 +50,24 @@ export const Checkout = () => {
     getData();
   }, [data6]);
 
-  const getCheckout = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listProduct/${data6}`
-      );
-      setData3(res.data);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getCheckout = async () => {
+  //   try {
+  //     const res = await Axios.get(
+  //       `${process.env.REACT_APP_API_BASE_URL}/transaction/listProduct/${82}`
+  //     );
+  //     setData3(res.data);
+  //     console.log(res.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    getCheckout();
-  }, [data6]);
+  // useEffect(() => {
+  //   getCheckout();
+  // }, [data6]);
 
   const toPayment = () => {
-    navigate("/checkout/payment/success");
+    navigate(`/checkout/success/${params.id}`);
   };
 
   return (
@@ -108,19 +110,13 @@ export const Checkout = () => {
             w={"390px"}
           >
             <FormControl>
-              <FormLabel>Voucher</FormLabel>
-              <Button w={"100%"}>Apply Voucher</Button>
-            </FormControl>
-            <FormControl>
               <FormLabel>Payment Detail</FormLabel>
               <Flex justify={"space-between"}>
                 <Box>
                   <Text>Subtotal Produk</Text>
-                  <Text>Voucher</Text>
                 </Box>
                 <Box>
                   <Text>Rp{data?.totalOrder}</Text>
-                  <Text>xx.xxx</Text>
                 </Box>
               </Flex>
             </FormControl>

@@ -1,5 +1,6 @@
 import { AddIcon } from "@chakra-ui/icons";
 import {
+  Badge,
   Box,
   Button,
   Card,
@@ -129,20 +130,6 @@ export const InventoryList = () => {
   useEffect(() => {
     getDiscount();
   }, []);
-
-  const onDiscount = async () => {
-    try {
-      const res = await Axios.patch(
-        `${process.env.REACT_APP_API_BASE_URL}/product/discItem`,
-        {
-          discPrice: state5 - state4,
-        }
-      );
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   //   const formik = useFormik({
   //     initialValues: {
@@ -360,14 +347,37 @@ export const InventoryList = () => {
                         {item.Product.productName}
                       </Text>
                       <Box>
-                        <Text mt as={"s"} fontSize={"xs"}>
-                          Rp{item.Product.Price.productPrice}
-                        </Text>
-                        <Text fontSize={"xs"}>
-                          Rp{item.Product.Price.discPrice}
-                        </Text>
+                        {!item.Product.Price.discPrice ? (
+                          <Text fontSize={"xs"}>
+                            Rp{item.Product.Price.productPrice}
+                          </Text>
+                        ) : (
+                          <Text fontSize={"xs"} as="s">
+                            Rp{item.Product.Price.productPrice}
+                          </Text>
+                        )}
                       </Box>
-                      <Text>{item.stockQty} pcs</Text>
+                      <Box>
+                        {!item.Product.Price.discPrice ? (
+                          ""
+                        ) : (
+                          <Text fontSize={"xs"}>
+                            Rp{item.Product.Price.discPrice}
+                          </Text>
+                        )}
+                      </Box>
+                      {/* <Box>
+                        {item.isDisc === true ? (
+                          <Text fontSize={"xs"}>
+                            Rp{item.Product.Price.discPrice}
+                          </Text>
+                        ) : (
+                          <Text fontSize={"xs"}>
+                            Rp{item.Product.Price.productPrice}
+                          </Text>
+                        )}
+                      </Box> */}
+                      <Text>{item.totalQty} pcs</Text>
                     </CardBody>
                   </Center>
                   <CardFooter>
@@ -383,7 +393,6 @@ export const InventoryList = () => {
             );
           })}
         </SimpleGrid>
-        <Button onClick={onDiscount}>discount</Button>
       </Box>
     </div>
   );

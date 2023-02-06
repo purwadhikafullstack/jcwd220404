@@ -9,24 +9,48 @@ const productCategory = db.Product_Category;
 module.exports = {
   create: async (req, res) => {
     try {
-      const { productName, distributor, description } = req.body;
-
+      const { productName, distributor, description, CategoryId } = req.body;
+      console.log(req.body)
       if (
-        !productName &&
+        !productName
         // !distributor &&
-        !description
+        // !description
       )
         throw "required field";
 
-      await product.create({
+      const result = await product.create({
         productName,
         // distributor,
         description,
+        // CategoryId: [
+        //   {
+        //     value: 2,
+        //   },
+        //   {
+        //     value: 5,
+        //   },
+        // ],
+      });
+
+      const data = await product.findAll({
+        where: {
+          id: result.id,
+        },
+      });
+
+      data.map(async (item) => {
+        console.log(item);
+        await productCategory.create({
+          CategoryId: 5,
+          ProductId: item.id,
+        });
       });
       res.status(200).send({
         message: "Successfully Added",
+        data,
       });
     } catch (err) {
+      console.log(err);
       res.status(400).send({
         message: "Process error",
         err,
@@ -468,26 +492,34 @@ module.exports = {
         include: [{ model: discount }],
         raw: true,
       });
+      console.log(disc);
 
       const priceOne = disc.map((item) => item.productPrice);
       const priceTwo = disc.map((item) => item["Discount.nominal"]);
       console.log(priceOne);
       console.log(priceTwo);
 
-      // const discItem = await price.update(
-      //   // Sequelize.query
-      //   // SELECT disc[0].productPrice, disc[0].Discount.nominal,(disc[0].productPrice-disc[0].Discount.nominal) as discPrice FROM
-      //   {
-      //     discPrice,
-      //   },
-      //   {
-      //     where: {
-      //       isDisc: 1,
-      //     },
-      //   }
-      // );
+      let finalDisc = priceOne.map((item, index) => {
+        // console.log(item);
+        return item - priceTwo[index];
+      });
+      console.log(finalDisc);
 
-      res.status(200).send(disc);
+      for (let i = 0; i < finalDisc.length; i++) {
+        await price.update(
+          {
+            discPrice: finalDisc[i],
+          },
+          {
+            where: {
+              id: disc[i].id,
+            },
+          }
+        );
+      }
+      res.status(200).send({
+        disc,
+      });
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

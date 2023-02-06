@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       // description: DataTypes.STRING,
       // waitingPayment: DataTypes.BOOLEAN,
       // paymentDate: DataTypes.DATE,
-      picture: DataTypes.STRING
+      // picture: DataTypes.STRING
     },
     {
       sequelize,
