@@ -11,10 +11,6 @@ import {
   ButtonGroup,
   Tabs,
   Text,
-<<<<<<< HEAD
- 
-=======
->>>>>>> stage
   Table,
   TableContainer,
   Thead,
@@ -23,10 +19,6 @@ import {
   Tbody,
   Td,
   Image,
-<<<<<<< HEAD
- 
-=======
->>>>>>> stage
   Center,
   Flex,
   useColorModeValue,
@@ -128,25 +120,6 @@ export const Product = () => {
     window.location.replace("/admin");
   };
 
-<<<<<<< HEAD
-  const getCategory = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
-      );
-      console.log(res.data);
-      setCategory(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getCategory();
-  }, [edit2]);
-
-=======
->>>>>>> stage
   const getProduct = async () => {
     try {
       const res = await Axios.get(

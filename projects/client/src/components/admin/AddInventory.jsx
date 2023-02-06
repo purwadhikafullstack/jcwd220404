@@ -39,19 +39,11 @@ export const InventoryAdminComp = () => {
   console.log(data)
   console.log(edit)
 
-<<<<<<< HEAD
-  const getBranch = async (AdminId) => {
-=======
   const getBranch = async () => {
->>>>>>> stage
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
       );
-<<<<<<< HEAD
-
-=======
->>>>>>> stage
       setBranch(res.data);
       console.log(res.data);
       setData4(res.data.id);
@@ -65,22 +57,13 @@ export const InventoryAdminComp = () => {
     getBranch();
   }, [id]);
 
-<<<<<<< HEAD
-  const getData = async (BranchId) => {
-=======
   const getData = async () => {
->>>>>>> stage
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
-<<<<<<< HEAD
-      // console.log(res.data);
-      console.log(res.data[0]?.id);
-=======
       console.log(res.data);
->>>>>>> stage
     } catch (err) {
       console.log(err);
     }
@@ -106,35 +89,6 @@ export const InventoryAdminComp = () => {
     getProduct();
   }, []);
 
-<<<<<<< HEAD
-  const onCreate = async () => {
-    try {
-      const addProduct = {
-        AdminId: id,
-        ProductId: inputProductName.current.value,
-        stockQty: inputQty.current.value,
-        entryDate: inputEntryDate.current.value,
-        BranchId: data4,
-      };
-      const res = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/inventory/create`,
-        addProduct
-      );
-      Swal.fire({
-        icon: "success",
-        text: "Stock Updated",
-      });
-      setTimeout(() => window.location.replace("/admin"), 2000);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getBranch();
-  }, [id]);
-=======
   // const onCreate = async () => {
   //   try {
   //     const addProduct = {
@@ -158,7 +112,6 @@ export const InventoryAdminComp = () => {
   //     console.log(err);
   //   }
   // };
->>>>>>> stage
 
   return (
     <div>
