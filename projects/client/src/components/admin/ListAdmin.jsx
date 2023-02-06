@@ -7,6 +7,7 @@ import {
   Th,
   Tbody,
   Td,
+  Box,
 } from "@chakra-ui/react";
 import Axios from "axios";
 
@@ -31,30 +32,36 @@ export const ListAdmin = () => {
 
   return (
     <div>
-      <TableContainer>
-        <Table ml="10px" mr="10px" variant="simple" colorScheme="teal">
-          <Thead>
-            <Tr>
-              <Th color={"#285430"}>Username</Th>
-              <Th color={"#285430"}>Email</Th>
-              <Th color={"#285430"}>Status</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {data?.map((item) => {
-              return (
-                <Tr>
-                  <Td color={"#285430"}>{item.username}</Td>
-                  <Td color={"#285430"}>{item.email}</Td>
-                  <Td color={"#285430"}>
-                    {item.isSuper === 2 ? "Super Admin" : "Branch Admin"}
-                  </Td>
-                </Tr>
-              );
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      <Box>
+        <TableContainer ml="78px" mt="215px" w="50vw" bgColor={"white"}>
+          <Table variant="simple" colorScheme="#285430">
+            <Thead alignContent={"center"}>
+              <Tr>
+                <Th color={"#285430"} fontSize="16px">
+                  Username
+                </Th>
+                <Th color={"#285430"} fontSize="16px">
+                  Email
+                </Th>
+                <Th color={"#285430"} fontSize="16px">
+                  Placement
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data?.map((item) => {
+                return (
+                  <Tr>
+                    <Td color={"#285430"}>{item.username}</Td>
+                    <Td color={"#285430"}>{item.email}</Td>
+                    <Td color={"#285430"}></Td>
+                  </Tr>
+                );
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
     </div>
   );
 };

@@ -85,36 +85,36 @@ export const UpdateInventory = ({ data }) => {
   return (
     <div>
       <Box
-        ml="120px"
+        // ml="120px"
         color={useColorModeValue("#285430")}
         border="2px"
         borderRadius="2xl"
       >
-        <Box
+        {/* <Box
           w={"300px"}
-          m="20px"
-          mb="25px"
+          // m="20px"
+          // mb="25px"
           borderWidth="2px"
           boxShadow="xl"
           borderRadius="8px"
           borderColor="#285430"
-        >
-          <Box
+        > */}
+          {/* <Box
             pt="10px"
             h="50px"
             borderTopRadius="8px"
             align="center"
             bg="#E5D9B6"
             fontSize="18px"
-          >
-            <Text
+          > */}
+            {/* <Text
               mx="10px"
               justifyContent="center"
               fontWeight="bold"
               color="#285430"
             >
               Add Stock
-            </Text>
+            </Text> */}
           </Box>
           <Stack spacing={"10px"}>
             <FormControl>
@@ -209,8 +209,8 @@ export const UpdateInventory = ({ data }) => {
               </Button>
             </Center>
           </Stack>
-        </Box>
-      </Box>
+        {/* </Box> */}
+      {/* </Box> */}
     </div>
   );
 };

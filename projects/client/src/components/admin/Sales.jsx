@@ -73,7 +73,7 @@ export const SalesComp = () => {
 
   return (
     <div>
-      <Tabs mt="50px" ml="140px">
+       <Tabs mt="50px" ml="140px">
         <TabList>
           <Tab borderRadius={"5px"}>
             <Text>Depok</Text>

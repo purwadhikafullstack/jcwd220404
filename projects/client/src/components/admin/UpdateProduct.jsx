@@ -83,8 +83,6 @@ export const UpdateProductComp = ({ data }) => {
             width={"100%"}
             justifyContent="center"
             onClick={() => {
-              // setOverlay(<OverlayOne />);
-              // onOpen();
               onUpdate(data.id);
             }}
           >
