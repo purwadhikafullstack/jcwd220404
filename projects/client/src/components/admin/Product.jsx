@@ -32,6 +32,8 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  useColorModeValue,
+  Icon,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
@@ -39,9 +41,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/productSlice";
 import { syncCategory } from "../../redux/categorySlice";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { BsFilterLeft } from "react-icons/bs";
+import { BiReset, BiSearchAlt } from "react-icons/bi";
+import { UpdateProductComp } from "./UpdateProduct";
 
 export const Product = () => {
-  const data = useSelector((state) => state.productSlice.value);
+  const [product, setProduct] = useState();
   const [edit, setEdit] = useState({});
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
@@ -62,6 +69,14 @@ export const Product = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const data = useSelector((state) => state.productSlice.value);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
+    />
+  );
+  const [overlay, setOverlay] = useState(<OverlayOne />);
 
   const getData = async () => {
     try {
@@ -150,50 +165,6 @@ export const Product = () => {
   async function fetchSort(filter) {
     setSort(filter);
   }
-
-  const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage(e.target.files[0]);
-  };
-
-  const handleUpload = async (id) => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/11`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile(resultImage.data.picture);
-    setImage({ images: "" });
-    getProduct();
-    console.log(image);
-    console.log(profile);
-  };
-
-  const onDelete = async (id) => {
-    try {
-      const res = await Axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
-      );
-      console.log(res);
-      getProduct();
-      Swal.fire({
-        icon: "success",
-        text: " Delete Success",
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const formik = useFormik({
     initialValues: {

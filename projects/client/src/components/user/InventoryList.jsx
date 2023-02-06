@@ -1,3 +1,4 @@
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Badge,
   Box,
@@ -15,7 +16,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { FaCartArrowDown } from "react-icons/fa";
+
 import Axios from "axios";
 import { syncInventory } from "../../redux/inventorySlice";
 import Swal from "sweetalert2";
@@ -94,8 +95,8 @@ export const InventoryList = () => {
       getProduct();
       Swal.fire({
         icon: "success",
+        // title: "Good Job",
         text: `Add to Cart Success`,
-        width: "370px",
         timer: 2000,
         customClass: {
           container: "my-swal",
@@ -105,8 +106,8 @@ export const InventoryList = () => {
       console.log(err);
       Swal.fire({
         icon: "error",
+        // title: "Oops...",
         text: `Add Cart Failed`,
-        width: "370px",
         customClass: {
           container: "my-swal",
         },
@@ -327,7 +328,7 @@ export const InventoryList = () => {
             Next
           </Button>
         </Box> */}
-        <SimpleGrid
+        {/* <SimpleGrid
           spacing={4}
           templateColumns="repeat(auto-fill, minmax(100px, 1fr))"
         >
@@ -338,21 +339,13 @@ export const InventoryList = () => {
                   <Center>
                     <CardBody as={Link} to={`product/${item.Product?.id}`}>
                       <Image
-                        ml="10px"
-                        mb={"10px"}
-                        boxSize={"100px"}
+                        boxSize={"50px"}
                         src={
                           `${process.env.REACT_APP_API_BASE_URL}/` +
                           item.Product.picture
                         }
                       />
-                      <Text
-                        mt={"10"}
-                        pb={"10px"}
-                        as={"b"}
-                        size="md"
-                        color={"#285430"}
-                      >
+                      <Text as={"b"} size="sm">
                         {item.Product.productName}
                       </Text>
                       <Box>

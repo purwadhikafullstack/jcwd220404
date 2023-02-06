@@ -16,6 +16,6 @@ export const AccountPage = () => {
           </Box>
         </Box>
       </Center>
-    </div>
+    </>
   );
 };

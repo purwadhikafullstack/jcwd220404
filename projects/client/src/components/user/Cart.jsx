@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Card,
-  Center,
   Checkbox,
   Flex,
   FormControl,
@@ -14,11 +13,12 @@ import {
   HStack,
   Image,
   Select,
+  Stack,
   Text,
   Textarea,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { cartSync } from "../../redux/cartSlice";
 import { delCart } from "../../redux/userSlice";
 import { PopoutCheckout } from "./PopoutCheckout";
@@ -251,7 +251,7 @@ export const CartComp = () => {
   };
 
   return (
-    <div>
+    <>
       <Box>
         <Stack spacing={"10px"}>
           <FormControl ml={"10px"} mr={"10px"}>
@@ -323,15 +323,23 @@ export const CartComp = () => {
                     </Checkbox>
                     <Box>
                       <Button
-                        pl={"50px"}
+                        pt={"10px"}
+                        ml={"50px"}
                         variant={"unstyled"}
                         onClick={() => onDelete(item.id)}
                         fontSize="sm"
+                        textColor={"#285430"}
                       >
-                        Hapus
+                        Delete
                       </Button>
-                      <HStack maxW="200px">
+                      <HStack
+                        ml={"20px"}
+                        mr="20px"
+                        maxW="200px"
+                        textColor={"#285430"}
+                      >
                         <Button
+                          pb={"4"}
                           variant={"unstyled"}
                           onClick={() => {
                             var qtyMin = item.qty - 1;
@@ -345,6 +353,7 @@ export const CartComp = () => {
                         </Button>
                         <Text w={"10px"}>{item.qty}</Text>
                         <Button
+                          pb={"4"}
                           variant={"unstyled"}
                           onClick={() => {
                             onQty(item.id, item.qty + 1);
@@ -360,12 +369,22 @@ export const CartComp = () => {
             </Card>
           </FormControl>
           <FormControl>
-            <FormLabel>Total</FormLabel>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Total
+            </FormLabel>
             <PopoutCheckout props={checkout} />
           </FormControl>
           <FormControl>
-            <FormLabel>Shipping Method</FormLabel>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Shipping Method
+            </FormLabel>
             <Select
+              w={"370px"}
+              ml="10px"
+              border={"1px"}
+              borderColor="#285430"
+              borderRadius={"md"}
+              textColor="#285430"
               ref={inputRef}
               onChange={() => setData7(inputRef.current.value)}
             >
@@ -416,6 +435,6 @@ export const CartComp = () => {
           </Button>
         </Stack>
       </Box>
-    </div>
+    </>
   );
 };

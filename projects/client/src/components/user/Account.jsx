@@ -165,6 +165,7 @@ export const AccountComp = () => {
           </Stack>
         </Box>
         <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}></Box>
-    </div>
+      </Box>
+    </>
   );
 };

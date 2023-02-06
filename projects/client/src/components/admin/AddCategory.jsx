@@ -1,10 +1,8 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import Swal from "sweetalert2";
 import Axios from "axios";
 import {
-  Box,
   Button,
-  Center,
   FormControl,
   FormLabel,
   Input,
@@ -29,15 +27,19 @@ export const AddCategory = () => {
       );
       Swal.fire({
         icon: "success",
-        text: "Success",
+        text: "Category Added",
+        width: "370px",
       });
 
-      setTimeout(() => window.location.replace("/admin/category"), 2000);
+      setTimeout(() => {
+        window.location.replace("/admin");
+      }, 900);
       console.log(res);
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <div>
       <Box

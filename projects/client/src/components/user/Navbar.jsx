@@ -138,6 +138,6 @@ export const NavbarComp = () => {
           </Flex>
         </Flex>
       </Center>
-    </div>
+    </>
   );
 };

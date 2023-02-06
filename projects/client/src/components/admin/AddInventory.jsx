@@ -131,9 +131,9 @@ export const InventoryAdminComp = () => {
 
   return (
     <div>
-      <Flex>
+      <Flex mt={"80px"} ml={"150px"}>
         <Box>
-          <TableContainer ml="78px" mt="215px" w="45vw" bgColor={"white"}>
+          <TableContainer mt={"50px"} w="45vw" bgColor={"white"}>
             <Table variant="simple" colorScheme="#285430">
               <Thead alignContent={"center"}>
                 <Tr>

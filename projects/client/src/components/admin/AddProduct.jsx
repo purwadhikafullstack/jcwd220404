@@ -1,18 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import Axios from "axios";
 import Select from "react-select";
 import {
-  Box,
   Button,
-  Center,
-  Flex,
   FormControl,
   FormLabel,
   Input,
   // Select,
   Stack,
-  Text,
   Textarea,
   Center,
   Box,
@@ -21,11 +17,11 @@ import {
 } from "@chakra-ui/react";
 
 export const AddProduct = () => {
-  const inputProductName = useRef("");
-  const inputDescription = useRef("");
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
   const [edit2, setEdit2] = useState({});
+  const inputProductName = useRef("");
+  const inputDescription = useRef("");
   const inputCategory = useRef(0);
 
   const onCreate = async () => {
@@ -45,9 +41,12 @@ export const AddProduct = () => {
       );
       Swal.fire({
         icon: "success",
-        text: "Success",
+        text: "Product Added",
+        width: "370px",
       });
-      setTimeout(() => window.location.replace("/admin/product"), 2000);
+      setTimeout(() => {
+        window.location.replace("/admin");
+      }, 900);
       console.log(res);
     } catch (err) {
       console.log(err);

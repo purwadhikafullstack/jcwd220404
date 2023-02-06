@@ -48,6 +48,6 @@ export const AddressPage = () => {
           </Box>
         </Box>
       </Center>
-    </div>
+    </>
   );
 };

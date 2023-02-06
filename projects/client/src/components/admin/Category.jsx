@@ -1,5 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
+import { BsFilterLeft } from "react-icons/bs";
+import { BiReset, BiSearchAlt } from "react-icons/bi";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import {
   Box,
   Button,
@@ -32,11 +37,14 @@ import {
   Input,
   InputRightElement,
   FormHelperText,
+  Tabs,
+  TabPanels,
+  TabPanel,
 } from "@chakra-ui/react";
+import { UpdateCategoryComp } from "./UpdateCategory";
+import { AddCategory } from "./AddCategory";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { syncData } from "../../redux/productSlice";
 import { syncCategory } from "../../redux/categorySlice";
 import { useNavigate } from "react-router-dom";
 
@@ -57,14 +65,31 @@ export const Category = () => {
   const [state2, setState2] = useState(0);
   const data2 = useSelector((state) => state.categorySlice.value);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const OverlayOne = () => (
     <ModalOverlay
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
     />
   );
   const [overlay, setOverlay] = useState(<OverlayOne />);
+
+  const getData = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/product/list`
+      );
+      console.log(res.data);
+      setProduct(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [edit]);
 
   const getCategory = async () => {
     try {
@@ -132,17 +157,55 @@ export const Category = () => {
     validationOnChange: false,
     onSubmit: async () => {
       const { searchName } = formik.values;
-      setSearchCategory(searchName);
+      setSearchProduct(searchName);
     },
   });
 
+  const getCategory2 = async () => {
+    try {
+      const res = await Axios.get(
+        `${
+          process.env.REACT_APP_API_BASE_URL
+        }/product/pagCategory?search_query=${searchCategory2}&page=${
+          page2 - 1
+        }&limit=${limit2}&order=${order2 ? order2 : `categoryName`}&sort=${
+          sort2 ? sort2 : "ASC"
+        }`
+      );
+      dispatch(syncCategory(res.data.result));
+      console.log(res.data.result);
+      setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
+      setState2(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    fetchSort();
+    getCategory2();
+  }, [searchCategory2, page2, limit2, sort2]);
+
+  async function fetchSort2(filter) {
+    setSort2(filter);
+  }
+
+  useEffect(() => {
+    fetchSort2();
   }, []);
 
-  const toAddProductCategory = () => {
-    navigate("/admin/product/addProductCategory");
-  };
+  const formik2 = useFormik({
+    initialValues: {
+      searchName: ``,
+    },
+    validationSchema: Yup.object().shape({
+      searchName: Yup.string().min(3, "Minimal 3 huruf"),
+    }),
+    validationOnChange: false,
+    onSubmit: async () => {
+      const { searchName } = formik.values;
+      setSearchCategory2(searchName);
+    },
+  });
 
   const toAddCategory = () => {
     navigate("/admin/product/add");

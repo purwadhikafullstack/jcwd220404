@@ -45,6 +45,6 @@ export const CartPage = () => {
           </Box>
         </Box>
       </Center>
-    </div>
+    </>
   );
 };

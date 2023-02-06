@@ -79,6 +79,6 @@ export const OrderNowComp = () => {
           })}
         </Box>
       </Box>
-    </div>
+    </>
   );
 };

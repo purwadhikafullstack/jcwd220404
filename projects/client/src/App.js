@@ -23,7 +23,6 @@ import { RestrictedPage } from "./pages/403ResultPage";
 import { LoginAdminPage } from "./pages/admin/Login";
 import { AdminPage } from "./pages/admin/AdminPage";
 import { UpdateAddressPage } from "./pages/user/UpdateAddress";
-import { AddProductCategoryPage } from "./pages/admin/AddProductCategoryPage";
 import { NotFoundPage } from "./pages/user/404Result";
 import { EnterComp } from "./components/user/Enter";
 import { Checkout } from "./pages/user/Checkout";

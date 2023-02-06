@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
-import { RegisterBranch} from "../../components/admin/RegisterBranch";
-import { ListBranch } from "../../components/admin/ListBranch";
+import { RegisterAdmin } from "../../components/admin/Register";
+import { ListAdmin } from "../../components/admin/ListAdmin";
 import { SidebarSuper } from "../../components/admin/SidebarSuper";
 
 export const BranchManagement = () => {
@@ -23,8 +23,8 @@ export const BranchManagement = () => {
           <SidebarSuper />
         </GridItem>
         <Flex>
-          <ListBranch />
-          <RegisterBranch />
+          <ListAdmin />
+          <RegisterAdmin />
         </Flex>
       </Grid>
     </div>

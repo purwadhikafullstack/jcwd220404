@@ -19,15 +19,14 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { MdOutlineCancel } from "react-icons/md";
-import { MdOutlinePayment } from "react-icons/md";
-import { MdOutlinePayments } from "react-icons/md";
+
 import { BsFillCheckSquareFill } from "react-icons/bs";
 import { FaWindowClose } from "react-icons/fa";
 import { GoPackage } from "react-icons/go";
 import { TbTruckDelivery } from "react-icons/tb";
-import { MdDoneOutline } from "react-icons/md";
+
 import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
@@ -38,10 +37,10 @@ import {
   MdOutlinePayments,
   MdDoneOutline,
 } from "react-icons/md";
-import { BsFillCheckSquareFill } from "react-icons/bs";
-import { FaWindowClose } from "react-icons/fa";
-import { GoPackage } from "react-icons/go";
-import { TbTruckDelivery } from "react-icons/tb";
+
+
+
+
 
 export const TransactionComp = () => {
   const [data, setData] = useState();

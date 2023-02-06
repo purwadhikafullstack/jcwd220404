@@ -44,6 +44,6 @@ export const TransactionPage = () => {
           </Box>
         </Box>
       </Center>
-    </div>
+    </>
   );
 };

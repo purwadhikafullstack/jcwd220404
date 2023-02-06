@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { LogoutBranch } from "../../components/admin/LogoutBranch";
+import { LogoutBranch } from "./LogoutBranch";
 
 export const SidebarComp = () => {
   const { username, id } = useSelector((state) => state.adminSlice.value);
