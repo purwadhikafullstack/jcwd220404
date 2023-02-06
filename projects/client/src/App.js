@@ -38,6 +38,7 @@ import { TransactionAdminPage } from "./pages/admin/Transaction";
 import { Discount } from "./pages/admin/Discount";
 import { BranchAdminMgt } from "./pages/admin/BranchAdminMgt";
 import { Sales } from "./pages/admin/Sales";
+import { AddProductCategory } from "./pages/admin/AddProductCategory";
 
 function App() {
   const dispatch = useDispatch();
@@ -142,7 +143,6 @@ function App() {
         <Route path="/category/:id" element={<CategoryDetail />}></Route>
         <Route path="/transaction/:id" element={<OrderDetail />}></Route>
         <Route path="/checkout/:id" element={<Checkout />}></Route>
-
         <Route
           path="/checkout/success/:id"
           element={<OrderSuccess />}
@@ -183,6 +183,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />}></Route>
         <Route path="/*" element={<NotFoundPage />}></Route>
         <Route path="/admin/product" element={<ProductAdminPage />}></Route>
+        <Route path="/admin/product/add" element={<AddProductCategory />}></Route>
         <Route path="/admin/category" element={<CategoryAdminPage />}></Route>
         <Route path="/admin/inventory" element={<InventoryAdminPage />}></Route>
         <Route

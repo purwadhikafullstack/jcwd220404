@@ -3,6 +3,7 @@ import {
   Center,
   Container,
   Flex,
+  Heading,
   Image,
   List,
   ListItem,
@@ -54,7 +55,7 @@ export const ProductDetail = () => {
             pl={"1px"}
             pos="fixed"
             top={"0"}
-            zIndex={"2"}
+            zIndex="2"
           >
             <Box as={Link} to={"/"}>
               <ArrowBackIcon
@@ -66,118 +67,80 @@ export const ProductDetail = () => {
               />
             </Box>
             <Box margin={"auto"} alignItems={"center"} textColor="#285430">
-              <Text m="100px" as={"b"} fontSize="xl">
-                {data?.productName}
+              <Text as={"b"} fontSize="xl">
+                PRODUCT DETAIL
               </Text>
             </Box>
           </Box>
           <Box
             mt={"80px"}
-            pt={"3px"}
+            pt={"30px"}
             className="body"
             bgColor="white"
-            h={"740px"}
+            h={"90vh"}
             w={"390px"}
+            border="2px"
           >
-            <Container maxW={"7xl"}>
-              <Box>
-                <Flex>
-                  <Image
-                    rounded={"md"}
-                    alt={data?.productName}
-                    src={
-                      `${process.env.REACT_APP_API_BASE_URL}/` + data?.picture
-                    }
-                    fit={"fill"}
-                    align={"center"}
-                    boxSize="100px"
-                  />
-                </Flex>
-                <Stack spacing={{ base: 6, md: 10 }}>
-                  <Text
-                    color={useColorModeValue("gray.900", "gray.400")}
-                    fontWeight={300}
-                    fontSize={"2xl"}
+            <Box ml="10px" textColor={"#285430"}>
+              <Flex>
+                <Image
+                  rounded={"md"}
+                  alt={data?.productName}
+                  src={`${process.env.REACT_APP_API_BASE_URL}/` + data?.picture}
+                  fit={"fill"}
+                  boxSize="280px"
+                  margin={"auto"}
+                />
+              </Flex>
+              <Stack spacing={{ base: 6, md: 6 }}>
+                <Center>
+                  <Heading
+                    mt={"20px"}
+                    ml={"10px"}
+                    width="370px"
+                    lineHeight={1.1}
+                    fontWeight={400}
+                    fontSize="4xl"
                   >
-                    Berat: {data?.weight} g
-                  </Text>
-                  <Stack
-                    spacing={{ base: 4, sm: 6 }}
-                    direction={"column"}
-                    divider={
-                      <StackDivider
-                        borderColor={useColorModeValue("gray.200", "gray.600")}
-                      />
-                    }
-                  >
-                    <Box>
-                      <Text
-                        fontSize={{ base: "16px", lg: "18px" }}
-                        color={useColorModeValue("yellow.500", "yellow.300")}
-                        fontWeight={"500"}
-                        textTransform={"uppercase"}
-                        mb={"4"}
-                      >
-                        Description
-                      </Text>
+                    {data?.productName}
+                  </Heading>
+                </Center>
+                <Text
+                  pl={"10px"}
+                  color={"#285430"}
+                  fontWeight={300}
+                  fontSize={"2xl"}
+                >
+                  Berat: {data?.weight} g
+                </Text>
+                <Stack spacing={{ base: 4, sm: 6 }} direction={"column"}>
+                  <Box>
+                    <Text
+                      ml={"10px"}
+                      fontSize={{ base: "16px", lg: "18px" }}
+                      color={"#285430"}
+                      as="b"
+                      fontWeight={"500"}
+                      textTransform={"uppercase"}
+                    >
+                      Description
+                    </Text>
 
-                      <List spacing={2}>
-                        <ListItem>{data?.description}</ListItem>
-                      </List>
-                    </Box>
-                    <Box>
-                      <Text
-                        fontSize={{ base: "16px", lg: "18px" }}
-                        color={useColorModeValue("yellow.500", "yellow.300")}
-                        fontWeight={"500"}
-                        textTransform={"uppercase"}
-                        mb={"4"}
+                    <List spacing={2}>
+                      <ListItem
+                        border="1px"
+                        borderRadius={"xl"}
+                        mt="10px"
+                        w="365px"
+                        p="10px"
                       >
-                        Distributor
-                      </Text>
-
-                      <List spacing={2}>
-                        <ListItem>
-                          <Text as={"span"} fontWeight={"bold"}>
-                            {data?.distributor}
-                          </Text>{" "}
-                        </ListItem>
-                      </List>
-                    </Box>
-                  </Stack>
+                        {data?.description}
+                      </ListItem>
+                    </List>
+                  </Box>
                 </Stack>
-              </Box>
-              <SimpleGrid
-                columns={{ base: 1, lg: 2 }}
-                spacing={{ base: 8, md: 10 }}
-                py={{ base: 18, md: 24 }}
-              >
-                {/* <Box as={"header"}></Box> */}
-
-                {/* <Button
-                rounded={"none"}
-                w={"full"}
-                mt={8}
-                size={"lg"}
-                py={"7"}
-                bg={useColorModeValue("gray.900", "gray.50")}
-                color={useColorModeValue("white", "gray.900")}
-                textTransform={"uppercase"}
-                _hover={{
-                  transform: "translateY(2px)",
-                  boxShadow: "lg",
-                }}
-              >
-                Borrow
-              </Button> */}
-
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent={"center"}
-                ></Stack>
-              </SimpleGrid>
-            </Container>
+              </Stack>
+            </Box>
           </Box>
         </Center>
       </Box>

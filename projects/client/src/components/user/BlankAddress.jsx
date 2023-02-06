@@ -9,13 +9,14 @@ export const BlankAddress = () => {
         <Stack>
           <Button
             _placeholder={{ color: "#5F8D4E" }}
-            // bgColor="#E5D9B6"
-            w={"360px"}
-            textColor="black"
+            w={"370px"}
+            backgroundColor="#E5D9B6"
+            textColor="#285430"
+            border="1px"
             borderColor={"#285430"}
           >
             <Text color={"#285430"}>
-              Deliver to: Please login to get your Delivery
+            Please Login To Get Your Delivery
             </Text>
           </Button>
         </Stack>

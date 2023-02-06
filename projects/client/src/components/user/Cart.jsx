@@ -254,19 +254,19 @@ export const CartComp = () => {
     <>
       <Box>
         <Stack spacing={"10px"}>
-          <FormControl>
-            <FormLabel>Products</FormLabel>
-            <Card margin={"10px"}>
+          <FormControl ml={"10px"} mr={"10px"}>
+            <FormLabel textColor="#285430">Products</FormLabel>
+            <Card w="370px" bgColor={"white"}>
               {data?.map((item) => {
                 return (
                   <Flex
-                    borderBottom={"1px"}
-                    borderColor="grey"
-                    borderRadius={"10px"}
-                    mt={"10px"}
-                    justify={"space-between"}
+                    border={"1px"}
+                    borderColor="#285430"
+                    borderRadius={"md"}
+                    mt={"5px"}
                   >
                     <Checkbox
+                      ml={"10px"}
                       defaultChecked={item.status ? true : false}
                       onChange={() => onCheckout(item.id, item.status)}
                     >
@@ -275,23 +275,27 @@ export const CartComp = () => {
                         gridTemplateRows={" 1fr 30px"}
                         gridTemplateColumns={"120px 1fr"}
                         h="50px"
-                        // gap="1"
-                        color="blackAlpha.700"
+                        color="#285430"
                         fontWeight="bold"
                       >
-                        <GridItem pl="1" area={"nav"}>
+                        <GridItem ml="8px" area={"nav"}>
                           <Image
-                            boxSize={"50px"}
+                            boxSize={"55px"}
                             src={
                               `${process.env.REACT_APP_API_BASE_URL}/` +
                               item.Product?.picture
                             }
                           ></Image>
                         </GridItem>
-                        <GridItem fontSize={"small"} ml="-12" area={"main"}>
+                        <GridItem fontSize={"small"} ml="-6" area={"main"}>
                           {item.Product?.productName}
                         </GridItem>
-                        <GridItem fontSize={"small"} ml="-12" area={"footer"}>
+                        <GridItem
+                          fontSize={"small"}
+                          ml="-6"
+                          mt={"1"}
+                          area={"footer"}
+                        >
                           <Box>
                             {!item.Product.Price.discPrice ? (
                               <Text fontSize={"xs"}>
@@ -319,15 +323,23 @@ export const CartComp = () => {
                     </Checkbox>
                     <Box>
                       <Button
-                        pl={"50px"}
+                        pt={"10px"}
+                        ml={"50px"}
                         variant={"unstyled"}
                         onClick={() => onDelete(item.id)}
                         fontSize="sm"
+                        textColor={"#285430"}
                       >
-                        Hapus
+                        Delete
                       </Button>
-                      <HStack maxW="200px">
+                      <HStack
+                        ml={"20px"}
+                        mr="20px"
+                        maxW="200px"
+                        textColor={"#285430"}
+                      >
                         <Button
+                          pb={"4"}
                           variant={"unstyled"}
                           onClick={() => {
                             var qtyMin = item.qty - 1;
@@ -341,6 +353,7 @@ export const CartComp = () => {
                         </Button>
                         <Text w={"10px"}>{item.qty}</Text>
                         <Button
+                          pb={"4"}
                           variant={"unstyled"}
                           onClick={() => {
                             onQty(item.id, item.qty + 1);
@@ -356,12 +369,22 @@ export const CartComp = () => {
             </Card>
           </FormControl>
           <FormControl>
-            <FormLabel>Total</FormLabel>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Total
+            </FormLabel>
             <PopoutCheckout props={checkout} />
           </FormControl>
           <FormControl>
-            <FormLabel>Shipping Method</FormLabel>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Shipping Method
+            </FormLabel>
             <Select
+              w={"370px"}
+              ml="10px"
+              border={"1px"}
+              borderColor="#285430"
+              borderRadius={"md"}
+              textColor="#285430"
               ref={inputRef}
               onChange={() => setData7(inputRef.current.value)}
             >
@@ -377,8 +400,16 @@ export const CartComp = () => {
             <Text>{data2?.["User.phoneNumber"]}</Text>
           </FormControl> */}
           <FormControl>
-            <FormLabel>Delivery Address</FormLabel>
-            <Box>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Delivery Address
+            </FormLabel>
+            <Box
+              ml="10px"
+              border={"1px"}
+              borderColor="#285430"
+              borderRadius={"md"}
+              w="370px"
+            >
               <Text as={"b"}>{data2?.receiverName}</Text>
               <Text>{data2?.receiverPhone}</Text>
               <Text>{data2?.addressLine}</Text>

@@ -109,7 +109,7 @@ export const RegisterUser = () => {
 
   return (
     <div>
-      <Formik
+       <Formik
         initialValues={{
           name: "",
           phoneNumber: "",
@@ -131,7 +131,7 @@ export const RegisterUser = () => {
           return (
             <>
               <Form>
-                <VStack spacing={"8px"} align="center">
+                <VStack spacing={"15px"} align="center">
                   <FormControl isRequired>
                     <FormLabel textColor={"#285430"} htmlFor="name">
                       Name
@@ -146,8 +146,8 @@ export const RegisterUser = () => {
                       bgColor={"white"}
                       textColor="#285430"
                       borderColor={"#285430"}
-                      border={"2px"}
-                      w={"340px"}
+                      border={"1px"}
+                      w={"370px"}
                     />
                     <ErrorMessage
                       style={{ color: "red" }}
@@ -169,8 +169,8 @@ export const RegisterUser = () => {
                       bgColor={"white"}
                       textColor="#285430"
                       borderColor={"#285430"}
-                      border={"2px"}
-                      w={"340px"}
+                      border={"1px"}
+                      w={"370px"}
                     />
                     <ErrorMessage
                       style={{ color: "red" }}
@@ -192,8 +192,8 @@ export const RegisterUser = () => {
                       bgColor={"white"}
                       textColor="#285430"
                       borderColor={"#285430"}
-                      border={"2px"}
-                      w={"340px"}
+                      border={"1px"}
+                      w={"370px"}
                     />
                     <ErrorMessage
                       style={{ color: "red" }}
@@ -216,12 +216,13 @@ export const RegisterUser = () => {
                         bgColor={"white"}
                         textColor="#285430"
                         borderColor={"#285430"}
-                        border={"2px"}
-                        w={"340px"}
+                        border={"1px"}
+                        w={"370px"}
                       />
 
                       <InputRightElement h={"full"}>
                         <Button
+                          color={"black"}
                           variant={"unstyled"}
                           onClick={() =>
                             setShowPassword((showPassword) => !showPassword)
@@ -255,11 +256,12 @@ export const RegisterUser = () => {
                         bgColor={"white"}
                         textColor="#285430"
                         borderColor={"#285430"}
-                        border={"2px"}
-                        w={"340px"}
+                        border={"1px"}
+                        w={"370px"}
                       />
                       <InputRightElement h={"full"}>
                         <Button
+                          color={"black"}
                           variant={"unstyled"}
                           onClick={() =>
                             setShowComfirmPassword(
@@ -279,15 +281,13 @@ export const RegisterUser = () => {
                   </FormControl>
                   <Button
                     type="submit"
-                    _hover={{
-                      bg: "#E5D9B6",
-                    }}
+                    mt={"15px"}
                     bgColor={"#A4BE7B"}
                     borderColor="#285430"
                     border="2px"
                     fontSize="18px"
                     color="gray.800"
-                    w={"230px"}
+                    width={"370px"}
                   >
                     Sign up
                   </Button>

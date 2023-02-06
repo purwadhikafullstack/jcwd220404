@@ -155,16 +155,15 @@ export const AddAddress = () => {
 
   return (
     <div>
-      <Stack spacing={"10px"} mt={"20px"} textColor="#285430">
+      <Stack ml="10px" spacing={"10px"} mt={"20px"} textColor="#285430">
         <FormControl>
           <FormLabel>Alamat</FormLabel>
           <Input
             ref={inputAddressLine}
             placeholder="Alamat"
-            mb={"20px"}
-            ml="20px"
-            width="340px"
-            border="2px"
+            mb={"10px"}
+            width="370px"
+            border="1px"
             borderColor="#285430"
           ></Input>
         </FormControl>
@@ -172,16 +171,19 @@ export const AddAddress = () => {
           <FormLabel>Kecamatan</FormLabel>
           <Input
             ref={inputDistrict}
-            mb={"20px"}
-            ml="20px"
-            width="340px"
-            border="2px"
+            mb={"10px"}
+            width="370px"
+            border="1px"
             borderColor="#285430"
           ></Input>
         </FormControl>
         <FormControl>
           <FormLabel>Province</FormLabel>
           <Select
+            mb={"10px"}
+            width="370px"
+            border="1px"
+            borderColor="#285430"
             value={province?.rajaongkir?.results?.province_id}
             placeholder="Select Province"
             onChange={provinceHandler}
@@ -193,6 +195,10 @@ export const AddAddress = () => {
         <FormControl>
           <FormLabel>City</FormLabel>
           <Select
+            mb={"10px"}
+            width="370px"
+            border="1px"
+            borderColor="#285430"
             value={city?.rajaongkir?.results?.city_id}
             placeholder="Select City"
             onChange={cityHandler}
@@ -205,11 +211,11 @@ export const AddAddress = () => {
         <FormControl>
           <FormLabel>Kode Pos</FormLabel>
           <Select
-            placeholder="Select Postal Code"
-            ml={"20px"}
-            width="340px"
-            border="2px"
+            mb={"10px"}
+            width="370px"
+            border="1px"
             borderColor="#285430"
+            placeholder="Select Postal Code"
             onChange={postalHandler}
             ref={inputPostalCode}
           >
@@ -218,13 +224,28 @@ export const AddAddress = () => {
         </FormControl>
         <FormControl>
           <FormLabel>Detail Alamat</FormLabel>
-          <Textarea ref={inputDetail} placeholder="e.g. Blok/Lantai"></Textarea>
+          <Textarea
+            mb={"10px"}
+            width="370px"
+            border="1px"
+            borderColor="#285430"
+            placeholder="e.g. Blok/Lantai"
+            _placeholder={{ color: "#5F8D4E" }}
+            ref={inputDetail}
+          />
         </FormControl>
-        {/* <Checkbox mb={"20px"}>Set as Default Address</Checkbox> */}
         <FormControl>
           <FormLabel>Nama Penerima</FormLabel>
           <Flex>
-            <Input ref={inputReceiverName} placeholder="Name"></Input>
+            <Input
+              ref={inputReceiverName}
+              placeholder="Name"
+              mb={"10px"}
+              width="370px"
+              border="1px"
+              borderColor="#285430"
+              _placeholder={{ color: "#5F8D4E" }}
+            ></Input>
           </Flex>
         </FormControl>
         <FormControl>
@@ -232,11 +253,11 @@ export const AddAddress = () => {
           <Input
             ref={inputReceiverPhone}
             placeholder="08xxx"
-            type={"text"}
-            ml={"20px"}
-            width="340px"
-            border="2px"
+            mb={"10px"}
+            width="370px"
+            border="1px"
             borderColor="#285430"
+            _placeholder={{ color: "#5F8D4E" }}
           ></Input>
         </FormControl>
         <FormControl>
@@ -244,21 +265,22 @@ export const AddAddress = () => {
           <Input
             ref={inputReceiverEmail}
             placeholder="yourname@example.com"
-            ml={"20px"}
-            width="340px"
-            border="2px"
+            mb={"10px"}
+            width="370px"
+            border="1px"
             borderColor="#285430"
+            _placeholder={{ color: "#5F8D4E" }}
           ></Input>
         </FormControl>
         <Button
           onClick={onCreate}
+          mt={"15px"}
           bgColor={"#A4BE7B"}
           borderColor="#285430"
           border="2px"
           fontSize="18px"
           color="gray.800"
-          width={"160px"}
-          justifyContent="center"
+          width={"370px"}
         >
           Add Address
         </Button>

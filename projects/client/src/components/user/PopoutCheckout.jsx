@@ -2,7 +2,7 @@ import { Center, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
 import Axios from "axios";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const PopoutCheckout = ({ props }) => {
   console.log(props);
@@ -43,23 +43,22 @@ export const PopoutCheckout = ({ props }) => {
     <div>
       <Center>
         <Flex
-          w={[300, 350, 390]}
-          h="70px"
-          // bgColor="teal"
-          color="gray.800"
-          dropShadow="2xl"
-          // pb={"1000px"}
-          // zIndex="2"
-          // pos="fixed"
+          as={"b"}
+          textColor="#285430"
+          border={"1px"}
+          borderRadius="md"
+          borderColor={"#285430"}
+          justifyContent="space-evenly"
+          align="center"
+          w={[300, 350, 370]}
         >
-          <Flex
-            justifyContent="space-evenly"
-            align="center"
-            w={[300, 350, 390]}
-          >
-            <Flex justify={"space-between"}>
-              <Text>Rp{totalCheckout}</Text>
-            </Flex>
+          <Flex justify={"space-between"}>
+            <Text>
+              {new Intl.NumberFormat("IND", {
+                style: "currency",
+                currency: "IDR",
+              }).format(totalCheckout)}
+            </Text>
           </Flex>
         </Flex>
       </Center>

@@ -8,10 +8,9 @@ export const AccountPage = () => {
 
   return (
     <>
-      <Center>
-        <Box pos={"fixed"} w={"390px"} h={"10px"} bgColor="white">
+     <Center>
+        <Box classsName="header" w={"390px"} h={"844px"} bgColor="white">
           {tokenLocalStorage ? <AccountComp /> : <WindowComp />}
-
           <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
             <NavbarComp />
           </Box>

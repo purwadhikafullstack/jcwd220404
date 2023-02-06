@@ -59,7 +59,7 @@ export const ResetPassPage = () => {
     <Navigate to="/" />
   ) : (
     <>
-      <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray"}>
+       <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray"}>
         <Stack
           spacing={4}
           w={"full"}

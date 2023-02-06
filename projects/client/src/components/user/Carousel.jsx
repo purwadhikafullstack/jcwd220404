@@ -21,7 +21,8 @@ export const CarouselComp = () => {
         height={"300px"}
         width={"375px"}
         overflow={"hidden"}
-        mt={"10px"}
+
+        mt={"15px"}
       >
         <link
           rel="stylesheet"
@@ -40,7 +41,9 @@ export const CarouselComp = () => {
           background={"transparent"}
           left={side}
           top={top}
+
           transform={"translate(0%, -220%)"}
+
           zIndex={1}
           onClick={() => slider?.slickPrev()}
           variant="unstyled"
@@ -53,6 +56,7 @@ export const CarouselComp = () => {
           position="absolute"
           right={side}
           top={top}
+
           transform={"translate(50%, -220%)"}
           zIndex={1}
           onClick={() => slider?.slickNext()}

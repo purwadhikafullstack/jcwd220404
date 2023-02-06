@@ -142,43 +142,78 @@ export const OrderDetail = () => {
           <Box
             className="body"
             bgColor="white"
-            h={"1750px"}
+            h={"90vh"}
             w={"390px"}
-            mt="100px"
+            mt="80px"
           >
             <Stack>
               <Flex justify={"center"}>
-                <HStack>
-                  <CiCreditCard1 color="grey"></CiCreditCard1>
-                  <CiBag1 color="grey" />
-                  <CiDeliveryTruck color="grey" />
-                  <CiInboxIn color="grey" />
+                <HStack mt={"10px"}>
+                  <CiCreditCard1 color="#285430"></CiCreditCard1>
+                  <CiBag1 color="#285430" />
+                  <CiDeliveryTruck color="#285430" />
+                  <CiInboxIn color="#285430" />
                 </HStack>
               </Flex>
-              <Text>Please proceed Payment before</Text>
-              <Text>{dateNow}</Text>
+              <Center>
+                <Box
+                  w={"370px"}
+                  border={"1px"}
+                  borderColor="#285430"
+                  borderRadius={"md"}
+                >
+                  <Text pl={"10px"} color="#285430">
+                    Please proceed Payment before
+                  </Text>
+                  <Text>{dateNow}</Text>
+                </Box>
+              </Center>
               <Box>
                 <FormControl>
-                  <FormLabel>Order Information</FormLabel>
-                  <Flex justify={"space-between"}>
-                    <Text>Order-ID</Text>
-                    <Text>{data?.id_order} </Text>
-                  </Flex>
-                  <Flex justify={"space-between"}>
-                    <Text>Transaction Date</Text>
-                    <Text>{dateNow} </Text>
-                  </Flex>
-                  <Flex justify={"space-between"}>
-                    <Text>Total</Text>
-                    <Text>Rp{data2} </Text>
-                  </Flex>
+                  <FormLabel mt={"1px"} pl={"10px"} color="#285430">
+                    Order Information
+                  </FormLabel>
+                  <Box
+                    w={"370px"}
+                    border={"1px"}
+                    borderColor="#285430"
+                    borderRadius={"md"}
+                  >
+                    <Flex justify={"space-between"}>
+                      <Text>Order-ID</Text>
+                      <Text>{data?.id_order} </Text>
+                    </Flex>
+                    <Flex justify={"space-between"}>
+                      <Text>Transaction Date</Text>
+                      <Text>{dateNow} </Text>
+                    </Flex>
+                    <Flex justify={"space-between"}>
+                      <Text pl={"10px"} color="#285430">
+                        Total
+                      </Text>
+                      <Text pr={"10px"} color="#285430">
+                        {new Intl.NumberFormat("IND", {
+                          style: "currency",
+                          currency: "IDR",
+                        }).format(data2)}{" "}
+                      </Text>
+                    </Flex>
+                  </Box>
                 </FormControl>
                 <FormControl>
                   <FormLabel>Order Detail</FormLabel>
                   {data3?.map((item) => {
                     return (
-                      <Card margin={"10px"}>
-                        <Flex mb={"50px"} justify={"space-between"}>
+                      <Card
+                        margin={"10px"}
+                        w="370px"
+                        bgColor={"white"}
+                        border={"1px"}
+                        borderColor="#285430"
+                        borderRadius={"md"}
+                        mt={"5px"}
+                      >
+                        <Flex mb={"8px"} justify={"space-between"}>
                           <Grid
                             templateAreas={`"nav main""nav footer"`}
                             gridTemplateRows={"50px 1fr 30px"}
@@ -216,7 +251,13 @@ export const OrderDetail = () => {
                 </FormControl>
                 <FormControl>
                   <FormLabel>Delivery Address</FormLabel>
-                  <Box>
+                  <Box
+                    border={"1px"}
+                    borderColor="#285430"
+                    borderRadius={"md"}
+                    w="370px"
+                    pl={"10px"}
+                  >
                     <Text as={"b"}>{data2?.receiverName}</Text>
                     <Text>{data4?.receiverPhone}</Text>
                     <Text>{data4?.addressLine}</Text>
@@ -225,8 +266,8 @@ export const OrderDetail = () => {
                     </Text>
                   </Box>
                 </FormControl>
-                <FormControl>
-                  <FormLabel>Delivery Date</FormLabel>
+                <FormControl pl="10px" color={"#285430"}>
+                  <FormLabel pt={"10px"}>Delivery Date</FormLabel>
                   <Text align={"left"}> {dateDeliv}</Text>
                 </FormControl>
               </Box>

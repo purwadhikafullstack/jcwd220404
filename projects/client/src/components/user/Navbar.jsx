@@ -103,11 +103,25 @@ export const NavbarComp = () => {
 
   return (
     <>
-      <Center ml={"70px"}>
-        <Badge zIndex={2} borderRadius="2xl" mb={"10px"} ml="30px">
+      <Center>
+        <Badge
+          zIndex={2}
+          borderRadius="2xl"
+          mb={"10px"}
+          ml="100px"
+          bg="#FE0013"
+          color={"gray.800"}
+        >
           {data?.length}
         </Badge>
-        <Badge zIndex={2} borderRadius="2xl" mb={"10px"} ml="50px">
+        <Badge
+          zIndex={2}
+          borderRadius="2xl"
+          mb={"10px"}
+          ml="50px"
+          bg="#FE0013"
+          color={"gray.800"}
+        >
           {data2?.length}
         </Badge>
       </Center>
