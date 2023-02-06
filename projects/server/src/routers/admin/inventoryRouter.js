@@ -3,6 +3,7 @@ const { inventoryController } = require("../../controllers/index");
 require("dotenv/config");
 
 router.post("/create", inventoryController.create);
+router.patch("/update/:id", inventoryController.update);
 router.patch("/total/:BranchId", inventoryController.totalInventory)
 router.get("/findByBranch/:from/:to", inventoryController.findByBranch);
 router.get("/findAllByBranch/:BranchId", inventoryController.findAllByBranch);

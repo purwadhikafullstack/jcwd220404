@@ -245,4 +245,25 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  update: async (req, res) => {
+    try {
+      const { productName, entryDate, stockQty } = req.body;
+
+      await inventory.update(
+        {
+          productName,
+          entryDate,
+          stockQty,
+        },
+        {
+          where: { id: req.params.id },
+        }
+      );
+      const edit = await inventory.findOne({ where: { id: req.params.id } });
+      res.status(200).send(edit);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
 };

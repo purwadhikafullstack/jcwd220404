@@ -20,18 +20,20 @@ export const AddProduct = () => {
   const [edit2, setEdit2] = useState({});
   const inputProductName = useRef("");
   const inputDescription = useRef("");
-  // const inputDistributor = useRef("");
+  const inputCategory = useRef(0);
 
   const onCreate = async () => {
     try {
       const addProduct = {
         productName: inputProductName.current.value,
         description: inputDescription.current.value,
-        // distributor: inputDistributor.current.value,
       };
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/product/create`,
-        addProduct
+        {
+          addProduct,
+          CategoryId: categoryOptions.value,
+        }
       );
       Swal.fire({
         icon: "success",
@@ -86,7 +88,6 @@ export const AddProduct = () => {
           Add Product
         </Box>
       </h2>
-
       <Stack spacing={"10px"}>
         <FormControl>
           <FormLabel color="#285430">Nama Produk</FormLabel>
@@ -115,6 +116,7 @@ export const AddProduct = () => {
             options={categoryOptions}
             className="basic-multi-select"
             classNamePrefix="select"
+            value={categoryOptions.value}
           />
           {/* <Select color={"#285430"} borderColor="#285430" width="100%">
             <option>Select Category</option>

@@ -175,7 +175,7 @@ module.exports = {
       });
       const toFalse = await transaction.update(
         {
-          status: false,
+          status: "Order Cancelled",
         },
         {
           where: {
@@ -185,7 +185,7 @@ module.exports = {
       );
       const toTwo = await transaction.update(
         {
-          status: 2,
+          status: "Waiting Confirm Payment",
         },
         {
           where: {
@@ -213,7 +213,7 @@ module.exports = {
       console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
-          status: 0,
+          status: "Order Cancelled",
           BranchId: findBranch?.dataValues?.id,
         },
       });
@@ -234,7 +234,7 @@ module.exports = {
       console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
-          status: 1,
+          status: "Waiting Payment",
           BranchId: findBranch?.dataValues?.id,
         },
       });
@@ -255,7 +255,7 @@ module.exports = {
       console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
-          status: 2,
+          status: "Waiting Confirm Payment",
           BranchId: findBranch?.dataValues?.id,
         },
       });
@@ -276,7 +276,7 @@ module.exports = {
       console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
-          status: 3,
+          status: "On Process",
           BranchId: findBranch?.dataValues?.id,
         },
       });
@@ -297,7 +297,7 @@ module.exports = {
       console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
-          status: 4,
+          status: "On Delivery",
           BranchId: findBranch?.dataValues?.id,
         },
       });
@@ -318,7 +318,7 @@ module.exports = {
       console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
-          status: 5,
+          status: "Done",
           BranchId: findBranch?.dataValues?.id,
         },
       });
@@ -335,7 +335,7 @@ module.exports = {
       const { id } = req.params;
       const toFalse = await transaction.update(
         {
-          status: false,
+          status: "Order Cancelled",
         },
         {
           where: {
@@ -345,7 +345,7 @@ module.exports = {
       );
       const toThree = await transaction.update(
         {
-          status: 3,
+          status: "On Process",
         },
         {
           where: {
@@ -365,7 +365,7 @@ module.exports = {
       const { id } = req.params;
       const toFalse = await transaction.update(
         {
-          status: false,
+          status: "Order Cancelled",
         },
         {
           where: {
@@ -375,7 +375,7 @@ module.exports = {
       );
       const toFour = await transaction.update(
         {
-          status: 4,
+          status: "On Delivery",
         },
         {
           where: {
@@ -395,7 +395,7 @@ module.exports = {
       const { id } = req.params;
       const toFalse = await transaction.update(
         {
-          status: false,
+          status: "Order Cancelled",
         },
         {
           where: {
@@ -403,9 +403,9 @@ module.exports = {
           },
         }
       );
-      const toFour = await transaction.update(
+      const toFive = await transaction.update(
         {
-          status: 5,
+          status: "Done",
         },
         {
           where: {
@@ -425,7 +425,7 @@ module.exports = {
       const { id } = req.params;
       const toFalse = await transaction.update(
         {
-          status: false,
+          status: "Order Cancelled",
         },
         {
           where: {

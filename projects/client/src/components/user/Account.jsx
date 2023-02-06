@@ -21,6 +21,7 @@ import { LogoutUser } from "./Logout";
 export const AccountComp = () => {
   const { name, id } = useSelector((state) => state.userSlice.value);
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   const navigate = useNavigate();
 
   const getData = async () => {
@@ -30,6 +31,7 @@ export const AccountComp = () => {
       );
       setData(result.data);
       console.log(result.data);
+      setData2(result.data.isVerified);
     } catch (err) {
       console.log(err);
     }
@@ -145,17 +147,20 @@ export const AccountComp = () => {
             >
               MY ADDRESS
             </Button>
-            <Button
-              textAlign={"left"}
-              variant={"unstyled"}
-              ml={"30px"}
-              textColor={"#285430"}
-              onClick={toAddress}
-              fontSize="sm"
-            >
-              VERIFY MY ACCOUNT
-              <Badge variant={"subtle"}>Under Maintenance</Badge>
-            </Button>
+            {data2 === true ? (
+              ""
+            ) : (
+              <Button
+                textAlign={"left"}
+                variant={"unstyled"}
+                ml={"30px"}
+                textColor={"#285430"}
+                onClick={toAddress}
+                fontSize="sm"
+              >
+                VERIFY MY ACCOUNT
+              </Button>
+            )}
             <LogoutUser />
           </Stack>
         </Box>

@@ -9,7 +9,7 @@ const productCategory = db.Product_Category;
 module.exports = {
   create: async (req, res) => {
     try {
-      const { productName, distributor, description } = req.body;
+      const { productName, distributor, description, CategoryId } = req.body;
       if (
         !productName
         // !distributor &&
@@ -21,18 +21,27 @@ module.exports = {
         productName,
         // distributor,
         description,
-        CategoryId: [2, 5],
+        // CategoryId: [
+        //   {
+        //     value: 2,
+        //   },
+        //   {
+        //     value: 5,
+        //   },
+        // ],
       });
-      
+
       const data = await product.findAll({
         where: {
           id: result.id,
         },
       });
 
+      // const forCategory = [2,5]
       data.map(async (item) => {
+        console.log(item);
         await productCategory.create({
-          CategoryId: item["CategoryId"],
+          CategoryId: 2,
           ProductId: item.id,
         });
       });

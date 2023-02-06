@@ -38,9 +38,9 @@ export const RegisterAdmin = () => {
     ),
   });
 
-  const onRegister = async (result) => {
+  const onRegister = async (result2) => {
     try {
-      if (result.password !== result.password_confirmation) {
+      if (result2.password !== result2.password_confirmation) {
         return Swal.fire({
           icon: "error",
           title: "Oooops ...",
@@ -55,7 +55,7 @@ export const RegisterAdmin = () => {
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/admin/register`,
         {
-          result,
+          result2,
           BranchId: inputBranch.current.value,
         }
       );
@@ -91,7 +91,7 @@ export const RegisterAdmin = () => {
         `${process.env.REACT_APP_API_BASE_URL}/branch/findAll`
       );
       console.log(res.data);
-      // console.log(res.data?.id)
+      
       setData2(res.data);
     } catch (err) {
       console.log(err);
@@ -204,6 +204,7 @@ export const RegisterAdmin = () => {
                       borderColor={"#285430"}
                       border={"2px"}
                       w={"330px"}
+                      ref={inputBranch}
                     >
                       {renderBranch()}
                       {/* {data2.map((item) => {

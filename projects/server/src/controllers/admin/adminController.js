@@ -9,15 +9,10 @@ const secretKey = process.env.SECRET_KEY;
 module.exports = {
   register: async (req, res) => {
     try {
-      const {
-        username,
-        email,
-        password,
-        password_confirmation,
-        isSuper,
-        BranchId,
-      } = req.body;
-      console.log(req.body)
+      const { username, email, password, password_confirmation, isSuper } =
+        req.body.result2;
+      const { BranchId } = req.body;
+      console.log(req.body);
 
       if (password !== password_confirmation) throw `password not match`;
 
@@ -34,7 +29,7 @@ module.exports = {
         isSuper,
         BranchId,
       });
-      console.log(result)
+      console.log(result);
 
       const token = jwt.sign({ username: username, email: email }, secretKey);
 
@@ -42,17 +37,19 @@ module.exports = {
         where: {
           id: req.body.BranchId,
         },
-        include: [{model: admin}]
+        include: [{ model: admin }],
       });
 
-      await branch.update({
-        AdminId: result.dataValues.id,
-      },
-      {
-        where: {
-          id: req.body.BranchId
+      await branch.update(
+        {
+          AdminId: result.dataValues.id,
+        },
+        {
+          where: {
+            id: req.body.BranchId,
+          },
         }
-      });
+      );
 
       // data.map(async (item) => {
       //   console.log(item);

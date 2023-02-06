@@ -67,7 +67,6 @@ export const Category = () => {
   const [searchCategory2, setSearchCategory2] = useState("");
   const [totalPage2, setTotalPage2] = useState(0);
   const [state2, setState2] = useState(0);
-
   const data2 = useSelector((state) => state.categorySlice.value);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();

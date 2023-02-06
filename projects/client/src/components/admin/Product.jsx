@@ -121,22 +121,6 @@ export const Product = () => {
     window.location.replace("/admin");
   };
 
-  const getCategory = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
-      );
-      console.log(res.data);
-      setCategory(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getCategory();
-  }, [edit2]);
-
   const getProduct = async () => {
     try {
       const res = await Axios.get(
@@ -182,38 +166,6 @@ export const Product = () => {
       setSearchProduct(searchName);
     },
   });
-
-  const getCategory2 = async () => {
-    try {
-      const res = await Axios.get(
-        `${
-          process.env.REACT_APP_API_BASE_URL
-        }/product/pagCategory?search_query=${searchCategory2}&page=${
-          page2 - 1
-        }&limit=${limit2}&order=${order2 ? order2 : `categoryName`}&sort=${
-          sort2 ? sort2 : "ASC"
-        }`
-      );
-      dispatch(syncCategory(res.data.result));
-      console.log(res.data.result);
-      setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
-      setState2(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getCategory2();
-  }, [searchCategory2, page2, limit2, sort2]);
-
-  async function fetchSort2(filter) {
-    setSort2(filter);
-  }
-
-  useEffect(() => {
-    fetchSort2();
-  }, []);
 
   return (
     <>
@@ -391,7 +343,6 @@ export const Product = () => {
                           </Button>
                         </Box>
                       </Td>
-
                       <Td>
                         <Image
                           boxSize={"50px"}
