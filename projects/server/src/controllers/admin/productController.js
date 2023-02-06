@@ -10,6 +10,7 @@ module.exports = {
   create: async (req, res) => {
     try {
       const { productName, distributor, description, CategoryId } = req.body;
+      console.log(req.body)
       if (
         !productName
         // !distributor &&
@@ -37,11 +38,10 @@ module.exports = {
         },
       });
 
-      // const forCategory = [2,5]
       data.map(async (item) => {
         console.log(item);
         await productCategory.create({
-          CategoryId: 2,
+          CategoryId: 5,
           ProductId: item.id,
         });
       });

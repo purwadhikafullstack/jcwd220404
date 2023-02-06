@@ -28,11 +28,13 @@ export const AddProduct = () => {
         productName: inputProductName.current.value,
         description: inputDescription.current.value,
       };
+      const loopCategory = categoryOptions.map((item) => item.value);
+      console.log(loopCategory);
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/product/create`,
         {
           addProduct,
-          CategoryId: categoryOptions.value,
+          CategoryId: categoryOptions[0]?.value,
         }
       );
       Swal.fire({
@@ -75,10 +77,10 @@ export const AddProduct = () => {
     { value: 4, label: "Beli 1 Gratis 1" },
     { value: 5, label: "Daging" },
     { value: 6, label: "Protein" },
-    { value: 7, label: "Unggas" },
-    { value: 8, label: "Ibu dan Anak" },
-    { value: 9, label: "Makanan Jadi" },
-    { value: 10, label: "Paket Masak" },
+    { value: 8, label: "Unggas" },
+    { value: 9, label: "Ibu dan Anak" },
+    { value: 10, label: "Makanan Jadi" },
+    { value: 11, label: "Paket Masak" },
   ];
 
   return (
