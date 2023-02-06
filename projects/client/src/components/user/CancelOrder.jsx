@@ -2,8 +2,9 @@ import { Button } from "@chakra-ui/button";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Axios from "axios"
+import { Center } from "@chakra-ui/react";
 
-export const CancelButton = () => {
+export const CancelOrder = () => {
   const [data, setData] = useState()
   const [data2, setData2] = useState()
   const [data5, setData5] = useState()
@@ -53,9 +54,19 @@ export const CancelButton = () => {
 
   return (
     <div>
-      <Button w={"390px"} bgColor={"salmon"} onClick={() => setCancelled()}>
+      <Center>
+
+      <Button mt={"20px"}
+        display={"flex"}
+        bgColor={"#FF0000"}
+        textColor="gray.800"
+        width={"370px"}
+        justifyContent={"center"}
+        borderColor="#gray.800"
+        border="2px" onClick={() => setCancelled()}>
         Cancel Order
       </Button>
+          </Center>
     </div>
   );
 };

@@ -1,20 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import Axios from "axios";
 import Select from "react-select";
 import {
+  Box,
   Button,
+  Center,
+  Flex,
   FormControl,
   FormLabel,
   Input,
   // Select,
   Stack,
+  Text,
   Textarea,
-  Center,
-  Box,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 export const AddProduct = () => {
+  const inputProductName = useRef("");
+  const inputDescription = useRef("");
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
   const [edit2, setEdit2] = useState({});
@@ -39,12 +44,9 @@ export const AddProduct = () => {
       );
       Swal.fire({
         icon: "success",
-        text: "Product Added",
-        width: "370px",
+        text: "Success",
       });
-      setTimeout(() => {
-        window.location.replace("/admin");
-      }, 900);
+      setTimeout(() => window.location.replace("/admin/product"), 2000);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -145,15 +147,77 @@ export const AddProduct = () => {
             borderColor="#285430"
             border="2px"
             fontSize="18px"
-            color="gray.800"
-            width={"100%"}
-            justifyContent="center"
-            onClick={onCreate}
           >
-            Add Product
-          </Button>
-        </Center>
-      </Stack>
-    </>
+            <Text justifyContent="center" fontWeight="bold" color="#285430">
+              Add Product
+            </Text>
+          </Box>
+          <Stack spacing={"10px"}>
+            <FormControl>
+              <FormLabel mt={"10px"} ml={"10px"} color="#285430">
+                Product Name
+              </FormLabel>
+              <Input
+                w={"360px"}
+                ml={"10px"}
+                ref={inputProductName}
+                placeholder="Product"
+                _placeholder={{ color: "#5F8D4E" }}
+                borderColor="#285430"
+                textColor="#285430"
+              ></Input>
+            </FormControl>
+            <FormControl>
+              <FormLabel mt={"10px"} ml={"10px"} color="#285430">
+                Category
+              </FormLabel>
+              <Select
+                w={"360px"}
+                ml={"10px"}
+                color={"#285430"}
+                borderColor="#285430"
+              >
+                <option>Select Category</option>
+                {data2?.map((item) => {
+                  return (
+                    <>
+                      <option color="#285430">{item.categoryName}</option>
+                    </>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            <FormControl>
+              <FormLabel mt={"10px"} ml={"10px"} color={"#285430"}>
+                Description
+              </FormLabel>
+              <Textarea
+                w={"360px"}
+                ml={"10px"}
+                textColor="#285430"
+                borderColor="#285430"
+                ref={inputDescription}
+              ></Textarea>
+            </FormControl>
+            <Center>
+              <Button
+                mt={"20px"}
+                mb={"20px"}
+                w={"360px"}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="16px"
+                color="gray.800"
+                justifyContent="center"
+                onClick={onCreate}
+              >
+                Add Product
+              </Button>
+            </Center>
+          </Stack>
+        </Box>
+      </Box>
+    </div>
   );
 };

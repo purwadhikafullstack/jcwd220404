@@ -4,7 +4,7 @@ import Axios from "axios"
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const CompleteButton = () => {
+export const CompleteOrder = () => {
   const [data, setData] = useState()
   const [data2, setData2] = useState()
   const [data5, setData5] = useState()
@@ -54,7 +54,16 @@ export const CompleteButton = () => {
 
   return (
     <div>
-      <Button w={"390px"} bgColor={"gold"} onClick={() => setDone()} >Complete Order</Button>
+      <Button  mt={"15px"}
+                  mb={"15px"}
+                  ml="10px"
+                  bgColor={"#A4BE7B"}
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="18px"
+                  color="gray.800"
+                  w={"370px"}
+                   onClick={() => setDone()} >Complete Order</Button>
     </div>
   );
 };

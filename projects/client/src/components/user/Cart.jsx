@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Card,
+  Center,
   Checkbox,
   Flex,
   FormControl,
@@ -13,7 +14,6 @@ import {
   HStack,
   Image,
   Select,
-  Stack,
   Text,
   Textarea,
 } from "@chakra-ui/react";
@@ -251,33 +251,49 @@ export const CartComp = () => {
   };
 
   return (
-    <>
+    <div>
       <Box>
-        <Stack spacing={"10px"}>
-          <FormControl>
-            <FormLabel>Products</FormLabel>
-            <Card margin={"10px"}>
-              {data?.map((item) => {
-                return (
-                  <Flex
-                    borderBottom={"1px"}
-                    borderColor="grey"
-                    borderRadius={"10px"}
-                    mt={"10px"}
-                    justify={"space-between"}
+        <FormControl ml={"10px"} mr={"10px"}>
+          <FormLabel textColor="#285430">Products</FormLabel>
+          <Card w="370px" bgColor={"white"}>
+            {data?.map((item) => {
+              return (
+                <Flex
+                  border={"1px"}
+                  borderColor="#285430"
+                  borderRadius={"md"}
+                  mt={"5px"}
+                >
+                  <Checkbox
+                    ml={"10px"}
+                    defaultChecked={item.status ? true : false}
+                    onChange={() => onCheckout(item.id, item.status)}
                   >
-                    <Checkbox
-                      defaultChecked={item.status ? true : false}
-                      onChange={() => onCheckout(item.id, item.status)}
+                    <Grid
+                      templateAreas={`"nav main""nav footer"`}
+                      gridTemplateRows={" 1fr 30px"}
+                      gridTemplateColumns={"120px 1fr"}
+                      h="50px"
+                      color="#285430"
+                      fontWeight="bold"
                     >
-                      <Grid
-                        templateAreas={`"nav main""nav footer"`}
-                        gridTemplateRows={" 1fr 30px"}
-                        gridTemplateColumns={"120px 1fr"}
-                        h="50px"
-                        // gap="1"
-                        color="blackAlpha.700"
-                        fontWeight="bold"
+                      <GridItem ml="8px" area={"nav"}>
+                        <Image
+                          boxSize={"55px"}
+                          src={
+                            `${process.env.REACT_APP_API_BASE_URL}/` +
+                            item.Product?.picture
+                          }
+                        ></Image>
+                      </GridItem>
+                      <GridItem fontSize={"small"} ml="-6" area={"main"}>
+                        {item.Product?.productName}
+                      </GridItem>
+                      <GridItem
+                        fontSize={"small"}
+                        ml="-6"
+                        mt={"1"}
+                        area={"footer"}
                       >
                         <GridItem pl="1" area={"nav"}>
                           <Image
@@ -318,13 +334,38 @@ export const CartComp = () => {
                       </Grid>
                     </Checkbox>
                     <Box>
+                        {new Intl.NumberFormat("IND", {
+                          style: "currency",
+                          currency: "IDR",
+                        }).format(item.Product?.Price?.productPrice)}
+                      </GridItem>
+                    </Grid>
+                  </Checkbox>
+                  <Box>
+                    <Button
+                      pt={"10px"}
+                      ml={"50px"}
+                      variant={"unstyled"}
+                      onClick={() => onDelete(item.id)}
+                      fontSize="sm"
+                      textColor={"#285430"}
+                    >
+                      Delete
+                    </Button>
+                    <HStack
+                      ml={"20px"}
+                      mr="20px"
+                      maxW="200px"
+                      textColor={"#285430"}
+                    >
                       <Button
-                        pl={"50px"}
+                        pb={"4"}
                         variant={"unstyled"}
-                        onClick={() => onDelete(item.id)}
-                        fontSize="sm"
+                        onClick={() => {
+                          onQty(item.id, item.qty - 1);
+                        }}
                       >
-                        Hapus
+                        -
                       </Button>
                       <HStack maxW="200px">
                         <Button
@@ -402,8 +443,8 @@ export const CartComp = () => {
           <Button onClick={() => onCreate()} w={"100%"}>
             Checkout
           </Button>
-        </Stack>
+        </Center>
       </Box>
-    </>
+    </div>
   );
 };

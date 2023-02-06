@@ -1,8 +1,8 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import { DashboardComp } from "../../components/admin/Dashboard";
-import { SidebarComp } from "../../components/admin/Sidebar";
+import { SidebarBranch } from "../../components/admin/SidebarBranch";
 
-export const DashboardPage = () => {
+export const BranchComp = () => {
   return (
     <div>
       <Grid
@@ -18,7 +18,7 @@ export const DashboardPage = () => {
         bgColor={"white"}
       >
         <GridItem>
-          <SidebarComp />
+          <SidebarBranch />
         </GridItem>
         <GridItem>
           <DashboardComp />

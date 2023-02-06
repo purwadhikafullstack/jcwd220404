@@ -20,7 +20,6 @@ module.exports = {
 
       const result = await product.create({
         productName,
-        // distributor,
         description,
         // CategoryId: [
         //   {
@@ -82,7 +81,6 @@ module.exports = {
         attributes: [
           "id",
           "productName",
-          // "distributor",
           "description",
           "picture",
         ],
@@ -304,12 +302,6 @@ module.exports = {
       });
       const totalPage = Math.ceil(totalRows / limit);
       const result = await product.findAll({
-        // include: [
-        //   {
-        //     model: cart,
-        //     attributes: ["id"],
-        //   },
-        // ],
         where: {
           [Op.or]: [
             {
@@ -328,14 +320,7 @@ module.exports = {
         offset: offset,
         limit: list_limit,
         order: [[orderby, direction]],
-        // include: [
-        //   {
-        //     model: cart,
-        //     attributes: ["id"],
-        //   },
-        // ],
       });
-
       res.status(200).send({
         result: result,
         page: productlist_page,

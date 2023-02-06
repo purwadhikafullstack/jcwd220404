@@ -1,10 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { BsFilterLeft } from "react-icons/bs";
-import { BiReset, BiSearchAlt } from "react-icons/bi";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import {
   Box,
   Button,
@@ -21,104 +16,67 @@ import {
   Image,
   Center,
   Flex,
-  useColorModeValue,
-  Icon,
   FormControl,
-  FormLabel,
-  Select,
-  InputGroup,
-  Input,
-  InputRightElement,
   FormHelperText,
+  FormLabel,
+  Icon,
+  Image,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+  Table,
+  TableContainer,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { UpdateProductComp } from "./UpdateProduct";
-import { AddProduct } from "./AddProduct";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/productSlice";
-import { syncCategory } from "../../redux/categorySlice";
+import { useNavigate } from "react-router-dom";
+import { BsFilterLeft } from "react-icons/bs";
+import { BiReset, BiSearchAlt } from "react-icons/bi";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { UpdateProductComp } from "./UpdateProduct";
 
 export const Product = () => {
-  const [product, setProduct] = useState([]);
-  const [category, setCategory] = useState([]);
+  const data = useSelector((state) => state.productSlice.value);
+  const [edit, setEdit] = useState({});
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
-  const [edit, setEdit] = useState({});
-  const [edit2, setEdit2] = useState({});
-  
- 
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("ASC");
   const [order, setOrder] = useState("productName");
   const [searchProduct, setSearchProduct] = useState("");
   const [totalPage, setTotalPage] = useState(0);
   const [state, setState] = useState(0);
-  const [page2, setPage2] = useState(1);
-  const [limit2, setLimit2] = useState(5);
-  const [sort2, setSort2] = useState("ASC");
-  const [order2, setOrder2] = useState("categoryName");
-  const [searchCategory2, setSearchCategory2] = useState("");
-  const [totalPage2, setTotalPage2] = useState(0);
-  const [state2, setState2] = useState(0);
-  const data = useSelector((state) => state.productSlice.value);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  
-  const getData = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product/list`
-      );
-      console.log(res.data);
-      setProduct(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, [edit]);
-
-  const onDelete = async (id) => {
-    try {
-      const res = await Axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
-      );
-      console.log(res);
-      getData();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage(e.target.files[0]);
-  };
-
-  const handleUpload = async (id) => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile(resultImage.data.picture);
-    setImage({ images: "" });
-    console.log(image);
-    console.log(profile);
-    window.location.replace("/admin");
-  };
+  const OverlayOne = () => (
+    <ModalOverlay
+    />
+  );
+  const [overlay, setOverlay] = useState(<OverlayOne />);
 
   const getProduct = async () => {
     try {
@@ -144,13 +102,57 @@ export const Product = () => {
     getProduct();
   }, [searchProduct, page, limit, sort]);
 
+  useEffect(() => {
+    fetchSort();
+  }, []);
+
   async function fetchSort(filter) {
     setSort(filter);
   }
 
-  useEffect(() => {
-    fetchSort();
-  }, []);
+  const handleChoose = (e) => {
+    console.log("e.target.files", e.target.files);
+    setImage(e.target.files[0]);
+  };
+
+  const handleUpload = async (id) => {
+    const data = new FormData();
+    console.log(data);
+    data.append("file", image);
+    console.log(data.get("file"));
+
+    const resultImage = await Axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/11`,
+      data,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(resultImage.data);
+    setProfile(resultImage.data.picture);
+    setImage({ images: "" });
+    getProduct();
+    console.log(image);
+    console.log(profile);
+  };
+
+  const onDelete = async (id) => {
+    try {
+      const res = await Axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
+      );
+      console.log(res);
+      getProduct();
+      Swal.fire({
+        icon: "success",
+        text: " Delete Success",
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -166,280 +168,299 @@ export const Product = () => {
     },
   });
 
+  const toAddProductCategory = () => {
+    navigate("/admin/product/addProductCategory");
+  };
+
   return (
-    <>
-      <Box
-        ml={"100px"}
-        mt={"70px"}
-        className="body"
-        bgColor="white"
-        color="gray.800"
-        h={"1580px"}
-        // w={"390px"}
-        // pos="fixed"
-      >
-        <AddProduct />
-        <Tabs isFitted variant="enclosed">
-          Product List
-          <Center>
-            <Flex
-              ml="3"
-              mr="3"
-              flexWrap={"wrap"}
-              color={useColorModeValue("#285430")}
-              border="2px"
-              borderRadius="xl"
-            >
-              <Box className="filter">
-                <Box
-                  m="10px"
-                  mb="20px"
-                  borderWidth="2px"
-                  boxShadow="md"
-                  borderRadius="8px"
-                  borderColor="#285430"
-                >
+    <div>
+      <Tabs isFitted variant="enclosed">
+        <TabPanels>
+          <TabPanel>
+            <Center>
+              <Flex
+                color={useColorModeValue("#285430")}
+                border="2px"
+                borderRadius="xl"
+              >
+                <Box className="filter">
                   <Box
-                    alignItems={"center"}
-                    h="50px"
-                    borderTopRadius="8px"
-                    align="center"
-                    bg="#E5D9B6"
-                    display="flex"
+                    m="10px"
+                    mb="20px"
+                    borderWidth="2px"
+                    boxShadow="md"
+                    borderRadius="8px"
+                    borderColor="#285430"
                   >
-                    <Box h="25px" ml="10px">
-                      <Icon color="#285430" boxSize="6" as={BsFilterLeft} />
-                    </Box>
-                    <Box h="25px">
-                      <Text mx="10px" fontWeight="bold" color="#285430">
-                        Filter & Search
-                      </Text>
-                    </Box>
-                    <Icon
-                      color="#285430"
-                      sx={{ _hover: { cursor: "pointer" } }}
-                      boxSize="6"
-                      as={BiReset}
-                      onClick={() => {
-                        async function submit() {
-                          setSearchProduct("");
-                          document.getElementById("search").value = "";
-                          formik.values.searchName = "";
-                        }
-                        submit();
-                      }}
-                    />
-                  </Box>
-                  <Flex m={2} wrap="wrap">
-                    <FormControl w="" m={1}>
-                      <FormLabel fontSize="x-small" color="#285430">
-                        Format Sort
-                      </FormLabel>
-                      <Select
-                        color={"#285430"}
-                        borderColor="#285430"
-                        onChange={(event) => {
-                          fetchSort(event.target.value);
+                    <Box
+                      alignItems={"center"}
+                      h="50px"
+                      borderTopRadius="8px"
+                      align="center"
+                      bg="#E5D9B6"
+                      display="flex"
+                    >
+                      <Box h="25px" ml="10px">
+                        <Icon color="#285430" boxSize="6" as={BsFilterLeft} />
+                      </Box>
+                      <Box h="25px">
+                        <Text mx="10px" fontWeight="bold" color="#285430">
+                          Filter & Search
+                        </Text>
+                      </Box>
+                      <Icon
+                        color="#285430"
+                        sx={{ _hover: { cursor: "pointer" } }}
+                        boxSize="6"
+                        as={BiReset}
+                        onClick={() => {
+                          async function submit() {
+                            setSearchProduct("");
+                            document.getElementById("search").value = "";
+                            formik.values.searchName = "";
+                          }
+                          submit();
                         }}
-                      >
-                        <option value="ASC">A-Z</option>
-                        <option value="DESC">Z-A</option>
-                      </Select>
-                    </FormControl>
-                    <FormControl w="" m={1}>
-                      <FormLabel fontSize="x-small" color="#285430">
-                        Show
-                      </FormLabel>
-                      <Select
-                        color={"#285430"}
-                        borderColor="#285430"
-                        onChange={(event) => {
-                          setLimit(event.target.value);
-                        }}
-                      >
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="50">50</option>
-                      </Select>
-                    </FormControl>
-                    <FormControl w="" m={1}>
-                      <FormLabel fontSize="x-small" color="#285430">
-                        Search Product & Category
-                      </FormLabel>
-                      <InputGroup>
-                        <Input
-                          placeholder="Search Product"
-                          _placeholder={{ color: "#5F8D4E" }}
+                      />
+                    </Box>
+                    <Flex m={2} wrap="wrap">
+                      <FormControl w="" m={1}>
+                        <FormLabel fontSize="x-small" color="#285430">
+                          Format Sort
+                        </FormLabel>
+                        <Select
+                          color={"#285430"}
                           borderColor="#285430"
-                          border="1px"
-                          fontSize="18px"
-                          color="gray.800"
-                          id="search"
-                          type="text"
-                          onChange={(event) =>
-                            formik.setFieldValue(
-                              "searchName",
-                              event.target.value
-                            )
-                          }
-                          onKeyDown={(event) => {
-                            if (event.key === "Enter") {
-                              formik.handleSubmit();
-                            }
+                          onChange={(event) => {
+                            fetchSort(event.target.value);
                           }}
-                        />
-                        <InputRightElement>
-                          <Icon
-                            fontSize="xl"
-                            as={BiSearchAlt}
-                            sx={{ _hover: { cursor: "pointer" } }}
-                            onClick={() => formik.handleSubmit()}
-                          />
-                        </InputRightElement>
-                      </InputGroup>
-                      <FormHelperText color="red">
-                        {formik.errors.searchName}
-                      </FormHelperText>
-                    </FormControl>
-                  </Flex>
-                </Box>
-              </Box>
-            </Flex>
-          </Center>
-          <TableContainer>
-            <Table variant="simple" colorScheme="teal">
-              <Thead alignContent={"center"}>
-                <Tr>
-                  <Th color={"#285430"}>Product</Th>
-                  <Th color={"#285430"}>Actions</Th>
-                  <Th color={"#285430"}>Picture</Th>
-                  <Th color={"#285430"}>Price</Th>
-                  {/* <Th color={"#285430"}>Distributor</Th> */}
-                </Tr>
-              </Thead>
-              <Tbody>
-                {data?.map((item) => {
-                  return (
-                    <Tr>
-                      <Td color={"#285430"}>{item.productName}</Td>
-                      <Td color={"#285430"}>
-                        <Box
-                          mr="28px"
-                          display={"flex"}
-                          justifyContent="space-evenly"
                         >
-                          <Button
-                            onClick={() => {
-                              setEdit(item);
-                              // console.log("test2")
-                            }}
-                          >
-                            <EditIcon color={"#285430"} />
-                          </Button>
-                          <Button onClick={() => onDelete(item.id)}>
-                            <DeleteIcon color={"#285430"} />
-                          </Button>
-                        </Box>
-                      </Td>
-                      <Td>
-                        <Image
-                          boxSize={"50px"}
-                          src={
-                            `${process.env.REACT_APP_API_BASE_URL}/` +
-                            item.picture
-                          }
-                        />
-                        <ButtonGroup size="sm">
-                          <form encType="multipart/form-data">
-                            <input
-                              color="#285430"
-                              type={"file"}
-                              accept="image/*"
-                              name="file"
-                              size={"100px"}
-                              onChange={(e) => handleChoose(e)}
-                            ></input>
-                          </form>
-                          <Button
-                            bgColor={"#A4BE7B"}
+                          <option value="ASC">A-Z</option>
+                          <option value="DESC">Z-A</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl w="" m={1}>
+                        <FormLabel fontSize="x-small" color="#285430">
+                          Show
+                        </FormLabel>
+                        <Select
+                          color={"#285430"}
+                          borderColor="#285430"
+                          onChange={(event) => {
+                            setLimit(event.target.value);
+                          }}
+                        >
+                          <option value="10">10</option>
+                          <option value="20">20</option>
+                          <option value="30">30</option>
+                          <option value="50">50</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl w="" m={1}>
+                        <FormLabel fontSize="x-small" color="#285430">
+                          Search Product & Category
+                        </FormLabel>
+                        <InputGroup>
+                          <Input
+                            placeholder="Search Product"
+                            _placeholder={{ color: "#5F8D4E" }}
                             borderColor="#285430"
-                            border="2px"
-                            fontSize="14px"
+                            border="1px"
+                            fontSize="18px"
                             color="gray.800"
-                            width={"100%"}
-                            justifyContent="center"
-                            onClick={() => handleUpload(item.id)}
-                            size="sm"
-                          >
-                            Upload
-                          </Button>
-                        </ButtonGroup>
-                      </Td>
-                      <Td color={"#285430"}>{item.Price.productPrice}</Td>
-                      {/* <Td>{item.distributor}</Td> */}
+                            id="search"
+                            type="text"
+                            onChange={(event) =>
+                              formik.setFieldValue(
+                                "searchName",
+                                event.target.value
+                              )
+                            }
+                            onKeyDown={(event) => {
+                              if (event.key === "Enter") {
+                                formik.handleSubmit();
+                              }
+                            }}
+                          />
+                          <InputRightElement>
+                            <Icon
+                              fontSize="xl"
+                              as={BiSearchAlt}
+                              sx={{ _hover: { cursor: "pointer" } }}
+                              onClick={() => formik.handleSubmit()}
+                            />
+                          </InputRightElement>
+                        </InputGroup>
+                        <FormHelperText color="red">
+                          {formik.errors.searchName}
+                        </FormHelperText>
+                      </FormControl>
+                    </Flex>
+                  </Box>
+                </Box>
+              </Flex>
+              <Box ml={"200px"}>
+                <Button
+                  bgColor={"#A4BE7B"}
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="18px"
+                  color="gray.800"
+                  width={"100%"}
+                  justifyContent="center"
+                  size="md"
+                  onClick={toAddProductCategory}
+                >
+                  Add Product
+                </Button>
+              </Box>
+            </Center>
+            <TabPanel ml="46px" w="85vw" bgColor={"white"}>
+              <TableContainer>
+                <Table variant="simple" colorScheme="#285430">
+                  <Thead alignContent={"center"}>
+                    <Tr>
+                      <Th color={"#285430"}>Product</Th>
+                      <Th color={"#285430"}>Picture</Th>
+                      <Th color={"#285430"}>Description</Th>
+                      <Th color={"#285430"}>Actions</Th>
                     </Tr>
-                  );
-                })}
-              </Tbody>
-            </Table>
-          </TableContainer>
-          <Box display="flex" justifyContent="center" alignContent="center">
-            <Button
-              onClick={() => {
-                async function submit() {
-                  setPage(page === 1 ? 1 : page - 1);
-                }
-                submit();
-                var pageNow = page - 1;
-                pageNow = pageNow <= 0 ? 1 : pageNow;
-                document.getElementById("pagingInput").value =
-                  parseInt(pageNow);
-              }}
-              bgColor={"#A4BE7B"}
-              borderColor="#285430"
-              border="2px"
-              fontSize="14px"
-              color="gray.800"
-              width={"60px"}
-              justifyContent="center"
-              size="sm"
-              mt="1rem"
-            >
-              Prev
-            </Button>
-            <Text alignSelf="center" mx="10px" pt="15px">
-              {" "}
-              {page} of {totalPage}
-            </Text>
-            <Button
-              onClick={() => {
-                async function submit() {
-                  setPage(totalPage === page ? page : page + 1);
-                }
-                submit();
-                var pageNow = page + 1;
-                pageNow = pageNow > totalPage ? page : pageNow;
-                document.getElementById("pagingInput").value =
-                  parseInt(pageNow);
-              }}
-              bgColor={"#A4BE7B"}
-              borderColor="#285430"
-              border="2px"
-              fontSize="14px"
-              color="gray.800"
-              width={"60px"}
-              justifyContent="center"
-              size="sm"
-              mt="1rem"
-            >
-              Next
-            </Button>
-          </Box>
-        </Tabs>
-        Edit Product
-        <UpdateProductComp data={edit} />
-      </Box>
-    </>
+                  </Thead>
+                  <Tbody>
+                    {data?.map((item) => {
+                      return (
+                        <Tr>
+                          <Td color={"#285430"}>{item.productName}</Td>
+                          <Td>
+                            <Image
+                              boxSize={"50px"}
+                              src={
+                                `${process.env.REACT_APP_API_BASE_URL}/` +
+                                item.picture
+                              }
+                            />
+                            <ButtonGroup size="sm">
+                              <form encType="multipart/form-data">
+                                <input
+                                  color="#285430"
+                                  type={"file"}
+                                  accept="image/*"
+                                  name="file"
+                                  size={"100px"}
+                                  onChange={(e) => handleChoose(e)}
+                                ></input>
+                              </form>
+                              <Button
+                                bgColor={"#A4BE7B"}
+                                borderColor="#285430"
+                                border="2px"
+                                fontSize="14px"
+                                color="gray.800"
+                                width={"100%"}
+                                justifyContent="center"
+                                onClick={() => handleUpload()}
+                                size="sm"
+                              >
+                                Upload
+                              </Button>
+                            </ButtonGroup>
+                          </Td>
+                          <Td>
+                            {" "}
+                            {item.description.substring(0, 25)} {"..."}
+                          </Td>
+                          <Td color={"#285430"}>
+                            <Box
+                              mr="28px"
+                              display={"flex"}
+                              justifyContent="space-evenly"
+                            >
+                              <Button
+                              onClick={() => {
+                                setEdit(item);
+                                setOverlay(<OverlayOne />);
+                                onOpen();
+                              }}
+                            >
+                                <EditIcon color={"#285430"} />
+                              </Button>
+                              <Button onClick={() => onDelete(item.id)}>
+                                <DeleteIcon color={"#285430"} />
+                              </Button>
+                            </Box>
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+              <Box display="flex" justifyContent="center" alignContent="center">
+                <Button
+                  onClick={() => {
+                    async function submit() {
+                      setPage(page === 1 ? 1 : page - 1);
+                    }
+                    submit();
+                    var pageNow = page - 1;
+                    pageNow = pageNow <= 0 ? 1 : pageNow;
+                    document.getElementById("pagingInput").value =
+                      parseInt(pageNow);
+                  }}
+                  bgColor={"#A4BE7B"}
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="14px"
+                  color="gray.800"
+                  width={"60px"}
+                  justifyContent="center"
+                  size="sm"
+                  mt="1rem"
+                >
+                  Prev
+                </Button>
+                <Text alignSelf="center" mx="10px" pt="15px">
+                  {" "}
+                  {page} of {totalPage}
+                </Text>
+                <Button
+                  onClick={() => {
+                    async function submit() {
+                      setPage(totalPage === page ? page : page + 1);
+                    }
+                    submit();
+                    var pageNow = page + 1;
+                    pageNow = pageNow > totalPage ? page : pageNow;
+                    document.getElementById("pagingInput").value =
+                      parseInt(pageNow);
+                  }}
+                  bgColor={"#A4BE7B"}
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="14px"
+                  color="gray.800"
+                  width={"60px"}
+                  justifyContent="center"
+                  size="sm"
+                  mt="1rem"
+                >
+                  Next
+                </Button>
+              </Box>
+            </TabPanel>
+          </TabPanel>
+        </TabPanels>
+        <Modal isCentered isOpen={isOpen} onClose={onClose}>
+          {overlay}
+          <ModalContent bgColor={"#E5D9B6"} color="#285430" border="2px">
+            <ModalHeader textColor={"#285430"}>Edit Product</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <UpdateProductComp data={edit} />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </Tabs>
+    </div>
   );
 };

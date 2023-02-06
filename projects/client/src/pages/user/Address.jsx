@@ -4,8 +4,9 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { AddAddress } from "../../components/user/AddAddress";
 
 export const AddressPage = () => {
+
   return (
-    <>
+    <div>
       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
           <Box
@@ -29,24 +30,24 @@ export const AddressPage = () => {
                 color="#285430"
                 fontSize={"25px"}
               />
+            </Box>
               <Box margin={"auto"} alignItems={"center"} textColor="#285430">
                 <Text as={"b"} fontSize="xl">
                   ADD ADDRESS
                 </Text>
               </Box>
-            </Box>
           </Box>
           <Box
             mt={"100px"}
             className="body"
             bgColor="white"
-            h={"844px"}
+            h={"125vh"}
             w={"390px"}
           >
             <AddAddress />
           </Box>
         </Box>
       </Center>
-    </>
+    </div>
   );
 };

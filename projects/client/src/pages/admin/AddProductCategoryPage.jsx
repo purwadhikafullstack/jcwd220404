@@ -1,16 +1,15 @@
-import React from "react";
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
-import { RegisterAdmin } from "../../components/admin/Register";
-import { ListAdmin } from "../../components/admin/ListAdmin";
-import { SidebarSuper } from "../../components/admin/SidebarSuper";
+import { AddCategory } from "../../components/admin/AddCategory";
+import { AddProduct } from "../../components/admin/AddProduct";
+import { SidebarBranch } from "../../components/admin/SidebarBranch";
 
-export const BranchAdminMgt = () => {
+export const AddProductCategoryPage = () => {
   return (
     <div>
       <Grid
         templateAreas={`"header header"
-              "nav main"
-              "nav footer"`}
+                  "nav main"
+                  "nav footer"`}
         gridTemplateRows={"50px 1fr 30px"}
         gridTemplateColumns={"150px 1fr"}
         h="100vh"
@@ -20,11 +19,11 @@ export const BranchAdminMgt = () => {
         bgColor={"white"}
       >
         <GridItem>
-          <SidebarSuper />
+          <SidebarBranch />
         </GridItem>
         <Flex>
-          <ListAdmin />
-          <RegisterAdmin />
+          <AddProduct />
+          <AddCategory />
         </Flex>
       </Grid>
     </div>

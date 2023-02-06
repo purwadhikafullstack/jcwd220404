@@ -103,10 +103,11 @@ export const Checkout = () => {
             </Box>
           </Box>
           <Box
-            mt={"100px"}
+            mt={"80px"}
             className="body"
             bgColor="white"
-            h={"100%"}
+            h={"90vh"}
+            pb={"75px"}
             w={"390px"}
           >
             <FormControl>
@@ -121,19 +122,40 @@ export const Checkout = () => {
               </Flex>
             </FormControl>
             <FormControl>
-              <FormLabel>Payment Subtotal</FormLabel>
+              <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+                Payment Subtotal
+              </FormLabel>
 
               <Flex justify={"space-between"}>
-                <Text>Delivery Charge</Text>
-                <Text>Rp{data?.totalCharge}</Text>
+                <Text mt={"10px"} ml={"10px"} textColor="#285430">
+                  Delivery Charge
+                </Text>
+                <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
+                  xx.xxx
+                </Text>
               </Flex>
             </FormControl>
             <Flex justify={"space-between"}>
-              <Text as={"b"}>Total</Text>
-              <Text as={"b"}>Rp{data2}</Text>
+              <Text as={"b"} mt={"10px"} ml={"10px"} color="#285430">
+                Total
+              </Text>
+              <Text as={"b"} mt={"10px"} ml={"10px"} mr="10px" color="#285430">
+                xx.xxx
+              </Text>
             </Flex>
-            <Button onClick={toPayment} w={"100%"}>
-              Proceed Payment
+            <Button
+              ml={"10px"}
+              onClick={toPayment}
+              mt={"20px"}
+              w={"370px"}
+              bgColor={"#A4BE7B"}
+              borderColor="#285430"
+              border="2px"
+              fontSize="16px"
+              color="gray.800"
+              justifyContent="center"
+            >
+              Checkout
             </Button>
           </Box>
         </Center>

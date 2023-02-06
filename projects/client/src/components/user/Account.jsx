@@ -49,27 +49,26 @@ export const AccountComp = () => {
   };
 
   return (
-    <>
-      <Box>
-        <Box
-          className="header"
-          w={"390px"}
-          h={"80px"}
-          bgColor="#E5D9B6"
-          display={"flex"}
-          justifyContent="space-between"
-          pt={"10px"}
-          pl={"1px"}
-          pos="fixed"
-          top={"0"}
-          zIndex={"2"}
-        >
-          <Box margin={"auto"} alignItems={"center"} textColor="#285430">
-            <Text as={"b"} fontSize="xl">
-              ACCOUNT
-            </Text>
-          </Box>
+    <div>
+      <Box
+        className="header"
+        w={"390px"}
+        h={"80px"}
+        bgColor="#E5D9B6"
+        display={"flex"}
+        justifyContent="space-between"
+        pt={"10px"}
+        pl={"1px"}
+        pos="fixed"
+        top={"0"}
+        zIndex={"2"}
+      >
+        <Box margin={"auto"} alignItems={"center"} textColor="#285430">
+          <Text as={"b"} fontSize="xl">
+            ACCOUNT
+          </Text>
         </Box>
+      </Box>
 
         <Box
           mt={"100px"}
@@ -131,41 +130,37 @@ export const AccountComp = () => {
             </Badge>
           </HStack>
 
-          <Stack
-            mt={"30px"}
-            divider={<StackDivider borderColor="transparent" />}
-            spacing={"10px"}
-            align="stretch"
+        <Stack
+          mt={"30px"}
+          divider={<StackDivider borderColor="transparent" />}
+          spacing={"10px"}
+          align="stretch"
+        >
+          <Button
+            textAlign={"left"}
+            variant={"unstyled"}
+            ml={"38px"}
+            textColor={"#285430"}
+            fontSize="sm"
+            onClick={toAddress} 
           >
+            MY ADDRESS
+          </Button>
             <Button
               textAlign={"left"}
               variant={"unstyled"}
-              ml={"30px"}
+              ml={"38px"}
               textColor={"#285430"}
-              onClick={toAddress}
+              // onClick={toAddress}
               fontSize="sm"
             >
-              MY ADDRESS
+              VERIFY MY ACCOUNT
+              <Badge variant={"subtle"}>Under Maintenance</Badge>
             </Button>
-            {data2 === true ? (
-              ""
-            ) : (
-              <Button
-                textAlign={"left"}
-                variant={"unstyled"}
-                ml={"30px"}
-                textColor={"#285430"}
-                onClick={toAddress}
-                fontSize="sm"
-              >
-                VERIFY MY ACCOUNT
-              </Button>
-            )}
             <LogoutUser />
           </Stack>
         </Box>
         <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}></Box>
-      </Box>
-    </>
+    </div>
   );
 };

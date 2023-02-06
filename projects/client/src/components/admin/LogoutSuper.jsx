@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { logoutAdmin } from "../../redux/adminSlice";
 
 export const LogoutSuper = () => {
-  const { isOpen,  onClose, onToggle } = useDisclosure();
+  const { isOpen, onClose, onToggle } = useDisclosure();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,11 +26,12 @@ export const LogoutSuper = () => {
   return (
     <div>
       <Button
+        mt={"60px"}
+        ml="58px"
         display={"flex"}
         bgColor={"#FF0000"}
         textColor="gray.800"
         width={"100px"}
-        m="auto"
         justifyContent={"center"}
         borderColor="#gray.800"
         border="2px"
@@ -45,11 +46,11 @@ export const LogoutSuper = () => {
         closeOnBlur={false}
       >
         <PopoverContent
-          ml="8"
-          mt="275"
-          borderColor="#285430"
-          border="2px"
-          bgColor={"#E5D9B6"}
+         ml="560"
+         mt="280"
+         borderColor="#285430"
+         border="2px"
+         bgColor={"#E5D9B6"}
         >
           <PopoverArrow />
           <PopoverBody textColor={"#285430"}>

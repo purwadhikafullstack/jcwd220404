@@ -95,9 +95,18 @@ export const TransactionComp = () => {
       {data?.map((item) => {
         return (
           <Center>
-            <Box w={"350px"} boxShadow={"md"} borderRadius="10px">
-              <Stack ml={"10px"} spacing={5} mb={2}>
-                <Box as={Link} to={`/transaction/${item.id}`}>
+            <Box
+              w={"370px"}
+              mb="10px"
+              boxShadow={"md"}
+              border="1px"
+              borderRadius="10px"
+              borderColor={"#285430"}
+             
+            >
+              <Stack textColor={"#285430"} ml={"10px"} spacing={5} mb={2}>
+                <Box  as={Link}
+              to={`/transaction/${item.id}`}>
                   <Text align={"left"} mt={"10px"}>
                     Order No. {item.id_order}
                   </Text>
@@ -105,16 +114,21 @@ export const TransactionComp = () => {
                 </Box>
                 <Flex>
                   <HStack>
-                    <CiCreditCard1 color="grey"></CiCreditCard1>
-                    <CiBag1 color="grey" />
-                    <CiDeliveryTruck color="grey" />
-                    <CiInboxIn color="grey" />
+                    <CiCreditCard1 color="#285430"></CiCreditCard1>
+                    <CiBag1 color="#285430" />
+                    <CiDeliveryTruck color="#285430" />
+                    <CiInboxIn color="#285430" />
                   </HStack>
                 </Flex>
                 <Box>
                   <Text align={"left"}>Bill Total: Rp{item.totalOrder + item.totalCharge}</Text>
+                  <Text align={"left"}>
+                    {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(item.totalOrder)}
+                  </Text>
                   <Flex>
-                    {/* <Text mb={"10px"}>{item.status}</Text> */}
                     <ButtonGroup fontSize={"10px"} size="10px">
                       <form encType="multipart/form-data">
                         <input
@@ -129,8 +143,8 @@ export const TransactionComp = () => {
                         borderColor="#285430"
                         border="1px"
                         color="gray.800"
-                        onClick={() => handleUpload(item.id)}
-                        w="50px"
+                        onClick={handleUpload(item.id)}
+                        w="60px"
                         fontSize={"10px"}
                       >
                         Upload

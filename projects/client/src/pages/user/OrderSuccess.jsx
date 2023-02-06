@@ -89,15 +89,15 @@ export const OrderSuccess = () => {
           >
             <Box margin={"auto"} alignItems={"center"} textColor="#285430">
               <Text m="100px" as={"b"} fontSize="xl">
-                Order Success
+                ORDER SUCCESS
               </Text>
             </Box>
           </Box>
           <Box
-            mt={"100px"}
+            mt={"80px"}
             className="body"
             bgColor="white"
-            h={"100%"}
+            h={"100vh"}
             w={"390px"}
           >
             <FormControl>
@@ -111,7 +111,14 @@ export const OrderSuccess = () => {
               <Text>Rp{data2}</Text>
               <Text>{data?.id_order}</Text>
             </FormControl>
-            <Button onClick={toHome} w={"100%"}>
+            <Button onClick={toHome}  mt={"20px"} ml={"10px"}
+            w={"370px"}
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="16px"
+            color="gray.800"
+            justifyContent="center">
               Back to Home
             </Button>
           </Box>
