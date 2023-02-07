@@ -37,10 +37,10 @@ export const DefaultAddress = () => {
             border="1px"
             borderColor={"#285430"}
           >
-            {data === null}
-
             <Text color={"#285430"}>
-              Deliver to: {data?.city}, {data?.province}
+              {data === null
+                ? "Please set your Default Address in Profile"
+                : ` Deliver to: ${data?.city}, ${data?.province}`}
             </Text>
           </Button>
         </Stack>

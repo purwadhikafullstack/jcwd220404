@@ -613,18 +613,72 @@ export const InventoryList = () => {
                         >
                           {item.Product.productName}
                         </Text>
-                        <Text mt={"10px"} fontSize={"sm"} color="#285430">
-                          {" "}
-                          {new Intl.NumberFormat("IND", {
-                            style: "currency",
-                            currency: "IDR",
-                          }).format(item.Product.Price.productPrice)}
-                        </Text>
+                        <Box>
+                          {!item.Product.Price.discPrice ? (
+                            <Text fontSize={"xs"}>
+                              {" "}
+                              {new Intl.NumberFormat("IND", {
+                                style: "currency",
+                                currency: "IDR",
+                              }).format(item.Product.Price.productPrice)}
+                            </Text>
+                          ) : (
+                            <Text fontSize={"xs"} as="s">
+                              {" "}
+                              {new Intl.NumberFormat("IND", {
+                                style: "currency",
+                                currency: "IDR",
+                              }).format(item.Product.Price.productPrice)}
+                            </Text>
+                          )}
+                        </Box>
+                        <Box>
+                          {!item.Product.Price.discPrice ? (
+                            ""
+                          ) : (
+                            <Text fontSize={"xs"}>
+                              {" "}
+                              {new Intl.NumberFormat("IND", {
+                                style: "currency",
+                                currency: "IDR",
+                              }).format(item.Product.Price.discPrice)}
+                              <Badge>Promo</Badge>
+                            </Text>
+                          )}
+                        </Box>
                         <Text fontSize={"sm"} color={"#285430"}>
                           {item.stockQty} pcs
                         </Text>
                       </CardBody>
                       <CardFooter>
+                        {/* <Box> */}
+                        {/* {item.Carts.find((item2) => item2["UserNIM"] === NIM) ? (
+                    <Button
+                      disabled
+                      w="full"
+                      borderRadius="9px"
+                      size="sm"
+                      my="5px"
+                    >
+                      <Icon boxSize="4" as={IoCartOutline} mr="5px" x />
+                      Keranjang
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => onAddCart(item.id)}
+                      w="full"
+                      borderColor="pink.400"
+                      borderRadius="9px"
+                      borderWidth="2px"
+                      size="sm"
+                      my="5px"
+                      _hover={{ bg: "pink", color: "white" }}
+                    >
+                      <Icon boxSize="4" as={IoCartOutline} mr="5px" x />
+                      Keranjang
+                    </Button>
+                  )} */}
+
                         <Button
                           onClick={() =>
                             onAddCart(item.Product.id, item.Branch.id)
@@ -640,6 +694,7 @@ export const InventoryList = () => {
                           <Icon as={FaCartArrowDown} w="5" h="5" m="2" />
                           to Cart
                         </Button>
+                        {/* </Box> */}
                       </CardFooter>
                     </Card>
                   </div>

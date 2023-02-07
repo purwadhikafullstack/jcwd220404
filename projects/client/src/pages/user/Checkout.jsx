@@ -69,7 +69,7 @@ export const Checkout = () => {
   // }, [data6]);
 
   const toPayment = () => {
-    navigate(`/checkout/success/${params.id}`);
+    window.location.replace(`/checkout/success/${params.id}`);
   };
 
   return (

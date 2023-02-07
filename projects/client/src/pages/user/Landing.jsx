@@ -1,4 +1,4 @@
-import { Box, Center, VStack } from "@chakra-ui/react";
+import { Box, Center, Skeleton, VStack } from "@chakra-ui/react";
 import { LogoComp } from "../../components/user/Logo";
 import { NotificationComp } from "../../components/user/Notification";
 import { SearchComp } from "../../components/user/Search";
@@ -15,39 +15,45 @@ export const LandingPage = () => {
     <>
       <Center>
         <Box>
-          <Box
-            className="header"
-            w={"390px"}
-            h={"80px"}
-            bgColor="#E5D9B6"
-            display="flex"
-            justifyContent="space-between"
-            pt={"10px"}
-            pl={"1px"}
-            position="fixed"
-            zIndex="2"
-          >
-            <LogoComp />
-            <NotificationComp />
-          </Box>
+          <Skeleton isLoaded={true}>
+            <Box
+              className="header"
+              w={"390px"}
+              h={"80px"}
+              bgColor="#E5D9B6"
+              display="flex"
+              justifyContent="space-between"
+              pt={"10px"}
+              pl={"1px"}
+              position="fixed"
+              zIndex="2"
+            >
+              <LogoComp />
+              <NotificationComp />
+            </Box>
+          </Skeleton>
           {tokenLocalStorage ? <DefaultAddress /> : <BlankAddress />}
-          <Box className="body" bgColor="white" h={"2000px"} w={"390px"}>
-            <VStack>
-              <CarouselComp />
-              {/* <SearchComp /> */}
-              <MenuComp />
-            </VStack>
-          </Box>
-          <Box
-            className="footer"
-            w={"390px"}
-            bgColor="E5D9B6"
-            pos="fixed"
-            bottom={"35px"}
-            zIndex="2"
-          >
-            <NavbarComp />
-          </Box>
+          <Skeleton isLoaded={true}>
+            <Box className="body" bgColor="white" h={"2000px"} w={"390px"}>
+              <VStack>
+                <CarouselComp />
+                {/* <SearchComp /> */}
+                <MenuComp />
+              </VStack>
+            </Box>
+          </Skeleton>
+          <Skeleton isLoaded={true}>
+            <Box
+              className="footer"
+              w={"390px"}
+              bgColor="E5D9B6"
+              pos="fixed"
+              bottom={"35px"}
+              zIndex="2"
+            >
+              <NavbarComp />
+            </Box>
+          </Skeleton>
         </Box>
       </Center>
     </>

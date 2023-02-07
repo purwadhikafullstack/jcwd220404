@@ -10,7 +10,7 @@ module.exports = {
   create: async (req, res) => {
     try {
       const { productName, distributor, description, CategoryId } = req.body;
-      console.log(req.body)
+      console.log(req.body);
       if (
         !productName
         // !distributor &&
@@ -461,6 +461,28 @@ module.exports = {
       });
       res.status(200).send(multiCategory);
     } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  notDiscountItem: async (req, res) => {
+    try {
+      const { discPrice } = req.body;
+      const discounts = await price.update(
+        {
+          isDisc: 0,
+        },
+        {
+          where: {
+            productPrice: {
+              [Op.lt]: 50000,
+            },
+          },
+        }
+      );
+      res.status(200).send(discounts);
+    } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },

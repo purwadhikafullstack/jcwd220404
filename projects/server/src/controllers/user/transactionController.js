@@ -7,8 +7,8 @@ const product = db.Product;
 const price = db.Price;
 const branch = db.Branch;
 const { Op, Sequelize } = require("sequelize");
-const moment = require("moment")
-const schedule = require("node-schedule")
+const moment = require("moment");
+const schedule = require("node-schedule");
 
 module.exports = {
   create: async (req, res) => {
@@ -45,7 +45,9 @@ module.exports = {
         BranchId,
       });
 
-      const afterSend = moment().add(30, "seconds").format("YYYY-MM-DD HH:mm:ss");
+      const afterSend = moment()
+        .add(30, "seconds")
+        .format("YYYY-MM-DD HH:mm:ss");
 
       schedule.scheduleJob(
         afterSend,
@@ -101,10 +103,7 @@ module.exports = {
       // await transaction.findAll({
       //   order: ["id", "DESC"],
       // });
-      res.status(200).send(
-        result,
-        
-      );
+      res.status(200).send(result);
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
@@ -199,6 +198,25 @@ module.exports = {
       });
     } catch (err) {
       console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findAllByAdmin: async (req, res) => {
+    try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      console.log(findBranch);
+      const transactions = await transaction.findAll({
+        where: {
+          BranchId: findBranch?.dataValues?.id,
+        },
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
       res.status(400).send(err);
     }
   },

@@ -74,10 +74,9 @@ module.exports = {
       const data = await productCart.update(
         {
           qty,
-          totalCheckout:
-            ["Product.Price.isDisc"] === true
-              ? qty * response["Product.Price.discPrice"]
-              : qty * response["Product.Price.productPrice"],
+          totalCheckout: !response["Product.Price.DiscountId"]
+            ? qty * response["Product.Price.productPrice"]
+            : qty * response["Product.Price.discPrice"],
           totalWeight: qty * response["Product.weight"],
         },
         {

@@ -21,6 +21,7 @@ router.post(
 router.patch("/update/:id", productController.update);
 router.patch("/updateCategory/:id", productController.updateCategory);
 router.patch("/discItem", productController.discountItem)
+router.patch("/notDisc", productController.notDiscountItem)
 router.get("/list", productController.findAll);
 router.get("/listCategory", productController.findAllCategory);
 router.get("/list/:id", productController.findByProductId);

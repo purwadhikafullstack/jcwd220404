@@ -232,7 +232,6 @@ export const UpdateAddressPage = () => {
               <FormControl>
                 <FormLabel ml={"20px"}>Province</FormLabel>
                 <Select
-                  placeholder={data?.province}
                   onChange={provinceHandler}
                   ml={"20px"}
                   width="340px"
@@ -247,7 +246,6 @@ export const UpdateAddressPage = () => {
               <FormControl>
                 <FormLabel ml={"20px"}>City</FormLabel>
                 <Select
-                  placeholder={data?.city}
                   onChange={cityHandler}
                   ml={"20px"}
                   width="340px"
@@ -281,15 +279,6 @@ export const UpdateAddressPage = () => {
                   borderColor="#285430"
                   defaultValue={data?.detail}
                 ></Textarea>
-                {/* <Checkbox
-                  iconColor="#285430"
-                  iconSize="1rem"
-                  mt="10px"
-                  mb={"10px"}
-                  ml={"20px"}
-                >
-                  Set as Default Address
-                </Checkbox> */}
                 <FormControl>
                   <FormLabel ml={"20px"}>Nama Penerima</FormLabel>
                   <Flex>
