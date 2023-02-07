@@ -498,4 +498,20 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  totalSalesAll: async (req, res) => {
+    try {
+      const total = await transaction.findAll({
+        attributes: [
+          "BranchId",
+          [Sequelize.fn("sum", Sequelize.col("totalOrder")), "total_order"],
+        ],
+        group: ["BranchId"],
+        include: [{ model: branch }],
+      });
+      res.status(200).send(total);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
 };
