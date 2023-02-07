@@ -172,6 +172,22 @@ module.exports = {
             model: product,
             include: [{ model: price }],
           },
+          {
+            model: branch,
+            include: [
+              {
+                model: transactionDetail
+                // ({
+                //   attributes: [
+                //     "ProductId",
+                //     "BranchId",
+                //     [Sequelize.fn("sum", Sequelize.col("qty")), "total_qty"],
+                //   ],
+                //   group: ["ProductId"],
+                // }),
+              },
+            ],
+          },
         ],
       });
       res.status(200).send(inventories);
@@ -205,7 +221,10 @@ module.exports = {
         raw: true,
       });
 
-      const statusOK = stock.map((item) => item["Transaction.status"] === 3);
+      const statusOK = stock.map(
+        (item) =>
+          item["Transaction.status"] === "On Process" || "On Delivery" || "Done"
+      );
       console.log(statusOK);
 
       const qtyOne = total.map((item) => item.stockQty);
@@ -263,6 +282,55 @@ module.exports = {
       const edit = await inventory.findOne({ where: { id: req.params.id } });
       res.status(200).send(edit);
     } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  stockTaken: async (req, res) => {
+    try {
+      const total = await inventory.findAll({
+        attributes: ["id", "ProductId", "stockQty", "BranchId"],
+        where: {
+          BranchId: req.params.BranchId,
+        },
+        raw: true,
+      });
+
+      const stock = await transactionDetail.findAll({
+        attributes: [
+          "ProductId",
+          "BranchId",
+          [Sequelize.fn("sum", Sequelize.col("qty")), "total_qty"],
+        ],
+        group: ["ProductId"],
+        where: {
+          BranchId: req.params.BranchId,
+        },
+        include: [{ model: transaction, attributes: ["status"] }],
+        raw: true,
+      });
+
+      const statusOK = stock.map(
+        (item) => item["Transaction.status"] === "On Process"
+      );
+      console.log(statusOK);
+
+      const qtyOne = total.map((item) => item.stockQty);
+      console.log(qtyOne);
+      const qtyTwo = stock.map((item) => item.total_qty);
+      // console.log(qtyTwo);
+      let numberQtyTwo = [];
+      length = qtyTwo.length;
+      for (let i = 0; i < length; i++) numberQtyTwo.push(parseInt(qtyTwo[i]));
+      // console.log(numberQtyTwo);
+
+      let finalQty = qtyOne.map((item, index) => {
+        return item - numberQtyTwo[index];
+      });
+      console.log(finalQty);
+      res.status(200).send(stock);
+    } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },

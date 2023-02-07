@@ -42,6 +42,7 @@ export const InventoryAdminComp = () => {
   const [data2, setData2] = useState();
   const [data3, setData3] = useState([]);
   const [data4, setData4] = useState();
+  const [data5, setData5] = useState();
   const [edit, setEdit] = useState({});
   const { id } = useSelector((state) => state.adminSlice.value);
   const data = useSelector((state) => state.inventorySlice.value);
@@ -129,6 +130,21 @@ export const InventoryAdminComp = () => {
     }
   };
 
+  const findStock = async () => {
+    try {
+      const stock = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/find/${data4}`
+      );
+      console.log(stock.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    findStock();
+  }, [data4]);
+
   return (
     <div>
       <Flex mt={"80px"} ml={"150px"}>
@@ -140,6 +156,7 @@ export const InventoryAdminComp = () => {
                   <Th color={"#285430"}>Product</Th>
                   <Th color={"#285430"}>Entry Date</Th>
                   <Th color={"#285430"}>Quantity</Th>
+                  <Th color={"#285430"}>Final Stock</Th>
                   <Th color={"#285430"}>Actions</Th>
                 </Tr>
               </Thead>
@@ -152,6 +169,15 @@ export const InventoryAdminComp = () => {
                       <Td textAlign={"center"} color={"#285430"}>
                         {item.stockQty}
                       </Td>
+                      {/* {data5?.map((item) => {
+                        return (
+                          <> */}
+                            <Td textAlign={"center"} color={"#285430"}>
+                              {item?.totalQty}
+                            </Td>
+                          {/* </>
+                        );
+                      })} */}
                       <Td>
                         <Box
                           mr="28px"

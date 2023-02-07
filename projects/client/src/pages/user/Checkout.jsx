@@ -16,10 +16,11 @@ export const Checkout = () => {
   const [data, setData] = useState([]);
   const [data2, setData2] = useState();
   const [data3, setData3] = useState();
+  const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
   const navigate = useNavigate();
-  const params = useParams()
+  const params = useParams();
 
   const getData = async () => {
     try {
@@ -29,6 +30,7 @@ export const Checkout = () => {
       setData(result.data);
       console.log(result.data);
       setData6(result.data.id);
+      setData4(result.data);
       console.log(result.data);
       console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
@@ -72,7 +74,7 @@ export const Checkout = () => {
 
   return (
     <div>
-       <Box>
+      <Box>
         <Center>
           <Box
             className="header"
@@ -110,7 +112,7 @@ export const Checkout = () => {
             pb={"75px"}
             w={"390px"}
           >
-             <FormControl>
+            <FormControl>
               <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
                 Payment Detail
               </FormLabel>
@@ -119,19 +121,13 @@ export const Checkout = () => {
                   <Text mt={"10px"} ml={"10px"} textColor="#285430">
                     Subtotal Produk
                   </Text>
-                  <Text mt={"10px"} ml={"10px"} textColor="#285430">
-                    Voucher
-                  </Text>
                 </Box>
                 <Box>
                   <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
                     {new Intl.NumberFormat("IND", {
                       style: "currency",
                       currency: "IDR",
-                    }).format()}
-                  </Text>
-                  <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
-                    xx.xxx
+                    }).format(data4?.totalOrder)}
                   </Text>
                 </Box>
               </Flex>
@@ -140,13 +136,15 @@ export const Checkout = () => {
               <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
                 Payment Subtotal
               </FormLabel>
-
               <Flex justify={"space-between"}>
                 <Text mt={"10px"} ml={"10px"} textColor="#285430">
                   Delivery Charge
                 </Text>
                 <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
-                  xx.xxx
+                {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(data4?.totalCharge)}
                 </Text>
               </Flex>
             </FormControl>
@@ -155,7 +153,10 @@ export const Checkout = () => {
                 Total
               </Text>
               <Text as={"b"} mt={"10px"} ml={"10px"} mr="10px" color="#285430">
-                xx.xxx
+              {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(data2)}
               </Text>
             </Flex>
             <Button

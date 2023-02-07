@@ -73,7 +73,7 @@ export const SalesComp = () => {
 
   return (
     <div>
-       <Tabs mt="50px" ml="140px">
+      <Tabs mt="50px" ml="140px">
         <TabList>
           <Tab borderRadius={"5px"}>
             <Text>Depok</Text>
@@ -103,6 +103,9 @@ export const SalesComp = () => {
                     <Th textAlign={"center"} color={"#285430"}>
                       Weight
                     </Th>
+                    <Th textAlign={"center"} color={"#285430"}>
+                      Status
+                    </Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -120,6 +123,9 @@ export const SalesComp = () => {
                         </Td>
                         <Td textAlign={"center"} color={"#285430"}>
                           {item.totalWeight}
+                        </Td>
+                        <Td textAlign={"center"} color={"#285430"}>
+                          {item.status}
                         </Td>
                       </Tr>
                     );
@@ -144,6 +150,9 @@ export const SalesComp = () => {
                     </Th>
                     <Th textAlign={"center"} color={"#285430"}>
                       Weight
+                    </Th>
+                    <Th textAlign={"center"} color={"#285430"}>
+                      Status
                     </Th>
                   </Tr>
                 </Thead>
@@ -163,6 +172,9 @@ export const SalesComp = () => {
                         <Td textAlign={"center"} color={"#285430"}>
                           {item.totalWeight}
                         </Td>
+                        <Td textAlign={"center"} color={"#285430"}>
+                          {item.status}
+                        </Td>
                       </Tr>
                     );
                   })}
@@ -188,7 +200,7 @@ export const SalesComp = () => {
                       Weight
                     </Th>
                     <Th textAlign={"center"} color={"#285430"}>
-                      Picture
+                      Status
                     </Th>
                   </Tr>
                 </Thead>
@@ -210,13 +222,7 @@ export const SalesComp = () => {
                           {item.totalWeight}
                         </Td>
                         <Td textAlign={"center"} color={"#285430"}>
-                          <Image
-                            boxSize={"50px"}
-                            src={
-                              `${process.env.REACT_APP_API_BASE_URL}/` +
-                              item.picture
-                            }
-                          ></Image>
+                          {item.status}
                         </Td>
                       </Tr>
                     );

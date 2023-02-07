@@ -365,13 +365,13 @@ export const TransactionComp = () => {
                             ></Image>
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Button onClick={() => {}}>
+                            <Button onClick={() => setOrder(item.id)}>
                               <BsFillCheckSquareFill
                                 color={"green"}
                                 size="22"
                               />
                             </Button>
-                            <Button onClick={() => {}}>
+                            <Button onClick={() => setCancelled ()}>
                               <FaWindowClose color={"red"} size="25" />
                             </Button>
                           </Td>
@@ -430,15 +430,15 @@ export const TransactionComp = () => {
                             ></Image>
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Button onClick={() => {}}>
+                            <Button onClick={() => setDelivery(item.id)}>
                               <BsFillCheckSquareFill
                                 color={"green"}
                                 size="22"
                               />
                             </Button>
-                            <Button onClick={() => {}}>
+                            {/* <Button onClick={() => {}}>
                               <FaWindowClose color={"red"} size="25" />
-                            </Button>
+                            </Button> */}
                           </Td>
                         </Tr>
                       );
