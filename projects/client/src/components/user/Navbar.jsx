@@ -11,12 +11,21 @@ import {
   IoPersonOutline,
   IoPerson,
 } from "react-icons/io5";
-import { Badge, Center, color, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import {
+  Badge,
+  Center,
+  color,
+  Flex,
+  Icon,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import "../NavbarComp.css";
 import { useEffect } from "react";
-import Axios from "axios"
+import Axios from "axios";
 import { cartSync } from "../../redux/cartSlice";
+import { transSync } from "../../redux/transactionSlice";
 
 export const NavbarComp = () => {
   const data = useSelector((state) => state.cartSlice.value);
@@ -121,8 +130,8 @@ export const NavbarComp = () => {
         >
           {data2?.length}
         </Badge>
-        </Center>
-        <Center>
+      </Center>
+      <Center>
         <Flex
           w={[300, 350, 390]}
           h="70px"
@@ -130,7 +139,7 @@ export const NavbarComp = () => {
           color="gray.800"
           dropShadow="2xl"
           position="fixed"
-          >
+        >
           <Flex
             justifyContent="space-evenly"
             align="center"

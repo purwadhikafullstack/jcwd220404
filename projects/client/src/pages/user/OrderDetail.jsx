@@ -23,7 +23,7 @@ import {
   CiInboxIn,
 } from "react-icons/ci";
 import { useSelector } from "react-redux";
-import { CompleteOrder } from "../../components/user/CompleteOrder";
+import { CompleteButton } from "../../components/user/CompleteOrder";
 import { CancelOrder } from "../../components/user/CancelOrder";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
@@ -297,7 +297,7 @@ export const OrderDetail = () => {
               </Box>
 
               <Box>{data5 === "Waiting Payment" ? <CancelOrder /> : ""}</Box>
-              <Box>{data5 === "On Delivery" ? <CompleteOrder /> : ""}</Box>
+              <Box>{data5 === "On Delivery" ? <CompleteButton /> : ""}</Box>
               <Box>{data5 === "Done" || "Order Cancelled" ? "" : ""}</Box>
             </Stack>
           </Box>
