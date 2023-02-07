@@ -13,8 +13,8 @@ export const LandingPage = () => {
 
   return (
     <>
-      <Center>
-        <Box>
+      <Box>
+        <Center>
           <Box>
             <Skeleton isLoaded={true}>
               <Box
@@ -56,24 +56,8 @@ export const LandingPage = () => {
               </Box>
             </Skeleton>
           </Box>
-          <Box
-            className="body"
-            bgColor="white"
-            h={"100%"}
-            w={"390px"}
-            pb="80px"
-          >
-            <VStack>
-              {tokenLocalStorage ? <DefaultAddress /> : <BlankAddress />}
-              <CarouselComp />
-              <MenuComp />
-            </VStack>
-          </Box>
-          <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}>
-            <NavbarComp />
-          </Box>
-        </Box>
-      </Center>
+        </Center>
+      </Box>
     </>
   );
 };
