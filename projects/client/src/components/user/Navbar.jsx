@@ -11,7 +11,7 @@ import {
   IoPersonOutline,
   IoPerson,
 } from "react-icons/io5";
-import { Badge, Center, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import { Center, Flex, Icon, Text, VStack, Badge } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "axios";
 import { cartSync } from "../../redux/cartSlice";
