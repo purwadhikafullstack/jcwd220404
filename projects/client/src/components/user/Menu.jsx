@@ -20,7 +20,6 @@ export const MenuComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
       );
       setCategory(res.data);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -35,7 +34,6 @@ export const MenuComp = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
-      console.log(result.data.defaultAdd);
       setState3(result.data.defaultAdd);
     } catch (err) {
       console.log(err);

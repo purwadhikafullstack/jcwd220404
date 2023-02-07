@@ -1,26 +1,24 @@
-// import React, { useRef, useState, useEffect } from "react";
-// import Swal from "sweetalert2";
-// import Axios from "axios";
-// import {
-//   Box,
-//   Button,
-//   Center,
-//   Flex,
-//   FormControl,
-//   FormLabel,
-//   Input,
-//   Select,
-//   Stack,
-//   Text,
-//   Textarea,
-//   useColorModeValue,
-// } from "@chakra-ui/react";
+import React, { useRef, useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import Axios from "axios";
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Stack,
+  Text,
+  Textarea,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
-// export const AddProductComp = () => {
-//   const inputProductName = useRef("");
-//   const inputDescription = useRef("");
-//   const [data2, setData2] = useState([]);
-//   const [edit2, setEdit2] = useState({});
+export const AddPicWeb = () => {
+  const [profile3, setProfile3] = useState("upload");
+  const [image3, setImage3] = useState("");
 
 //   const onCreate = async () => {
 //     try {
@@ -43,21 +41,29 @@
 //     }
 //   };
 
-//   const getCategory = async () => {
-//     try {
-//       const res = await Axios.get(
-//         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
-//       );
-//       console.log(res.data);
-//       setData2(res.data);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
+  const handleUpload2 = async () => {
+    const data = new FormData();
+    data.append("file", image3);
 
-//   useEffect(() => {
-//     getCategory();
-//   }, [edit2]);
+    const resultImage = await Axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/picture/single-uploaded-picture`,
+      data,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    );
+
+    setProfile3(resultImage.data.pictureName);
+    setImage3({ images: "" });
+    Swal.fire({
+      icon: "success",
+      text: "Success",
+      width: "370px",
+    });
+    window.location.replace("/admin");
+  };
 
 //   return (
 //     <div>

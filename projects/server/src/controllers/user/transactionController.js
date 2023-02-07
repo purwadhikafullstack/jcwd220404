@@ -7,8 +7,8 @@ const product = db.Product;
 const price = db.Price;
 const branch = db.Branch;
 const { Op, Sequelize } = require("sequelize");
-const moment = require("moment")
-const schedule = require("node-schedule")
+const moment = require("moment");
+const schedule = require("node-schedule");
 
 module.exports = {
   create: async (req, res) => {
@@ -33,7 +33,7 @@ module.exports = {
         BranchId,
         TransactionId,
       } = req.body;
-      console.log(req.body);
+      req.body;
       const result = await transaction.create({
         totalOrder,
         totalWeight,
@@ -45,7 +45,9 @@ module.exports = {
         BranchId,
       });
 
-      const afterSend = moment().add(30, "seconds").format("YYYY-MM-DD HH:mm:ss");
+      const afterSend = moment()
+        .add(30, "seconds")
+        .format("YYYY-MM-DD HH:mm:ss");
 
       schedule.scheduleJob(
         afterSend,
@@ -78,7 +80,7 @@ module.exports = {
       });
 
       data.map(async (item) => {
-        console.log(item.dataValues);
+        item.dataValues;
         await transactionDetail.create({
           TransactionId: result.id,
           ProductId: item.dataValues.ProductId,
@@ -101,12 +103,8 @@ module.exports = {
       // await transaction.findAll({
       //   order: ["id", "DESC"],
       // });
-      res.status(200).send(
-        result,
-        
-      );
+      res.status(200).send(result);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -133,7 +131,6 @@ module.exports = {
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -148,7 +145,6 @@ module.exports = {
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -156,7 +152,7 @@ module.exports = {
   uploadFile: async (req, res) => {
     try {
       let fileUploaded = req.file;
-      console.log("controller", fileUploaded);
+      "controller", fileUploaded;
       await transaction.update(
         {
           picture: `upload/${fileUploaded.filename}`,
@@ -198,7 +194,25 @@ module.exports = {
         picture: getPicture.picture,
       });
     } catch (err) {
-      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findAllByAdmin: async (req, res) => {
+    try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      findBranch;
+      const transactions = await transaction.findAll({
+        where: {
+          BranchId: findBranch?.dataValues?.id,
+        },
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
       res.status(400).send(err);
     }
   },
@@ -210,7 +224,7 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
           status: "Order Cancelled",
@@ -219,7 +233,6 @@ module.exports = {
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -231,7 +244,7 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
           status: "Waiting Payment",
@@ -240,7 +253,6 @@ module.exports = {
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -252,7 +264,7 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
           status: "Waiting Confirm Payment",
@@ -261,7 +273,6 @@ module.exports = {
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -273,7 +284,7 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
           status: "On Process",
@@ -282,7 +293,6 @@ module.exports = {
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -294,7 +304,6 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
           status: "On Delivery",
@@ -303,7 +312,6 @@ module.exports = {
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -315,17 +323,15 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
+      findBranch;
       const transactions = await transaction.findAll({
         where: {
           status: "Done",
           BranchId: findBranch?.dataValues?.id,
         },
       });
-      console.log(transactions);
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -355,7 +361,6 @@ module.exports = {
       );
       res.status(200).send("Set Order Success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -385,7 +390,6 @@ module.exports = {
       );
       res.status(200).send("Set Delivery Success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -415,7 +419,6 @@ module.exports = {
       );
       res.status(200).send("Set Done Success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -433,10 +436,8 @@ module.exports = {
           },
         }
       );
-
       res.status(200).send("Set Cancelled Success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -450,7 +451,6 @@ module.exports = {
       });
       res.status(200).send(salesDepok);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -464,7 +464,6 @@ module.exports = {
       });
       res.status(200).send(salesJaksel);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -478,7 +477,6 @@ module.exports = {
       });
       res.status(200).send(salesJaktim);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -497,7 +495,6 @@ module.exports = {
       });
       res.status(200).send(total);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

@@ -24,7 +24,6 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
   ModalOverlay,
   Center,
   Flex,
@@ -42,9 +41,7 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 import { UpdateCategoryComp } from "./UpdateCategory";
-import { AddCategory } from "./AddCategory";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { syncData } from "../../redux/productSlice";
 import { syncCategory } from "../../redux/categorySlice";
 import { useNavigate } from "react-router-dom";
 
@@ -80,7 +77,7 @@ export const Category = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
-      console.log(res.data);
+
       setProduct(res.data);
     } catch (err) {
       console.log(err);
@@ -96,7 +93,7 @@ export const Category = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
       );
-      console.log(res.data);
+
       setCategory(res.data);
     } catch (err) {
       console.log(err);
@@ -112,7 +109,7 @@ export const Category = () => {
       const res = await Axios.delete(
         `${process.env.REACT_APP_API_BASE_URL}/product/removeCategory/${id}`
       );
-      console.log(res);
+
       getCategory();
     } catch (err) {
       console.log(err);
@@ -120,15 +117,12 @@ export const Category = () => {
   };
 
   const handleChoose1 = (e) => {
-    console.log("e.target.files", e.target.files);
     setImage2(e.target.files[0]);
   };
 
   const handleUpload1 = async (id) => {
     const data = new FormData();
-    console.log(data);
     data.append("file", image2);
-    console.log(data.get("file"));
 
     const resultImage = await Axios.post(
       `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded-category/${id}`,
@@ -139,11 +133,8 @@ export const Category = () => {
         },
       }
     );
-    console.log(resultImage.data);
     setProfile2(resultImage.data.categoryPicture);
     setImage2({ images: "" });
-    console.log(image2);
-    console.log(profile2);
     window.location.replace("/admin");
   };
 
@@ -173,7 +164,6 @@ export const Category = () => {
         }`
       );
       dispatch(syncCategory(res.data.result));
-      console.log(res.data.result);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {

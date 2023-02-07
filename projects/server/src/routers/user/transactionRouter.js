@@ -15,6 +15,7 @@ router.patch("/setCancelled/:id", transactionController.setCancelled)
 router.get("/findById/:id", transactionController.findAllById);
 router.get("/list/:id", transactionController.findById);
 router.get("/listProduct/:id", transactionController.findProductById);
+router.get("/listAll/:AdminId", transactionController.findAllByAdmin);
 router.get("/listCancelled/:AdminId", transactionController.findCancelled);
 router.get("/listWaitingPayment/:AdminId", transactionController.findWaitingPayment);
 router.get("/listConfirmPayment/:AdminId", transactionController.findConfirmPayment);

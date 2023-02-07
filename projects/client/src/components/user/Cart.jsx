@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import {
+  Badge,
   Box,
   Button,
   Card,
@@ -67,17 +68,15 @@ export const CartComp = () => {
         .filter((item) => item.status === true)
         .map((item) => item.totalCheckout)
         .reduce((a, b) => a + b);
-      console.log(selectedItem);
+
       const selectedWeight = res.data
         .filter((item) => item.status === true)
         .map((item) => item.totalWeight)
         .reduce((a, b) => a + b);
-      console.log(selectedWeight);
 
       setTotalCheckout(selectedItem);
       setTotalWeight(selectedWeight);
       setData3(res.data);
-      console.log(res.data);
       setData9(res.data);
     } catch (err) {
       console.log(err);
@@ -115,7 +114,7 @@ export const CartComp = () => {
         }
       );
       getData();
-      console.log(res.data);
+
       setCheckout(!checkout);
     } catch (err) {
       console.log(err);
@@ -127,7 +126,7 @@ export const CartComp = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
-      console.log(result.data.defaultAdd);
+
       setData2(result.data.defaultAdd);
     } catch (err) {
       console.log(err);
@@ -164,14 +163,14 @@ export const CartComp = () => {
         .filter((item) => item.status === true)
         .map((item) => item.totalCheckout)
         .reduce((a, b) => a + b);
-      console.log(selectedItem);
+
       setData5(selectedItem);
 
       const selectedWeight = result.data
         .filter((item) => item.status === true)
         .map((item) => item.totalWeight)
         .reduce((a, b) => a + b);
-      console.log(selectedWeight);
+
       setData6(selectedWeight);
 
       const res = await Axios.post(
@@ -184,14 +183,11 @@ export const CartComp = () => {
         }
       );
       setData4(res.data?.rajaongkir.results[0]?.costs);
-      console.log(res.data?.rajaongkir.results[0]?.costs);
 
       const selectedCharge =
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
-      console.log(selectedCharge);
 
       let totalOrder = selectedItem + selectedCharge;
-      console.log(totalOrder);
     } catch (err) {
       console.log(err);
     }
@@ -215,7 +211,7 @@ export const CartComp = () => {
 
       const selectedCharge =
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
-      console.log(selectedCharge);
+
       setData8(selectedCharge);
     } catch (err) {
       console.log(err);
@@ -239,12 +235,8 @@ export const CartComp = () => {
           BranchId: data9[0]?.BranchId,
         }
       );
-      console.log(res.data);
-      console.log(res.data.id);
-      // setData10(res.data.id);
 
       navigate(`/checkout/${res.data.id}`);
-      // navigate(`/checkout/`);
     } catch (err) {
       console.log(err);
     }
@@ -299,11 +291,19 @@ export const CartComp = () => {
                           <Box>
                             {!item.Product.Price.discPrice ? (
                               <Text fontSize={"xs"}>
-                                Rp{item.Product.Price.productPrice}
+                                {" "}
+                                {new Intl.NumberFormat("IND", {
+                                  style: "currency",
+                                  currency: "IDR",
+                                }).format(item.Product.Price.productPrice)}
                               </Text>
                             ) : (
                               <Text fontSize={"xs"} as="s">
-                                Rp{item.Product.Price.productPrice}
+                                {" "}
+                                {new Intl.NumberFormat("IND", {
+                                  style: "currency",
+                                  currency: "IDR",
+                                }).format(item.Product.Price.productPrice)}
                               </Text>
                             )}
                           </Box>
@@ -312,13 +312,15 @@ export const CartComp = () => {
                               ""
                             ) : (
                               <Text fontSize={"xs"}>
-                                Rp{item.Product.Price.discPrice}
+                                {" "}
+                                {new Intl.NumberFormat("IND", {
+                                  style: "currency",
+                                  currency: "IDR",
+                                }).format(item.Product.Price.discPrice)}
                               </Text>
                             )}
                           </Box>
                         </GridItem>
-                        {/* <GridItem fontSize={"small"} ml="-12" area={"footer"}>
-                        </GridItem> */}
                       </Grid>
                     </Checkbox>
                     <Box>
@@ -394,11 +396,6 @@ export const CartComp = () => {
               })}
             </Select>
           </FormControl>
-          {/* <FormControl>
-            <FormLabel>Buyer Information</FormLabel>
-            <Text>{data2?.["User.name"]}</Text>
-            <Text>{data2?.["User.phoneNumber"]}</Text>
-          </FormControl> */}
           <FormControl>
             <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
               Delivery Address
@@ -430,7 +427,17 @@ export const CartComp = () => {
               {/* </Checkbox> */}
             </Box>
           </FormControl>
-          <Button onClick={() => onCreate()} w={"100%"}>
+          <Button
+            onClick={() => onCreate()}
+            mt={"20px"}
+            w={"370px"}
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="16px"
+            color="gray.800"
+            justifyContent="center"
+          >
             Checkout
           </Button>
         </Stack>

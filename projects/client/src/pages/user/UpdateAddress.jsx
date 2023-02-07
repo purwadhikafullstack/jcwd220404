@@ -249,7 +249,6 @@ export const UpdateAddressPage = () => {
               <FormControl>
                 <FormLabel ml={"10px"}>Province</FormLabel>
                 <Select
-                  placeholder="Select Province"
                   onChange={provinceHandler}
                   ml={"10px"}
                   width="370px"
@@ -263,7 +262,6 @@ export const UpdateAddressPage = () => {
               <FormControl>
                 <FormLabel ml={"10px"}>City</FormLabel>
                 <Select
-                  placeholder="Select City"
                   onChange={cityHandler}
                   ml={"10px"}
                   width="370px"

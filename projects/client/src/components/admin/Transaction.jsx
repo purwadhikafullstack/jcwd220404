@@ -49,8 +49,25 @@ export const TransactionComp = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
+  const [data7, setData7] = useState();
+  const [data8, setData8] = useState();
   const { id } = useSelector((state) => state.adminSlice.value);
   const { isOpen, onClose, onToggle } = useDisclosure();
+
+  const getData7 = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/listAll/${id}`
+      );
+      setData7(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData7();
+  }, [id]);
 
   const getData = async () => {
     try {
@@ -58,7 +75,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment/${id}`
       );
       setData(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -74,7 +90,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment/${id}`
       );
       setData2(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -90,7 +105,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess/${id}`
       );
       setData3(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -106,7 +120,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery/${id}`
       );
       setData4(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -122,7 +135,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone/${id}`
       );
       setData5(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -138,7 +150,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancelled/${id}`
       );
       setData6(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -153,7 +164,7 @@ export const TransactionComp = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setOrder/${id}`
       );
-      console.log(result.data);
+
       getData3();
     } catch (err) {
       console.log(err);
@@ -165,7 +176,7 @@ export const TransactionComp = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setDelivery/${id}`
       );
-      console.log(result.data);
+
       getData4();
     } catch (err) {
       console.log(err);
@@ -177,7 +188,7 @@ export const TransactionComp = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setCancelled/${id}`
       );
-      console.log(result.data);
+
       getData();
     } catch (err) {
       console.log(err);
@@ -186,7 +197,94 @@ export const TransactionComp = () => {
 
   return (
     <div>
-      <Box>
+      <TableContainer mt="30px" w="60vw" ml={"120px"} bgColor={"white"}>
+        <Table variant="simple" colorScheme="#285430">
+          <Thead alignContent={"center"}>
+            <Tr>
+              <Th textAlign={"center"} color={"#285430"}>
+                Invoice
+              </Th>
+              <Th textAlign={"center"} color={"#285430"}>
+                Total Product
+              </Th>
+              <Th textAlign={"center"} color={"#285430"}>
+                Delivery Cost
+              </Th>
+              <Th textAlign={"center"} color={"#285430"}>
+                Weight
+              </Th>
+              <Th textAlign={"center"} color={"#285430"}>
+                Status
+              </Th>
+              <Th textAlign={"center"} color={"#285430"}>
+                Actions
+              </Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data7?.map((item) => {
+              return (
+                <Tr>
+                  <Td textAlign={"center"} color={"#285430"}>
+                    {item.id_order}
+                  </Td>
+                  <Td textAlign={"center"} color={"#285430"}>
+                    {item.totalOrder}
+                  </Td>
+                  <Td textAlign={"center"} color={"#285430"}>
+                    {item.totalCharge}
+                  </Td>
+                  <Td textAlign={"center"} color={"#285430"}>
+                    {item.totalWeight}
+                  </Td>
+                  <Td textAlign={"center"} color={"#285430"}>
+                    {item.status}
+                  </Td>
+                  <Td textAlign={"center"} color={"#285430"}>
+                    {item.status === "Waiting Confirm Payment" ? (
+                      <>
+                        <Button onClick={() => setOrder(item.id)}>
+                          <BsFillCheckSquareFill color={"green"} size="22" />
+                        </Button>
+                        <Button onClick={() => setCancelled(item.id)}>
+                          <FaWindowClose color={"red"} size="25" />
+                        </Button>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {item.status === "On Process" ? (
+                      <>
+                        <Button onClick={() => setDelivery(item.id)}>
+                          <BsFillCheckSquareFill color={"green"} size="22" />
+                        </Button>
+                        <Button onClick={() => setCancelled(item.id)}>
+                          <FaWindowClose color={"red"} size="25" />
+                        </Button>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {item.status === "Waiting Payment" ? (
+                      <>
+                        {/* <Button onClick={() => setCancelled(item.id)}>
+                          <BsFillCheckSquareFill color={"green"} size="22" />
+                        </Button> */}
+                        <Button onClick={() => setCancelled(item.id)}>
+                          <FaWindowClose color={"red"} size="25" />
+                        </Button>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+      {/* <Box>
         <Tabs variant="solid-rounded" colorScheme="">
           <TabList maxW="6xl" pl="10px" mt="50px" mx={"auto"}>
             <Tab>
@@ -371,13 +469,13 @@ export const TransactionComp = () => {
                             ></Image>
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Button onClick={() => {}}>
+                            <Button onClick={() => setOrder(item.id)}>
                               <BsFillCheckSquareFill
                                 color={"green"}
                                 size="22"
                               />
                             </Button>
-                            <Button onClick={() => {}}>
+                            <Button onClick={() => setCancelled ()}>
                               <FaWindowClose color={"red"} size="25" />
                             </Button>
                           </Td>
@@ -436,15 +534,13 @@ export const TransactionComp = () => {
                             ></Image>
                           </Td>
                           <Td textAlign={"center"} color={"#285430"}>
-                            <Button onClick={() => {}}>
+                            <Button onClick={() => setDelivery(item.id)}>
                               <BsFillCheckSquareFill
                                 color={"green"}
                                 size="22"
                               />
                             </Button>
-                            <Button onClick={() => {}}>
-                              <FaWindowClose color={"red"} size="25" />
-                            </Button>
+                            
                           </Td>
                         </Tr>
                       );
@@ -557,7 +653,7 @@ export const TransactionComp = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
-      </Box>
+      </Box> */}
     </div>
   );
 };

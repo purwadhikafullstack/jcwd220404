@@ -22,7 +22,6 @@ export const RegisterAdmin = () => {
   const [data2, setData2] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowComfirmPassword] = useState(false);
-  const [branch, setBranch] = useState();
   const [selectedBranch, setSelectedBranch] = useState();
   const inputBranch = useRef(0);
 
@@ -92,8 +91,6 @@ export const RegisterAdmin = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/branch/findAll`
       );
-      console.log(res.data);
-
       setData2(res.data);
     } catch (err) {
       console.log(err);
@@ -354,7 +351,7 @@ export const RegisterAdmin = () => {
                       </FormControl>
                       <Center>
                         <Button
-                        mb={"20px"}
+                          mb={"20px"}
                           type="submit"
                           bgColor={"#A4BE7B"}
                           borderColor="#285430"

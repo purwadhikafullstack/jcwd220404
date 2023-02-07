@@ -13,7 +13,6 @@ export const DefaultAddress = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
-      console.log(result.data);
       setData(result.data.defaultAdd);
     } catch (err) {
       console.log(err);
@@ -36,10 +35,10 @@ export const DefaultAddress = () => {
             border="1px"
             borderColor={"#285430"}
           >
-            {data === null}
-
             <Text color={"#285430"}>
-              Deliver to: {data?.city}, {data?.province}
+              {data === null
+                ? "Please set your Default Address in Profile"
+                : ` Deliver to: ${data?.city}, ${data?.province}`}
             </Text>
           </Button>
         </Stack>

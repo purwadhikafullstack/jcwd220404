@@ -44,8 +44,6 @@ export const InventoryAdminComp = () => {
   const [data4, setData4] = useState();
   const [edit, setEdit] = useState({});
   const { id } = useSelector((state) => state.adminSlice.value);
-  const data = useSelector((state) => state.inventorySlice.value);
-  const params = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const OverlayOne = () => (
     <ModalOverlay
@@ -61,9 +59,7 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
       );
       setBranch(res.data);
-      console.log(res.data);
       setData4(res.data.id);
-      console.log(res.data.id);
     } catch (err) {
       console.log(err);
     }
@@ -79,7 +75,6 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -95,7 +90,6 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
       setData3(res.data);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -123,11 +117,24 @@ export const InventoryAdminComp = () => {
         text: "Stock Updated",
       });
       setTimeout(() => window.location.replace("/admin"), 2000);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const findStock = async () => {
+    try {
+      const stock = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/find/${data4}`
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    findStock();
+  }, [data4]);
 
   return (
     <div>
@@ -140,6 +147,7 @@ export const InventoryAdminComp = () => {
                   <Th color={"#285430"}>Product</Th>
                   <Th color={"#285430"}>Entry Date</Th>
                   <Th color={"#285430"}>Quantity</Th>
+                  <Th color={"#285430"}>Final Stock</Th>
                   <Th color={"#285430"}>Actions</Th>
                 </Tr>
               </Thead>
@@ -152,6 +160,15 @@ export const InventoryAdminComp = () => {
                       <Td textAlign={"center"} color={"#285430"}>
                         {item.stockQty}
                       </Td>
+                      {/* {data5?.map((item) => {
+                        return (
+                          <> */}
+                      <Td textAlign={"center"} color={"#285430"}>
+                        {item?.totalQty}
+                      </Td>
+                      {/* </>
+                        );
+                      })} */}
                       <Td>
                         <Box
                           mr="28px"

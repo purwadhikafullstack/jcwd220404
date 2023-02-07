@@ -10,7 +10,7 @@ module.exports = {
   create: async (req, res) => {
     try {
       const { productName, distributor, description, CategoryId } = req.body;
-      console.log(req.body)
+      console.log(req.body);
       if (
         !productName
         // !distributor &&
@@ -152,7 +152,6 @@ module.exports = {
           id: req.params.id,
         },
       });
-      console.log(req.params.id);
       const deleteProduct = await product.findAll();
       res.status(200).send(deleteProduct);
     } catch (err) {
@@ -167,7 +166,7 @@ module.exports = {
           id: req.params.id,
         },
       });
-      console.log(req.params.id);
+
       const deleteCategory = await category.findAll();
       res.status(200).send(deleteCategory);
     } catch (err) {
@@ -220,7 +219,7 @@ module.exports = {
   uploadFile: async (req, res) => {
     try {
       let fileUploaded = req.file;
-      console.log("controller", fileUploaded);
+
       await product.update(
         {
           picture: `upload/${fileUploaded.filename}`,
@@ -249,7 +248,7 @@ module.exports = {
   uploadCategory: async (req, res) => {
     try {
       let fileUploaded = req.file;
-      console.log("controller", fileUploaded);
+
       await category.update(
         {
           categoryPicture: `upload/${fileUploaded.filename}`,
@@ -450,6 +449,27 @@ module.exports = {
     }
   },
 
+  notDiscountItem: async (req, res) => {
+    try {
+      const { discPrice } = req.body;
+      const discounts = await price.update(
+        {
+          isDisc: 0,
+        },
+        {
+          where: {
+            productPrice: {
+              [Op.lt]: 50000,
+            },
+          },
+        }
+      );
+      res.status(200).send(discounts);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
   discountItem: async (req, res) => {
     try {
       const { discPrice } = req.body;
@@ -477,18 +497,13 @@ module.exports = {
         include: [{ model: discount }],
         raw: true,
       });
-      console.log(disc);
 
       const priceOne = disc.map((item) => item.productPrice);
       const priceTwo = disc.map((item) => item["Discount.nominal"]);
-      console.log(priceOne);
-      console.log(priceTwo);
 
       let finalDisc = priceOne.map((item, index) => {
-        // console.log(item);
         return item - priceTwo[index];
       });
-      console.log(finalDisc);
 
       for (let i = 0; i < finalDisc.length; i++) {
         await price.update(
@@ -506,7 +521,6 @@ module.exports = {
         disc,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

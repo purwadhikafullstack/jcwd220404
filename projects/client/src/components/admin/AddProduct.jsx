@@ -58,10 +58,10 @@ export const AddProduct = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
       );
-      console.log(res.data);
+
       setData2(res.data);
       const categories = res.data.map((item) => item.categoryName);
-      console.log(categories);
+
       setData3(categories);
     } catch (err) {
       console.log(err);

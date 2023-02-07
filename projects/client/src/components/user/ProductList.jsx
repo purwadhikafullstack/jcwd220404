@@ -54,7 +54,7 @@ export const ProductList = () => {
         }`
       );
       dispatch(syncData(res.data.result));
-      console.log(res.data.result);
+
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
     } catch (err) {
@@ -119,7 +119,6 @@ export const ProductList = () => {
       const res = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/product/discItem`
       );
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }

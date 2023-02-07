@@ -32,7 +32,6 @@ export const ListAddress = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/addressById/${id}`
       );
-      console.log(result.data);
       dispatch(syncData(result.data));
     } catch (err) {
       console.log(err);
@@ -48,7 +47,6 @@ export const ListAddress = () => {
       const res = await Axios.delete(
         `${process.env.REACT_APP_API_BASE_URL}/address/remove/${id}`
       );
-      console.log(res);
       getData();
     } catch (err) {
       console.log(err);
@@ -60,7 +58,6 @@ export const ListAddress = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/address/setDefault/${idAddress}/${id}`
       );
-      console.log(result)
       getData();
     } catch (err) {
       console.log(err);

@@ -43,8 +43,6 @@ export const InventoryList = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
-      console.log(result.data.defaultAdd);
-      console.log(result.data.defaultAdd["Branch.id"]);
       setState2(result.data.defaultAdd);
       setState3(result.data.defaultAdd["Branch.id"]);
     } catch (err) {
@@ -64,8 +62,6 @@ export const InventoryList = () => {
         )}/${Number(state2.longitude)}`
       );
       dispatch(syncInventory(res.data));
-      console.log(res.data);
-      console.log(res.data[3]?.Product?.Price?.productPrice);
       setState5(res.data?.Product?.Price?.productPrice);
     } catch (err) {
       console.log(err);
@@ -120,10 +116,8 @@ export const InventoryList = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/listDiscount`
       );
-      console.log(res.data.nominal);
       setState4(res.data.nominal);
       const discNominal = res.data.nominal;
-      console.log(discNominal);
     } catch (err) {
       console.log(err);
     }
@@ -613,18 +607,72 @@ export const InventoryList = () => {
                         >
                           {item.Product.productName}
                         </Text>
-                        <Text mt={"10px"} fontSize={"sm"} color="#285430">
-                          {" "}
-                          {new Intl.NumberFormat("IND", {
-                            style: "currency",
-                            currency: "IDR",
-                          }).format(item.Product.Price.productPrice)}
-                        </Text>
+                        <Box>
+                          {!item.Product.Price.discPrice ? (
+                            <Text fontSize={"xs"}>
+                              {" "}
+                              {new Intl.NumberFormat("IND", {
+                                style: "currency",
+                                currency: "IDR",
+                              }).format(item.Product.Price.productPrice)}
+                            </Text>
+                          ) : (
+                            <Text fontSize={"xs"} as="s">
+                              {" "}
+                              {new Intl.NumberFormat("IND", {
+                                style: "currency",
+                                currency: "IDR",
+                              }).format(item.Product.Price.productPrice)}
+                            </Text>
+                          )}
+                        </Box>
+                        <Box>
+                          {!item.Product.Price.discPrice ? (
+                            ""
+                          ) : (
+                            <Text fontSize={"xs"}>
+                              {" "}
+                              {new Intl.NumberFormat("IND", {
+                                style: "currency",
+                                currency: "IDR",
+                              }).format(item.Product.Price.discPrice)}
+                              <Badge>Promo</Badge>
+                            </Text>
+                          )}
+                        </Box>
                         <Text fontSize={"sm"} color={"#285430"}>
                           {item.stockQty} pcs
                         </Text>
                       </CardBody>
                       <CardFooter>
+                        {/* <Box> */}
+                        {/* {item.Carts.find((item2) => item2["UserNIM"] === NIM) ? (
+                    <Button
+                      disabled
+                      w="full"
+                      borderRadius="9px"
+                      size="sm"
+                      my="5px"
+                    >
+                      <Icon boxSize="4" as={IoCartOutline} mr="5px" x />
+                      Keranjang
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => onAddCart(item.id)}
+                      w="full"
+                      borderColor="pink.400"
+                      borderRadius="9px"
+                      borderWidth="2px"
+                      size="sm"
+                      my="5px"
+                      _hover={{ bg: "pink", color: "white" }}
+                    >
+                      <Icon boxSize="4" as={IoCartOutline} mr="5px" x />
+                      Keranjang
+                    </Button>
+                  )} */}
+
                         <Button
                           onClick={() =>
                             onAddCart(item.Product.id, item.Branch.id)
@@ -640,6 +688,7 @@ export const InventoryList = () => {
                           <Icon as={FaCartArrowDown} w="5" h="5" m="2" />
                           to Cart
                         </Button>
+                        {/* </Box> */}
                       </CardFooter>
                     </Card>
                   </div>
