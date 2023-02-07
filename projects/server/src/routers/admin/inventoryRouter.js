@@ -12,5 +12,6 @@ router.get("/pagProduct", inventoryController.paginationProduct);
 router.get("/list/total", inventoryController.totalProduct);
 router.get("/search", inventoryController.searchBy);
 router.get("/sort", inventoryController.sortBy);
+router.get("/pagInventory", inventoryController.paginationAdmin);
 
 module.exports = router;

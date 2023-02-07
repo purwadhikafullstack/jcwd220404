@@ -20,6 +20,7 @@ export const AddProduct = () => {
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
   const [edit2, setEdit2] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState()
   const inputProductName = useRef("");
   const inputDescription = useRef("");
   const inputCategory = useRef(0);
@@ -29,24 +30,17 @@ export const AddProduct = () => {
       const addProduct = {
         productName: inputProductName.current.value,
         description: inputDescription.current.value,
+        CategoryId: inputCategory.current.value,
       };
-      const loopCategory = categoryOptions.map((item) => item.value);
-      console.log(loopCategory);
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/product/create`,
-        {
-          addProduct,
-          CategoryId: categoryOptions[0]?.value,
-        }
+        addProduct
       );
       Swal.fire({
         icon: "success",
-        text: "Product Added",
-        width: "370px",
+        text: "Success",
       });
-      setTimeout(() => {
-        window.location.replace("/admin");
-      }, 900);
+      setTimeout(() => window.location.replace("/admin/product"), 2000);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -58,19 +52,38 @@ export const AddProduct = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
       );
-
       setData2(res.data);
+      console.log(res.data)
       const categories = res.data.map((item) => item.categoryName);
-
+      console.log(categories)
       setData3(categories);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const renderCategory = () => {
+    return data2.map((val) => {
+      return (
+        <option value={val.id} key={val.id.toString()}>
+          {val.categoryName}
+        </option>
+      );
+    });
+  };
+
+  const categoryHandler = ({ target }) => {
+    const { value } = target;
+    selectedCategory(value);
+  };
+
+  // useEffect(() => {
+  //   getBranch();
+  // }, [selectedBranch]);
+
   useEffect(() => {
     getCategory();
-  }, [edit2]);
+  }, [edit2, selectedCategory]);
 
   const categoryOptions = [
     { value: 1, label: "Sayuran" },
@@ -147,7 +160,10 @@ export const AddProduct = () => {
                 classNamePrefix="select"
                 value={categoryOptions.value}
                 ref={inputCategory}
-              />
+                // onChange={categoryHandler}
+              >
+                
+              </Select>
             </FormControl>
             <FormControl>
               <FormLabel mt={"10px"} ml={"10px"} color={"#285430"}>

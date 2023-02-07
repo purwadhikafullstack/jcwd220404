@@ -27,5 +27,6 @@ router.get("/salesJaksel", transactionController.findSalesJaksel);
 router.get("/salesJaktim", transactionController.findSalesJaktim);
 router.get("/total/:BranchId", transactionController.totalSales)
 router.get("/totalAll", transactionController.totalSalesAll)
+router.get("/pagTransaction", transactionController.paginationTransaction);
 
 module.exports = router;
