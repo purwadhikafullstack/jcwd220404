@@ -70,7 +70,6 @@ module.exports = {
         ],
         raw: true,
       });
-      console.log(response["Product.Price.productPrice"]);
       const data = await productCart.update(
         {
           qty,
@@ -83,13 +82,12 @@ module.exports = {
           where: { id },
         }
       );
-      console.log(data);
+
       res.status(200).send({
         message: "Update success",
         data,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -172,7 +170,6 @@ module.exports = {
       });
       res.status(200).send(carts);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -199,7 +196,6 @@ module.exports = {
       });
       res.status(200).send(carts);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -223,7 +219,6 @@ module.exports = {
       );
       res.send(200).send(data);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -265,11 +260,9 @@ module.exports = {
           courier: courier,
         },
       };
-      console.log(req.body);
 
       request(options, function (error, response, body) {
         if (error) throw new Error(error);
-        console.log(body);
         res.status(200).send(JSON.parse(body));
       });
     } catch (err) {

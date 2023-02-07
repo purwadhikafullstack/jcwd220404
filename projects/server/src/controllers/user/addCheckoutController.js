@@ -18,7 +18,6 @@ module.exports = {
       });
       res.status(200).send(response);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -51,7 +50,6 @@ module.exports = {
       });
       res.status(200).json(response);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

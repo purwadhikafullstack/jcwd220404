@@ -1,13 +1,4 @@
-import {
-  Avatar,
-  Badge,
-  Box,
-  Button,
-  Center,
-  Image,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Avatar, Box, Button, Center, Image, Text } from "@chakra-ui/react";
 import Axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -20,10 +11,6 @@ export const SidebarComp = () => {
   const { username, id } = useSelector((state) => state.adminSlice.value);
   const [data, setData] = useState();
   const navigate = useNavigate();
-  const params = useParams();
-  console.log(id);
-  console.log(data);
-  console.log(params);
 
   const toDashboard = () => {
     navigate("/admin");
@@ -53,8 +40,6 @@ export const SidebarComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/branch/branchByAdmin/${id}`
       );
       setData(res.data);
-      // dispatch(syncData(res.data));
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }

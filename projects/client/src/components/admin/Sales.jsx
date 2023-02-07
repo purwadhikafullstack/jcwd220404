@@ -1,5 +1,4 @@
 import {
-  Image,
   Tab,
   Table,
   TableContainer,
@@ -29,7 +28,6 @@ export const SalesComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/salesDepok`
       );
       setData(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -45,7 +43,6 @@ export const SalesComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/salesJaksel`
       );
       setData2(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -61,7 +58,6 @@ export const SalesComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/salesJaktim`
       );
       setData3(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }

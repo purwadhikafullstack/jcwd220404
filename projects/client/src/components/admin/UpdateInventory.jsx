@@ -30,9 +30,8 @@ export const UpdateInventory = ({ data }) => {
         `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
       );
       setBranch(res.data);
-      console.log(res.data);
+
       setData4(res.data.id);
-      console.log(res.data.id);
     } catch (err) {
       console.log(err);
     }
@@ -54,7 +53,7 @@ export const UpdateInventory = ({ data }) => {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/update/${id}`,
         updateProduct
       );
-      console.log(res);
+
       Swal.fire({
         icon: "success",
         text: "Product Updated",
@@ -66,22 +65,6 @@ export const UpdateInventory = ({ data }) => {
     }
   };
 
-  //   const getData = async () => {
-  //     try {
-  //       const res = await Axios.get(
-  //         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
-  //       );
-  //       setData2(res.data);
-  //       console.log(res.data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     getData();
-  //   }, [data4]);
-
   return (
     <div>
       <Box
@@ -89,127 +72,101 @@ export const UpdateInventory = ({ data }) => {
         color={useColorModeValue("#285430")}
         border="2px"
         borderRadius="2xl"
-      >
-        {/* <Box
-          w={"300px"}
-          // m="20px"
-          // mb="25px"
-          borderWidth="2px"
-          boxShadow="xl"
-          borderRadius="8px"
-          borderColor="#285430"
-        > */}
-          {/* <Box
-            pt="10px"
-            h="50px"
-            borderTopRadius="8px"
-            align="center"
-            bg="#E5D9B6"
+      ></Box>
+      <Stack spacing={"10px"}>
+        <FormControl>
+          <FormLabel
+            color="#285430"
+            mt="10px"
+            ml="8px"
             fontSize="18px"
-          > */}
-            {/* <Text
-              mx="10px"
-              justifyContent="center"
-              fontWeight="bold"
-              color="#285430"
-            >
-              Add Stock
-            </Text> */}
-          </Box>
-          <Stack spacing={"10px"}>
-            <FormControl>
-              <FormLabel
-                color="#285430"
-                mt="10px"
-                ml="8px"
-                fontSize="18px"
-                as={"b"}
-              >
-                Branch
-              </FormLabel>
-              <Input
-                // ref={inputBranch}
-                color={"#285430"}
-                borderColor="#285430"
-                ml="5px"
-                w="97%"
-                defaultValue={branch?.branchName}
-              ></Input>
-            </FormControl>
-            <FormControl>
-              <FormLabel
-                color="#285430"
-                mt="10px"
-                ml="8px"
-                fontSize="18px"
-                as={"b"}
-              >
-                Product Name
-              </FormLabel>
-              <Input
-                ref={inputProductName}
-                color={"#285430"}
-                borderColor="#285430"
-                ml="5px"
-                w="97%"
-                defaultValue={data?.Product?.productName}
-              ></Input>
-            </FormControl>
-            <FormControl>
-              <FormLabel
-                color="#285430"
-                mt="10px"
-                ml="8px"
-                fontSize="18px"
-                as={"b"}
-              >
-                Entry Date
-              </FormLabel>
-              <Input
-                textColor="gray.800"
-                borderColor="#285430"
-                ml="5px"
-                w="97%"
-                defaultValue={data?.entryDate}
-                ref={inputEntryDate}
-              ></Input>
-            </FormControl>
-            <FormControl>
-              <FormLabel
-                color="#285430"
-                mt="10px"
-                ml="8px"
-                fontSize="18px"
-                as={"b"}
-              >
-                Quantity
-              </FormLabel>
-              <Input
-                textColor="gray.800"
-                borderColor="#285430"
-                ml="5px"
-                w="97%"
-                ref={inputQty}
-                defaultValue={data?.stockQty}
-              ></Input>
-            </FormControl>
-            <Center>
-              <Button
-                mb="20px"
-                bgColor={"#A4BE7B"}
-                borderColor="#285430"
-                border="2px"
-                fontSize="18px"
-                color="gray.800"
-                width={"50%"}
-                justifyContent="center"
-                onClick={() => onUpdate(data.id)}
-              >
-                Confirm
-              </Button>
-            </Center>
-          </Stack>
-        {/* </Box> */}
+            as={"b"}
+          >
+            Branch
+          </FormLabel>
+          <Input
+            // ref={inputBranch}
+            color={"#285430"}
+            borderColor="#285430"
+            ml="5px"
+            w="97%"
+            defaultValue={branch?.branchName}
+          ></Input>
+        </FormControl>
+        <FormControl>
+          <FormLabel
+            color="#285430"
+            mt="10px"
+            ml="8px"
+            fontSize="18px"
+            as={"b"}
+          >
+            Product Name
+          </FormLabel>
+          <Input
+            ref={inputProductName}
+            color={"#285430"}
+            borderColor="#285430"
+            ml="5px"
+            w="97%"
+            defaultValue={data?.Product?.productName}
+          ></Input>
+        </FormControl>
+        <FormControl>
+          <FormLabel
+            color="#285430"
+            mt="10px"
+            ml="8px"
+            fontSize="18px"
+            as={"b"}
+          >
+            Entry Date
+          </FormLabel>
+          <Input
+            textColor="gray.800"
+            borderColor="#285430"
+            ml="5px"
+            w="97%"
+            defaultValue={data?.entryDate}
+            ref={inputEntryDate}
+          ></Input>
+        </FormControl>
+        <FormControl>
+          <FormLabel
+            color="#285430"
+            mt="10px"
+            ml="8px"
+            fontSize="18px"
+            as={"b"}
+          >
+            Quantity
+          </FormLabel>
+          <Input
+            textColor="gray.800"
+            borderColor="#285430"
+            ml="5px"
+            w="97%"
+            ref={inputQty}
+            defaultValue={data?.stockQty}
+          ></Input>
+        </FormControl>
+        <Center>
+          <Button
+            mb="20px"
+            bgColor={"#A4BE7B"}
+            borderColor="#285430"
+            border="2px"
+            fontSize="18px"
+            color="gray.800"
+            width={"50%"}
+            justifyContent="center"
+            onClick={() => onUpdate(data.id)}
+          >
+            Confirm
+          </Button>
+        </Center>
+      </Stack>
+      {/* </Box> */}
       {/* </Box> */}
     </div>
   );

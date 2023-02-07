@@ -12,7 +12,6 @@ module.exports = {
       const { username, email, password, password_confirmation, isSuper } =
         req.body.result2;
       const { BranchId } = req.body;
-      console.log(req.body);
 
       if (password !== password_confirmation) throw `password not match`;
 
@@ -29,7 +28,6 @@ module.exports = {
         isSuper,
         BranchId,
       });
-      console.log(result);
 
       const token = jwt.sign({ username: username, email: email }, secretKey);
 
@@ -51,10 +49,6 @@ module.exports = {
         }
       );
 
-      // data.map(async (item) => {
-      //   console.log(item);
-      // });
-
       res.status(200).send({
         message: "Register Succes",
         result,
@@ -62,7 +56,6 @@ module.exports = {
         token,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

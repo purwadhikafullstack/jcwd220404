@@ -14,9 +14,7 @@ export const AddPicWeb = () => {
 
   const handleUpload2 = async () => {
     const data = new FormData();
-    console.log(data);
     data.append("file", image3);
-    console.log(data.get("file"));
 
     const resultImage = await Axios.post(
       `${process.env.REACT_APP_API_BASE_URL}/picture/single-uploaded-picture`,
@@ -27,11 +25,9 @@ export const AddPicWeb = () => {
         },
       }
     );
-    console.log(resultImage.data);
+
     setProfile3(resultImage.data.pictureName);
     setImage3({ images: "" });
-    console.log(image3);
-    console.log(profile3);
     Swal.fire({
       icon: "success",
       text: "Success",

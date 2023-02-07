@@ -42,11 +42,8 @@ export const InventoryAdminComp = () => {
   const [data2, setData2] = useState();
   const [data3, setData3] = useState([]);
   const [data4, setData4] = useState();
-  const [data5, setData5] = useState();
   const [edit, setEdit] = useState({});
   const { id } = useSelector((state) => state.adminSlice.value);
-  const data = useSelector((state) => state.inventorySlice.value);
-  const params = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const OverlayOne = () => (
     <ModalOverlay
@@ -62,9 +59,7 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
       );
       setBranch(res.data);
-      console.log(res.data);
       setData4(res.data.id);
-      console.log(res.data.id);
     } catch (err) {
       console.log(err);
     }
@@ -80,7 +75,6 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -96,7 +90,6 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
       setData3(res.data);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -124,7 +117,6 @@ export const InventoryAdminComp = () => {
         text: "Stock Updated",
       });
       setTimeout(() => window.location.replace("/admin"), 2000);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -135,7 +127,6 @@ export const InventoryAdminComp = () => {
       const stock = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/inventory/find/${data4}`
       );
-      console.log(stock.data);
     } catch (err) {
       console.log(err);
     }
@@ -172,10 +163,10 @@ export const InventoryAdminComp = () => {
                       {/* {data5?.map((item) => {
                         return (
                           <> */}
-                            <Td textAlign={"center"} color={"#285430"}>
-                              {item?.totalQty}
-                            </Td>
-                          {/* </>
+                      <Td textAlign={"center"} color={"#285430"}>
+                        {item?.totalQty}
+                      </Td>
+                      {/* </>
                         );
                       })} */}
                       <Td>

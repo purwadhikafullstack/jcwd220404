@@ -68,17 +68,15 @@ export const CartComp = () => {
         .filter((item) => item.status === true)
         .map((item) => item.totalCheckout)
         .reduce((a, b) => a + b);
-      console.log(selectedItem);
+
       const selectedWeight = res.data
         .filter((item) => item.status === true)
         .map((item) => item.totalWeight)
         .reduce((a, b) => a + b);
-      console.log(selectedWeight);
 
       setTotalCheckout(selectedItem);
       setTotalWeight(selectedWeight);
       setData3(res.data);
-      console.log(res.data);
       setData9(res.data);
     } catch (err) {
       console.log(err);
@@ -116,7 +114,7 @@ export const CartComp = () => {
         }
       );
       getData();
-      console.log(res.data);
+
       setCheckout(!checkout);
     } catch (err) {
       console.log(err);
@@ -128,7 +126,7 @@ export const CartComp = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
-      console.log(result.data.defaultAdd);
+
       setData2(result.data.defaultAdd);
     } catch (err) {
       console.log(err);
@@ -165,14 +163,14 @@ export const CartComp = () => {
         .filter((item) => item.status === true)
         .map((item) => item.totalCheckout)
         .reduce((a, b) => a + b);
-      console.log(selectedItem);
+
       setData5(selectedItem);
 
       const selectedWeight = result.data
         .filter((item) => item.status === true)
         .map((item) => item.totalWeight)
         .reduce((a, b) => a + b);
-      console.log(selectedWeight);
+
       setData6(selectedWeight);
 
       const res = await Axios.post(
@@ -185,14 +183,11 @@ export const CartComp = () => {
         }
       );
       setData4(res.data?.rajaongkir.results[0]?.costs);
-      console.log(res.data?.rajaongkir.results[0]?.costs);
 
       const selectedCharge =
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
-      console.log(selectedCharge);
 
       let totalOrder = selectedItem + selectedCharge;
-      console.log(totalOrder);
     } catch (err) {
       console.log(err);
     }
@@ -216,7 +211,7 @@ export const CartComp = () => {
 
       const selectedCharge =
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
-      console.log(selectedCharge);
+
       setData8(selectedCharge);
     } catch (err) {
       console.log(err);
@@ -240,8 +235,6 @@ export const CartComp = () => {
           BranchId: data9[0]?.BranchId,
         }
       );
-      console.log(res.data);
-      console.log(res.data.id);
 
       navigate(`/checkout/${res.data.id}`);
     } catch (err) {

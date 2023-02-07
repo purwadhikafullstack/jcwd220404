@@ -44,10 +44,8 @@ export const TransactionComp = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/findById/${id}`
       );
-      console.log(result.data);
       setData(result.data);
       setData2(result.data[1]?.id);
-      console.log(result.data[0]?.id);
     } catch (err) {
       console.log(err);
     }
@@ -58,15 +56,12 @@ export const TransactionComp = () => {
   }, [id]);
 
   const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
     setImage(e.target.files[0]);
   };
 
   const handleUpload = async (TransactionId) => {
     const data = new FormData();
-    console.log(data);
     data.append("file", image);
-    console.log(data.get("file"));
 
     const resultImage = await Axios.post(
       `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded/${TransactionId}`,
@@ -77,11 +72,8 @@ export const TransactionComp = () => {
         },
       }
     );
-    console.log(resultImage.data);
     setProfile(resultImage.data.picture);
     setImage({ images: "" });
-    console.log(image);
-    console.log(profile);
     Swal.fire({
       icon: "success",
       text: "Success",

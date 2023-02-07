@@ -21,7 +21,6 @@ module.exports = {
       });
       res.status(200).send(data);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -44,7 +43,6 @@ module.exports = {
       });
       res.status(200).send(inventories);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -176,7 +174,7 @@ module.exports = {
             model: branch,
             include: [
               {
-                model: transactionDetail
+                model: transactionDetail,
                 // ({
                 //   attributes: [
                 //     "ProductId",
@@ -192,7 +190,6 @@ module.exports = {
       });
       res.status(200).send(inventories);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -228,18 +225,16 @@ module.exports = {
       console.log(statusOK);
 
       const qtyOne = total.map((item) => item.stockQty);
-      console.log(qtyOne);
+
       const qtyTwo = stock.map((item) => item.total_qty);
-      // console.log(qtyTwo);
+
       let numberQtyTwo = [];
       length = qtyTwo.length;
       for (let i = 0; i < length; i++) numberQtyTwo.push(parseInt(qtyTwo[i]));
-      // console.log(numberQtyTwo);
 
       let finalQty = qtyOne.map((item, index) => {
         return item - numberQtyTwo[index];
       });
-      console.log(finalQty);
 
       for (let i = 0; i < finalQty.length; i++) {
         await inventory.update(
@@ -260,7 +255,6 @@ module.exports = {
         stock,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -316,21 +310,19 @@ module.exports = {
       console.log(statusOK);
 
       const qtyOne = total.map((item) => item.stockQty);
-      console.log(qtyOne);
+
       const qtyTwo = stock.map((item) => item.total_qty);
-      // console.log(qtyTwo);
+
       let numberQtyTwo = [];
       length = qtyTwo.length;
       for (let i = 0; i < length; i++) numberQtyTwo.push(parseInt(qtyTwo[i]));
-      // console.log(numberQtyTwo);
 
       let finalQty = qtyOne.map((item, index) => {
         return item - numberQtyTwo[index];
       });
-      console.log(finalQty);
+
       res.status(200).send(stock);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

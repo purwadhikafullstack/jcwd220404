@@ -43,8 +43,6 @@ export const InventoryList = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
-      console.log(result.data.defaultAdd);
-      console.log(result.data.defaultAdd["Branch.id"]);
       setState2(result.data.defaultAdd);
       setState3(result.data.defaultAdd["Branch.id"]);
     } catch (err) {
@@ -64,8 +62,6 @@ export const InventoryList = () => {
         )}/${Number(state2.longitude)}`
       );
       dispatch(syncInventory(res.data));
-      console.log(res.data);
-      console.log(res.data[3]?.Product?.Price?.productPrice);
       setState5(res.data?.Product?.Price?.productPrice);
     } catch (err) {
       console.log(err);
@@ -120,10 +116,8 @@ export const InventoryList = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/listDiscount`
       );
-      console.log(res.data.nominal);
       setState4(res.data.nominal);
       const discNominal = res.data.nominal;
-      console.log(discNominal);
     } catch (err) {
       console.log(err);
     }

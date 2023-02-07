@@ -14,7 +14,6 @@ export const DefaultAddress = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
-      console.log(result.data);
       setData(result.data.defaultAdd);
     } catch (err) {
       console.log(err);

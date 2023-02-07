@@ -54,7 +54,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listAll/${id}`
       );
       setData7(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -70,7 +69,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listWaitingPayment/${id}`
       );
       setData(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -86,7 +84,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listConfirmPayment/${id}`
       );
       setData2(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -102,7 +99,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listOnProcess/${id}`
       );
       setData3(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -118,7 +114,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listDelivery/${id}`
       );
       setData4(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -134,7 +129,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listDone/${id}`
       );
       setData5(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -150,7 +144,6 @@ export const TransactionComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listCancelled/${id}`
       );
       setData6(result.data);
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
@@ -165,7 +158,7 @@ export const TransactionComp = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setOrder/${id}`
       );
-      console.log(result.data);
+
       getData3();
     } catch (err) {
       console.log(err);
@@ -177,7 +170,7 @@ export const TransactionComp = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setDelivery/${id}`
       );
-      console.log(result.data);
+
       getData4();
     } catch (err) {
       console.log(err);
@@ -189,7 +182,7 @@ export const TransactionComp = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setCancelled/${id}`
       );
-      console.log(result.data);
+
       getData();
     } catch (err) {
       console.log(err);

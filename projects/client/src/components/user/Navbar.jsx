@@ -23,16 +23,14 @@ export const NavbarComp = () => {
   const data2 = useSelector((state) => state.transactionSlice.value);
   const location = useLocation();
   const navigate = useNavigate();
-  const { id, cart } = useSelector((state) => state.userSlice.value);
+  const { id } = useSelector((state) => state.userSlice.value);
   const dispatch = useDispatch();
-  console.log(data2);
 
   const getData = async () => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
       );
-      console.log(res.data);
       dispatch(cartSync(res.data));
     } catch (err) {
       console.log(err);
@@ -49,7 +47,6 @@ export const NavbarComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/findById/${id}`
       );
       dispatch(transSync(result.data));
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }
