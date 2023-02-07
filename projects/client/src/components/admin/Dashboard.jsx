@@ -114,10 +114,16 @@ export const DashboardComp = () => {
   useEffect(() => {
     getData6();
   }, [id]);
+
   return (
     <div>
       <Box maxW="6xl" pl={20} mx={"auto"} pt={50}>
         <SimpleGrid columns={{ base: 1, md: 5 }} spacing={{ base: 5, lg: 2 }}>
+          <StatsCard
+            title={"Waiting Payment"}
+            stat={data6?.length}
+            icon={<MdOutlinePayment size={"2.5em"} />}
+          />
           <StatsCard
             title={"Waiting Payment"}
             stat={data?.length}

@@ -9,28 +9,17 @@ const productCategory = db.Product_Category;
 module.exports = {
   create: async (req, res) => {
     try {
-      const { productName, distributor, description, CategoryId } = req.body;
-      console.log(req.body);
-      if (
-        !productName
-        // !distributor &&
-        // !description
-      )
-        throw "required field";
+      const { productName, description, CategoryId } = req.body;
+      console.log(req.body)
+
+      if (!productName && !description) throw "required field";
 
       const result = await product.create({
         productName,
-        // distributor,
         description,
-        // CategoryId: [
-        //   {
-        //     value: 2,
-        //   },
-        //   {
-        //     value: 5,
-        //   },
-        // ],
+        CategoryId
       });
+      console.log(result)
 
       const data = await product.findAll({
         where: {
@@ -38,17 +27,15 @@ module.exports = {
         },
       });
 
+      console.log(data);
       data.map(async (item) => {
-        console.log(item);
         await productCategory.create({
-          CategoryId: 5,
+          CategoryId,
           ProductId: item.id,
         });
       });
-      res.status(200).send({
-        message: "Successfully Added",
-        data,
-      });
+
+      res.status(200).send("Successfully Added");
     } catch (err) {
       console.log(err);
       res.status(400).send({

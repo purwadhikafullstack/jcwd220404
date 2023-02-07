@@ -1,15 +1,15 @@
 import { Button } from "@chakra-ui/button";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Axios from "axios"
+import Axios from "axios";
 
 export const CancelButton = () => {
-  const [data, setData] = useState()
-  const [data2, setData2] = useState()
-  const [data5, setData5] = useState()
-  const [data6, setData6] = useState()
-  const params = useParams()
-  const navigate = useNavigate()
+  const [data, setData] = useState();
+  const [data2, setData2] = useState();
+  const [data5, setData5] = useState();
+  const [data6, setData6] = useState();
+  const params = useParams();
+  const navigate = useNavigate();
 
   const getData = async () => {
     try {
@@ -18,7 +18,7 @@ export const CancelButton = () => {
       );
       setData(result.data);
       console.log(result.data);
-      setData6(result.data.id)
+      setData6(result.data.id);
       console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
@@ -44,8 +44,8 @@ export const CancelButton = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setCancelled/${params.id}`
       );
-      console.log(result.data)
-      navigate("/transaction")
+      console.log(result.data);
+      navigate("/transaction");
     } catch (err) {
       console.log(err);
     }

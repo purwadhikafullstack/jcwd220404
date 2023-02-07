@@ -509,9 +509,91 @@ module.exports = {
         group: ["BranchId"],
         include: [{ model: branch }],
       });
+      console.log(total)
+      const salesTotal = total.map((item) => item.total_order);
+      let number = salesTotal.map((i) => Number(i));
+      
+      console.log(number);
+
+      let numberSalesTotal = [];
+      length = salesTotal.length;
+      for (let i = 0; i < length; i++)
+        numberSalesTotal.push(parseInt(salesTotal[i]));
+      console.log(numberSalesTotal);
       res.status(200).send(total);
     } catch (err) {
       res.status(400).send(err);
+    }
+  },
+
+  paginationTransaction: async (req, res) => {
+    try {
+      const { page, limit, search_query, order, sort } = req.query;
+      const productlist_page = parseInt(page) || 0;
+      const list_limit = parseInt(limit) || 5;
+      const search = search_query || "";
+      const offset = list_limit * productlist_page;
+      const orderby = order || "id_order";
+      const direction = sort || "ASC";
+      const totalRows = await transaction.count({
+        where: {
+          [Op.or]: [
+            {
+              id_order: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+            {
+              status: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+          ],
+        },
+      });
+      const totalPage = Math.ceil(totalRows / limit);
+      const result = await transaction.findAll({
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
+        where: {
+          [Op.or]: [
+            {
+              id_order: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+            {
+              status: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+          ],
+        },
+        include: [{ model: price }],
+        offset: offset,
+        limit: list_limit,
+        order: [[orderby, direction]],
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
+      });
+
+      res.status(200).send({
+        result: result,
+        page: productlist_page,
+        limit: list_limit,
+        totalRows: totalRows,
+        totalPage: totalPage,
+      });
+    } catch (error) {
+      res.status(400).send(error);
     }
   },
 };
