@@ -11,15 +11,7 @@ import {
   IoPersonOutline,
   IoPerson,
 } from "react-icons/io5";
-import {
-  Badge,
-  Center,
-  color,
-  Flex,
-  Icon,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Center, Flex, Icon, Text, VStack, Badge } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import "../NavbarComp.css";
 import { useEffect } from "react";
