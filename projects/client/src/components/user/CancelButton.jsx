@@ -1,13 +1,22 @@
-import { Button } from "@chakra-ui/button";
+import { Button, ButtonGroup } from "@chakra-ui/button";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
+import {
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverFooter,
+} from "@chakra-ui/popover";
+import { useDisclosure } from "@chakra-ui/hooks";
 
 export const CancelButton = () => {
   const [data, setData] = useState();
   const [data2, setData2] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
+  const { isOpen, onToggle, onClose } = useDisclosure();
   const params = useParams();
   const navigate = useNavigate();
 
@@ -53,9 +62,52 @@ export const CancelButton = () => {
 
   return (
     <div>
-      <Button w={"390px"} bgColor={"salmon"} onClick={() => setCancelled()}>
+      <Button w={"390px"} bgColor={"salmon"} onClick={onToggle}>
         Cancel Order
       </Button>
+      <Popover
+        returnFocusOnClose={false}
+        isOpen={isOpen}
+        placement="auto-end"
+        closeOnBlur={false}
+      >
+        <PopoverContent
+          ml="8"
+          mt="275"
+          borderColor="#285430"
+          border="2px"
+          bgColor={"#E5D9B6"}
+        >
+          <PopoverArrow />
+          <PopoverBody textColor={"#285430"}>
+            Data will be saved, are You sure?
+          </PopoverBody>
+          <PopoverFooter display="flex" justifyContent="flex-end">
+            <ButtonGroup size="sm">
+              <Button
+                onClick={onClose}
+                bgColor={"#A4BE7B"}
+                borderColor="#285430"
+                border="2px"
+                fontSize="14px"
+                color="gray.800"
+              >
+                No
+              </Button>
+              <Button
+                onClick={() => setCancelled()}
+                bgColor="#A4BE7B"
+                borderColor="#285430"
+                border="2px"
+                fontSize="14px"
+                color="gray.800"
+              >
+                Yes
+              </Button>
+            </ButtonGroup>
+          </PopoverFooter>
+        </PopoverContent>
+      </Popover>
     </div>
   );
 };

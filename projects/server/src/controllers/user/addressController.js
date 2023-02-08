@@ -44,12 +44,14 @@ module.exports = {
       const provinceAndCity = await axios.get(
         `${rajaOngkirURL}/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
       );
+
       const branchCity = await branch.findOne({
         where: {
           cityId: city,
         },
         raw: true,
       });
+      if (!branchCity) throw `Area not supported yet`
 
       const provinceName = provinceAndCity.data.rajaongkir.results.province;
       const cityName = provinceAndCity.data.rajaongkir.results.city_name;
@@ -86,6 +88,7 @@ module.exports = {
         data: response,
       });
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },

@@ -58,6 +58,7 @@ export const TransactionComp = () => {
   const [data6, setData6] = useState();
   const [data7, setData7] = useState();
   const [data8, setData8] = useState();
+  const [data9, setData9] = useState();
   const [limit2, setLimit2] = useState();
   const [sort2, setSort2] = useState();
   const [order2, setOrder2] = useState();
@@ -75,6 +76,7 @@ export const TransactionComp = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listAll/${id}`
       );
+      console.log(result.data)
       setData7(result.data);
     } catch (err) {
       console.log(err);
@@ -236,7 +238,8 @@ export const TransactionComp = () => {
           sort2 ? sort2 : "ASC"
         }`
       );
-      // dispatch(transSync(res.data.result));
+      // setData9(res.data)
+      dispatch(transSync(res.data));
       console.log(res.data);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
