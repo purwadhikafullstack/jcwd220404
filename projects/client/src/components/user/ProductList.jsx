@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Card,
@@ -54,7 +55,7 @@ export const ProductList = () => {
         }`
       );
       dispatch(syncData(res.data.result));
-
+      console.log(res.data.result)
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
     } catch (err) {
@@ -179,7 +180,7 @@ export const ProductList = () => {
             </Center>
           </Flex>
           <Box>
-            {/* <Box display="flex" justifyContent="center" alignContent="center">
+            <Box display="flex" justifyContent="center" alignContent="center">
               <Button
                 onClick={() => {
                   async function submit() {
@@ -230,7 +231,7 @@ export const ProductList = () => {
               >
                 Next
               </Button>
-            </Box> */}
+            </Box>
             <Center>
               <SimpleGrid
                 mt={"10px"}
@@ -267,12 +268,39 @@ export const ProductList = () => {
                             >
                               {item.productName}
                             </Text>
-                            <Text mt={"10px"} fontSize={"sm"} color="#285430">
-                              {new Intl.NumberFormat("IND", {
-                                style: "currency",
-                                currency: "IDR",
-                              }).format(item.Price?.productPrice)}
-                            </Text>
+                            <Box>
+                              {!item?.Price?.discPrice ? (
+                                <Text fontSize={"xs"}>
+                                  {" "}
+                                  {new Intl.NumberFormat("IND", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                  }).format(item?.Price?.productPrice)}
+                                </Text>
+                              ) : (
+                                <Text fontSize={"xs"} as="s">
+                                  {" "}
+                                  {new Intl.NumberFormat("IND", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                  }).format(item?.Price?.productPrice)}
+                                </Text>
+                              )}
+                            </Box>
+                            <Box>
+                              {!item?.Price?.discPrice ? (
+                                ""
+                              ) : (
+                                <Text fontSize={"xs"}>
+                                  {" "}
+                                  {new Intl.NumberFormat("IND", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                  }).format(item?.Price?.discPrice)}
+                                  <Badge>Promo</Badge>
+                                </Text>
+                              )}
+                            </Box>
                           </CardBody>
                         </Center>
                         <CardFooter>

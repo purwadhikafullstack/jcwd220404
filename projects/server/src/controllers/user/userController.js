@@ -428,7 +428,6 @@ module.exports = {
   uploadFile: async (req, res) => {
     try {
       let fileUploaded = req.file;
-
       await profile.update(
         {
           profilePic: `upload/${fileUploaded.filename}`,

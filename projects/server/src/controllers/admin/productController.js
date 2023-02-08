@@ -10,16 +10,14 @@ module.exports = {
   create: async (req, res) => {
     try {
       const { productName, description, CategoryId } = req.body;
-      console.log(req.body)
 
       if (!productName && !description) throw "required field";
 
       const result = await product.create({
         productName,
         description,
-        CategoryId
+        CategoryId,
       });
-      console.log(result)
 
       const data = await product.findAll({
         where: {
@@ -27,7 +25,6 @@ module.exports = {
         },
       });
 
-      console.log(data);
       data.map(async (item) => {
         await productCategory.create({
           CategoryId,
@@ -37,7 +34,6 @@ module.exports = {
 
       res.status(200).send("Successfully Added");
     } catch (err) {
-      console.log(err);
       res.status(400).send({
         message: "Process error",
         err,
@@ -207,7 +203,7 @@ module.exports = {
   uploadFile: async (req, res) => {
     try {
       let fileUploaded = req.file;
-
+      console.log("controller", fileUploaded);
       await product.update(
         {
           picture: `upload/${fileUploaded.filename}`,

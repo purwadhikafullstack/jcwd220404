@@ -100,12 +100,12 @@ export const Product = () => {
   };
 
   const handleChoose = (e) => {
+    console.log("e.target.files", e.target.files);
     setImage(e.target.files[0]);
   };
 
   const handleUpload = async (id) => {
     const data = new FormData();
-
     data.append("file", image);
 
     const resultImage = await Axios.post(
@@ -358,7 +358,7 @@ export const Product = () => {
                                 color="gray.800"
                                 width={"100%"}
                                 justifyContent="center"
-                                onClick={() => handleUpload()}
+                                onClick={() => handleUpload(item.id)}
                                 size="sm"
                               >
                                 Upload
