@@ -48,10 +48,10 @@ import { BiReset, BiSearchAlt } from "react-icons/bi";
 import { UpdateProductComp } from "./UpdateProduct";
 
 export const Product = () => {
-  const [product, setProduct] = useState();
-  const [edit, setEdit] = useState({});
+  const [product, setProduct] = useState([]);
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
+  const [edit, setEdit] = useState({});
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("ASC");
@@ -59,13 +59,6 @@ export const Product = () => {
   const [searchProduct, setSearchProduct] = useState("");
   const [totalPage, setTotalPage] = useState(0);
   const [state, setState] = useState(0);
-  const [page2, setPage2] = useState(1);
-  const [limit2, setLimit2] = useState(5);
-  const [sort2, setSort2] = useState("ASC");
-  const [order2, setOrder2] = useState("categoryName");
-  const [searchCategory2, setSearchCategory2] = useState("");
-  const [totalPage2, setTotalPage2] = useState(0);
-  const [state2, setState2] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const data = useSelector((state) => state.productSlice.value);
   const dispatch = useDispatch();
@@ -83,7 +76,7 @@ export const Product = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
-      console.log(res.data);
+
       setProduct(res.data);
     } catch (err) {
       console.log(err);
@@ -99,7 +92,7 @@ export const Product = () => {
       const res = await Axios.delete(
         `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
       );
-      console.log(res);
+
       getData();
     } catch (err) {
       console.log(err);
@@ -107,15 +100,13 @@ export const Product = () => {
   };
 
   const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
     setImage(e.target.files[0]);
   };
 
   const handleUpload = async (id) => {
     const data = new FormData();
-    console.log(data);
+
     data.append("file", image);
-    console.log(data.get("file"));
 
     const resultImage = await Axios.post(
       `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
@@ -126,11 +117,9 @@ export const Product = () => {
         },
       }
     );
-    console.log(resultImage.data);
+
     setProfile(resultImage.data.picture);
     setImage({ images: "" });
-    console.log(image);
-    console.log(profile);
     window.location.replace("/admin");
   };
 
@@ -146,7 +135,6 @@ export const Product = () => {
         }`
       );
       dispatch(syncData(res.data.result));
-      console.log(res.data.result);
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
     } catch (err) {

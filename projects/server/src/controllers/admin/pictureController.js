@@ -7,7 +7,6 @@ module.exports = {
   uploadFile: async (req, res) => {
     try {
       let fileUploaded = req.file;
-      console.log("controller", fileUploaded);
       await picture.create({
         pictureName: `upload/${fileUploaded.filename}`,
       });
@@ -22,7 +21,6 @@ module.exports = {
         picture: getPicture.pictureName,
       });
     } catch (err) {
-      console.log(err)
       res.status(400).send(err);
     }
   },

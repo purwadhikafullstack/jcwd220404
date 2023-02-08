@@ -23,8 +23,8 @@ import {
   CiInboxIn,
 } from "react-icons/ci";
 import { useSelector } from "react-redux";
-import { CompleteOrder } from "../../components/user/CompleteOrder";
-import { CancelOrder } from "../../components/user/CancelOrder";
+import { CompleteButton } from "../../components/user/CompleteOrder";
+import { CancelButton } from "../../components/user/CancelOrder";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const OrderDetail = () => {
@@ -262,10 +262,20 @@ export const OrderDetail = () => {
                               </Text>
                             </GridItem>
                           </Grid>
-                          <Text fontSize={"small"} color={"#285430"} mr="30px" mt={"15px"}>
+                          <Text
+                            fontSize={"small"}
+                            color={"#285430"}
+                            mr="30px"
+                            mt={"15px"}
+                          >
                             {item.totalWeight} g
                           </Text>
-                          <Text fontSize={"small"} color={"#285430"} mr="30px" mt={"15px"}>
+                          <Text
+                            fontSize={"small"}
+                            color={"#285430"}
+                            mr="30px"
+                            mt={"15px"}
+                          >
                             {item.qty}x
                           </Text>
                         </Flex>
@@ -296,8 +306,8 @@ export const OrderDetail = () => {
                 </FormControl>
               </Box>
 
-              <Box>{data5 === "Waiting Payment" ? <CancelOrder /> : ""}</Box>
-              <Box>{data5 === "On Delivery" ? <CompleteOrder /> : ""}</Box>
+              <Box>{data5 === "Waiting Payment" ? <CancelButton /> : ""}</Box>
+              <Box>{data5 === "On Delivery" ? <CompleteButton /> : ""}</Box>
               <Box>{data5 === "Done" || "Order Cancelled" ? "" : ""}</Box>
             </Stack>
           </Box>

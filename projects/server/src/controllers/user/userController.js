@@ -67,7 +67,6 @@ module.exports = {
         token,
       });
     } catch (err) {
-      console.log(err)
       res.status(400).send(err);
     }
   },
@@ -160,42 +159,6 @@ module.exports = {
   login: async (req, res) => {
     try {
       const { phoneEmail, password, id, isVerified } = req.body;
-      console.log(req.body);
-      // if (isVerified === 0) {
-      //   const code_otp = Math.floor(100000 + Math.random() * 900000).toString();
-      //   const salt = await bcrypt.genSalt(10);
-
-      //   const hashOtp = await bcrypt.hash(code_otp, salt);
-      //   const data1 = await user.create({
-      //     code_otp: hashOtp,
-      //   });
-
-      //   const token1 = jwt.sign(
-      //     { phoneNumber: phoneNumber },
-      //     "jcwd2204"
-      //     // { expiresIn: "1h" }
-      //   );
-
-      //   const tempEmail = fs.readFileSync("./template/codeotp.html", "utf-8");
-      //   const tempCompile = handlebars.compile(tempEmail);
-      //   const tempResult = tempCompile({
-      //     phoneNumber,
-      //     code_otp,
-      //   });
-
-      //   await transporter.sendMail({
-      //     from: "Admin",
-      //     to: email,
-      //     subject: "Verifikasi akun",
-      //     html: tempResult,
-      //   });
-
-      //   res.status(200).send({
-      //     message: "Verification Succes",
-      //     data1,
-      //     token1,
-      //   });
-      // }
 
       const isAccountExist = await user.findOne({
         where: {
@@ -351,11 +314,11 @@ module.exports = {
   updatePass: async (req, res) => {
     try {
       const { password } = req.body;
-      console.log(password);
+
       const salt = await bcrypt.genSalt(10);
-      console.log(salt);
+
       const hashPass = await bcrypt.hash(password, salt);
-      console.log(hashPass);
+
       const data = await user.update(
         {
           password: hashPass,
@@ -465,7 +428,7 @@ module.exports = {
   uploadFile: async (req, res) => {
     try {
       let fileUploaded = req.file;
-      console.log("controller", fileUploaded);
+
       await profile.update(
         {
           profilePic: `upload/${fileUploaded.filename}`,

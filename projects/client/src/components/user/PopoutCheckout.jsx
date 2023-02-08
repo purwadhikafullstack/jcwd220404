@@ -5,7 +5,6 @@ import Axios from "axios";
 import { useSelector } from "react-redux";
 
 export const PopoutCheckout = ({ props }) => {
-  console.log(props);
   const [data, setData] = useState([]);
   const [totalCheckout, setTotalCheckout] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
@@ -20,16 +19,14 @@ export const PopoutCheckout = ({ props }) => {
         .filter((item) => item.status === true)
         .map((item) => item.totalCheckout)
         .reduce((a, b) => a + b);
-      console.log(selectedItem);
+
       const selectedWeight = res.data
         .filter((item) => item.status === true)
         .map((item) => item.totalWeight)
         .reduce((a, b) => a + b);
-      console.log(selectedWeight);
       setTotalCheckout(selectedItem);
       setTotalWeight(selectedWeight);
       setData(res.data);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }

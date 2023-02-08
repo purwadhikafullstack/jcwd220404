@@ -40,7 +40,7 @@ module.exports = {
         detail,
         district,
       } = req.body;
-      console.log(req.body);
+
       const provinceAndCity = await axios.get(
         `${rajaOngkirURL}/city?id=${city}&province=${province}&key=${rajaOngkirKey}`
       );
@@ -50,7 +50,7 @@ module.exports = {
         },
         raw: true,
       });
-      console.log(branchCity);
+
       const provinceName = provinceAndCity.data.rajaongkir.results.province;
       const cityName = provinceAndCity.data.rajaongkir.results.city_name;
       const cityType = provinceAndCity.data.rajaongkir.results.type;
@@ -86,7 +86,6 @@ module.exports = {
         data: response,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -143,7 +142,6 @@ module.exports = {
         data: findData,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -186,15 +184,14 @@ module.exports = {
             id: req.params.id,
           },
         }
-        );
-        await productCart.destroy({
-          where: {
-            UserId: req.params.UserId,
-          },
-        });
+      );
+      await productCart.destroy({
+        where: {
+          UserId: req.params.UserId,
+        },
+      });
       res.status(200).send("Set default success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

@@ -57,7 +57,6 @@ export const AddAddress = () => {
         width: "370px",
       });
       navigate("/account/address");
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -89,7 +88,7 @@ export const AddAddress = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
       );
-      console.log(response);
+
       setCity(response.data.rajaongkir.results);
     } catch (err) {
       console.log(err);
@@ -111,7 +110,7 @@ export const AddAddress = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
       );
-      console.log(response);
+      
       setPostal(response.data.rajaongkir.results);
     } catch (err) {
       console.log(err);

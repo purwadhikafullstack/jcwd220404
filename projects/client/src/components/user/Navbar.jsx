@@ -11,15 +11,51 @@ import {
   IoPersonOutline,
   IoPerson,
 } from "react-icons/io5";
-import { Badge, Center, color, Flex, Icon, Text, VStack } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { Center, Flex, Icon, Text, VStack, Badge } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
 import "../NavbarComp.css";
+import { useEffect } from "react";
+import Axios from "axios";
+import { cartSync } from "../../redux/cartSlice";
+import { transSync } from "../../redux/transactionSlice";
 
 export const NavbarComp = () => {
   const data = useSelector((state) => state.cartSlice.value);
   const data2 = useSelector((state) => state.transactionSlice.value);
   const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useSelector((state) => state.userSlice.value);
+  const dispatch = useDispatch();
+
+  const getData = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
+      );
+      dispatch(cartSync(res.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [id]);
+
+  const getData2 = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/findById/${id}`
+      );
+      dispatch(transSync(result.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData2();
+  }, [id]);
 
   const menuBar = [
     {
@@ -86,8 +122,8 @@ export const NavbarComp = () => {
         >
           {data2?.length}
         </Badge>
-        </Center>
-        <Center>
+      </Center>
+      <Center>
         <Flex
           w={[300, 350, 390]}
           h="70px"
@@ -95,7 +131,7 @@ export const NavbarComp = () => {
           color="gray.800"
           dropShadow="2xl"
           position="fixed"
-          >
+        >
           <Flex
             justifyContent="space-evenly"
             align="center"
