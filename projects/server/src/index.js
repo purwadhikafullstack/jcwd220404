@@ -14,13 +14,13 @@ app.use(cors());
 app.use(
   "/upload",
   express.static(path.join(__dirname, "/upload")),
-  fileUpload({
-    createParentPath: true,
-    limits: {
-      fileSize: 1024 * 1024, // 1 MB
-    },
-    abortOnLimit: true,
-  })
+  // fileUpload({
+  //   createParentPath: true,
+  //   limits: {
+  //     fileSize: 1024 * 1024, // 1 MB
+  //   },
+  //   abortOnLimit: true,
+  // })
 );
 // app.use(
 //   fileUpload({
