@@ -76,7 +76,7 @@ export const Product = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
-
+      console.log(res.data);
       setProduct(res.data);
     } catch (err) {
       console.log(err);
@@ -321,6 +321,7 @@ export const Product = () => {
                   <Thead alignContent={"center"}>
                     <Tr>
                       <Th color={"#285430"}>Product</Th>
+                      <Th color={"#285430"}>Price</Th>
                       <Th color={"#285430"}>Picture</Th>
                       <Th color={"#285430"}>Description</Th>
                       <Th color={"#285430"}>Actions</Th>
@@ -331,6 +332,13 @@ export const Product = () => {
                       return (
                         <Tr>
                           <Td color={"#285430"}>{item.productName}</Td>
+                          <Td color={"#285430"}>
+                            {" "}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.Price.productPrice)}
+                          </Td>
                           <Td>
                             <Image
                               boxSize={"50px"}

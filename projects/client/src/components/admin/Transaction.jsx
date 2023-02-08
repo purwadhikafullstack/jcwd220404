@@ -410,10 +410,18 @@ export const TransactionComp = () => {
                     {item.id_order}
                   </Td>
                   <Td textAlign={"center"} color={"#285430"}>
-                    {item.totalOrder}
+                    {" "}
+                    {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(item.totalOrder)}
                   </Td>
                   <Td textAlign={"center"} color={"#285430"}>
-                    {item.totalCharge}
+                  {" "}
+                    {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(item.totalCharge)}
                   </Td>
                   <Td textAlign={"center"} color={"#285430"}>
                     {item.totalWeight}
