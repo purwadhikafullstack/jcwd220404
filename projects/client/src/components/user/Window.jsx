@@ -12,7 +12,7 @@ export const WindowComp = () => {
   const navigate = useNavigate();
 
   const toRegister = () => {
-    navigate("/register");
+    navigate("/registers");
   };
   const toLogin = () => {
     navigate("/login-user");

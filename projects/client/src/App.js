@@ -138,7 +138,7 @@ function App() {
         <Route path="/notification" element={<NotificationPage />}></Route>
         <Route path="/transaction" element={<TransactionPage />}></Route>
         <Route path="/category" element={<CategoryPage />}></Route>
-        <Route path="/cart" element={<CartPage />}></Route>
+        <Route path="/carts" element={<CartPage />}></Route>
         <Route path="/product/:id" element={<ProductDetail />}></Route>
         <Route path="/category/:id" element={<CategoryDetail />}></Route>
         <Route path="/transaction/:id" element={<OrderDetail />}></Route>
@@ -147,7 +147,7 @@ function App() {
           path="/checkout/success/:id"
           element={<OrderSuccess />}
         ></Route>
-        <Route path="/register" element={<RegisterPage />}></Route>
+        <Route path="/registers" element={<RegisterPage />}></Route>
         <Route
           path="/verification/:token"
           element={<VerificationPage />}
