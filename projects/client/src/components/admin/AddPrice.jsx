@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import Axios from "axios";
-import Select from "react-select";
 import {
   Button,
   FormControl,
   FormLabel,
   Input,
-  // Select,
+  Select,
   Stack,
   Textarea,
   Center,
@@ -15,25 +14,32 @@ import {
   useColorModeValue,
   Text,
 } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
-export const AddProduct = () => {
+export const AddPrice = () => {
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
   const [edit2, setEdit2] = useState({});
   const [selectedCategory, setSelectedCategory] = useState();
-  const inputProductName = useRef("");
+  const inputProductName = useRef(0);
   const inputDescription = useRef("");
-  const inputCategory = useRef(0);
+  const inputPrice = useRef(0);
+  const inputStart = useRef("");
+  const inputEnd = useRef("");
+  const { id } = useSelector((state) => state.adminSlice.value);
 
   const onCreate = async () => {
     try {
       const addProduct = {
-        productName: inputProductName.current.value,
+        ProductId: inputProductName.current.value,
         description: inputDescription.current.value,
-        CategoryId: inputCategory.current.value,
+        productPrice: inputPrice.current.value,
+        startDate: inputStart.current.value,
+        endDate: inputEnd.current.value,
+        AdminId: id,
       };
       const res = await Axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/product/create`,
+        `${process.env.REACT_APP_API_BASE_URL}/product/createPrice`,
         addProduct
       );
       Swal.fire({
@@ -47,56 +53,21 @@ export const AddProduct = () => {
     }
   };
 
-  //   const getCategory = async () => {
-  //     try {
-  //       const res = await Axios.get(
-  //         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
-  //       );
-  //       setData2(res.data);
-  //       console.log(res.data)
-  //       const categories = res.data.map((item) => item.categoryName);
-  //       console.log(categories)
-  //       setData3(categories);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
+  const getProduct = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/product/list`
+      );
+      console.log(res.data);
+      setData3(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  //   const renderCategory = () => {
-  //     return data2.map((val) => {
-  //       return (
-  //         <option value={val.id} key={val.id.toString()}>
-  //           {val.categoryName}
-  //         </option>
-  //       );
-  //     });
-  //   };
-
-  //   const categoryHandler = ({ target }) => {
-  //     const { value } = target;
-  //     selectedCategory(value);
-  //   };
-
-  // useEffect(() => {
-  //   getBranch();
-  // }, [selectedBranch]);
-
-  //   useEffect(() => {
-  //     getCategory();
-  //   }, [edit2, selectedCategory]);
-
-  //   const categoryOptions = [
-  //     { value: 1, label: "Sayuran" },
-  //     { value: 2, label: "Seafood" },
-  //     { value: 3, label: "Buah-Buahan" },
-  //     { value: 4, label: "Beli 1 Gratis 1" },
-  //     { value: 5, label: "Daging" },
-  //     { value: 6, label: "Protein" },
-  //     { value: 8, label: "Unggas" },
-  //     { value: 9, label: "Ibu dan Anak" },
-  //     { value: 10, label: "Makanan Jadi" },
-  //     { value: 11, label: "Paket Masak" },
-  //   ];
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   return (
     <>
@@ -133,25 +104,60 @@ export const AddProduct = () => {
           <Stack spacing={"10px"}>
             <FormControl>
               <FormLabel color="#285430">Nama Produk</FormLabel>
-              <Input
+              <Select
                 ref={inputProductName}
-                placeholder="Produk"
-                _placeholder={{ color: "#5F8D4E" }}
+                color={"#285430"}
                 borderColor="#285430"
-                textColor="black"
-              ></Input>
+                ml="5px"
+                w="97%"
+              >
+                <option>Select Product</option>
+                {data3?.map((item) => {
+                  return (
+                    <>
+                      <option value={item.id}>{item.productName}</option>
+                    </>
+                  );
+                })}
+              </Select>
             </FormControl>
             <FormControl>
               <FormLabel mt={"10px"} ml={"10px"} color={"#285430"}>
                 Price
               </FormLabel>
-              <Textarea
+              <Input
                 w={"360px"}
                 ml={"10px"}
                 textColor="#285430"
                 borderColor="#285430"
-                ref={inputDescription}
-              ></Textarea>
+                ref={inputPrice}
+              ></Input>
+            </FormControl>
+            <FormControl>
+              <FormLabel mt={"10px"} ml={"10px"} color={"#285430"}>
+                Start Date
+              </FormLabel>
+              <Input
+                type={"date"}
+                w={"360px"}
+                ml={"10px"}
+                textColor="#285430"
+                borderColor="#285430"
+                ref={inputStart}
+              ></Input>
+            </FormControl>
+            <FormControl>
+              <FormLabel mt={"10px"} ml={"10px"} color={"#285430"}>
+                End Date
+              </FormLabel>
+              <Input
+                type={"date"}
+                w={"360px"}
+                ml={"10px"}
+                textColor="#285430"
+                borderColor="#285430"
+                ref={inputEnd}
+              ></Input>
             </FormControl>
             <Center>
               <Button
@@ -166,7 +172,7 @@ export const AddProduct = () => {
                 justifyContent="center"
                 onClick={onCreate}
               >
-                Add Product
+                Add Price
               </Button>
             </Center>
           </Stack>
