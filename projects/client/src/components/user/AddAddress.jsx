@@ -110,7 +110,6 @@ export const AddAddress = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
       );
-      
       setPostal(response.data.rajaongkir.results);
     } catch (err) {
       console.log(err);
@@ -208,7 +207,6 @@ export const AddAddress = () => {
             {renderCity()}
           </Select>
         </FormControl>
-
         <FormControl>
           <FormLabel>Kode Pos</FormLabel>
           <Select

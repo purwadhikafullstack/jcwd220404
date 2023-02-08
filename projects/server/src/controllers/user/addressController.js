@@ -142,6 +142,7 @@ module.exports = {
         data: findData,
       });
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },
