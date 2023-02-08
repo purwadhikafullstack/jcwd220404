@@ -132,9 +132,8 @@ export const UpdateAddressPage = () => {
   const fetchPostal = async () => {
     try {
       const response = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/address/postal/${selectedCity}`
+        `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
       );
-      console.log(response);
       setPostal(response.data.rajaongkir.results);
     } catch (err) {
       console.log(err);
@@ -144,12 +143,13 @@ export const UpdateAddressPage = () => {
   const renderPostal = () => {
     return Array.from(postal).map((val, i) => {
       return (
-        <option value={val.city_id} key={i}>
-          {val.type + " "} {val.postal_code}
+        <option value={val.postal_code} key={i}>
+          {val.postal_code}
         </option>
       );
     });
   };
+
 
   const provinceHandler = ({ target }) => {
     const { value } = target;

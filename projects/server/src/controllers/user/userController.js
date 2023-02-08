@@ -39,9 +39,9 @@ module.exports = {
         UserId: data.id,
       });
 
-      await address.create({
-        UserId: data.id,
-      });
+      // await address.create({
+      //   UserId: data.id,
+      // });
 
       const token = jwt.sign({ phoneNumber: phoneNumber }, secretKey, {
         expiresIn: "1h",
