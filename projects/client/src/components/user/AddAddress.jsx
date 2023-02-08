@@ -5,13 +5,20 @@ import Swal from "sweetalert2";
 import {
   Button,
   Center,
+  ButtonGroup,
   Flex,
   FormControl,
   FormLabel,
   Input,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverFooter,
   Select,
   Stack,
   Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 export const AddAddress = () => {
@@ -32,6 +39,7 @@ export const AddAddress = () => {
   const inputReceiverEmail = useRef("");
   const navigate = useNavigate();
   const params = useParams();
+  const { onClose, isOpen, onToggle } = useDisclosure();
 
   const onCreate = async () => {
     try {
@@ -58,6 +66,10 @@ export const AddAddress = () => {
       });
       navigate("/account/address");
     } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: "Area not supported yet",
+      });
       console.log(err);
     }
   };
@@ -274,7 +286,7 @@ export const AddAddress = () => {
       </Stack>
       <Center>
         <Button
-          onClick={onCreate}
+          onClick={onToggle}
           mt={"15px"}
           bgColor={"#A4BE7B"}
           borderColor="#285430"
@@ -285,7 +297,50 @@ export const AddAddress = () => {
         >
           Add Address
         </Button>
-      </Center>
+        <Popover
+          returnFocusOnClose={false}
+          isOpen={isOpen}
+          placement="auto-end"
+          closeOnBlur={false}
+        >
+          <PopoverContent
+            ml="8"
+            mt="275"
+            borderColor="#285430"
+            border="2px"
+            bgColor={"#E5D9B6"}
+          >
+            <PopoverArrow />
+            <PopoverBody textColor={"#285430"}>
+              Data will be saved, are You sure?
+            </PopoverBody>
+            <PopoverFooter display="flex" justifyContent="flex-end">
+              <ButtonGroup size="sm">
+                <Button
+                  onClick={onClose}
+                  bgColor={"#A4BE7B"}
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="14px"
+                  color="gray.800"
+                >
+                  No
+                </Button>
+                <Button
+                  onClick={onCreate}
+                  bgColor="#A4BE7B"
+                  borderColor="#285430"
+                  border="2px"
+                  fontSize="14px"
+                  color="gray.800"
+                >
+                  Yes
+                </Button>
+              </ButtonGroup>
+            </PopoverFooter>
+          </PopoverContent>
+        </Popover>
+      </Stack>
     </div>
   );
 };

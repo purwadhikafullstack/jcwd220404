@@ -11,7 +11,6 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-
 import { syncCategory } from "../../redux/categorySlice";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 

@@ -6,15 +6,23 @@ import Swal from "sweetalert2";
 import {
   Box,
   Button,
+  ButtonGroup,
   Center,
   Flex,
   FormControl,
   FormLabel,
   Input,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
   Select,
   Stack,
   Text,
   Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { syncData } from "../../redux/addressSlice";
@@ -39,6 +47,7 @@ export const UpdateAddressPage = () => {
   const inputReceiverEmail = useRef("");
   const dispatch = useDispatch();
   const params = useParams();
+  const { isOpen, onClose, onToggle } = useDisclosure();
 
   const onUpdate = async () => {
     try {
@@ -247,27 +256,37 @@ export const UpdateAddressPage = () => {
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"10px"}>Province</FormLabel>
+                <Flex justify={"space-between"}>
+                  <FormLabel ml={"20px"}>Province</FormLabel>
+                  <FormLabel>{data?.province}</FormLabel>
+                </Flex>
                 <Select
+                  placeholder="Select Province"
                   onChange={provinceHandler}
                   ml={"10px"}
                   width="370px"
                   border="1px"
                   borderColor="#285430"
                   defaultValue={data?.province}
+                  ref={inputProvince}
                 >
                   {renderProvince()}
                 </Select>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"10px"}>City</FormLabel>
+                <Flex justify={"space-between"}>
+                  <FormLabel ml={"20px"}>City</FormLabel>
+                  <FormLabel>{data?.city}</FormLabel>
+                </Flex>
                 <Select
+                  placeholder="Select City"
                   onChange={cityHandler}
                   ml={"10px"}
                   width="370px"
                   border="1px"
                   borderColor="#285430"
                   defaultValue={data?.city}
+                  ref={inputCity}
                 >
                   {renderCity()}
                 </Select>
@@ -341,8 +360,7 @@ export const UpdateAddressPage = () => {
               </FormControl>
               <Center>
                 <Button
-                  onClick={() => onUpdate(data.id)}
-                  mt={"15px"}
+                  onClick={onToggle}
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"
@@ -352,6 +370,49 @@ export const UpdateAddressPage = () => {
                 >
                   Confirm
                 </Button>
+                <Popover
+                  returnFocusOnClose={false}
+                  isOpen={isOpen}
+                  placement="auto-end"
+                  closeOnBlur={false}
+                >
+                  <PopoverContent
+                    ml="8"
+                    mt="275"
+                    borderColor="#285430"
+                    border="2px"
+                    bgColor={"#E5D9B6"}
+                  >
+                    <PopoverArrow />
+                    <PopoverBody textColor={"#285430"}>
+                      Data will be saved, are You sure?
+                    </PopoverBody>
+                    <PopoverFooter display="flex" justifyContent="flex-end">
+                      <ButtonGroup size="sm">
+                        <Button
+                          onClick={onClose}
+                          bgColor={"#A4BE7B"}
+                          borderColor="#285430"
+                          border="2px"
+                          fontSize="14px"
+                          color="gray.800"
+                        >
+                          No
+                        </Button>
+                        <Button
+                          onClick={() => onUpdate(data.id)}
+                          bgColor="#A4BE7B"
+                          borderColor="#285430"
+                          border="2px"
+                          fontSize="14px"
+                          color="gray.800"
+                        >
+                          Yes
+                        </Button>
+                      </ButtonGroup>
+                    </PopoverFooter>
+                  </PopoverContent>
+                </Popover>
               </Center>
             </Stack>
           </Box>

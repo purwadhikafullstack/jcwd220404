@@ -24,6 +24,7 @@ import { cartSync } from "../../redux/cartSlice";
 import { delCart } from "../../redux/userSlice";
 import { PopoutCheckout } from "./PopoutCheckout";
 import { useRef } from "react";
+import Swal from "sweetalert2";
 
 export const CartComp = () => {
   const [checkout, setCheckout] = useState(false);
@@ -183,7 +184,7 @@ export const CartComp = () => {
         }
       );
       setData4(res.data?.rajaongkir.results[0]?.costs);
-
+      console.log(res.data);
       const selectedCharge =
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
 
@@ -224,6 +225,17 @@ export const CartComp = () => {
 
   const onCreate = async (data10) => {
     try {
+      if (!data5 && !data6) {
+        return Swal.fire({
+          icon: "error",
+          // title: "Oooops ...",
+          text: "Checkout can't be empty",
+          timer: 2000,
+          customClass: {
+            container: "my-swal",
+          },
+        });
+      }
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/create/${id}`,
         {
@@ -392,7 +404,15 @@ export const CartComp = () => {
             >
               <option>Select Shipping Method</option>
               {data4?.map((item, index) => {
-                return <option value={index}>{item.cost[0].etd} days</option>;
+                return (
+                  <option value={index}>
+                    {item.cost[0].etd} days,{" "}
+                    {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(item.cost[0].value)}
+                  </option>
+                );
               })}
             </Select>
           </FormControl>
