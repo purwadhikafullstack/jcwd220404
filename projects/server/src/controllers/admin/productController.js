@@ -402,14 +402,13 @@ module.exports = {
 
   createPrice: async (req, res) => {
     try {
-      const { productPrice, startDate, endDate, ProductId, DiscountId } =
-        req.body;
+      const { productPrice, startDate, endDate, ProductId, AdminId } = req.body;
       await price.create({
         productPrice,
         startDate,
         endDate,
         ProductId,
-        // DiscountId,
+        AdminId,
       });
       res.status(200).send({
         message: "Success Added",
@@ -532,6 +531,16 @@ module.exports = {
       });
       res.status(200).send(list);
     } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findAllDiscount: async (req, res) => {
+    try {
+      const list = await discount.findAll({});
+      res.status(200).send(list);
+    } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },
