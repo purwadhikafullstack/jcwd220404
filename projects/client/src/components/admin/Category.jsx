@@ -387,7 +387,7 @@ export const Category = () => {
                                 color="gray.800"
                                 width={"100%"}
                                 justifyContent="center"
-                                onClick={() => handleUpload1(item)}
+                                onClick={() => handleUpload1(item.id)}
                                 size="sm"
                               >
                                 Upload
