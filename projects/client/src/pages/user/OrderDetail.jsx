@@ -25,9 +25,10 @@ import {
   CiInboxIn,
 } from "react-icons/ci";
 import { useSelector } from "react-redux";
-import { CompleteButton } from "../../components/user/CompleteButton";
-import { CancelButton } from "../../components/user/CancelButton";
+import { CompleteButton } from "../../components/user/CompleteOrder";
+import { CancelButton } from "../../components/user/CancelOrder";
 import Swal from "sweetalert2";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const OrderDetail = () => {
   const [data, setData] = useState();
