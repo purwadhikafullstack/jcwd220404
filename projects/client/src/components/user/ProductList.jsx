@@ -180,7 +180,7 @@ export const ProductList = () => {
             </Center>
           </Flex>
           <Box>
-            <Box display="flex" justifyContent="center" alignContent="center">
+          <Box display="flex" justifyContent="center" alignContent="center">
               <Button
                 onClick={() => {
                   async function submit() {
