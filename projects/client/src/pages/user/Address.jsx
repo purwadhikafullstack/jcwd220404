@@ -6,8 +6,8 @@ import { AddAddress } from "../../components/user/AddAddress";
 export const AddressPage = () => {
 
   return (
-    <div>
-      <Center>
+    <>
+       <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
           <Box
             className="header"
@@ -48,6 +48,6 @@ export const AddressPage = () => {
           </Box>
         </Box>
       </Center>
-    </div>
+    </>
   );
 };

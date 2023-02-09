@@ -29,6 +29,7 @@ export const ForgotPasswordPage = () => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
+        width: "370px",
         text: `${result.data}`,
       });
     } catch (err) {
@@ -36,17 +37,17 @@ export const ForgotPasswordPage = () => {
         icon: "error",
         title: "Oops...",
         text: `${err.response.data}`,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
-        width: "370px",
       });
     }
   };
 
   return (
-    <>
-      <Button onClick={onOpen} as="u" variant={"unstyled"} color="#5F8D4E">
+    <div>
+       <Button onClick={onOpen} as="u" variant={"unstyled"} color="#5F8D4E">
         Click Here
       </Button>
       <Modal
@@ -109,6 +110,6 @@ export const ForgotPasswordPage = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 };

@@ -4,6 +4,8 @@ import Axios from "axios";
 import { useState } from "react";
 import {
   Box,
+  Button,
+  ButtonGroup,
   Card,
   Center,
   Flex,
@@ -23,8 +25,9 @@ import {
   CiInboxIn,
 } from "react-icons/ci";
 import { useSelector } from "react-redux";
-import { CompleteOrder } from "../../components/user/CompleteOrder";
-import { CancelOrder } from "../../components/user/CancelOrder";
+import { CompleteButton } from "../../components/user/CompleteOrder";
+import { CancelButton } from "../../components/user/CancelOrder";
+import Swal from "sweetalert2";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const OrderDetail = () => {
@@ -36,6 +39,8 @@ export const OrderDetail = () => {
   const [data6, setData6] = useState();
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
+  const [profile, setProfile] = useState("upload");
+  const [image, setImage] = useState("");
 
   let dateNow = new Date(
     new Date().getFullYear(),
@@ -65,22 +70,16 @@ export const OrderDetail = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${params.id}`
       );
       setData(result.data);
-      console.log(result.data);
       setData6(result.data.id);
-      console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
 
       let totalOrder = selectedItem + selectedCharge;
       setData2(totalOrder);
-      console.log(totalOrder);
 
       const statusDone = result.data.status;
       setData5(statusDone);
-      console.log(statusDone);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -94,10 +93,7 @@ export const OrderDetail = () => {
       );
 
       setData3(res.data);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -109,16 +105,40 @@ export const OrderDetail = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
-      console.log(result.data.defaultAdd);
       setData4(result.data.defaultAdd);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
     getDefault();
   }, [id]);
+
+  const handleChoose = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const handleUpload = async (TransactionId) => {
+    const data = new FormData();
+    data.append("file", image);
+
+    const resultImage = await Axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded/${TransactionId}`,
+      data,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    );
+    setProfile(resultImage.data.picture);
+    setImage({ images: "" });
+    Swal.fire({
+      icon: "success",
+      text: "Success",
+      width: "370px",
+    });
+    window.location.replace("/transaction");
+  };
 
   return (
     <div>
@@ -134,7 +154,7 @@ export const OrderDetail = () => {
             pt={"10px"}
             pl={"1px"}
             position="fixed"
-            zIndex="2"
+            zIndex="4"
           >
             <Box as={Link} to={`/transaction`}>
               <ArrowBackIcon
@@ -154,7 +174,7 @@ export const OrderDetail = () => {
           <Box
             className="body"
             bgColor="white"
-            h={"90vh"}
+            h={"100vh"}
             w={"390px"}
             mt="80px"
           >
@@ -187,42 +207,41 @@ export const OrderDetail = () => {
                   <FormLabel mt={"1px"} pl={"10px"} color="#285430">
                     Order Information
                   </FormLabel>
-                  <Center>
-                    <Box
-                      w={"370px"}
-                      border={"1px"}
-                      borderColor="#285430"
-                      borderRadius={"md"}
-                    >
-                      <Flex justify={"space-between"}>
-                        <Text pl={"10px"} color="#285430">
-                          Order-ID
-                        </Text>
-                        <Text pr={"10px"} color="#285430">
-                          {data?.id_order}{" "}
-                        </Text>
-                      </Flex>
-                      <Flex justify={"space-between"}>
-                        <Text pl={"10px"} color="#285430">
-                          Transaction Date
-                        </Text>
-                        <Text pr={"10px"} color="#285430">
-                          {dateNow}{" "}
-                        </Text>
-                      </Flex>
-                      <Flex justify={"space-between"}>
-                        <Text pl={"10px"} color="#285430">
-                          Total
-                        </Text>
-                        <Text pr={"10px"} color="#285430">
-                          {new Intl.NumberFormat("IND", {
-                            style: "currency",
-                            currency: "IDR",
-                          }).format(data2)}{" "}
-                        </Text>
-                      </Flex>
-                    </Box>
-                  </Center>
+                  <Box
+                    ml={"10px"}
+                    w={"370px"}
+                    border={"1px"}
+                    borderColor="#285430"
+                    borderRadius={"md"}
+                  >
+                    <Flex justify={"space-between"}>
+                      <Text pl={"10px"} color="#285430">
+                        Order-ID
+                      </Text>
+                      <Text pr={"10px"} color="#285430">
+                        {data?.id_order}{" "}
+                      </Text>
+                    </Flex>
+                    <Flex justify={"space-between"}>
+                      <Text pl={"10px"} color="#285430">
+                        Transaction Date
+                      </Text>
+                      <Text pr={"10px"} color="#285430">
+                        {dateNow}{" "}
+                      </Text>
+                    </Flex>
+                    <Flex justify={"space-between"}>
+                      <Text pl={"10px"} color="#285430">
+                        Total
+                      </Text>
+                      <Text pr={"10px"} color="#285430">
+                        {new Intl.NumberFormat("IND", {
+                          style: "currency",
+                          currency: "IDR",
+                        }).format(data2)}{" "}
+                      </Text>
+                    </Flex>
+                  </Box>
                 </FormControl>
                 <FormControl>
                   <FormLabel mt="10px" ml={"10px"} textColor="#285430">
@@ -274,10 +293,22 @@ export const OrderDetail = () => {
                               </Text>
                             </GridItem>
                           </Grid>
-                          <Text fontSize={"small"} color={"#285430"} mr="30px" mt={"15px"}>
+                          <Text
+                            fontSize={"small"}
+                            color={"#285430"}
+                            mr="30px"
+                            mt={"10px"}
+                            as="b"
+                          >
                             {item.totalWeight} g
                           </Text>
-                          <Text fontSize={"small"} color={"#285430"} mr="30px" mt={"15px"}>
+                          <Text
+                            fontSize={"small"}
+                            color={"#285430"}
+                            mr="30px"
+                            mt={"10px"}
+                            as="b"
+                          >
                             {item.qty}x
                           </Text>
                         </Flex>
@@ -285,32 +316,74 @@ export const OrderDetail = () => {
                     );
                   })}
                 </FormControl>
-                <FormControl pl="10px" color={"#285430"}>
-                  <FormLabel pt={"1px"}>Delivery Address</FormLabel>
+                <FormControl>
+                  <FormLabel pl={"10px"} color="#285430">
+                    Delivery Address
+                  </FormLabel>
                   <Box
                     border={"1px"}
                     borderColor="#285430"
                     borderRadius={"md"}
                     w="370px"
-                    pl={"10px"}
+                    ml={"10px"}
                   >
-                    <Text as={"b"}>{data2?.receiverName}</Text>
-                    <Text>{data4?.receiverPhone}</Text>
-                    <Text>{data4?.addressLine}</Text>
-                    <Text>
+                    <Text pl={"10px"} color="#285430" as={"b"}>
+                      {data2?.receiverName}
+                    </Text>
+                    <Text pl={"10px"} color="#285430">
+                      {data4?.receiverPhone}
+                    </Text>
+                    <Text pl={"10px"} color="#285430">
+                      {data4?.addressLine}
+                    </Text>
+                    <Text pl={"10px"} color="#285430">
                       {data4?.district} {data4?.city}, {data4?.province}
                     </Text>
                   </Box>
                 </FormControl>
                 <FormControl pl="10px" color={"#285430"}>
                   <FormLabel pt={"10px"}>Delivery Date</FormLabel>
-                  <Text align={"left"}> {dateDeliv}</Text>
+                  <Text
+                    border={"1px"}
+                    borderColor="#285430"
+                    borderRadius={"md"}
+                    w="370px"
+                    pl={"10px"}
+                    align={"left"}
+                  >
+                    {" "}
+                    {dateDeliv}
+                  </Text>
                 </FormControl>
               </Box>
-
-              <Box >{data5 === true ? <CancelOrder /> : ""}</Box>
-              <Box>{data5 === 4 ? <CompleteOrder /> : ""}</Box>
-              <Box>{data5 === 5 || false ? "" : ""}</Box>
+              <Box>
+                <Center>
+                  <ButtonGroup mt="20px" fontSize={"14px"} size="10px">
+                    <form encType="multipart/form-data">
+                      <input
+                        type={"file"}
+                        accept="image/*"
+                        name="file"
+                        onChange={(e) => handleChoose(e)}
+                      ></input>
+                    </form>
+                    <Button
+                      bgColor={"#A4BE7B"}
+                      borderColor="#285430"
+                      border="1px"
+                      color="gray.800"
+                      onClick={() => handleUpload(data6)}
+                      w="50px"
+                      fontSize={"10px"}
+                    >
+                      Upload
+                    </Button>
+                  </ButtonGroup>
+                </Center>
+              </Box>
+              <Box>{data5 === "Waiting Payment" ? <CancelButton /> : ""}</Box>
+              <Box>{data5 === "On Delivery" ? <CompleteButton /> : ""}</Box>
+              <Box>{data5 === "Done" || "Order Cancelled" ? "" : ""}</Box>
             </Stack>
           </Box>
         </Box>

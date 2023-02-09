@@ -14,6 +14,7 @@ import {
   HStack,
   Image,
   Select,
+  Stack,
   Text,
   Textarea,
 } from "@chakra-ui/react";
@@ -23,6 +24,8 @@ import { cartSync } from "../../redux/cartSlice";
 import { delCart } from "../../redux/userSlice";
 import { PopoutCheckout } from "./PopoutCheckout";
 import { useRef } from "react";
+import Swal from "sweetalert2";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 
 export const CartComp = () => {
   const [checkout, setCheckout] = useState(false);
@@ -49,9 +52,7 @@ export const CartComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
       );
       dispatch(cartSync(res.data));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -67,21 +68,17 @@ export const CartComp = () => {
         .filter((item) => item.status === true)
         .map((item) => item.totalCheckout)
         .reduce((a, b) => a + b);
-      console.log(selectedItem);
+
       const selectedWeight = res.data
         .filter((item) => item.status === true)
         .map((item) => item.totalWeight)
         .reduce((a, b) => a + b);
-      console.log(selectedWeight);
 
       setTotalCheckout(selectedItem);
       setTotalWeight(selectedWeight);
       setData3(res.data);
-      console.log(res.data);
       setData9(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -100,9 +97,7 @@ export const CartComp = () => {
       getData();
       setCheckout(!checkout);
       getCheckout();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const onQty = async (idCart, qty) => {
@@ -115,11 +110,9 @@ export const CartComp = () => {
         }
       );
       getData();
-      console.log(res.data);
+
       setCheckout(!checkout);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const getDefault = async () => {
@@ -127,11 +120,9 @@ export const CartComp = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
-      console.log(result.data.defaultAdd);
+
       setData2(result.data.defaultAdd);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -150,9 +141,7 @@ export const CartComp = () => {
       dispatch(cartSync(result.data));
       dispatch(delCart());
       getData();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const onCharge = async () => {
@@ -164,14 +153,14 @@ export const CartComp = () => {
         .filter((item) => item.status === true)
         .map((item) => item.totalCheckout)
         .reduce((a, b) => a + b);
-      console.log(selectedItem);
+
       setData5(selectedItem);
 
       const selectedWeight = result.data
         .filter((item) => item.status === true)
         .map((item) => item.totalWeight)
         .reduce((a, b) => a + b);
-      console.log(selectedWeight);
+
       setData6(selectedWeight);
 
       const res = await Axios.post(
@@ -184,17 +173,12 @@ export const CartComp = () => {
         }
       );
       setData4(res.data?.rajaongkir.results[0]?.costs);
-      console.log(res.data?.rajaongkir.results[0]?.costs);
-
+      console.log(res.data);
       const selectedCharge =
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
-      console.log(selectedCharge);
 
       let totalOrder = selectedItem + selectedCharge;
-      console.log(totalOrder);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -215,11 +199,9 @@ export const CartComp = () => {
 
       const selectedCharge =
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
-      console.log(selectedCharge);
+
       setData8(selectedCharge);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -228,6 +210,17 @@ export const CartComp = () => {
 
   const onCreate = async (data10) => {
     try {
+      if (!data5 && !data6) {
+        return Swal.fire({
+          icon: "error",
+          text: "Checkout can't be empty",
+          timer: 2000,
+          width: "370px",
+          customClass: {
+            container: "my-swal",
+          },
+        });
+      }
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/create/${id}`,
         {
@@ -239,210 +232,228 @@ export const CartComp = () => {
           BranchId: data9[0]?.BranchId,
         }
       );
-      console.log(res.data);
-      console.log(res.data.id);
 
       navigate(`/checkout/${res.data.id}`);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
     <div>
       <Box>
-        <FormControl ml={"10px"} mr={"10px"}>
-          <FormLabel textColor="#285430">Products</FormLabel>
-          <Card w="370px" bgColor={"white"}>
-            {data?.map((item) => {
-              return (
-                <Flex
-                  border={"1px"}
-                  borderColor="#285430"
-                  borderRadius={"md"}
-                  mt={"5px"}
-                >
-                  <Checkbox
-                    ml={"10px"}
-                    defaultChecked={item.status ? true : false}
-                    onChange={() => onCheckout(item.id, item.status)}
+        <Stack spacing={"10px"}>
+          <FormControl ml={"10px"} mr={"10px"}>
+            <FormLabel textColor="#285430">Products</FormLabel>
+            <Card w="370px" bgColor={"white"}>
+              {data?.map((item) => {
+                return (
+                  <Flex
+                    border={"1px"}
+                    borderColor="#285430"
+                    borderRadius={"md"}
+                    mt={"5px"}
                   >
-                    <Grid
-                      templateAreas={`"nav main""nav footer"`}
-                      gridTemplateRows={" 1fr 30px"}
-                      gridTemplateColumns={"120px 1fr"}
-                      h="50px"
-                      color="#285430"
-                      fontWeight="bold"
+                    <Checkbox
+                      ml={"10px"}
+                      defaultChecked={item.status ? true : false}
+                      onChange={() => onCheckout(item.id, item.status)}
                     >
-                      <GridItem ml="8px" area={"nav"}>
-                        <Image
-                          boxSize={"55px"}
-                          src={
-                            `${process.env.REACT_APP_API_BASE_URL}/` +
-                            item.Product?.picture
-                          }
-                        ></Image>
-                      </GridItem>
-                      <GridItem fontSize={"small"} ml="-6" area={"main"}>
-                        {item.Product?.productName}
-                      </GridItem>
-                      <GridItem
-                        fontSize={"small"}
-                        ml="-6"
-                        mt={"1"}
-                        area={"footer"}
+                      <Grid
+                        templateAreas={`"nav main""nav footer"`}
+                        gridTemplateRows={" 1fr 30px"}
+                        gridTemplateColumns={"120px 1fr"}
+                        h="50px"
+                        color="#285430"
+                        fontWeight="bold"
                       >
-                        {new Intl.NumberFormat("IND", {
-                          style: "currency",
-                          currency: "IDR",
-                        }).format(item.Product?.Price?.productPrice)}
-                      </GridItem>
-                    </Grid>
-                  </Checkbox>
-                  <Box>
-                    <Button
-                      pt={"10px"}
-                      ml={"50px"}
-                      variant={"unstyled"}
-                      onClick={() => onDelete(item.id)}
-                      fontSize="sm"
-                      textColor={"#285430"}
-                    >
-                      Delete
-                    </Button>
-                    <HStack
-                      ml={"20px"}
-                      mr="20px"
-                      maxW="200px"
-                      textColor={"#285430"}
-                    >
+                        <GridItem ml="8px" area={"nav"}>
+                          <Image
+                            boxSize={"55px"}
+                            src={
+                              `${process.env.REACT_APP_API_BASE_URL}/` +
+                              item.Product?.picture
+                            }
+                          ></Image>
+                        </GridItem>
+                        <GridItem fontSize={"small"} ml="-6" area={"main"}>
+                          {item.Product?.productName}
+                        </GridItem>
+                        <GridItem
+                          fontSize={"small"}
+                          ml="-6"
+                          mt={"1"}
+                          area={"footer"}
+                        >
+                          <Box>
+                            {!item.Product.Price.discPrice ? (
+                              <Text fontSize={"xs"}>
+                                {" "}
+                                {new Intl.NumberFormat("IND", {
+                                  style: "currency",
+                                  currency: "IDR",
+                                }).format(item.Product.Price.productPrice)}
+                              </Text>
+                            ) : (
+                              <Text fontSize={"xs"} as="s">
+                                {" "}
+                                {new Intl.NumberFormat("IND", {
+                                  style: "currency",
+                                  currency: "IDR",
+                                }).format(item.Product.Price.productPrice)}
+                              </Text>
+                            )}
+                          </Box>
+                          <Box>
+                            {!item.Product.Price.discPrice ? (
+                              ""
+                            ) : (
+                              <Text fontSize={"xs"}>
+                                {" "}
+                                {new Intl.NumberFormat("IND", {
+                                  style: "currency",
+                                  currency: "IDR",
+                                }).format(item.Product.Price.discPrice)}
+                              </Text>
+                            )}
+                          </Box>
+                        </GridItem>
+                      </Grid>
+                    </Checkbox>
+                    <Box>
                       <Button
-                        pb={"4"}
+                        pt={"10px"}
+                        ml={"65px"}
                         variant={"unstyled"}
-                        onClick={() => {
-                          onQty(item.id, item.qty - 1);
-                        }}
+                        onClick={() => onDelete(item.id)}
+                        fontSize="sm"
+                        textColor={"#285430"}
                       >
-                        -
+                        <RiDeleteBin2Fill size={"15px"} />
                       </Button>
-                      <Text pb={"4"} fontSize={"small"} as="b">
-                        {item.qty}
-                      </Text>
-                      <Button
-                        pb={"4"}
-                        variant={"unstyled"}
-                        onClick={() => {
-                          onQty(item.id, item.qty + 1);
-                        }}
+                      <HStack
+                        ml={"20px"}
+                        mr="20px"
+                        maxW="200px"
+                        textColor={"#285430"}
                       >
-                        +
-                      </Button>
-                    </HStack>
-                  </Box>
-                </Flex>
-              );
-            })}
-          </Card>
-        </FormControl>
-        <FormControl>
-          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
-            Total
-          </FormLabel>
-          <PopoutCheckout props={checkout} />
-        </FormControl>
-        <FormControl>
-          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
-            Shipping Method
-          </FormLabel>
-          <Select
-            w={"370px"}
-            ml="10px"
-            border={"1px"}
-            borderColor="#285430"
-            borderRadius={"md"}
-            textColor="#285430"
-            ref={inputRef}
-            onChange={() => setData7(inputRef.current.value)}
-          >
-            <option>Select Shipping Method</option>
-            {data4?.map((item, index) => {
-              return <option value={index}>{item.cost[0].etd} days</option>;
-            })}
-          </Select>
-        </FormControl>
-        <FormControl>
-          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
-            Buyer Information
-          </FormLabel>
-          <Box
-            border={"1px"}
-            borderColor="#285430"
-            borderRadius={"md"}
-            w="370px"
-            ml={"10px"}
-          >
-            <Text ml={"10px"} color="#285430">
-              {data2?.["User.name"]}
-            </Text>
-            <Text ml={"10px"} color="#285430">
-              {data2?.["User.phoneNumber"]}
-            </Text>
-          </Box>
-        </FormControl>
-        <FormControl>
-          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
-            Delivery Address
-          </FormLabel>
-          <Box
-            ml="10px"
-            border={"1px"}
-            borderColor="#285430"
-            borderRadius={"md"}
-            w="370px"
-          >
-            <Text ml={"10px"} color="#285430">
-              {data2?.receiverName}
-            </Text>
-            <Text ml={"10px"} color="#285430">
-              {data2?.receiverPhone}
-            </Text>
-            <Text ml={"10px"} color="#285430">
-              {data2?.addressLine},{data2?.district},{data2?.city},
-              {data2?.province}
-            </Text>
-            <Text ml={"10px"} color="#285430">
-              {data2?.detail}
-            </Text>
-          </Box>
-        </FormControl>
-        <FormControl>
-          <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
-            Order Note
-          </FormLabel>
-          <Textarea
-            color={"#285430"}
-            border="1px"
-            borderColor={"#285430"}
-            w="370px"
-            ml={"10px"}
-          ></Textarea>
-        </FormControl>
-        <Center>
-          <Button
-           onClick={onCreate}
-            mt={"20px"}
-            w={"370px"}
-            bgColor={"#A4BE7B"}
-            borderColor="#285430"
-            border="2px"
-            fontSize="16px"
-            color="gray.800"
-            justifyContent="center"
-          >
-            Checkout
-          </Button>
-        </Center>
+                        <Button
+                          pb={"4"}
+                          variant={"unstyled"}
+                          onClick={() => {
+                            var qtyMin = item.qty - 1;
+                            onQty(item.id, qtyMin);
+                            qtyMin = onQty <= 0 ? 1 : onQty;
+                            document.getElementById("qtyInput").value =
+                              parseInt(qtyMin);
+                          }}
+                        >
+                          -
+                        </Button>
+                        <Text pb="15px" fontSize={"12px"} as="b">
+                          {item.qty}
+                        </Text>
+                        <Button
+                          pb={"25px"}
+                          variant={"unstyled"}
+                          onClick={() => {
+                            onQty(item.id, item.qty + 1);
+                          }}
+                        >
+                          +
+                        </Button>
+                      </HStack>
+                    </Box>
+                  </Flex>
+                );
+              })}
+            </Card>
+          </FormControl>
+          <FormControl>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Total
+            </FormLabel>
+            <PopoutCheckout props={checkout} />
+          </FormControl>
+          <FormControl>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Shipping Method
+            </FormLabel>
+            <Select
+              w={"370px"}
+              ml="10px"
+              border={"1px"}
+              borderColor="#285430"
+              borderRadius={"md"}
+              textColor="#285430"
+              ref={inputRef}
+              onChange={() => setData7(inputRef.current.value)}
+            >
+              <option>Select Shipping Method</option>
+              {data4?.map((item, index) => {
+                return (
+                  <option value={index}>
+                    {item.cost[0].etd} days,{" "}
+                    {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(item.cost[0].value)}
+                  </option>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Delivery Address
+            </FormLabel>
+            <Box
+              ml="10px"
+              border={"1px"}
+              borderColor="#285430"
+              borderRadius={"md"}
+              w="370px"
+            >
+              <Text pl={"10px"} color="#285430" as={"b"}>
+                {data2?.receiverName}
+              </Text>
+              <Text pl={"10px"} color="#285430">
+                {data2?.receiverPhone}
+              </Text>
+              <Text pl={"10px"} color="#285430">
+                {data2?.addressLine}
+              </Text>
+              <Text pl={"10px"} color="#285430">
+                {data2?.district} {data2?.city}, {data2?.province}
+              </Text>
+            </Box>
+          </FormControl>
+          <FormControl>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Order Note
+            </FormLabel>
+            <Textarea
+              ml="10px"
+              border={"1px"}
+              borderColor="#285430"
+              borderRadius={"md"}
+              w="370px"
+            ></Textarea>
+          </FormControl>
+          <Center>
+            <Button
+              onClick={() => onCreate()}
+              mt={"20px"}
+              w={"370px"}
+              bgColor={"#A4BE7B"}
+              borderColor="#285430"
+              border="2px"
+              fontSize="16px"
+              color="gray.800"
+              justifyContent="center"
+            >
+              Checkout
+            </Button>
+          </Center>
+        </Stack>
       </Box>
     </div>
   );

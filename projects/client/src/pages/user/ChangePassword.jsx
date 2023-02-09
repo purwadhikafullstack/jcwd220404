@@ -10,7 +10,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
   Text,
@@ -45,7 +44,6 @@ export const ChangePassword = (data) => {
       localStorage.removeItem("tokenUser");
       navigate("/login-user");
     } catch (err) {
-      console.log(err);
     }
   };
 

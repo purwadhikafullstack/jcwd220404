@@ -4,7 +4,7 @@ import { NavbarComp } from "../../components/user/Navbar";
 
 export const NotificationPage = () => {
   return (
-    <>
+    <div>
       <Box>
         <Center>
           <Box
@@ -31,6 +31,6 @@ export const NotificationPage = () => {
           </Box>
         </Center>
       </Box>
-    </>
+    </div>
   );
 };

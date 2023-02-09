@@ -1,11 +1,6 @@
 const { Op } = require("sequelize");
 const db = require("../../models");
 const address = db.Address;
-const productCart = db.Product_Cart;
-const branch = db.Branch;
-const axios = require("axios");
-const rajaOngkirKey = process.env.RAJA_KEY;
-const openCageKey = process.env.GEO_KEY;
 
 module.exports = {
   mainAddress: async (req, res) => {
@@ -18,7 +13,6 @@ module.exports = {
       });
       res.status(200).send(response);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -51,7 +45,6 @@ module.exports = {
       });
       res.status(200).json(response);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

@@ -8,7 +8,7 @@ export const CartPage = () => {
 
   return (
     <div>
-      <Center>
+       <Center>
         <Box>
           <Box
             className="header"
@@ -34,7 +34,7 @@ export const CartPage = () => {
             pb={"80px"}
             className="body"
             bgColor="white"
-            h={"100%"}
+            h={"100vh"}
             w={"390px"}
           >
             {tokenLocalStorage ? <CartComp /> : <OrderNowComp />}

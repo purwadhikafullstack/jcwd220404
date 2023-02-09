@@ -2,10 +2,9 @@ import { Center, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
 import Axios from "axios";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const PopoutCheckout = ({ props }) => {
-  console.log(props);
   const [data, setData] = useState([]);
   const [totalCheckout, setTotalCheckout] = useState(0);
   const [totalWeight, setTotalWeight] = useState(0);
@@ -20,18 +19,15 @@ export const PopoutCheckout = ({ props }) => {
         .filter((item) => item.status === true)
         .map((item) => item.totalCheckout)
         .reduce((a, b) => a + b);
-      console.log(selectedItem);
+
       const selectedWeight = res.data
         .filter((item) => item.status === true)
         .map((item) => item.totalWeight)
         .reduce((a, b) => a + b);
-      console.log(selectedWeight);
       setTotalCheckout(selectedItem);
       setTotalWeight(selectedWeight);
       setData(res.data);
-      console.log(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -50,13 +46,15 @@ export const PopoutCheckout = ({ props }) => {
           borderColor={"#285430"}
           justifyContent="space-evenly"
           align="center"
-          w={[300, 350, 370]}
+          w={"370px"}
         >
           <Flex justify={"space-between"}>
-            <Text>{new Intl.NumberFormat("IND", {
-                              style: "currency",
-                              currency: "IDR",
-                            }).format(totalCheckout)}</Text>
+            <Text>
+              {new Intl.NumberFormat("IND", {
+                style: "currency",
+                currency: "IDR",
+              }).format(totalCheckout)}
+            </Text>
           </Flex>
         </Flex>
       </Center>

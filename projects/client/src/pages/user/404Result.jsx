@@ -8,7 +8,7 @@ export const NotFoundPage = () => {
   };
   
   return (
-    <>
+    <div>
       <Box>
         <Center>
           <Box
@@ -53,6 +53,6 @@ export const NotFoundPage = () => {
           </Box>
         </Center>
       </Box>
-    </>
+    </div>
   );
 };

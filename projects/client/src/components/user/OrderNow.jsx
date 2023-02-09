@@ -22,10 +22,8 @@ export const OrderNowComp = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
-      console.log(res.data.products);
       setProduct(res.data.products);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -71,9 +69,7 @@ export const OrderNowComp = () => {
                     }
                   />
                 </CardBody>
-                <CardFooter>
-                  <Button>Tambah</Button>
-                </CardFooter>
+                <CardFooter/>
               </Card>
             );
           })}

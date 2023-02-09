@@ -9,21 +9,30 @@ const productCategory = db.Product_Category;
 module.exports = {
   create: async (req, res) => {
     try {
-      const { productName, description } = req.body;
+      const { productName, description, CategoryId } = req.body;
 
-      if (
-        !productName &&
-        !description
-      )
-        throw "required field";
+      if (!productName && !description) throw "required field";
 
-      await product.create({
+      const result = await product.create({
         productName,
         description,
+        CategoryId,
       });
-      res.status(200).send({
-        message: "Successfully Added",
+
+      const data = await product.findAll({
+        where: {
+          id: result.id,
+        },
       });
+
+      data.map(async (item) => {
+        await productCategory.create({
+          CategoryId,
+          ProductId: item.id,
+        });
+      });
+
+      res.status(200).send("Successfully Added");
     } catch (err) {
       res.status(400).send({
         message: "Process error",
@@ -127,7 +136,6 @@ module.exports = {
           id: req.params.id,
         },
       });
-      console.log(req.params.id);
       const deleteProduct = await product.findAll();
       res.status(200).send(deleteProduct);
     } catch (err) {
@@ -142,7 +150,7 @@ module.exports = {
           id: req.params.id,
         },
       });
-      console.log(req.params.id);
+
       const deleteCategory = await category.findAll();
       res.status(200).send(deleteCategory);
     } catch (err) {
@@ -224,7 +232,7 @@ module.exports = {
   uploadCategory: async (req, res) => {
     try {
       let fileUploaded = req.file;
-      console.log("controller", fileUploaded);
+
       await category.update(
         {
           categoryPicture: `upload/${fileUploaded.filename}`,
@@ -380,14 +388,13 @@ module.exports = {
 
   createPrice: async (req, res) => {
     try {
-      const { productPrice, startDate, endDate, ProductId, DiscountId } =
-        req.body;
+      const { productPrice, startDate, endDate, ProductId, AdminId } = req.body;
       await price.create({
         productPrice,
         startDate,
         endDate,
         ProductId,
-        // DiscountId,
+        AdminId,
       });
       res.status(200).send({
         message: "Success Added",
@@ -425,6 +432,27 @@ module.exports = {
     }
   },
 
+  notDiscountItem: async (req, res) => {
+    try {
+      const { discPrice } = req.body;
+      const discounts = await price.update(
+        {
+          isDisc: 0,
+        },
+        {
+          where: {
+            productPrice: {
+              [Op.lt]: 50000,
+            },
+          },
+        }
+      );
+      res.status(200).send(discounts);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
   discountItem: async (req, res) => {
     try {
       const { discPrice } = req.body;
@@ -449,28 +477,33 @@ module.exports = {
         where: {
           isDisc: 1,
         },
-
         include: [{ model: discount }],
+        raw: true,
       });
-      console.log(disc[0].productPrice)
-      console.log(disc[0].discPrice)
-      console.log(disc[0].Discount.nominal);
 
-      const discItem = await price.update(
-        // Sequelize.query
-        // SELECT disc[0].productPrice, disc[0].Discount.nominal,(disc[0].productPrice-disc[0].Discount.nominal) as discPrice FROM
-        {
-          discPrice,
-        },
-        {
-          where: {
-            isDisc: 1,
+      const priceOne = disc.map((item) => item.productPrice);
+      const priceTwo = disc.map((item) => item["Discount.nominal"]);
+
+      let finalDisc = priceOne.map((item, index) => {
+        return item - priceTwo[index];
+      });
+
+      for (let i = 0; i < finalDisc.length; i++) {
+        await price.update(
+          {
+            discPrice: finalDisc[i],
           },
-        }
-      );
-      res.status(200).send(disc);
+          {
+            where: {
+              id: disc[i].id,
+            },
+          }
+        );
+      }
+      res.status(200).send({
+        disc,
+      });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -484,6 +517,16 @@ module.exports = {
       });
       res.status(200).send(list);
     } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findAllDiscount: async (req, res) => {
+    try {
+      const list = await discount.findAll({});
+      res.status(200).send(list);
+    } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },

@@ -1,15 +1,17 @@
+import React from "react";
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import { AddCategory } from "../../components/admin/AddCategory";
 import { AddProduct } from "../../components/admin/AddProduct";
-import { SidebarBranch } from "../../components/admin/SidebarBranch";
+import { SidebarComp } from "../../components/admin/Sidebar";
 
-export const AddProductCategoryPage = () => {
+export const AddProductCategory = () => {
   return (
     <div>
+      {" "}
       <Grid
         templateAreas={`"header header"
-                  "nav main"
-                  "nav footer"`}
+              "nav main"
+              "nav footer"`}
         gridTemplateRows={"50px 1fr 30px"}
         gridTemplateColumns={"150px 1fr"}
         h="100vh"
@@ -19,7 +21,7 @@ export const AddProductCategoryPage = () => {
         bgColor={"white"}
       >
         <GridItem>
-          <SidebarBranch />
+          <SidebarComp />
         </GridItem>
         <Flex>
           <AddProduct />

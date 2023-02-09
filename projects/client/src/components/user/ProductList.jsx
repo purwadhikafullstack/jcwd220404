@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Card,
@@ -54,11 +55,10 @@ export const ProductList = () => {
         }`
       );
       dispatch(syncData(res.data.result));
-      console.log(res.data.result);
+      console.log(res.data.result)
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -119,9 +119,7 @@ export const ProductList = () => {
       const res = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/product/discItem`
       );
-      console.log(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -180,7 +178,7 @@ export const ProductList = () => {
             </Center>
           </Flex>
           <Box>
-            {/* <Box display="flex" justifyContent="center" alignContent="center">
+          <Box display="flex" justifyContent="center" alignContent="center">
               <Button
                 onClick={() => {
                   async function submit() {
@@ -231,7 +229,7 @@ export const ProductList = () => {
               >
                 Next
               </Button>
-            </Box> */}
+            </Box>
             <Center>
               <SimpleGrid
                 mt={"10px"}
@@ -268,12 +266,39 @@ export const ProductList = () => {
                             >
                               {item.productName}
                             </Text>
-                            <Text mt={"10px"} fontSize={"sm"} color="#285430">
-                              {new Intl.NumberFormat("IND", {
-                                style: "currency",
-                                currency: "IDR",
-                              }).format(item.Price?.productPrice)}
-                            </Text>
+                            <Box>
+                              {!item?.Price?.discPrice ? (
+                                <Text fontSize={"xs"} color={"#285430"}>
+                                  {" "}
+                                  {new Intl.NumberFormat("IND", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                  }).format(item?.Price?.productPrice)}
+                                </Text>
+                              ) : (
+                                <Text fontSize={"xs"} color={"#285430"} as="s">
+                                  {" "}
+                                  {new Intl.NumberFormat("IND", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                  }).format(item?.Price?.productPrice)}
+                                </Text>
+                              )}
+                            </Box>
+                            <Box>
+                              {!item?.Price?.discPrice ? (
+                                ""
+                              ) : (
+                                <Text fontSize={"xs"} color={"#285430"}>
+                                  {" "}
+                                  {new Intl.NumberFormat("IND", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                  }).format(item?.Price?.discPrice)}
+                                  <Badge>Promo</Badge>
+                                </Text>
+                              )}
+                            </Box>
                           </CardBody>
                         </Center>
                         <CardFooter>

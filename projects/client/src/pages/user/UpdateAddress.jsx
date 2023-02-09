@@ -6,15 +6,22 @@ import Swal from "sweetalert2";
 import {
   Box,
   Button,
+  ButtonGroup,
   Center,
   Flex,
   FormControl,
   FormLabel,
   Input,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverFooter,
   Select,
   Stack,
   Text,
   Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { syncData } from "../../redux/addressSlice";
@@ -22,6 +29,7 @@ import { syncData } from "../../redux/addressSlice";
 export const UpdateAddressPage = () => {
   const [province, setProvince] = useState([]);
   const [city, setCity] = useState([]);
+  const [postal, setPostal] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState(0);
   const [selectedCity, setSelectedCity] = useState(0);
   const { data } = useSelector((state) => state.addressSlice.value);
@@ -38,6 +46,7 @@ export const UpdateAddressPage = () => {
   const inputReceiverEmail = useRef("");
   const dispatch = useDispatch();
   const params = useParams();
+  const { isOpen, onClose, onToggle } = useDisclosure();
 
   const onUpdate = async () => {
     try {
@@ -64,7 +73,6 @@ export const UpdateAddressPage = () => {
       });
       setTimeout(() => window.location.replace("/account/address"), 2000);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -74,10 +82,8 @@ export const UpdateAddressPage = () => {
         `${process.env.REACT_APP_API_BASE_URL}/address/findById/${id}`,
         { id: params.id }
       );
-      console.log(result.data);
       dispatch(syncData(result.data));
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -108,7 +114,6 @@ export const UpdateAddressPage = () => {
       );
       setProvince(response.data.rajaongkir.results);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -127,10 +132,8 @@ export const UpdateAddressPage = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
       );
-      console.log(response);
       setCity(response.data.rajaongkir.results);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -143,6 +146,27 @@ export const UpdateAddressPage = () => {
       );
     });
   };
+
+  const fetchPostal = async () => {
+    try {
+      const response = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
+      );
+      setPostal(response.data.rajaongkir.results);
+    } catch (err) {
+    }
+  };
+
+  const renderPostal = () => {
+    return Array.from(postal).map((val, i) => {
+      return (
+        <option value={val.postal_code} key={i}>
+          {val.postal_code}
+        </option>
+      );
+    });
+  };
+
 
   const provinceHandler = ({ target }) => {
     const { value } = target;
@@ -167,7 +191,7 @@ export const UpdateAddressPage = () => {
   };
 
   return (
-    <>
+    <div>
       <Center>
         <Box>
           <Box
@@ -231,7 +255,10 @@ export const UpdateAddressPage = () => {
                 ></Input>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>Province</FormLabel>
+                <Flex justify={"space-between"}>
+                  <FormLabel ml={"20px"}>Province</FormLabel>
+                  <FormLabel>{data?.province}</FormLabel>
+                </Flex>
                 <Select
                   placeholder={data?.province}
                   onChange={provinceHandler}
@@ -246,7 +273,10 @@ export const UpdateAddressPage = () => {
                 </Select>
               </FormControl>
               <FormControl>
-                <FormLabel ml={"20px"}>City</FormLabel>
+                <Flex justify={"space-between"}>
+                  <FormLabel ml={"20px"}>City</FormLabel>
+                  <FormLabel>{data?.city}</FormLabel>
+                </Flex>
                 <Select
                   placeholder={data?.city}
                   onChange={cityHandler}
@@ -333,7 +363,7 @@ export const UpdateAddressPage = () => {
               </FormControl>
               <Center>
                 <Button
-                  onClick={() => onUpdate(data.id)}
+                  onClick={onToggle}
                   bgColor={"#A4BE7B"}
                   borderColor="#285430"
                   border="2px"
@@ -344,11 +374,54 @@ export const UpdateAddressPage = () => {
                 >
                   Confirm
                 </Button>
+                <Popover
+                  returnFocusOnClose={false}
+                  isOpen={isOpen}
+                  placement="auto-end"
+                  closeOnBlur={false}
+                >
+                  <PopoverContent
+                    ml="8"
+                    mt="275"
+                    borderColor="#285430"
+                    border="2px"
+                    bgColor={"#E5D9B6"}
+                  >
+                    <PopoverArrow />
+                    <PopoverBody textColor={"#285430"}>
+                      Data will be saved, are You sure?
+                    </PopoverBody>
+                    <PopoverFooter display="flex" justifyContent="flex-end">
+                      <ButtonGroup size="sm">
+                        <Button
+                          onClick={onClose}
+                          bgColor={"#A4BE7B"}
+                          borderColor="#285430"
+                          border="2px"
+                          fontSize="14px"
+                          color="gray.800"
+                        >
+                          No
+                        </Button>
+                        <Button
+                          onClick={() => onUpdate(data.id)}
+                          bgColor="#A4BE7B"
+                          borderColor="#285430"
+                          border="2px"
+                          fontSize="14px"
+                          color="gray.800"
+                        >
+                          Yes
+                        </Button>
+                      </ButtonGroup>
+                    </PopoverFooter>
+                  </PopoverContent>
+                </Popover>
               </Center>
             </Stack>
           </Box>
         </Box>
       </Center>
-    </>
+    </div>
   );
 };

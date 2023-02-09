@@ -11,15 +11,49 @@ import {
   IoPersonOutline,
   IoPerson,
 } from "react-icons/io5";
-import { Badge, Center, color, Flex, Icon, Text, VStack } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
-import "../NavbarComp.css";
+import { Center, Flex, Icon, Text, VStack, Badge } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import "./Navbar.css";
+import { useEffect } from "react";
+import Axios from "axios";
+import { cartSync } from "../../redux/cartSlice";
+import { transSync } from "../../redux/transactionSlice";
 
 export const NavbarComp = () => {
   const data = useSelector((state) => state.cartSlice.value);
   const data2 = useSelector((state) => state.transactionSlice.value);
   const location = useLocation();
   const navigate = useNavigate();
+  const { id } = useSelector((state) => state.userSlice.value);
+  const dispatch = useDispatch();
+
+  const getData = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
+      );
+      dispatch(cartSync(res.data));
+    } catch (err) {
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [id]);
+
+  const getData2 = async () => {
+    try {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/findById/${id}`
+      );
+      dispatch(transSync(result.data));
+    } catch (err) {
+    }
+  };
+
+  useEffect(() => {
+    getData2();
+  }, [id]);
 
   const menuBar = [
     {
@@ -41,7 +75,7 @@ export const NavbarComp = () => {
       icon2: IoCart,
       icon3: Badge,
       name: "Cart",
-      url: `/cart`,
+      url: `/carts`,
     },
     {
       icon1: IoNewspaperOutline,
@@ -65,34 +99,41 @@ export const NavbarComp = () => {
 
   return (
     <div>
-        <Center>
-
-      <Badge zIndex={2} borderRadius="2xl" mb={"10px"} 
-      ml="100px"   bg="#FE0013"
-      color={"gray.800"}
-      >
+      <Center>
+        <Badge
+          zIndex={2}
+          borderRadius="2xl"
+          mb={"10px"}
+          ml="100px"
+          bg="#FE0013"
+          color={"gray.800"}
+        >
           {data?.length}
         </Badge>
-        <Badge zIndex={2} borderRadius="2xl" mb={"10px"} 
-        ml="50px"   bg="#FE0013"
-        color={"gray.800"}
+        <Badge
+          zIndex={2}
+          borderRadius="2xl"
+          mb={"10px"}
+          ml="50px"
+          bg="#FE0013"
+          color={"gray.800"}
         >
           {data2?.length}
         </Badge>
-        </Center>
-        <Center>
+      </Center>
+      <Center>
         <Flex
-          w={[300, 350, 390]}
+          w="390px"
           h="70px"
           bgColor="#E5D9B6"
           color="gray.800"
           dropShadow="2xl"
           position="fixed"
-          >
+        >
           <Flex
             justifyContent="space-evenly"
             align="center"
-            w={[300, 350, 390]}
+            w="390px"
           >
             {menuBar.map((item, index) => {
               return (

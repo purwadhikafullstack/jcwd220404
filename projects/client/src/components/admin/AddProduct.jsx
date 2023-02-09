@@ -1,32 +1,36 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import Axios from "axios";
+import Select from "react-select";
 import {
-  Box,
   Button,
-  Center,
-  Flex,
   FormControl,
   FormLabel,
   Input,
-  Select,
+  // Select,
   Stack,
-  Text,
   Textarea,
+  Center,
+  Box,
   useColorModeValue,
+  Text,
 } from "@chakra-ui/react";
 
 export const AddProduct = () => {
+  const [data2, setData2] = useState([]);
+  const [data3, setData3] = useState([]);
+  const [edit2, setEdit2] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState()
   const inputProductName = useRef("");
   const inputDescription = useRef("");
-  const [data2, setData2] = useState([]);
-  const [edit2, setEdit2] = useState({});
+  const inputCategory = useRef(0);
 
   const onCreate = async () => {
     try {
       const addProduct = {
         productName: inputProductName.current.value,
         description: inputDescription.current.value,
+        CategoryId: inputCategory.current.value,
       };
       const res = await Axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/product/create`,
@@ -48,19 +52,54 @@ export const AddProduct = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
       );
-      console.log(res.data);
       setData2(res.data);
+      console.log(res.data)
+      const categories = res.data.map((item) => item.categoryName);
+      console.log(categories)
+      setData3(categories);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const renderCategory = () => {
+    return data2.map((val) => {
+      return (
+        <option value={val.id} key={val.id.toString()}>
+          {val.categoryName}
+        </option>
+      );
+    });
+  };
+
+  const categoryHandler = ({ target }) => {
+    const { value } = target;
+    selectedCategory(value);
+  };
+
+  // useEffect(() => {
+  //   getBranch();
+  // }, [selectedBranch]);
+
   useEffect(() => {
     getCategory();
-  }, [edit2]);
+  }, [edit2, selectedCategory]);
+
+  const categoryOptions = [
+    { value: 1, label: "Sayuran" },
+    { value: 2, label: "Seafood" },
+    { value: 3, label: "Buah-Buahan" },
+    { value: 4, label: "Beli 1 Gratis 1" },
+    { value: 5, label: "Daging" },
+    { value: 6, label: "Protein" },
+    { value: 8, label: "Unggas" },
+    { value: 9, label: "Ibu dan Anak" },
+    { value: 10, label: "Makanan Jadi" },
+    { value: 11, label: "Paket Masak" },
+  ];
 
   return (
-    <div>
+    <>
       <Box
         p="10px"
         ml="200px"
@@ -93,37 +132,37 @@ export const AddProduct = () => {
           </Box>
           <Stack spacing={"10px"}>
             <FormControl>
-              <FormLabel mt={"10px"} ml={"10px"} color="#285430">
-                Product Name
-              </FormLabel>
+              <FormLabel color="#285430">Nama Produk</FormLabel>
               <Input
-                w={"360px"}
-                ml={"10px"}
                 ref={inputProductName}
-                placeholder="Product"
+                placeholder="Produk"
                 _placeholder={{ color: "#5F8D4E" }}
                 borderColor="#285430"
-                textColor="#285430"
+                textColor="black"
               ></Input>
             </FormControl>
+            <FormLabel color="#285430">Distributor</FormLabel>
+            <Input
+              // ref={inputDistributor}
+              placeholder="Distributor"
+              _placeholder={{ color: "#5F8D4E" }}
+              borderColor="#285430"
+              textColor="black"
+            ></Input>
             <FormControl>
-              <FormLabel mt={"10px"} ml={"10px"} color="#285430">
-                Category
-              </FormLabel>
+              <FormLabel color="#285430">Category 1</FormLabel>
               <Select
-                w={"360px"}
-                ml={"10px"}
-                color={"#285430"}
-                borderColor="#285430"
+                // defaultValue={[colourOptions[2], colourOptions[3]]}
+                isMulti
+                name="colors"
+                options={categoryOptions}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                value={categoryOptions.value}
+                ref={inputCategory}
+                // onChange={categoryHandler}
               >
-                <option>Select Category</option>
-                {data2?.map((item) => {
-                  return (
-                    <>
-                      <option color="#285430">{item.categoryName}</option>
-                    </>
-                  );
-                })}
+                
               </Select>
             </FormControl>
             <FormControl>
@@ -157,6 +196,6 @@ export const AddProduct = () => {
           </Stack>
         </Box>
       </Box>
-    </div>
+    </>
   );
 };

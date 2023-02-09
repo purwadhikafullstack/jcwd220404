@@ -4,53 +4,54 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Tabs,
+  Text,
+  Table,
+  TableContainer,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  Image,
   Center,
   Flex,
   FormControl,
-  FormHelperText,
   FormLabel,
-  Icon,
-  Image,
-  Input,
+  Select,
   InputGroup,
+  Input,
   InputRightElement,
+  FormHelperText,
+  TabPanels,
+  TabPanel,
   Modal,
-  ModalBody,
-  ModalCloseButton,
   ModalContent,
+  ModalCloseButton,
+  ModalBody,
   ModalHeader,
   ModalOverlay,
-  Select,
-  Table,
-  TableContainer,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-  useColorModeValue,
   useDisclosure,
+  useColorModeValue,
+  Icon,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/productSlice";
+import { syncCategory } from "../../redux/categorySlice";
 import { useNavigate } from "react-router-dom";
-import { BsFilterLeft } from "react-icons/bs";
-import { BiReset, BiSearchAlt } from "react-icons/bi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { BsFilterLeft } from "react-icons/bs";
+import { BiReset, BiSearchAlt } from "react-icons/bi";
 import { UpdateProductComp } from "./UpdateProduct";
 
 export const Product = () => {
-  const data = useSelector((state) => state.productSlice.value);
-  const [edit, setEdit] = useState({});
+  const [product, setProduct] = useState([]);
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("upload");
+  const [edit, setEdit] = useState({});
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("ASC");
@@ -59,14 +60,68 @@ export const Product = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [state, setState] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const navigate = useNavigate();
+  const data = useSelector((state) => state.productSlice.value);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const OverlayOne = () => (
     <ModalOverlay
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
     />
   );
   const [overlay, setOverlay] = useState(<OverlayOne />);
+
+  const getData = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/product/list`
+      );
+      console.log(res.data);
+      setProduct(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [edit]);
+
+  const onDelete = async (id) => {
+    try {
+      const res = await Axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
+      );
+
+      getData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleChoose = (e) => {
+    console.log("e.target.files", e.target.files);
+    setImage(e.target.files[0]);
+  };
+
+  const handleUpload = async (id) => {
+    const data = new FormData();
+    data.append("file", image);
+
+    const resultImage = await Axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
+      data,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    );
+
+    setProfile(resultImage.data.picture);
+    setImage({ images: "" });
+    window.location.replace("/admin");
+  };
 
   const getProduct = async () => {
     try {
@@ -80,7 +135,6 @@ export const Product = () => {
         }`
       );
       dispatch(syncData(res.data.result));
-      console.log(res.data.result);
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
     } catch (err) {
@@ -100,50 +154,6 @@ export const Product = () => {
     setSort(filter);
   }
 
-  const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
-    setImage(e.target.files[0]);
-  };
-
-  const handleUpload = async (id) => {
-    const data = new FormData();
-    console.log(data);
-    data.append("file", image);
-    console.log(data.get("file"));
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/11`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    console.log(resultImage.data);
-    setProfile(resultImage.data.picture);
-    setImage({ images: "" });
-    getProduct();
-    console.log(image);
-    console.log(profile);
-  };
-
-  const onDelete = async (id) => {
-    try {
-      const res = await Axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
-      );
-      console.log(res);
-      getProduct();
-      Swal.fire({
-        icon: "success",
-        text: " Delete Success",
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const formik = useFormik({
     initialValues: {
       searchName: ``,
@@ -158,12 +168,12 @@ export const Product = () => {
     },
   });
 
-  const toAddProductCategory = () => {
-    navigate("/admin/product/addProductCategory");
+  const toAddProduct = () => {
+    navigate("/admin/product/add");
   };
 
   return (
-    <div>
+    <>
       <Tabs isFitted variant="enclosed">
         <TabPanels>
           <TabPanel>
@@ -299,7 +309,7 @@ export const Product = () => {
                   width={"100%"}
                   justifyContent="center"
                   size="md"
-                  onClick={toAddProductCategory}
+                  onClick={toAddProduct}
                 >
                   Add Product
                 </Button>
@@ -311,6 +321,7 @@ export const Product = () => {
                   <Thead alignContent={"center"}>
                     <Tr>
                       <Th color={"#285430"}>Product</Th>
+                      <Th color={"#285430"}>Price</Th>
                       <Th color={"#285430"}>Picture</Th>
                       <Th color={"#285430"}>Description</Th>
                       <Th color={"#285430"}>Actions</Th>
@@ -321,6 +332,13 @@ export const Product = () => {
                       return (
                         <Tr>
                           <Td color={"#285430"}>{item.productName}</Td>
+                          <Td color={"#285430"}>
+                            {" "}
+                            {new Intl.NumberFormat("IND", {
+                              style: "currency",
+                              currency: "IDR",
+                            }).format(item.Price.productPrice)}
+                          </Td>
                           <Td>
                             <Image
                               boxSize={"50px"}
@@ -348,7 +366,7 @@ export const Product = () => {
                                 color="gray.800"
                                 width={"100%"}
                                 justifyContent="center"
-                                onClick={() => handleUpload()}
+                                onClick={() => handleUpload(item.id)}
                                 size="sm"
                               >
                                 Upload
@@ -366,12 +384,12 @@ export const Product = () => {
                               justifyContent="space-evenly"
                             >
                               <Button
-                              onClick={() => {
-                                setEdit(item);
-                                setOverlay(<OverlayOne />);
-                                onOpen();
-                              }}
-                            >
+                                onClick={() => {
+                                  setEdit(item);
+                                  setOverlay(<OverlayOne />);
+                                  onOpen();
+                                }}
+                              >
                                 <EditIcon color={"#285430"} />
                               </Button>
                               <Button onClick={() => onDelete(item.id)}>
@@ -451,6 +469,6 @@ export const Product = () => {
           </ModalContent>
         </Modal>
       </Tabs>
-    </div>
+    </>
   );
 };

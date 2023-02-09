@@ -60,6 +60,7 @@ export const RegisterUser = () => {
         icon: "success",
         text: `${result.data.message}`,
         timer: 2000,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
@@ -70,17 +71,17 @@ export const RegisterUser = () => {
         icon: "error",
         title: "Oops...",
         text: `${err.response.data}`,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
-        width: "370px",
       });
     }
   };
 
   return (
     <div>
-      <Formik
+       <Formik
         initialValues={{
           name: "",
           phoneNumber: "",

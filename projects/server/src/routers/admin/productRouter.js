@@ -21,6 +21,7 @@ router.post(
 router.patch("/update/:id", productController.update);
 router.patch("/updateCategory/:id", productController.updateCategory);
 router.patch("/discItem", productController.discountItem)
+router.patch("/notDisc", productController.notDiscountItem)
 router.get("/list", productController.findAll);
 router.get("/listCategory", productController.findAllCategory);
 router.get("/list/:id", productController.findByProductId);
@@ -28,6 +29,7 @@ router.get("/listCategory/:id", productController.findByCategoryId);
 router.get("/pagProduct", productController.paginationProduct);
 router.get("/pagCategory", productController.paginationCategory);
 router.get("/listDiscount", productController.findDiscount)
+router.get("/listAllDiscount", productController.findAllDiscount)
 router.delete("/remove/:id", productController.remove);
 router.delete("/removeCategory/:id", productController.removeCategory);
 

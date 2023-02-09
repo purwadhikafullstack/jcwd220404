@@ -42,10 +42,10 @@ module.exports = {
       const result = await discount.findOne({
         raw: true,
       });
-      console.log(result.nominal);
+
       const data = await price.update(
         {
-          discPrice: productPrice - result.nominal
+          discPrice: productPrice - result.nominal,
           // totalCheckout: qty * response["Product.Price.productPrice"],
           // totalWeight: qty * response["Product.weight"],
         },
@@ -53,13 +53,12 @@ module.exports = {
           where: { id: req.params.id },
         }
       );
-      console.log(data);
+
       res.status(200).send({
         message: "Update success",
         data,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

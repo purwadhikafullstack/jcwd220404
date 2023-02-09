@@ -1,16 +1,16 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import Swal from "sweetalert2";
 import Axios from "axios";
 import {
-  Box,
   Button,
-  Center,
   FormControl,
   FormLabel,
   Input,
   Stack,
-  Text,
+  Center,
+  Box,
   useColorModeValue,
+  Text,
 } from "@chakra-ui/react";
 
 export const AddCategory = () => {
@@ -27,15 +27,18 @@ export const AddCategory = () => {
       );
       Swal.fire({
         icon: "success",
-        text: "Success",
+        text: "Category Added",
+        width: "370px",
       });
 
-      setTimeout(() => window.location.replace("/admin/category"), 2000);
-      console.log(res);
+      setTimeout(() => {
+        window.location.replace("/admin");
+      }, 900);
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <div>
       <Box

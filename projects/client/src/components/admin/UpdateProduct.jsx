@@ -30,7 +30,7 @@ export const UpdateProductComp = ({ data }) => {
         `${process.env.REACT_APP_API_BASE_URL}/product/update/${id}`,
         updateProduct
       );
-      console.log(res);
+
       Swal.fire({
         icon: "success",
         text: "Product Updated",

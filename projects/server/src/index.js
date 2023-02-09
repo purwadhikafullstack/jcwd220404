@@ -6,11 +6,31 @@ const db = require("./models");
 const bearerToken = require("express-bearer-token");
 const path = require("path");
 const app = express();
+const fileUpload = require("express-fileupload");
 
 const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cors());
-app.use("/upload", express.static(path.join(__dirname, "/upload")));
+app.use(
+  "/upload",
+  express.static(path.join(__dirname, "/upload")),
+  // fileUpload({
+  //   createParentPath: true,
+  //   limits: {
+  //     fileSize: 1024 * 1024, // 1 MB
+  //   },
+  //   abortOnLimit: true,
+  // })
+);
+// app.use(
+//   fileUpload({
+//     createParentPath: true,
+//     limits: {
+//       fileSize: 1024 * 1024, // 1 MB
+//     },
+//     abortOnLimit: true,
+//   })
+// );
 app.use(bearerToken());
 
 // app.use(

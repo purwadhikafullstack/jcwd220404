@@ -120,6 +120,11 @@ export const DashboardComp = () => {
         <SimpleGrid columns={{ base: 1, md: 6 }} spacing={{ base: 6, lg: 2 }}>
           <StatsCard
             title={"Waiting Payment"}
+            stat={data6?.length}
+            icon={<MdOutlinePayment size={"2.5em"} />}
+          />
+          <StatsCard
+            title={"Waiting Payment"}
             stat={data?.length}
             icon={<MdOutlinePayment size={"2.5em"} />}
           />

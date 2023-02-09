@@ -23,7 +23,6 @@ import { RestrictedPage } from "./pages/403ResultPage";
 import { LoginAdminPage } from "./pages/admin/Login";
 import { AdminPage } from "./pages/admin/AdminPage";
 import { UpdateAddressPage } from "./pages/user/UpdateAddress";
-import { AddProductCategoryPage } from "./pages/admin/AddProductCategoryPage";
 import { NotFoundPage } from "./pages/user/404Result";
 import { EnterComp } from "./components/user/Enter";
 import { Checkout } from "./pages/user/Checkout";
@@ -38,6 +37,7 @@ import { TransactionAdminPage } from "./pages/admin/Transaction";
 import { Discount } from "./pages/admin/Discount";
 import { BranchManagement } from "./pages/admin/BranchManagement";
 import { Sales } from "./pages/admin/Sales";
+import { AddProductCategory } from "./pages/admin/AddProductCategory";
 
 function App() {
   const dispatch = useDispatch();
@@ -137,7 +137,7 @@ function App() {
         <Route path="/notification" element={<NotificationPage />}></Route>
         <Route path="/transaction" element={<TransactionPage />}></Route>
         <Route path="/category" element={<CategoryPage />}></Route>
-        <Route path="/cart" element={<CartPage />}></Route>
+        <Route path="/carts" element={<CartPage />}></Route>
         <Route path="/product/:id" element={<ProductDetail />}></Route>
         <Route path="/category/:id" element={<CategoryDetail />}></Route>
         <Route path="/transaction/:id" element={<OrderDetail />}></Route>
@@ -146,7 +146,7 @@ function App() {
           path="/checkout/success/:id"
           element={<OrderSuccess />}
         ></Route>
-        <Route path="/register" element={<RegisterPage />}></Route>
+        <Route path="/registers" element={<RegisterPage />}></Route>
         <Route
           path="/verification/:token"
           element={<VerificationPage />}
@@ -182,10 +182,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />}></Route>
         <Route path="/*" element={<NotFoundPage />}></Route>
         <Route path="/admin/product" element={<ProductAdminPage />}></Route>
-        <Route
-          path="/admin/product/addProductCategory"
-          element={<AddProductCategoryPage />}
-        ></Route>
+        <Route path="/admin/product/add" element={<AddProductCategory />}></Route>
         <Route path="/admin/category" element={<CategoryAdminPage />}></Route>
         <Route path="/admin/inventory" element={<InventoryAdminPage />}></Route>
         <Route
