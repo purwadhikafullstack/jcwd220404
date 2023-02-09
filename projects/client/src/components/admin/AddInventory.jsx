@@ -194,7 +194,7 @@ export const InventoryAdminComp = () => {
 
   useEffect(() => {
     getCategory2();
-  }, [searchCategory2, page2, limit2, sort2]);
+  }, [searchCategory2, page2, limit2, sort2, data4]);
 
   async function fetchSort2(filter) {
     setSort2(filter);

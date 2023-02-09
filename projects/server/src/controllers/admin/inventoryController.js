@@ -127,50 +127,50 @@ module.exports = {
       const orderby = order || "productName";
       const direction = sort || "ASC";
       const totalRows = await inventory.count({
-        include: [
-          {
-            model: product,
-            where: {
-              [Op.and]: [
-                {
-                  // BranchId,
-                  // [Op.or]: [
-                  // {
-                  ["productName"]: {
-                    [Op.like]: "%" + search + "%",
-                  },
-                },
-              ],
-              // },
-              // ],
+        // include: [
+        //   {
+        //     model: product,
+        where: {
+          [Op.and]: [
+            {
+              BranchId,
+              // [Op.or]: [
+              // {
+              id: {
+                [Op.like]: "%" + search + "%",
+              },
             },
-          },
-        ],
+          ],
+          // },
+          // ],
+        },
+        //   },
+        // ],
       });
       console.log(totalRows);
       const totalPage = Math.ceil(totalRows / limit);
       const result = await inventory.findAll({
-        include: [
-          {
-            model: product,
-            where: {
-              [Op.and]: [
-                {
-                  // BranchId,
-                  // where: {
-                  // [Op.or]: [
-                  // {
-                  ["productName"]: {
-                    [Op.like]: "%" + search + "%",
-                  },
-                  // },
-                  // ],
-                  // },
-                },
-              ],
+        // include: [
+        //   {
+        //     model: product,
+        where: {
+          [Op.and]: [
+            {
+              BranchId,
+              // where: {
+              // [Op.or]: [
+              // {
+              id: {
+                [Op.like]: "%" + search + "%",
+              },
+              // },
+              // ],
+              // },
             },
-          },
-        ],
+          ],
+        },
+        //   },
+        // ],
         offset: offset,
         limit: list_limit,
         order: [[orderby, direction]],
