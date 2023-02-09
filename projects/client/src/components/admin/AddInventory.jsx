@@ -48,15 +48,16 @@ export const InventoryAdminComp = () => {
   const inputProductName = useRef("");
   const inputEntryDate = useRef("");
   const inputQty = useRef("");
-  const [limit2, setLimit2] = useState();
-  const [sort2, setSort2] = useState();
-  const [order2, setOrder2] = useState();
-  const [searchProduct, setSearchProduct] = useState();
-  const [state2, setState2] = useState();
-  const [searchCategory2, setSearchCategory2] = useState();
-  const [page2, setPage2] = useState();
-  const [totalPage2, setTotalPage2] = useState();
-  const [data, setData] = useState();
+  const [limit2, setLimit2] = useState(5);
+  const [sort2, setSort2] = useState("ASC");
+  const [order2, setOrder2] = useState("id");
+  const [searchProduct, setSearchProduct] = useState("");
+  const [state2, setState2] = useState(0);
+  const [searchCategory2, setSearchCategory2] = useState("");
+  const [page2, setPage2] = useState(1);
+  const [totalPage2, setTotalPage2] = useState(0  );
+  // const [data, setData] = useState();
+  const data = useSelector((state) => state.inventorySlice.value)
   const [data2, setData2] = useState();
   const [data3, setData3] = useState([]);
   const [data4, setData4] = useState();
@@ -177,13 +178,13 @@ export const InventoryAdminComp = () => {
           process.env.REACT_APP_API_BASE_URL
         }/inventory/pagInventory?search_query=${searchCategory2}&page=${
           page2 - 1
-        }&limit=${limit2}&order=${order2 ? order2 : `categoryName`}&sort=${
+        }&limit=${limit2}&order=${order2 ? order2 :`id`}&sort=${
           sort2 ? sort2 : "ASC"
-        }`
+        }&BranchId=${data4}`
       );
-      setData(res.data)
-      // dispatch(syncInventory(res.data.result));
-      console.log(res.data);
+      // setData(res.data)
+      dispatch(syncInventory(res.data.result));
+      console.log(res.data.result);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {
@@ -331,10 +332,10 @@ export const InventoryAdminComp = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {data2?.map((item) => {
+                {data?.map((item) => {
                   return (
                     <Tr>
-                      <Td color={"#285430"}>{item.Product.productName}</Td>
+                      <Td color={"#285430"}>{item.id}</Td>
                       <Td>{item.entryDate}</Td>
                       <Td textAlign={"center"} color={"#285430"}>
                         {item.stockQty}

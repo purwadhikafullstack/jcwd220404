@@ -119,7 +119,7 @@ module.exports = {
 
   paginationAdmin: async (req, res) => {
     try {
-      const { page, limit, search_query, order, sort } = req.query;
+      const { page, limit, search_query, order, sort, BranchId } = req.query;
       const productlist_page = parseInt(page) || 0;
       const list_limit = parseInt(limit) || 5;
       const search = search_query || "";
@@ -127,44 +127,50 @@ module.exports = {
       const orderby = order || "productName";
       const direction = sort || "ASC";
       const totalRows = await inventory.count({
-        where: {
-          [Op.or]: [
-            {
-              productName: {
-                [Op.like]: "%" + search + "%",
-              },
+        include: [
+          {
+            model: product,
+            where: {
+              [Op.and]: [
+                {
+                  // BranchId,
+                  // [Op.or]: [
+                  // {
+                  ["productName"]: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+              ],
+              // },
+              // ],
             },
-            {
-              description: {
-                [Op.like]: "%" + search + "%",
-              },
-            },
-          ],
-        },
+          },
+        ],
       });
+      console.log(totalRows);
       const totalPage = Math.ceil(totalRows / limit);
       const result = await inventory.findAll({
-        // include: [
-        //   {
-        //     model: cart,
-        //     attributes: ["id"],
-        //   },
-        // ],
-        where: {
-          [Op.or]: [
-            {
-              productName: {
-                [Op.like]: "%" + search + "%",
-              },
+        include: [
+          {
+            model: product,
+            where: {
+              [Op.and]: [
+                {
+                  // BranchId,
+                  // where: {
+                  // [Op.or]: [
+                  // {
+                  ["productName"]: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                  // },
+                  // ],
+                  // },
+                },
+              ],
             },
-            {
-              description: {
-                [Op.like]: "%" + search + "%",
-              },
-            },
-          ],
-        },
-        include: [{ model: price }],
+          },
+        ],
         offset: offset,
         limit: list_limit,
         order: [[orderby, direction]],
@@ -175,7 +181,7 @@ module.exports = {
         //   },
         // ],
       });
-
+      console.log(result);
       res.status(200).send({
         result: result,
         page: productlist_page,
@@ -184,6 +190,7 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
+      console.log(error);
       res.status(400).send(error);
     }
   },
@@ -409,7 +416,7 @@ module.exports = {
       });
       console.log(total);
       const salesInv = total.map((item) => item.dataValues.total_product);
-      console.log(salesInv)
+      console.log(salesInv);
 
       // let numberSalesTotal = [];
       // length = salesTotal.length;

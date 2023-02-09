@@ -50,7 +50,7 @@ import * as Yup from "yup";
 import { transSync } from "../../redux/transactionSlice";
 
 export const TransactionComp = () => {
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
   const [data2, setData2] = useState();
   const [data3, setData3] = useState();
   const [data4, setData4] = useState();
@@ -59,17 +59,18 @@ export const TransactionComp = () => {
   const [data7, setData7] = useState();
   const [data8, setData8] = useState();
   const [data9, setData9] = useState();
-  const [limit2, setLimit2] = useState();
-  const [sort2, setSort2] = useState();
-  const [order2, setOrder2] = useState();
-  const [searchProduct, setSearchProduct] = useState();
-  const [state2, setState2] = useState();
-  const [searchCategory2, setSearchCategory2] = useState();
-  const [page2, setPage2] = useState();
-  const [totalPage2, setTotalPage2] = useState();
+  const [admin, setAdmin] = useState()
+  const [limit2, setLimit2] = useState(5);
+  const [sort2, setSort2] = useState("ASC");
+  const [order2, setOrder2] = useState("status");
+  const [searchProduct, setSearchProduct] = useState("");
+  const [state2, setState2] = useState(0);
+  const [searchCategory2, setSearchCategory2] = useState("");
+  const [page2, setPage2] = useState(1);
+  const [totalPage2, setTotalPage2] = useState(0);
   const { id } = useSelector((state) => state.adminSlice.value);
   const dispatch = useDispatch();
-  // const data = useSelector((state) => state.transactionSlice.value)
+  const data = useSelector((state) => state.transactionSlice.value)
 
   const getData7 = async () => {
     try {
@@ -234,13 +235,13 @@ export const TransactionComp = () => {
           process.env.REACT_APP_API_BASE_URL
         }/transaction/pagTransaction?search_query=${searchCategory2}&page=${
           page2 - 1
-        }&limit=${limit2}&order=${order2 ? order2 : `id_order`}&sort=${
+        }&limit=${limit2}&order=${order2 ? order2 : `status`}&sort=${
           sort2 ? sort2 : "ASC"
-        }`
+        }&AdminId=${id}`
       );
-      // setData9(res.data)
-      dispatch(transSync(res.data));
-      console.log(res.data);
+      // setData9(res.data.result)
+      dispatch(transSync(res.data.result));
+      console.log(res.data.result);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {
@@ -402,7 +403,7 @@ export const TransactionComp = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {data7?.map((item) => {
+            {data?.map((item) => {
               return (
                 <Tr>
                   <Td textAlign={"center"} color={"#285430"}>
