@@ -5,6 +5,7 @@ import {
   Stat,
   StatLabel,
   StatNumber,
+  Tooltip,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { MdOutlinePayment } from "react-icons/md";
@@ -15,6 +16,15 @@ import { MdDoneOutline } from "react-icons/md";
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import { useSelector } from "react-redux";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 export const DashboardComp = () => {
   const [data, setData] = useState();
@@ -23,6 +33,9 @@ export const DashboardComp = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
+  const [data7, setData7] = useState();
+  const [data8, setData8] = useState();
+  const [branch, setBranch] = useState();
   const { id } = useSelector((state) => state.adminSlice.value);
 
   const getData = async () => {
@@ -115,6 +128,8 @@ export const DashboardComp = () => {
     getData6();
   }, [id]);
 
+ 
+
   return (
     <div>
       <Box maxW="6xl" pl={20} mx={"auto"} pt={50}>
@@ -150,6 +165,30 @@ export const DashboardComp = () => {
             icon={<MdDoneOutline size={"2.5em"} />}
           />
         </SimpleGrid>
+
+        <ResponsiveContainer width="50%" height="50%">
+          <BarChart
+            width={5}
+            height={5}
+            data={data5}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            {/* <XAxis dataKey="Branch.branchName" />
+              <YAxis />
+              <Tooltip dataKey={"total_product"} />
+              <Legend />
+              <Bar dataKey={"total_product"} fill="#8884d8" /> */}
+          </BarChart>
+        </ResponsiveContainer>
+      </Box>
+      <Box>
+        
       </Box>
     </div>
   );

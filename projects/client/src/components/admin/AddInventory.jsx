@@ -94,6 +94,7 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
+      console.log(res.data)
     } catch (err) {
       console.log(err);
     }

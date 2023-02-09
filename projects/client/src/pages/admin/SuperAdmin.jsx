@@ -20,6 +20,8 @@ export const SuperComp = () => {
   const [data1, setData1] = useState();
   const [data2, setData2] = useState();
   const [data3, setData3] = useState();
+  const [data4, setData4] = useState();
+  const [data5, setData5] = useState();
 
   const demoUrl = "https://codesandbox.io/s/simple-line-chart-kec3v";
 
@@ -28,7 +30,9 @@ export const SuperComp = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/totalAll`
       );
-      console.log(res.data);
+      setData4(res.data.total);
+      console.log(res.data.total);
+      console.log(res.data.numberSalesTotal);
     } catch (err) {
       console.log(err);
     }
@@ -36,6 +40,22 @@ export const SuperComp = () => {
 
   useEffect(() => {
     getAll();
+  }, []);
+
+  const getAllInv = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/totalInv`
+      );
+      setData5(res.data.total);
+      console.log(res.data.total);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getAllInv();
   }, []);
 
   const getData = async (id) => {
@@ -91,7 +111,7 @@ export const SuperComp = () => {
                   "nav footer"`}
         gridTemplateRows={"50px 1fr 30px"}
         gridTemplateColumns={"150px 1fr"}
-        h="100vh"
+        h="10vh"
         gap="1"
         color="#285430"
         fontWeight="bold"
@@ -101,13 +121,11 @@ export const SuperComp = () => {
           <SidebarSuper />
         </GridItem>
       </Grid>
-      <Box ml={"120px"}></Box>
-
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="50%" height="50%">
         <BarChart
-          width={20}
-          height={10}
-          data={data1}
+          width={5}
+          height={5}
+          data={data4}
           margin={{
             top: 5,
             right: 30,
@@ -116,58 +134,44 @@ export const SuperComp = () => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="BranchId" />
+          <XAxis dataKey="Branch.branchName" />
           <YAxis />
-          <Tooltip />
+          <Tooltip
+            dataKey={new Intl.NumberFormat("IND", {
+              style: "currency",
+              currency: "IDR",
+            }).format("total_order")}
+          />
+          <Legend
+            dataKey={new Intl.NumberFormat("IND", {
+              style: "currency",
+              currency: "IDR",
+            }).format("total_order")}
+          />
+          <Bar dataKey={"total_order"} fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
+
+      <ResponsiveContainer width="50%" height="50%">
+        <BarChart
+          width={5}
+          height={5}
+          data={data5}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="Branch.branchName" />
+          <YAxis />
+          <Tooltip dataKey={"total_product"} />
           <Legend />
-          <Bar dataKey={"numberSalesTotal"} fill="#8884d8" />
+          <Bar dataKey={"total_product"} fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
     </>
   );
 };
-
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];

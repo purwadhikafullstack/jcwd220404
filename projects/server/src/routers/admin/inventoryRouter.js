@@ -13,5 +13,6 @@ router.get("/list/total", inventoryController.totalProduct);
 router.get("/search", inventoryController.searchBy);
 router.get("/sort", inventoryController.sortBy);
 router.get("/pagInventory", inventoryController.paginationAdmin);
+router.get("/totalInv", inventoryController.totalInvAll)
 
 module.exports = router;
