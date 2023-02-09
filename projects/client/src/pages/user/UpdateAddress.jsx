@@ -15,7 +15,6 @@ import {
   Popover,
   PopoverArrow,
   PopoverBody,
-  PopoverCloseButton,
   PopoverContent,
   PopoverFooter,
   Select,
@@ -74,7 +73,6 @@ export const UpdateAddressPage = () => {
       });
       setTimeout(() => window.location.replace("/account/address"), 2000);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -84,10 +82,8 @@ export const UpdateAddressPage = () => {
         `${process.env.REACT_APP_API_BASE_URL}/address/findById/${id}`,
         { id: params.id }
       );
-      console.log(result.data);
       dispatch(syncData(result.data));
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -102,7 +98,6 @@ export const UpdateAddressPage = () => {
       );
       setProvince(response.data.rajaongkir.results);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -121,10 +116,8 @@ export const UpdateAddressPage = () => {
       const response = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/city/${selectedProvince}`
       );
-      console.log(response);
       setCity(response.data.rajaongkir.results);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -145,7 +138,6 @@ export const UpdateAddressPage = () => {
       );
       setPostal(response.data.rajaongkir.results);
     } catch (err) {
-      console.log(err);
     }
   };
 

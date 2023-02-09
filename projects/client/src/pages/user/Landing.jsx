@@ -6,13 +6,13 @@ import { CarouselComp } from "../../components/user/Carousel";
 import { MenuComp } from "../../components/user/Menu";
 import { DefaultAddress } from "../../components/user/DefaultAddress";
 import { BlankAddress } from "../../components/user/BlankAddress";
-import { SearchComp } from "../../components/user/Search";
+// import { SearchComp } from "../../components/user/Search";
 
 export const LandingPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
 
   return (
-    <>
+    <div>
       <Box>
         <Center>
           <Box>
@@ -33,10 +33,10 @@ export const LandingPage = () => {
                 <NotificationComp />
               </Box>
             </Skeleton>
-            {tokenLocalStorage ? <DefaultAddress /> : <BlankAddress />}
             <Skeleton isLoaded={true}>
               <Box className="body" bgColor="white" h={"2000px"} w={"390px"}>
                 <VStack>
+            {tokenLocalStorage ? <DefaultAddress /> : <BlankAddress />}
                   <CarouselComp />
                   {/* <SearchComp /> */}
                   <MenuComp />
@@ -58,6 +58,6 @@ export const LandingPage = () => {
           </Box>
         </Center>
       </Box>
-    </>
+    </div>
   );
 };

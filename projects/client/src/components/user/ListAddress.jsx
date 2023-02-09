@@ -34,7 +34,6 @@ export const ListAddress = () => {
       );
       dispatch(syncData(result.data));
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -49,7 +48,6 @@ export const ListAddress = () => {
       );
       getData();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -60,7 +58,6 @@ export const ListAddress = () => {
       );
       getData();
     } catch (err) {
-      console.log(err);
     }
   };
 

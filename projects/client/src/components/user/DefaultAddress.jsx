@@ -15,7 +15,6 @@ export const DefaultAddress = () => {
       );
       setData(result.data.defaultAdd);
     } catch (err) {
-      console.log(err);
     }
   };
 

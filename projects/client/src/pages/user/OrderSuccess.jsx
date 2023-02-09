@@ -26,20 +26,15 @@ export const OrderSuccess = () => {
       setData(result.data);
 
       setData6(result.data.id);
-      console.log(result.data);
-      console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
 
       let totalOrder = selectedItem + selectedCharge;
       setData2(totalOrder);
-      console.log(totalOrder);
 
       const statusDone = result.data.status;
       setData5(statusDone);
-      console.log(statusDone);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -111,15 +106,20 @@ export const OrderSuccess = () => {
               <FormLabel mt="10px" ml="10px" textColor="#285430">
                 Total Bill
               </FormLabel>
-              <Text>
+              <Text  ml="10px" color="#285430">
                 {new Intl.NumberFormat("IND", {
                   style: "currency",
                   currency: "IDR",
                 }).format(data2)}{" "}
               </Text>
+              <FormControl>
+              <FormLabel mt="10px" ml="10px" textColor="#285430">
+              Invoice
+              </FormLabel>
               <Text mt="10px" ml="10px" textColor="#285430">
                 {data?.id_order}
               </Text>
+              </FormControl>
             </FormControl>
             <Button onClick={toHome}  mt={"20px"} ml={"10px"}
             w={"370px"}

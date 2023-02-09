@@ -2,7 +2,7 @@ import { Input, Box } from "@chakra-ui/react";
 
 export const SearchComp = () => {
   return (
-    <>
+    <div>
       <Box pr={"20px"} pt="13px">
         <Input
           placeholder="Only Fresh Here..."
@@ -14,6 +14,6 @@ export const SearchComp = () => {
           w={"230px"}
         />
       </Box>
-    </>
+    </div>
   );
 };

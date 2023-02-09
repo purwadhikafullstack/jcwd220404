@@ -13,7 +13,7 @@ export const ListAddressPage = () => {
   };
 
   return (
-    <>
+    <div>
        <Center>
         <Box w={"390px"} h={"844px"} bgColor="white">
           <Box
@@ -65,12 +65,12 @@ export const ListAddressPage = () => {
                 width={"160px"}
                 justifyContent="center"
               >
-                Tambah Alamat
+                Add Address
               </Button>
             </Center>
           </Box>
         </Box>
       </Center>
-    </>
+    </div>
   );
 };

@@ -59,7 +59,6 @@ export const ProductList = () => {
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -121,7 +120,6 @@ export const ProductList = () => {
         `${process.env.REACT_APP_API_BASE_URL}/product/discItem`
       );
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -270,7 +268,7 @@ export const ProductList = () => {
                             </Text>
                             <Box>
                               {!item?.Price?.discPrice ? (
-                                <Text fontSize={"xs"}>
+                                <Text fontSize={"xs"} color={"#285430"}>
                                   {" "}
                                   {new Intl.NumberFormat("IND", {
                                     style: "currency",
@@ -278,7 +276,7 @@ export const ProductList = () => {
                                   }).format(item?.Price?.productPrice)}
                                 </Text>
                               ) : (
-                                <Text fontSize={"xs"} as="s">
+                                <Text fontSize={"xs"} color={"#285430"} as="s">
                                   {" "}
                                   {new Intl.NumberFormat("IND", {
                                     style: "currency",
@@ -291,7 +289,7 @@ export const ProductList = () => {
                               {!item?.Price?.discPrice ? (
                                 ""
                               ) : (
-                                <Text fontSize={"xs"}>
+                                <Text fontSize={"xs"} color={"#285430"}>
                                   {" "}
                                   {new Intl.NumberFormat("IND", {
                                     style: "currency",

@@ -18,13 +18,15 @@ export const WindowComp = () => {
     navigate("/login-user");
   };
   return (
-    <>
+    <div>
       <Flex
         w={"full"}
         h={"100vh"}
         backgroundImage={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358083219244234.jpeg`}
         backgroundSize={"cover"}
         backgroundPosition={"center center"}
+        pos="relative"
+        zIndex="2"
       >
         <VStack
           w={"full"}
@@ -72,6 +74,6 @@ export const WindowComp = () => {
           </Stack>
         </VStack>
       </Flex>
-    </>
+    </div>
   );
 };

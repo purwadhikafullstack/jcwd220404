@@ -1,30 +1,11 @@
-import {
-  Badge,
-  Box,
-  Button,
-  ButtonGroup,
-  Center,
-  Flex,
-  HStack,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Badge, Box, Center, HStack, Stack, Text } from "@chakra-ui/react";
 import Axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  CiCreditCard1,
-  CiBag1,
-  CiDeliveryTruck,
-  CiInboxIn,
-} from "react-icons/ci";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 
 export const TransactionComp = () => {
-  const [profile, setProfile] = useState("upload");
-  const [image, setImage] = useState("");
   const [data, setData] = useState();
   const [data2, setData2] = useState();
   const { id } = useSelector((state) => state.userSlice.value);
@@ -47,41 +28,12 @@ export const TransactionComp = () => {
       );
       setData(result.data);
       setData2(result.data[1]?.id);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
     getData();
   }, [id]);
-
-  const handleChoose = (e) => {
-    setImage(e.target.files[0]);
-  };
-
-  const handleUpload = async (TransactionId) => {
-    const data = new FormData();
-    data.append("file", image);
-
-    const resultImage = await Axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded/${TransactionId}`,
-      data,
-      {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      }
-    );
-    setProfile(resultImage.data.picture);
-    setImage({ images: "" });
-    Swal.fire({
-      icon: "success",
-      text: "Success",
-      width: "370px",
-    });
-    window.location.replace("/transaction");
-  };
 
   return (
     <div>
@@ -105,7 +57,7 @@ export const TransactionComp = () => {
                 </Box>
 
                 <HStack>
-                  <Badge mb={"10px"}>{item.status}</Badge>
+                  <Badge color={"#285430"} mb={"10px"}>{item.status}</Badge>
                 </HStack>
                 <Box>
                   <Text align={"left"}>

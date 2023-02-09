@@ -124,6 +124,7 @@ export const EnterComp = () => {
                         setShowPassword((showPassword) => !showPassword)
                       }
                       pos="absolute"
+                      variant={"unstyled"}
                       zIndex="2"
                     >
                       {showPassword ? <ViewIcon /> : <ViewOffIcon />}

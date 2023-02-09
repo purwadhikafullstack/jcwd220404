@@ -41,7 +41,6 @@ export const VerificationPage = () => {
 
       Swal.fire({
         icon: "success",
-
         text: `${res.data.message}`,
         width: "370px",
       });
@@ -49,12 +48,11 @@ export const VerificationPage = () => {
     } catch (err) {
       Swal.fire({
         icon: "error",
-
         text: `${err.response.data}`,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
-        width: "370px",
       });
     }
   };
@@ -65,12 +63,7 @@ export const VerificationPage = () => {
     <>
       <Box>
         <Center>
-          <Box
-          // className="body"
-          // bgColor="white"
-          // h={"1750px"}
-          // w={"390px"}
-          >
+          <Box>
             <Flex
               minH={"100vh"}
               align={"center"}
