@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   ButtonGroup,
@@ -102,14 +103,10 @@ export const TransactionComp = () => {
                   </Text>
                   <Text align={"left"}>Delivered Date: {dateNow}</Text>
                 </Box>
-                <Flex>
-                  <HStack>
-                    <CiCreditCard1 color="#285430"></CiCreditCard1>
-                    <CiBag1 color="#285430" />
-                    <CiDeliveryTruck color="#285430" />
-                    <CiInboxIn color="#285430" />
-                  </HStack>
-                </Flex>
+
+                <HStack>
+                  <Badge mb={"10px"}>{item.status}</Badge>
+                </HStack>
                 <Box>
                   <Text align={"left"}>
                     {new Intl.NumberFormat("IND", {
@@ -117,29 +114,6 @@ export const TransactionComp = () => {
                       currency: "IDR",
                     }).format(item.totalOrder)}
                   </Text>
-                  <Flex>
-                    <ButtonGroup fontSize={"10px"} size="10px">
-                      <form encType="multipart/form-data">
-                        <input
-                          type={"file"}
-                          accept="image/*"
-                          name="file"
-                          onChange={(e) => handleChoose(e)}
-                        ></input>
-                      </form>
-                      <Button
-                        bgColor={"#A4BE7B"}
-                        borderColor="#285430"
-                        border="1px"
-                        color="gray.800"
-                        onClick={handleUpload(item.id)}
-                        w="60px"
-                        fontSize={"10px"}
-                      >
-                        Upload
-                      </Button>
-                    </ButtonGroup>
-                  </Flex>
                 </Box>
               </Stack>
             </Box>

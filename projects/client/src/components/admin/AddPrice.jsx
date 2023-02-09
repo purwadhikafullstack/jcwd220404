@@ -72,16 +72,17 @@ export const AddPrice = () => {
   return (
     <>
       <Box
-        p="10px"
+        // p="10px"
         ml="200px"
-        mt="215px"
+        // mt="215px"
         mr="100px"
-        color={useColorModeValue("#285430")}
-        border="2px"
-        borderRadius="2xl"
+        // color={useColorModeValue("#285430")}
+        // border="2px"
+        // borderRadius="2xl"
       >
         <Box
           w={"385px"}
+          ml="200px"
           m="10px"
           mb="25px"
           borderWidth="2px"

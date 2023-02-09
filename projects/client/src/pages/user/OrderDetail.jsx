@@ -4,6 +4,8 @@ import Axios from "axios";
 import { useState } from "react";
 import {
   Box,
+  Button,
+  ButtonGroup,
   Card,
   Center,
   Flex,
@@ -25,6 +27,7 @@ import {
 import { useSelector } from "react-redux";
 import { CompleteButton } from "../../components/user/CompleteOrder";
 import { CancelButton } from "../../components/user/CancelOrder";
+import Swal from "sweetalert2";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 export const OrderDetail = () => {
@@ -34,8 +37,11 @@ export const OrderDetail = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
+  const [data7, setData7] = useState();
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
+  const [profile, setProfile] = useState("upload");
+  const [image, setImage] = useState("");
 
   let dateNow = new Date(
     new Date().getFullYear(),
@@ -119,6 +125,33 @@ export const OrderDetail = () => {
   useEffect(() => {
     getDefault();
   }, [id]);
+
+  const handleChoose = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const handleUpload = async (TransactionId) => {
+    const data = new FormData();
+    data.append("file", image);
+
+    const resultImage = await Axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/transaction/single-uploaded/${TransactionId}`,
+      data,
+      {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      }
+    );
+    setProfile(resultImage.data.picture);
+    setImage({ images: "" });
+    Swal.fire({
+      icon: "success",
+      text: "Success",
+      width: "370px",
+    });
+    window.location.replace("/transaction");
+  };
 
   return (
     <div>
@@ -305,7 +338,29 @@ export const OrderDetail = () => {
                   <Text align={"left"}> {dateDeliv}</Text>
                 </FormControl>
               </Box>
-
+              <Box>
+                <ButtonGroup fontSize={"10px"} size="10px">
+                  <form encType="multipart/form-data">
+                    <input
+                      type={"file"}
+                      accept="image/*"
+                      name="file"
+                      onChange={(e) => handleChoose(e)}
+                    ></input>
+                  </form>
+                  <Button
+                    bgColor={"#A4BE7B"}
+                    borderColor="#285430"
+                    border="1px"
+                    color="gray.800"
+                    onClick={() => handleUpload(data6)}
+                    w="50px"
+                    fontSize={"10px"}
+                  >
+                    Upload
+                  </Button>
+                </ButtonGroup>
+              </Box>
               <Box>{data5 === "Waiting Payment" ? <CancelButton /> : ""}</Box>
               <Box>{data5 === "On Delivery" ? <CompleteButton /> : ""}</Box>
               <Box>{data5 === "Done" || "Order Cancelled" ? "" : ""}</Box>
