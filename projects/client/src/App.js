@@ -27,7 +27,6 @@ import { AddProductCategoryPage } from "./pages/admin/AddProductCategoryPage";
 import { NotFoundPage } from "./pages/user/404Result";
 import { EnterComp } from "./components/user/Enter";
 import { Checkout } from "./pages/user/Checkout";
-import { PaymentMethod } from "./pages/user/PaymentMethod";
 import { OrderSuccess } from "./pages/user/OrderSuccess";
 import { ProductDetail } from "./pages/user/ProductDetail";
 import { CategoryDetail } from "./pages/user/CategoryDetail";
@@ -142,11 +141,9 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />}></Route>
         <Route path="/category/:id" element={<CategoryDetail />}></Route>
         <Route path="/transaction/:id" element={<OrderDetail />}></Route>
-        <Route path="/checkout" element={<Checkout />}></Route>
-        
-        <Route path="/checkout/payment" element={<PaymentMethod />}></Route>
+        <Route path="/checkout/:id" element={<Checkout />}></Route>
         <Route
-          path="/checkout/payment/success"
+          path="/checkout/success/:id"
           element={<OrderSuccess />}
         ></Route>
         <Route path="/register" element={<RegisterPage />}></Route>

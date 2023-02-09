@@ -116,6 +116,7 @@ export const EnterComp = () => {
                     />
                     <Button
                       color={"black"}
+                      variant=""
                       onClick={() =>
                         setShowPassword((showPassword) => !showPassword)
                       }

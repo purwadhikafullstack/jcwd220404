@@ -39,7 +39,7 @@ export const OrderNowComp = () => {
 
   return (
     <div>
-      <Box h="70vh">
+      <Box h="80vh">
         <Image
           src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167331034678635995.png`}
         ></Image>

@@ -4,8 +4,8 @@ const inventory = db.Inventory;
 const product = db.Product;
 const price = db.Price;
 const branch = db.Branch;
-const category = db.Category;
 const transactionDetail = db.Transaction_Detail;
+const transaction = db.Transaction;
 
 module.exports = {
   create: async (req, res) => {
@@ -48,13 +48,13 @@ module.exports = {
     }
   },
 
-  paginationProduct: async (req, res) => {
+  paginationInventory: async (req, res) => {
     try {
       const { page, limit, search_query, order, sort } = req.query;
-      const productlist_page = parseInt(page) || 0;
+      const inventorylist_page = parseInt(page) || 0;
       const list_limit = parseInt(limit) || 5;
       const search = search_query || "";
-      const offset = list_limit * productlist_page;
+      const offset = list_limit * inventorylist_page;
       const orderby = order || "productName";
       const direction = sort || "ASC";
       const totalRows = await inventory.count({
@@ -108,7 +108,7 @@ module.exports = {
 
       res.status(200).send({
         result: result,
-        page: productlist_page,
+        page: inventorylist_page,
         limit: list_limit,
         totalRows: totalRows,
         totalPage: totalPage,
@@ -171,12 +171,22 @@ module.exports = {
             model: product,
             include: [{ model: price }],
           },
-          // {
-          //   model: branch,
-          //   where: {
-          //     longitude: { [Op.between]: [req.params.from, req.params.to] },
-          //   },
-          // },
+          {
+            model: branch,
+            include: [
+              {
+                model: transactionDetail
+                // ({
+                //   attributes: [
+                //     "ProductId",
+                //     "BranchId",
+                //     [Sequelize.fn("sum", Sequelize.col("qty")), "total_qty"],
+                //   ],
+                //   group: ["ProductId"],
+                // }),
+              },
+            ],
+          },
         ],
       });
       res.status(200).send(inventories);
@@ -193,27 +203,131 @@ module.exports = {
         where: {
           BranchId: req.params.BranchId,
         },
+        raw: true,
       });
-      const stock = await transactionDetail.findAll(
-        {
-          attributes: [
-            "ProductId",
-            [Sequelize.fn("sum", Sequelize.col("qty")), "total_qty"],
-          ],
-          group: ["ProductId"],
+
+      const stock = await transactionDetail.findAll({
+        attributes: [
+          "ProductId",
+          "BranchId",
+          [Sequelize.fn("sum", Sequelize.col("qty")), "total_qty"],
+        ],
+        group: ["ProductId"],
+        where: {
+          BranchId: req.params.BranchId,
         },
-        {
-          where: {
-            BranchId: req.params.BranchId,
+        include: [{ model: transaction, attributes: ["status"] }],
+        raw: true,
+      });
+
+      // const statusOK = stock.map(
+      //   (item) =>
+      //     item["Transaction.status"] === "On Process" || "On Delivery" || "Done"
+      // );
+      // console.log(statusOK);
+
+      const qtyOne = total.map((item) => item.stockQty);
+      console.log(qtyOne);
+      const qtyTwo = stock.map((item) => item.total_qty);
+      // console.log(qtyTwo);
+      let numberQtyTwo = [];
+      length = qtyTwo.length;
+      for (let i = 0; i < length; i++) numberQtyTwo.push(parseInt(qtyTwo[i]));
+      // console.log(numberQtyTwo);
+
+      let finalQty = qtyOne.map((item, index) => {
+        return item - numberQtyTwo[index];
+      });
+      console.log(finalQty);
+
+      for (let i = 0; i < finalQty.length; i++) {
+        await inventory.update(
+          {
+            totalQty: finalQty[i],
           },
-        }
-      );
-      const totalStock = await
-      console.log(total);
+          {
+            where: {
+              // status: stock[i].status,
+              id: total[i].id,
+            },
+          }
+        );
+      }
+
       res.status(200).send({
         total,
         stock,
       });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  update: async (req, res) => {
+    try {
+      const { productName, entryDate, stockQty } = req.body;
+
+      await inventory.update(
+        {
+          productName,
+          entryDate,
+          stockQty,
+        },
+        {
+          where: { id: req.params.id },
+        }
+      );
+      const edit = await inventory.findOne({ where: { id: req.params.id } });
+      res.status(200).send(edit);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  stockTaken: async (req, res) => {
+    try {
+      const total = await inventory.findAll({
+        attributes: ["id", "ProductId", "stockQty", "BranchId"],
+        where: {
+          BranchId: req.params.BranchId,
+        },
+        raw: true,
+      });
+
+      const stock = await transactionDetail.findAll({
+        attributes: [
+          "ProductId",
+          "BranchId",
+          [Sequelize.fn("sum", Sequelize.col("qty")), "total_qty"],
+        ],
+        group: ["ProductId"],
+        where: {
+          BranchId: req.params.BranchId,
+        },
+        include: [{ model: transaction, attributes: ["status"] }],
+        raw: true,
+      });
+
+      const statusOK = stock.map(
+        (item) => item["Transaction.status"] === "On Process"
+      );
+      console.log(statusOK);
+
+      const qtyOne = total.map((item) => item.stockQty);
+      console.log(qtyOne);
+      const qtyTwo = stock.map((item) => item.total_qty);
+      // console.log(qtyTwo);
+      let numberQtyTwo = [];
+      length = qtyTwo.length;
+      for (let i = 0; i < length; i++) numberQtyTwo.push(parseInt(qtyTwo[i]));
+      // console.log(numberQtyTwo);
+
+      let finalQty = qtyOne.map((item, index) => {
+        return item - numberQtyTwo[index];
+      });
+      console.log(finalQty);
+      res.status(200).send(stock);
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

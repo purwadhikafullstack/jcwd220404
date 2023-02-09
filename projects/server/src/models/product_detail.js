@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Product_Detail.init(
     {
-      description: DataTypes.STRING,
+      // description: DataTypes.STRING,
     },
     {
       sequelize,

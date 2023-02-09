@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       // Transaction.belongsTo(models.Inventory);
       // Transaction.hasOne(models.Payment);
       Transaction.hasOne(models.Transaction_Detail);
-      Transaction.hasMany(models.Voucher);
+      // Transaction.hasMany(models.Voucher);
       Transaction.hasMany(models.Notification);
     }
   }
@@ -22,13 +22,20 @@ module.exports = (sequelize, DataTypes) => {
     {
       id_order: DataTypes.STRING,
       isVoucher: DataTypes.BOOLEAN,
-      status: DataTypes.BOOLEAN,
+      status: DataTypes.ENUM(
+        "Order Cancelled",
+        "Waiting Payment",
+        "Waiting Confirm Payment",
+        "On Process",
+        "On Delivery",
+        "Done"
+      ),
       totalCharge: DataTypes.INTEGER,
       totalOrder: DataTypes.INTEGER,
       totalWeight: DataTypes.INTEGER,
       // deliveryDate: DataTypes.DATEONLY,
       // arrivalDate: DataTypes.DATEONLY
-      picture: DataTypes.STRING
+      picture: DataTypes.STRING,
     },
     {
       sequelize,

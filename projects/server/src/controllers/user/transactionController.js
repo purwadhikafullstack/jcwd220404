@@ -7,6 +7,8 @@ const product = db.Product;
 const price = db.Price;
 const branch = db.Branch;
 const { Op, Sequelize } = require("sequelize");
+const moment = require("moment");
+const schedule = require("node-schedule");
 
 module.exports = {
   create: async (req, res) => {
@@ -31,17 +33,37 @@ module.exports = {
         BranchId,
         TransactionId,
       } = req.body;
-      console.log(req.body);
+      req.body;
       const result = await transaction.create({
         totalOrder,
         totalWeight,
         totalCharge,
-        status: 1,
+        status: "Waiting Payment",
         UserId,
         AdminId,
         id_order: no_order,
         BranchId,
       });
+
+      const afterSend = moment()
+        .add(30, "seconds")
+        .format("YYYY-MM-DD HH:mm:ss");
+
+      schedule.scheduleJob(
+        afterSend,
+        async () =>
+          await transaction.update(
+            {
+              status: "Order Cancelled",
+            },
+            {
+              where: {
+                id: result.id,
+              },
+            }
+          )
+      );
+
       const data = await productCart.findAll({
         where: [
           { UserId: req.params.id },
@@ -58,7 +80,7 @@ module.exports = {
       });
 
       data.map(async (item) => {
-        console.log(item.dataValues);
+        item.dataValues;
         await transactionDetail.create({
           TransactionId: result.id,
           ProductId: item.dataValues.ProductId,
@@ -78,9 +100,11 @@ module.exports = {
         });
       });
 
+      // await transaction.findAll({
+      //   order: ["id", "DESC"],
+      // });
       res.status(200).send(result);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -107,7 +131,6 @@ module.exports = {
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -122,7 +145,6 @@ module.exports = {
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -130,7 +152,7 @@ module.exports = {
   uploadFile: async (req, res) => {
     try {
       let fileUploaded = req.file;
-      console.log("controller", fileUploaded);
+      "controller", fileUploaded;
       await transaction.update(
         {
           picture: `upload/${fileUploaded.filename}`,
@@ -149,7 +171,7 @@ module.exports = {
       });
       const toFalse = await transaction.update(
         {
-          status: false,
+          status: "Order Cancelled",
         },
         {
           where: {
@@ -159,7 +181,7 @@ module.exports = {
       );
       const toTwo = await transaction.update(
         {
-          status: 2,
+          status: "Waiting Confirm Payment",
         },
         {
           where: {
@@ -172,7 +194,25 @@ module.exports = {
         picture: getPicture.picture,
       });
     } catch (err) {
-      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findAllByAdmin: async (req, res) => {
+    try {
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId: req.params.AdminId,
+        },
+      });
+      findBranch;
+      const transactions = await transaction.findAll({
+        where: {
+          BranchId: findBranch?.dataValues?.id,
+        },
+      });
+      res.status(200).send(transactions);
+    } catch (err) {
       res.status(400).send(err);
     }
   },
@@ -184,16 +224,15 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
-          status: 0,
+          status: "Order Cancelled",
           BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -205,16 +244,15 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
-          status: 1,
+          status: "Waiting Payment",
           BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -226,16 +264,15 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
-          status: 2,
+          status: "Waiting Confirm Payment",
           BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -247,16 +284,15 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
-          status: 3,
+          status: "On Process",
           BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -268,16 +304,14 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
       const transactions = await transaction.findAll({
         where: {
-          status: 4,
+          status: "On Delivery",
           BranchId: findBranch?.dataValues?.id,
         },
       });
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -289,17 +323,15 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      console.log(findBranch);
+      findBranch;
       const transactions = await transaction.findAll({
         where: {
-          status: 5,
+          status: "Done",
           BranchId: findBranch?.dataValues?.id,
         },
       });
-      console.log(transactions);
       res.status(200).send(transactions);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -309,7 +341,7 @@ module.exports = {
       const { id } = req.params;
       const toFalse = await transaction.update(
         {
-          status: false,
+          status: "Order Cancelled",
         },
         {
           where: {
@@ -319,7 +351,7 @@ module.exports = {
       );
       const toThree = await transaction.update(
         {
-          status: 3,
+          status: "On Process",
         },
         {
           where: {
@@ -329,7 +361,6 @@ module.exports = {
       );
       res.status(200).send("Set Order Success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -339,7 +370,7 @@ module.exports = {
       const { id } = req.params;
       const toFalse = await transaction.update(
         {
-          status: false,
+          status: "Order Cancelled",
         },
         {
           where: {
@@ -349,7 +380,7 @@ module.exports = {
       );
       const toFour = await transaction.update(
         {
-          status: 4,
+          status: "On Delivery",
         },
         {
           where: {
@@ -359,7 +390,6 @@ module.exports = {
       );
       res.status(200).send("Set Delivery Success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -369,7 +399,7 @@ module.exports = {
       const { id } = req.params;
       const toFalse = await transaction.update(
         {
-          status: false,
+          status: "Order Cancelled",
         },
         {
           where: {
@@ -377,9 +407,9 @@ module.exports = {
           },
         }
       );
-      const toFour = await transaction.update(
+      const toFive = await transaction.update(
         {
-          status: 5,
+          status: "Done",
         },
         {
           where: {
@@ -389,7 +419,6 @@ module.exports = {
       );
       res.status(200).send("Set Done Success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -399,7 +428,7 @@ module.exports = {
       const { id } = req.params;
       const toFalse = await transaction.update(
         {
-          status: false,
+          status: "Order Cancelled",
         },
         {
           where: {
@@ -407,10 +436,8 @@ module.exports = {
           },
         }
       );
-
       res.status(200).send("Set Cancelled Success");
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -424,7 +451,6 @@ module.exports = {
       });
       res.status(200).send(salesDepok);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -438,7 +464,6 @@ module.exports = {
       });
       res.status(200).send(salesJaksel);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -452,31 +477,123 @@ module.exports = {
       });
       res.status(200).send(salesJaktim);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
 
   totalSales: async (req, res) => {
     try {
-      const total = await transaction.findOne(
-        {
-          attributes: [
-            "BranchId",
-            [Sequelize.fn("sum", Sequelize.col("totalOrder")), "total_order"],
-          ],
-          group: ["BranchId"],
+      const total = await transaction.findOne({
+        attributes: [
+          "BranchId",
+          [Sequelize.fn("sum", Sequelize.col("totalOrder")), "total_order"],
+        ],
+        group: ["BranchId"],
+        where: {
+          BranchId: req.params.BranchId,
         },
-        {
-          where: {
-            BranchId: req.params.BranchId,
-          },
-        }
-      );
+      });
       res.status(200).send(total);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
+    }
+  },
+
+  totalSalesAll: async (req, res) => {
+    try {
+      const total = await transaction.findAll({
+        attributes: [
+          "BranchId",
+          [Sequelize.fn("sum", Sequelize.col("totalOrder")), "total_order"],
+        ],
+        group: ["BranchId"],
+        include: [{ model: branch }],
+      });
+      console.log(total);
+      const salesTotal = total.map((item) => item.dataValues.total_order);
+
+      let numberSalesTotal = [];
+      length = salesTotal.length;
+      for (let i = 0; i < length; i++)
+        numberSalesTotal.push(parseInt(salesTotal[i]));
+      console.log(numberSalesTotal);
+      res.status(200).send({
+        total,
+        numberSalesTotal,
+      });
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  paginationTransaction: async (req, res) => {
+    try {
+      const { page, limit, search_query, order, sort } = req.query;
+      const productlist_page = parseInt(page) || 0;
+      const list_limit = parseInt(limit) || 5;
+      const search = search_query || "";
+      const offset = list_limit * productlist_page;
+      const orderby = order || "id_order";
+      const direction = sort || "ASC";
+      const totalRows = await transaction.count({
+        where: {
+          [Op.or]: [
+            {
+              id_order: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+            {
+              status: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+          ],
+        },
+      });
+      const totalPage = Math.ceil(totalRows / limit);
+      const result = await transaction.findAll({
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
+        where: {
+          [Op.or]: [
+            {
+              id_order: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+            {
+              status: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+          ],
+        },
+        include: [{ model: price }],
+        offset: offset,
+        limit: list_limit,
+        order: [[orderby, direction]],
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
+      });
+
+      res.status(200).send({
+        result: result,
+        page: productlist_page,
+        limit: list_limit,
+        totalRows: totalRows,
+        totalPage: totalPage,
+      });
+    } catch (error) {
+      res.status(400).send(error);
     }
   },
 };

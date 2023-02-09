@@ -33,7 +33,7 @@ import * as Yup from "yup";
 export const ProductList = () => {
   const [state, setState] = useState();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(50);
   const [sort, setSort] = useState("ASC");
   const [order, setOrder] = useState("productName");
   const [searchProduct, setSearchProduct] = useState("");

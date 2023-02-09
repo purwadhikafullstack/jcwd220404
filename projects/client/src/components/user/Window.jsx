@@ -20,8 +20,10 @@ export const WindowComp = () => {
   return (
     <>
       <Flex
-        w={"full"}
+        w={"390px"}
         h={"100vh"}
+        pos="fixed"
+        zIndex="1"
         backgroundImage={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167358083219244234.jpeg`}
         backgroundSize={"cover"}
         backgroundPosition={"center center"}

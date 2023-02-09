@@ -194,10 +194,10 @@ export const RegisterUser = () => {
                       <InputRightElement h={"full"}>
                         <Button
                           color={"black"}
-                          variant={"unstyled"}
+                          variant="unstyle"
                           onClick={() =>
                             setShowPassword((showPassword) => !showPassword)
-                          }
+                          } 
                         >
                           {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                         </Button>

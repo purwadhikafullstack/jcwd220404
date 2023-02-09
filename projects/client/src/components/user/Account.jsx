@@ -87,12 +87,18 @@ export const AccountComp = () => {
               bgColor={"gray.500"}
               display={"flex"}
               size={"lg"}
-              src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}           
-               ml="8"
+              src={`${process.env.REACT_APP_API_BASE_URL}/${data.Profile?.profilePic}`}
+              ml="8"
             ></Avatar>
           </GridItem>
           <GridItem colSpan={1}>
-            <Badge textColor={"#285430"} fontSize="md" ml={"10px"} as="b">
+            <Badge
+              textColor={"#285430"}
+              fontSize="md"
+              ml={"10px"}
+              as="b"
+              variant=""
+            >
               {name}
             </Badge>
           </GridItem>
@@ -102,32 +108,12 @@ export const AccountComp = () => {
               as={"button"}
               ml={"10px"}
               onClick={toProfile}
+              variant=""
             >
               <EditIcon textColor={"#285430"} mr={"5px"} /> Edit Profile
             </Tag>
           </GridItem>
         </Grid>
-        <HStack
-          borderColor={"#285430"}
-          display="flex"
-          justifyContent={"center"}
-          divider={<StackDivider borderColor="#E5D9B6" />}
-          align="center"
-        >
-          <Badge alignContent={"center"} mr="10px" textColor={"#285430"}>
-            Potongan Belanja
-            <Text textAlign={"center"} textColor={"#285430"}>
-              0
-            </Text>
-          </Badge>
-          <Badge alignContent={"center"} ml="10px" textColor={"#285430"}>
-            Gratis Ongkir
-            <Text textAlign={"center"} textColor={"#285430"}>
-              0
-            </Text>
-          </Badge>
-        </HStack>
-
         <Stack
           mt={"30px"}
           divider={<StackDivider borderColor="transparent" />}
@@ -140,25 +126,14 @@ export const AccountComp = () => {
             ml={"38px"}
             textColor={"#285430"}
             fontSize="sm"
-            onClick={toAddress} 
+            onClick={toAddress}
           >
             MY ADDRESS
           </Button>
-            <Button
-              textAlign={"left"}
-              variant={"unstyled"}
-              ml={"38px"}
-              textColor={"#285430"}
-              // onClick={toAddress}
-              fontSize="sm"
-            >
-              VERIFY MY ACCOUNT
-              <Badge variant={"subtle"}>Under Maintenance</Badge>
-            </Button>
-            <LogoutUser />
-          </Stack>
-        </Box>
-        <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}></Box>
+          <LogoutUser />
+        </Stack>
+      </Box>
+      <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}></Box>
     </div>
   );
 };

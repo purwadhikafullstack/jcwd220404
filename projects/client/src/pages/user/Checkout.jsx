@@ -9,25 +9,29 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 
 export const Checkout = () => {
   const [data, setData] = useState([]);
   const [data2, setData2] = useState();
   const [data3, setData3] = useState();
+  const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
   const navigate = useNavigate();
+  const params = useParams();
 
   const getData = async () => {
     try {
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${data6}`
+        `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${params.id}`
       );
       setData(result.data);
       console.log(result.data);
       setData6(result.data.id);
+      setData4(result.data);
+      console.log(result.data);
       console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
@@ -48,24 +52,8 @@ export const Checkout = () => {
     getData();
   }, [data6]);
 
-  const getCheckout = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/transaction/listProduct/${data6}`
-      );
-      setData3(res.data);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getCheckout();
-  }, [data6]);
-
   const toPayment = () => {
-    navigate("/checkout/payment/success");
+    window.location.replace(`/checkout/success/${params.id}`);
   };
 
   return (
@@ -108,7 +96,7 @@ export const Checkout = () => {
             pb={"75px"}
             w={"390px"}
           >
-             <FormControl>
+            <FormControl>
               <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
                 Payment Detail
               </FormLabel>
@@ -117,19 +105,13 @@ export const Checkout = () => {
                   <Text mt={"10px"} ml={"10px"} textColor="#285430">
                     Subtotal Produk
                   </Text>
-                  <Text mt={"10px"} ml={"10px"} textColor="#285430">
-                    Voucher
-                  </Text>
                 </Box>
                 <Box>
                   <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
                     {new Intl.NumberFormat("IND", {
                       style: "currency",
                       currency: "IDR",
-                    }).format()}
-                  </Text>
-                  <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
-                    xx.xxx
+                    }).format(data4?.totalOrder)}
                   </Text>
                 </Box>
               </Flex>
@@ -144,7 +126,10 @@ export const Checkout = () => {
                   Delivery Charge
                 </Text>
                 <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
-                  xx.xxx
+                {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(data4?.totalCharge)}
                 </Text>
               </Flex>
             </FormControl>
@@ -153,7 +138,10 @@ export const Checkout = () => {
                 Total
               </Text>
               <Text as={"b"} mt={"10px"} ml={"10px"} mr="10px" color="#285430">
-                xx.xxx
+              {new Intl.NumberFormat("IND", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(data2)}
               </Text>
             </Flex>
             <Button
