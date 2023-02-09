@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       // Payment.belongsTo(models.Transaction);
-      Payment.hasOne(models.Notification);
+      // Payment.hasOne(models.Notification);
     }
   }
   Payment.init(

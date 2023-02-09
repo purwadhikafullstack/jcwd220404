@@ -254,7 +254,7 @@ module.exports = {
         expiresIn: "1h",
       });
 
-      const tempEmail = fs.readFileSync("./template/email.html", "utf-8");
+      const tempEmail = fs.readFileSync("./src/template/email.html", "utf-8");
       const tempCompile = handlebars.compile(tempEmail);
       const tempResult = tempCompile({
         email: isAccountExist.email,
