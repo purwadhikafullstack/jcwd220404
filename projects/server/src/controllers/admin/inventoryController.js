@@ -396,4 +396,32 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  totalInvAll: async (req, res) => {
+    try {
+      const total = await inventory.findAll({
+        attributes: [
+          "BranchId",
+          [Sequelize.fn("count", Sequelize.col("ProductId")), "total_product"],
+        ],
+        group: ["BranchId"],
+        include: [{ model: branch }],
+      });
+      console.log(total);
+      const salesInv = total.map((item) => item.dataValues.total_product);
+      console.log(salesInv)
+
+      // let numberSalesTotal = [];
+      // length = salesTotal.length;
+      // for (let i = 0; i < length; i++)
+      //   numberSalesTotal.push(parseInt(salesTotal[i]));
+      // console.log(numberSalesTotal);
+      res.status(200).send({
+        total,
+        // numberSalesTotal,
+      });
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
 };
