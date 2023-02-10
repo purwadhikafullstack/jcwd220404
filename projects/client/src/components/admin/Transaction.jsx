@@ -44,7 +44,7 @@ export const TransactionComp = () => {
   const [data7, setData7] = useState();
   const [data8, setData8] = useState();
   const [data9, setData9] = useState();
-  const [admin, setAdmin] = useState()
+  const [admin, setAdmin] = useState();
   const [limit2, setLimit2] = useState(5);
   const [sort2, setSort2] = useState("ASC");
   const [order2, setOrder2] = useState("status");
@@ -55,14 +55,14 @@ export const TransactionComp = () => {
   const [totalPage2, setTotalPage2] = useState(0);
   const { id } = useSelector((state) => state.adminSlice.value);
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.transactionSlice.value)
+  const data = useSelector((state) => state.transactionSlice.value);
 
   const getData7 = async () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listAll/${id}`
       );
-      console.log(result.data)
+      console.log(result.data);
       setData7(result.data);
     } catch (err) {
       console.log(err);
@@ -402,7 +402,7 @@ export const TransactionComp = () => {
                     }).format(item.totalOrder)}
                   </Td>
                   <Td textAlign={"center"} color={"#285430"}>
-                  {" "}
+                    {" "}
                     {new Intl.NumberFormat("IND", {
                       style: "currency",
                       currency: "IDR",

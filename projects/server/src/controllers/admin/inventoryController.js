@@ -123,7 +123,7 @@ module.exports = {
       const list_limit = parseInt(limit) || 5;
       const search = search_query || "";
       const offset = list_limit * productlist_page;
-      const orderby = order || "productName";
+      const orderby = order || "id";
       const direction = sort || "ASC";
       const totalRows = await inventory.count({
         // include: [
@@ -426,6 +426,64 @@ module.exports = {
         total,
         // numberSalesTotal,
       });
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findInvByBranch: async (req, res) => {
+    try {
+      const result = await inventory.findAll({
+        where: {
+          BranchId: req.params.BranchId,
+        },
+        include: [
+          {
+            model: product,
+          },
+        ],
+      });
+      res.status(200).send(result);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  findInvDepok: async (req, res) => {
+    try {
+      const invDepok = await inventory.findAll({
+        where: {
+          BranchId: 1,
+        },
+      });
+      res.status(200).send(invDepok);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findInvJaksel: async (req, res) => {
+    try {
+      const invJaksel = await inventory.findAll({
+        where: {
+          BranchId: 2,
+        },
+      });
+      res.status(200).send(invJaksel);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  findInvJaktim: async (req, res) => {
+    try {
+      const invJaktim = await inventory.findAll({
+        where: {
+          BranchId: 3,
+        },
+      });
+      res.status(200).send(invJaktim);
     } catch (err) {
       res.status(400).send(err);
     }
