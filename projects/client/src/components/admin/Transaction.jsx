@@ -11,41 +11,22 @@ import {
   InputGroup,
   InputRightElement,
   Select,
-  Stat,
-  StatLabel,
-  StatNumber,
-  Tab,
   Table,
   TableContainer,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
-  useColorModeValue,
-  useDisclosure,
-  Text,
 } from "@chakra-ui/react";
 import { BsFillCheckSquareFill } from "react-icons/bs";
 import { FaWindowClose } from "react-icons/fa";
-import { GoPackage } from "react-icons/go";
-import { TbTruckDelivery } from "react-icons/tb";
 
 import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  MdOutlineCancel,
-  MdOutlinePayment,
-  MdOutlinePayments,
-  MdDoneOutline,
-} from "react-icons/md";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 import { BsFilterLeft } from "react-icons/bs";
 import { BiReset, BiSearchAlt } from "react-icons/bi";
@@ -467,14 +448,11 @@ export const TransactionComp = () => {
                       ""
                     )}
                     {item.status === "Waiting Payment" ? (
-                      <>
-                        {/* <Button onClick={() => setCancelled(item.id)}>
-                          <BsFillCheckSquareFill color={"green"} size="22" />
-                        </Button> */}
+                      <div>
                         <Button onClick={() => setCancelled(item.id)}>
                           <FaWindowClose color={"red"} size="25" />
                         </Button>
-                      </>
+                      </div>
                     ) : (
                       ""
                     )}

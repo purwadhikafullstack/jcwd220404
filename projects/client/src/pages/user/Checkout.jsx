@@ -9,17 +9,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Axios from "axios";
 
 export const Checkout = () => {
   const [data, setData] = useState([]);
   const [data2, setData2] = useState();
-  const [data3, setData3] = useState();
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
-  const navigate = useNavigate();
   const params = useParams();
 
   const getData = async () => {
@@ -28,45 +26,23 @@ export const Checkout = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${params.id}`
       );
       setData(result.data);
-      console.log(result.data);
       setData6(result.data.id);
       setData4(result.data);
-      console.log(result.data);
-      console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
 
       let totalOrder = selectedItem + selectedCharge;
       setData2(totalOrder);
-      console.log(totalOrder);
 
       const statusDone = result.data.status;
       setData5(statusDone);
-      console.log(statusDone);
     } catch (err) {
-      console.log(err);
     }
   };
 
   useEffect(() => {
     getData();
   }, [data6]);
-
-  // const getCheckout = async () => {
-  //   try {
-  //     const res = await Axios.get(
-  //       `${process.env.REACT_APP_API_BASE_URL}/transaction/listProduct/${82}`
-  //     );
-  //     setData3(res.data);
-  //     console.log(res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getCheckout();
-  // }, [data6]);
 
   const toPayment = () => {
     window.location.replace(`/checkout/success/${params.id}`);

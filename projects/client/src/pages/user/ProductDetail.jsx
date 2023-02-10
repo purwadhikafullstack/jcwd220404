@@ -25,10 +25,8 @@ export const ProductDetail = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list/${params.id}`
       );
-      console.log(result.data);
       setData(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 

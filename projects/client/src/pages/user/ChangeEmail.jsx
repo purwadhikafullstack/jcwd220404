@@ -10,7 +10,6 @@ import {
   Center,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
   Text,
@@ -43,7 +42,6 @@ export const ChangeEmail = (data) => {
         width: "370px",
       });
     } catch (err) {
-      console.log(err);
     }
   };
 

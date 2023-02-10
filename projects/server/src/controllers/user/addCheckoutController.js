@@ -1,11 +1,6 @@
 const { Op } = require("sequelize");
 const db = require("../../models");
 const address = db.Address;
-const productCart = db.Product_Cart;
-const branch = db.Branch;
-const axios = require("axios");
-const rajaOngkirKey = process.env.RAJA_KEY;
-const openCageKey = process.env.GEO_KEY;
 
 module.exports = {
   mainAddress: async (req, res) => {

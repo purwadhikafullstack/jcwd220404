@@ -57,10 +57,10 @@ export const ProfilePage = () => {
       Swal.fire({
         icon: "success",
         text: "Data Updated",
+        width: "370px",
       });
       setTimeout(() => window.location.replace("/account"), 2000);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -71,7 +71,6 @@ export const ProfilePage = () => {
       );
       setData(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -110,7 +109,7 @@ export const ProfilePage = () => {
   };
 
   return (
-    <>
+    <div>
       <Box>
         <Center>
           <Box
@@ -343,6 +342,6 @@ export const ProfilePage = () => {
           </Box>
         </Center>
       </Box>
-    </>
+    </div>
   );
 };

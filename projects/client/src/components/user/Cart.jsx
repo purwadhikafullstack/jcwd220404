@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import {
-  Badge,
   Box,
   Button,
   Card,
+  Center,
   Checkbox,
   Flex,
   FormControl,
@@ -19,12 +19,13 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { cartSync } from "../../redux/cartSlice";
 import { delCart } from "../../redux/userSlice";
 import { PopoutCheckout } from "./PopoutCheckout";
 import { useRef } from "react";
 import Swal from "sweetalert2";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 
 export const CartComp = () => {
   const [checkout, setCheckout] = useState(false);
@@ -51,9 +52,7 @@ export const CartComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
       );
       dispatch(cartSync(res.data));
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -79,9 +78,7 @@ export const CartComp = () => {
       setTotalWeight(selectedWeight);
       setData3(res.data);
       setData9(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -100,9 +97,7 @@ export const CartComp = () => {
       getData();
       setCheckout(!checkout);
       getCheckout();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const onQty = async (idCart, qty) => {
@@ -117,9 +112,7 @@ export const CartComp = () => {
       getData();
 
       setCheckout(!checkout);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const getDefault = async () => {
@@ -129,9 +122,7 @@ export const CartComp = () => {
       );
 
       setData2(result.data.defaultAdd);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -150,9 +141,7 @@ export const CartComp = () => {
       dispatch(cartSync(result.data));
       dispatch(delCart());
       getData();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const onCharge = async () => {
@@ -189,9 +178,7 @@ export const CartComp = () => {
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
 
       let totalOrder = selectedItem + selectedCharge;
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -214,9 +201,7 @@ export const CartComp = () => {
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
 
       setData8(selectedCharge);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -228,9 +213,9 @@ export const CartComp = () => {
       if (!data5 && !data6) {
         return Swal.fire({
           icon: "error",
-          // title: "Oooops ...",
           text: "Checkout can't be empty",
           timer: 2000,
+          width: "370px",
           customClass: {
             container: "my-swal",
           },
@@ -249,13 +234,11 @@ export const CartComp = () => {
       );
 
       navigate(`/checkout/${res.data.id}`);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
-    <>
+    <div>
       <Box>
         <Stack spacing={"10px"}>
           <FormControl ml={"10px"} mr={"10px"}>
@@ -338,13 +321,13 @@ export const CartComp = () => {
                     <Box>
                       <Button
                         pt={"10px"}
-                        ml={"50px"}
+                        ml={"65px"}
                         variant={"unstyled"}
                         onClick={() => onDelete(item.id)}
                         fontSize="sm"
                         textColor={"#285430"}
                       >
-                        Delete
+                        <RiDeleteBin2Fill size={"15px"} />
                       </Button>
                       <HStack
                         ml={"20px"}
@@ -365,9 +348,11 @@ export const CartComp = () => {
                         >
                           -
                         </Button>
-                        <Text w={"10px"}>{item.qty}</Text>
+                        <Text pb="15px" fontSize={"12px"} as="b">
+                          {item.qty}
+                        </Text>
                         <Button
-                          pb={"4"}
+                          pb={"25px"}
                           variant={"unstyled"}
                           onClick={() => {
                             onQty(item.id, item.qty + 1);
@@ -427,41 +412,49 @@ export const CartComp = () => {
               borderRadius={"md"}
               w="370px"
             >
-              <Text as={"b"}>{data2?.receiverName}</Text>
-              <Text>{data2?.receiverPhone}</Text>
-              <Text>{data2?.addressLine}</Text>
-              <Text>
+              <Text pl={"10px"} color="#285430" as={"b"}>
+                {data2?.receiverName}
+              </Text>
+              <Text pl={"10px"} color="#285430">
+                {data2?.receiverPhone}
+              </Text>
+              <Text pl={"10px"} color="#285430">
+                {data2?.addressLine}
+              </Text>
+              <Text pl={"10px"} color="#285430">
                 {data2?.district} {data2?.city}, {data2?.province}
               </Text>
             </Box>
           </FormControl>
           <FormControl>
-            <FormLabel>Order Note</FormLabel>
-            <Textarea></Textarea>
+            <FormLabel mt={"10px"} ml={"10px"} textColor="#285430">
+              Order Note
+            </FormLabel>
+            <Textarea
+              ml="10px"
+              border={"1px"}
+              borderColor="#285430"
+              borderRadius={"md"}
+              w="370px"
+            ></Textarea>
           </FormControl>
-          <FormControl>
-            <FormLabel>Payment Option</FormLabel>
-            <Box variant={"unstyled"}>
-              {/* <Checkbox value="1"> */}
-              <Text>Bank Transfer via Only Fresh Account</Text>
-              {/* </Checkbox> */}
-            </Box>
-          </FormControl>
-          <Button
-            onClick={() => onCreate()}
-            mt={"20px"}
-            w={"370px"}
-            bgColor={"#A4BE7B"}
-            borderColor="#285430"
-            border="2px"
-            fontSize="16px"
-            color="gray.800"
-            justifyContent="center"
-          >
-            Checkout
-          </Button>
+          <Center>
+            <Button
+              onClick={() => onCreate()}
+              mt={"20px"}
+              w={"370px"}
+              bgColor={"#A4BE7B"}
+              borderColor="#285430"
+              border="2px"
+              fontSize="16px"
+              color="gray.800"
+              justifyContent="center"
+            >
+              Checkout
+            </Button>
+          </Center>
         </Stack>
       </Box>
-    </>
+    </div>
   );
 };

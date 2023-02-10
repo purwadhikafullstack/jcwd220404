@@ -33,14 +33,12 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { UpdateInventory } from "./UpdateInventory";
 import { BsFilterLeft } from "react-icons/bs";
 import { BiReset, BiSearchAlt } from "react-icons/bi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { syncInventory } from "../../redux/inventorySlice";
 
 export const InventoryAdminComp = () => {
   const [branch, setBranch] = useState();
@@ -97,7 +95,6 @@ export const InventoryAdminComp = () => {
       setData2(res.data);
       console.log(res.data)
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -112,7 +109,6 @@ export const InventoryAdminComp = () => {
       );
       setData3(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -139,7 +135,6 @@ export const InventoryAdminComp = () => {
       });
       setTimeout(() => window.location.replace("/admin"), 2000);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -340,15 +335,9 @@ export const InventoryAdminComp = () => {
                       <Td textAlign={"center"} color={"#285430"}>
                         {item.stockQty}
                       </Td>
-                      {/* {data5?.map((item) => {
-                        return (
-                          <> */}
                       <Td textAlign={"center"} color={"#285430"}>
                         {item?.totalQty}
                       </Td>
-                      {/* </>
-                        );
-                      })} */}
                       <Td>
                         <Box
                           mr="28px"
@@ -366,7 +355,6 @@ export const InventoryAdminComp = () => {
                           </Button>
                           <Button
                             onClick={() => {
-                              // onDelete(item.id)
                             }}
                           >
                             <DeleteIcon color={"#285430"} />

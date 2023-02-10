@@ -13,7 +13,7 @@ import {
 } from "react-icons/io5";
 import { Center, Flex, Icon, Text, VStack, Badge } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import "../NavbarComp.css";
+import "./Navbar.css";
 import { useEffect } from "react";
 import Axios from "axios";
 import { cartSync } from "../../redux/cartSlice";
@@ -34,7 +34,6 @@ export const NavbarComp = () => {
       );
       dispatch(cartSync(res.data));
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -49,7 +48,6 @@ export const NavbarComp = () => {
       );
       dispatch(transSync(result.data));
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -100,7 +98,7 @@ export const NavbarComp = () => {
   };
 
   return (
-    <>
+    <div>
       <Center>
         <Badge
           zIndex={2}
@@ -125,7 +123,7 @@ export const NavbarComp = () => {
       </Center>
       <Center>
         <Flex
-          w={[300, 350, 390]}
+          w="390px"
           h="70px"
           bgColor="#E5D9B6"
           color="gray.800"
@@ -135,7 +133,7 @@ export const NavbarComp = () => {
           <Flex
             justifyContent="space-evenly"
             align="center"
-            w={[300, 350, 390]}
+            w="390px"
           >
             {menuBar.map((item, index) => {
               return (
@@ -174,6 +172,6 @@ export const NavbarComp = () => {
           </Flex>
         </Flex>
       </Center>
-    </>
+    </div>
   );
 };

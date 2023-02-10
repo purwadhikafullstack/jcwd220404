@@ -24,7 +24,6 @@ export const OrderNowComp = () => {
       );
       setProduct(res.data.products);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -37,8 +36,8 @@ export const OrderNowComp = () => {
   };
 
   return (
-    <>
-      <Box h="70vh">
+    <div>
+      <Box h="80vh">
         <Image
           src={`${process.env.REACT_APP_API_BASE_URL}/upload/PIMG-167331034678635995.png`}
         ></Image>
@@ -70,14 +69,12 @@ export const OrderNowComp = () => {
                     }
                   />
                 </CardBody>
-                <CardFooter>
-                  <Button>Tambah</Button>
-                </CardFooter>
+                <CardFooter/>
               </Card>
             );
           })}
         </Box>
       </Box>
-    </>
+    </div>
   );
 };

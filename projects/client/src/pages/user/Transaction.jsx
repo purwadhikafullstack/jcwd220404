@@ -7,7 +7,7 @@ export const TransactionPage = () => {
   const tokenLocalStorage = localStorage.getItem("tokenUser");
 
   return (
-    <>
+    <div>
        <Center>
         <Box>
           <Box
@@ -34,7 +34,7 @@ export const TransactionPage = () => {
              pb={"80px"}
              className="body"
              bgColor="white"
-             h={"90vh"}
+             h={"100%"}
              w={"390px"}
           >
             {tokenLocalStorage ? <TransactionComp /> : <OrderNowComp />}
@@ -44,6 +44,6 @@ export const TransactionPage = () => {
           </Box>
         </Box>
       </Center>
-    </>
+    </div>
   );
 };

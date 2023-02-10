@@ -9,7 +9,7 @@ export const NotificationComp = () => {
     navigate("/notification");
   };
   return (
-    <>
+    <div>
       <Box pr={"23px"} as="button" onClick={toNotification}>
         <Badge
           ml="1"
@@ -26,6 +26,6 @@ export const NotificationComp = () => {
         </Badge>
         <IoNotifications size={28} color="#5F8D4E" />
       </Box>
-    </>
+    </div>
   );
 };

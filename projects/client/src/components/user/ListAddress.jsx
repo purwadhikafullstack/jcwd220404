@@ -34,7 +34,6 @@ export const ListAddress = () => {
       );
       dispatch(syncData(result.data));
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -49,7 +48,6 @@ export const ListAddress = () => {
       );
       getData();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -60,7 +58,6 @@ export const ListAddress = () => {
       );
       getData();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -133,7 +130,7 @@ export const ListAddress = () => {
               <Text color={"#285430"}>{item.province}</Text>
             </Flex>
             <Text color={"#285430"}>{item.detail}</Text>
-            <Badge color={"#285430"}>
+            <Badge color={"#285430"}  variant="">
               {item.defaultAddress === false ? "" : "Alamat Utama"}
             </Badge>
           </Box>

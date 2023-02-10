@@ -28,7 +28,6 @@ export const PopoutCheckout = ({ props }) => {
       setTotalWeight(selectedWeight);
       setData(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -47,7 +46,7 @@ export const PopoutCheckout = ({ props }) => {
           borderColor={"#285430"}
           justifyContent="space-evenly"
           align="center"
-          w={[300, 350, 370]}
+          w={"370px"}
         >
           <Flex justify={"space-between"}>
             <Text>

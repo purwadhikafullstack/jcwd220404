@@ -13,7 +13,6 @@ import {
   Grid,
   GridItem,
   Tag,
-  HStack,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { LogoutUser } from "./Logout";
@@ -32,7 +31,6 @@ export const AccountComp = () => {
       setData(result.data);
       setData2(result.data.isVerified);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -48,7 +46,7 @@ export const AccountComp = () => {
   };
 
   return (
-    <>
+    <div>
       <Box>
         <Box
           className="header"
@@ -74,7 +72,6 @@ export const AccountComp = () => {
           mt={"100px"}
           className="body"
           bgColor="white"
-          // h={"844px"}
           w={"390px"}
           pos="fixed"
         >
@@ -109,27 +106,6 @@ export const AccountComp = () => {
               </Tag>
             </GridItem>
           </Grid>
-          {/* <HStack
-          borderColor={"#285430"}
-          display="flex"
-          justifyContent={"center"}
-          divider={<StackDivider borderColor="#E5D9B6" />}
-          align="center"
-        >
-          <Badge alignContent={"center"} mr="10px" textColor={"#285430"}>
-            Potongan Belanja
-            <Text textAlign={"center"} textColor={"#285430"}>
-              0
-            </Text>
-          </Badge>
-          <Badge alignContent={"center"} ml="10px" textColor={"#285430"}>
-            Gratis Ongkir
-            <Text textAlign={"center"} textColor={"#285430"}>
-              0
-            </Text>
-          </Badge>
-        </HStack> */}
-
           <Stack
             mt={"30px"}
             divider={<StackDivider borderColor="transparent" />}
@@ -165,6 +141,6 @@ export const AccountComp = () => {
         </Box>
         <Box className="footer" w={"390px"} pos="fixed" bottom={"35px"}></Box>
       </Box>
-    </>
+    </div>
   );
 };

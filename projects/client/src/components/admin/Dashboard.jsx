@@ -128,7 +128,6 @@ export const DashboardComp = () => {
   useEffect(() => {
     getData6();
   }, [id]);
-
   return (
     <div>
       <Box h={"1000px"}>
@@ -198,16 +197,16 @@ function StatsCard(props) {
   return (
     <div>
       <Stat
-        px={{ base: 2, md: 4 }}
-        py={"5"}
+        px={{ base: 2, md: 1 }}
+        h="88px"
         shadow={"xl"}
-        border={"2px solid"}
+        border={"2px"}
         borderColor={useColorModeValue("#285430")}
         bgColor="#E5D9B6"
         rounded={"lg"}
       >
-        <Flex justifyContent={"space-between"}>
-          <Box pl={{ base: 2, md: 4 }}>
+        <Flex justifyContent={"space-around"}>
+          <Box w={"110px"} ml="6px">
             <StatLabel fontWeight={"medium"} isTruncated>
               {title}
             </StatLabel>

@@ -23,7 +23,7 @@ export const CategoryPage = () => {
   }, []);
 
   return (
-    <>
+    <div>
       <Box>
         <Center>
           <Box>
@@ -51,7 +51,7 @@ export const CategoryPage = () => {
                 mt={"80px"}
                 className="body"
                 bgColor={"white"}
-                h={"100vh"}
+                h={"90vh"}
                 w={"390px"}
               >
                 <Center>
@@ -95,6 +95,6 @@ export const CategoryPage = () => {
           </Box>
         </Center>
       </Box>
-    </>
+    </div>
   );
 };

@@ -26,7 +26,6 @@ import { UpdateAddressPage } from "./pages/user/UpdateAddress";
 import { NotFoundPage } from "./pages/user/404Result";
 import { EnterComp } from "./components/user/Enter";
 import { Checkout } from "./pages/user/Checkout";
-import { PaymentMethod } from "./pages/user/PaymentMethod";
 import { OrderSuccess } from "./pages/user/OrderSuccess";
 import { ProductDetail } from "./pages/user/ProductDetail";
 import { CategoryDetail } from "./pages/user/CategoryDetail";

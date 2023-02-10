@@ -120,10 +120,12 @@ export const EnterComp = () => {
                     />
                     <Button
                       color={"black"}
+                      variant=""
                       onClick={() =>
                         setShowPassword((showPassword) => !showPassword)
                       }
                       pos="absolute"
+                      variant={"unstyled"}
                       zIndex="2"
                     >
                       {showPassword ? <ViewIcon /> : <ViewOffIcon />}

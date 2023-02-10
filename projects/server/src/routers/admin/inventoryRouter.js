@@ -8,7 +8,7 @@ router.patch("/total/:BranchId", inventoryController.totalInventory);
 router.get("/find/:BranchId", inventoryController.stockTaken);
 router.get("/findByBranch/:from/:to", inventoryController.findByBranch);
 router.get("/findAllByBranch/:BranchId", inventoryController.findAllByBranch);
-router.get("/pagProduct", inventoryController.paginationProduct);
+router.get("/pagInventory", inventoryController.paginationInventory);
 router.get("/list/total", inventoryController.totalProduct);
 router.get("/search", inventoryController.searchBy);
 router.get("/sort", inventoryController.sortBy);

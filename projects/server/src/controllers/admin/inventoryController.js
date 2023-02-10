@@ -4,7 +4,6 @@ const inventory = db.Inventory;
 const product = db.Product;
 const price = db.Price;
 const branch = db.Branch;
-const category = db.Category;
 const transactionDetail = db.Transaction_Detail;
 const transaction = db.Transaction;
 
@@ -47,13 +46,13 @@ module.exports = {
     }
   },
 
-  paginationProduct: async (req, res) => {
+  paginationInventory: async (req, res) => {
     try {
       const { page, limit, search_query, order, sort } = req.query;
-      const productlist_page = parseInt(page) || 0;
+      const inventorylist_page = parseInt(page) || 0;
       const list_limit = parseInt(limit) || 5;
       const search = search_query || "";
-      const offset = list_limit * productlist_page;
+      const offset = list_limit * inventorylist_page;
       const orderby = order || "productName";
       const direction = sort || "ASC";
       const totalRows = await inventory.count({
@@ -107,7 +106,7 @@ module.exports = {
 
       res.status(200).send({
         result: result,
-        page: productlist_page,
+        page: inventorylist_page,
         limit: list_limit,
         totalRows: totalRows,
         totalPage: totalPage,

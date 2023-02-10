@@ -21,7 +21,6 @@ export const MenuComp = () => {
       );
       setCategory(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -36,7 +35,6 @@ export const MenuComp = () => {
       );
       setState3(result.data.defaultAdd);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -50,7 +48,7 @@ export const MenuComp = () => {
         <Flex
           flexWrap="wrap"
           mt="-150px"
-          w={[330, 330, 380]}
+          w={"380px"}
           justifyContent="center"
         >
           {category?.map((item) => {
