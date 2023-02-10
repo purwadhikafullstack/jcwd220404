@@ -46,11 +46,11 @@ export const RegisterAdmin = () => {
           icon: "error",
           title: "Oooops ...",
           text: "make sure password and confirm password match",
+          width: "370px",
           timer: 2000,
           customClass: {
             container: "my-swal",
           },
-          width: "370px",
         });
       }
       const res = await Axios.post(
@@ -65,10 +65,10 @@ export const RegisterAdmin = () => {
         title: "Good Job",
         text: `${res.data.message}`,
         timer: 2000,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
-        width: "370px",
       });
       setTimeout(() => {
         window.location.replace("/admin");
@@ -78,10 +78,10 @@ export const RegisterAdmin = () => {
         icon: "error",
         title: "Oops...",
         text: `${err.response.data}`,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
-        width: "370px",
       });
     }
   };
@@ -93,7 +93,6 @@ export const RegisterAdmin = () => {
       );
       setData2(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 

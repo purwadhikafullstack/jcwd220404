@@ -35,7 +35,6 @@ export const AddCategory = () => {
         window.location.replace("/admin");
       }, 900);
     } catch (err) {
-      console.log(err);
     }
   };
 

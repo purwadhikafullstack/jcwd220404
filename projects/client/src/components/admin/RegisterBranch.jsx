@@ -8,7 +8,6 @@ import {
   FormLabel,
   Input,
   Select,
-  VStack,
   InputGroup,
   InputRightElement,
   Center,
@@ -46,10 +45,10 @@ export const RegisterBranch = () => {
           title: "Oooops ...",
           text: "make sure password and confirm password match",
           timer: 2000,
+          width: "370px",
           customClass: {
             container: "my-swal",
           },
-          width: "370px",
         });
       }
       const result = await Axios.post(
@@ -61,10 +60,10 @@ export const RegisterBranch = () => {
         title: "Good Job",
         text: `${result.data.message}`,
         timer: 2000,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
-        width: "370px",
       });
       setTimeout(() => {
         window.location.replace("/admin/branch-management");
@@ -74,10 +73,10 @@ export const RegisterBranch = () => {
         icon: "error",
         title: "Oops...",
         text: `${err.response.data}`,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
-        width: "370px",
       });
     }
   };
@@ -87,10 +86,8 @@ export const RegisterBranch = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/branch/findAll`
       );
-      console.log(res.data);
       setData2(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 

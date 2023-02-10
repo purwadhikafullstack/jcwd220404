@@ -80,7 +80,6 @@ export const Category = () => {
 
       setProduct(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -96,7 +95,6 @@ export const Category = () => {
 
       setCategory(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -112,7 +110,6 @@ export const Category = () => {
 
       getCategory();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -167,7 +164,6 @@ export const Category = () => {
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -202,7 +198,7 @@ export const Category = () => {
   };
 
   return (
-    <>
+    <div>
       <Tabs isFitted variant="enclosed">
         <TabPanels>
           <TabPanel>
@@ -480,6 +476,6 @@ export const Category = () => {
           </ModalContent>
         </Modal>
       </Tabs>
-    </>
+    </div>
   );
 };

@@ -7,7 +7,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  // Select,
   Stack,
   Textarea,
   Center,
@@ -20,7 +19,7 @@ export const AddProduct = () => {
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
   const [edit2, setEdit2] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState()
+  const [selectedCategory, setSelectedCategory] = useState();
   const inputProductName = useRef("");
   const inputDescription = useRef("");
   const inputCategory = useRef(0);
@@ -39,11 +38,10 @@ export const AddProduct = () => {
       Swal.fire({
         icon: "success",
         text: "Success",
+        width: "370px",
       });
       setTimeout(() => window.location.replace("/admin/product"), 2000);
-      console.log(res);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -53,12 +51,9 @@ export const AddProduct = () => {
         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
       );
       setData2(res.data);
-      console.log(res.data)
       const categories = res.data.map((item) => item.categoryName);
-      console.log(categories)
       setData3(categories);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -76,11 +71,6 @@ export const AddProduct = () => {
     const { value } = target;
     selectedCategory(value);
   };
-
-  // useEffect(() => {
-  //   getBranch();
-  // }, [selectedBranch]);
-
   useEffect(() => {
     getCategory();
   }, [edit2, selectedCategory]);
@@ -99,7 +89,7 @@ export const AddProduct = () => {
   ];
 
   return (
-    <>
+    <div>
       <Box
         p="10px"
         ml="200px"
@@ -132,8 +122,11 @@ export const AddProduct = () => {
           </Box>
           <Stack spacing={"10px"}>
             <FormControl>
-              <FormLabel color="#285430">Nama Produk</FormLabel>
+              <FormLabel mt={"10px"} ml={"10px"} color="#285430">
+                Nama Produk
+              </FormLabel>
               <Input
+                w={"380px"}
                 ref={inputProductName}
                 placeholder="Produk"
                 _placeholder={{ color: "#5F8D4E" }}
@@ -141,18 +134,27 @@ export const AddProduct = () => {
                 textColor="black"
               ></Input>
             </FormControl>
-            <FormLabel color="#285430">Distributor</FormLabel>
+            <FormLabel mt={"10px"} pl={"10px"} color="#285430">
+              Price
+            </FormLabel>
             <Input
-              // ref={inputDistributor}
-              placeholder="Distributor"
+              w={"380px"}
+              ml={"10px"}
+              // ref={inputPrice}
+              placeholder="Price"
               _placeholder={{ color: "#5F8D4E" }}
               borderColor="#285430"
-              textColor="black"
+              textColor="#285430"
             ></Input>
             <FormControl>
-              <FormLabel color="#285430">Category 1</FormLabel>
+              <FormLabel mt={"10px"} ml={"10px"} color="#285430">
+                Category
+              </FormLabel>
               <Select
-                // defaultValue={[colourOptions[2], colourOptions[3]]}
+                w={"360px"}
+                ml={"10px"}
+                color="#285430"
+                borderColor="#285430"
                 isMulti
                 name="colors"
                 options={categoryOptions}
@@ -161,9 +163,7 @@ export const AddProduct = () => {
                 value={categoryOptions.value}
                 ref={inputCategory}
                 // onChange={categoryHandler}
-              >
-                
-              </Select>
+              ></Select>
             </FormControl>
             <FormControl>
               <FormLabel mt={"10px"} ml={"10px"} color={"#285430"}>
@@ -196,6 +196,6 @@ export const AddProduct = () => {
           </Stack>
         </Box>
       </Box>
-    </>
+    </div>
   );
 };

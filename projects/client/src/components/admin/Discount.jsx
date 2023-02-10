@@ -1,56 +1,23 @@
 import {
-  Box,
   Button,
-  Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Icon,
-  Image,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Select,
-  Stat,
-  StatLabel,
-  StatNumber,
-  Tab,
   Table,
   TableContainer,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
-  useColorModeValue,
 } from "@chakra-ui/react";
-import {
-  MdOutlineCancel,
-  MdOutlinePayment,
-  MdOutlinePayments,
-  MdDoneOutline,
-} from "react-icons/md";
 import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { BsFillCheckSquareFill, BsFilterLeft } from "react-icons/bs";
-import { FaWindowClose } from "react-icons/fa";
-import { GoPackage } from "react-icons/go";
-import { TbTruckDelivery } from "react-icons/tb";
-import { BiReset, BiSearchAlt } from "react-icons/bi";
+import { BsFillCheckSquareFill } from "react-icons/bs";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { transSync } from "../../redux/transactionSlice";
 
 export const DiscountList = () => {
-  const [data, setData] = useState();
   const [data2, setData2] = useState();
   const [data3, setData3] = useState();
   const [data4, setData4] = useState();
@@ -68,7 +35,6 @@ export const DiscountList = () => {
   const [totalPage2, setTotalPage2] = useState();
   const { id } = useSelector((state) => state.adminSlice.value);
   const dispatch = useDispatch();
-  // const data = useSelector((state) => state.transactionSlice.value)
 
   const getData7 = async () => {
     try {
@@ -77,7 +43,6 @@ export const DiscountList = () => {
       );
       setData7(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -92,7 +57,6 @@ export const DiscountList = () => {
       );
       setData8(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -107,7 +71,6 @@ export const DiscountList = () => {
       );
       setData2(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -122,7 +85,6 @@ export const DiscountList = () => {
       );
       setData3(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -137,7 +99,6 @@ export const DiscountList = () => {
       );
       setData4(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -152,7 +113,6 @@ export const DiscountList = () => {
       );
       setData5(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -167,7 +127,6 @@ export const DiscountList = () => {
       );
       setData6(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -183,7 +142,6 @@ export const DiscountList = () => {
 
       getData3();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -195,7 +153,6 @@ export const DiscountList = () => {
 
       getData4();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -207,7 +164,6 @@ export const DiscountList = () => {
 
       getData();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -236,7 +192,6 @@ export const DiscountList = () => {
           sort2 ? sort2 : "ASC"
         }`
       );
-      // dispatch(transSync(res.data.result));
       console.log(res.data);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
@@ -259,7 +214,7 @@ export const DiscountList = () => {
 
   return (
     <div>
-      <TableContainer mt="30px" w="60vw" ml={"120px"} bgColor={"white"}>
+      <TableContainer mt="210px" w="50vw" ml={"80px"} bgColor={"white"}>
         <Table variant="simple" colorScheme="#285430">
           <Thead alignContent={"center"}>
             <Tr>

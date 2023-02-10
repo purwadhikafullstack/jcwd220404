@@ -9,8 +9,6 @@ import {
   Stack,
   Textarea,
   Center,
-  useDisclosure,
-  ModalOverlay,
 } from "@chakra-ui/react";
 
 export const UpdateProductComp = ({ data }) => {
@@ -37,9 +35,7 @@ export const UpdateProductComp = ({ data }) => {
         width: "370px",
       });
       setTimeout(() => window.location.replace("/admin/product"), 900);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (

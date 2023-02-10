@@ -16,14 +16,13 @@ export const UpdateCategoryComp = ({ data }) => {
         `${process.env.REACT_APP_API_BASE_URL}/product/updateCategory/${id}`,
         updateCategory
       );
-      console.log(res);
       Swal.fire({
         icon: "success",
         text: "Data Updated",
+        width: "370px",
       });
       setTimeout(() => window.location.replace("/admin/category"), 900);
     } catch (err) {
-      console.log(err);
     }
   };
 

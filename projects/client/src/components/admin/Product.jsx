@@ -36,10 +36,8 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/productSlice";
-import { syncCategory } from "../../redux/categorySlice";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -76,10 +74,8 @@ export const Product = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
-      console.log(res.data);
       setProduct(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -95,7 +91,6 @@ export const Product = () => {
 
       getData();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -138,7 +133,6 @@ export const Product = () => {
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -173,7 +167,7 @@ export const Product = () => {
   };
 
   return (
-    <>
+    <div>
       <Tabs isFitted variant="enclosed">
         <TabPanels>
           <TabPanel>
@@ -469,6 +463,6 @@ export const Product = () => {
           </ModalContent>
         </Modal>
       </Tabs>
-    </>
+    </div>
   );
 };

@@ -8,19 +8,15 @@ import {
   Input,
   Select,
   Stack,
-  Textarea,
   Center,
   Box,
-  useColorModeValue,
   Text,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
 export const AddPrice = () => {
-  const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
-  const [edit2, setEdit2] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState();
   const inputProductName = useRef(0);
   const inputDescription = useRef("");
   const inputPrice = useRef(0);
@@ -45,11 +41,10 @@ export const AddPrice = () => {
       Swal.fire({
         icon: "success",
         text: "Success",
+        width: "370px",
       });
       setTimeout(() => window.location.replace("/admin/product"), 2000);
-      console.log(res);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -58,10 +53,8 @@ export const AddPrice = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
-      console.log(res.data);
       setData3(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -70,15 +63,14 @@ export const AddPrice = () => {
   }, []);
 
   return (
-    <>
-      <Box
-        // p="10px"
-        ml="200px"
-        // mt="215px"
-        mr="100px"
-        // color={useColorModeValue("#285430")}
-        // border="2px"
-        // borderRadius="2xl"
+    <div>
+       <Box
+        p="10px"
+        ml={"10px"}
+        mt="215px"
+        color={useColorModeValue("#285430")}
+        border="2px"
+        borderRadius="2xl"
       >
         <Box
           w={"385px"}
@@ -179,6 +171,6 @@ export const AddPrice = () => {
           </Stack>
         </Box>
       </Box>
-    </>
+    </div>
   );
 };

@@ -29,7 +29,6 @@ export const SalesComp = () => {
       );
       setData(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -44,7 +43,6 @@ export const SalesComp = () => {
       );
       setData2(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -59,7 +57,6 @@ export const SalesComp = () => {
       );
       setData3(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 

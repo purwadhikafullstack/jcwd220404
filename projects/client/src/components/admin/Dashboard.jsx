@@ -32,7 +32,6 @@ export const DashboardComp = () => {
       );
       setData(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -47,7 +46,6 @@ export const DashboardComp = () => {
       );
       setData2(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -62,7 +60,6 @@ export const DashboardComp = () => {
       );
       setData3(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -77,7 +74,6 @@ export const DashboardComp = () => {
       );
       setData4(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -92,7 +88,6 @@ export const DashboardComp = () => {
       );
       setData5(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -107,7 +102,6 @@ export const DashboardComp = () => {
       );
       setData6(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -118,11 +112,6 @@ export const DashboardComp = () => {
     <div>
       <Box maxW="6xl" pl="70px" mt="50px" mx={"auto"}>
         <SimpleGrid columns={{ base: 1, md: 6 }} spacing={{ base: 6, lg: 2 }}>
-          <StatsCard
-            title={"Waiting Payment"}
-            stat={data6?.length}
-            icon={<MdOutlinePayment size={"2.5em"} />}
-          />
           <StatsCard
             title={"Waiting Payment"}
             stat={data?.length}

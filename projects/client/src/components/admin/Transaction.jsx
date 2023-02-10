@@ -58,10 +58,8 @@ export const TransactionComp = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listAll/${id}`
       );
-      console.log(result.data)
       setData7(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -76,7 +74,6 @@ export const TransactionComp = () => {
       );
       setData8(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -91,7 +88,6 @@ export const TransactionComp = () => {
       );
       setData2(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -106,7 +102,6 @@ export const TransactionComp = () => {
       );
       setData3(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -121,7 +116,6 @@ export const TransactionComp = () => {
       );
       setData4(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -136,7 +130,6 @@ export const TransactionComp = () => {
       );
       setData5(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -151,7 +144,6 @@ export const TransactionComp = () => {
       );
       setData6(result.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -167,7 +159,6 @@ export const TransactionComp = () => {
 
       getData3();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -179,7 +170,6 @@ export const TransactionComp = () => {
 
       getData4();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -191,7 +181,6 @@ export const TransactionComp = () => {
 
       getData();
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -221,11 +210,9 @@ export const TransactionComp = () => {
         }`
       );
       dispatch(transSync(res.data));
-      console.log(res.data);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -243,7 +230,7 @@ export const TransactionComp = () => {
 
   return (
     <div>
-      <Box className="filter">
+      <Box className="filter" width={"500px"} ml="250px">
         <Box
           m="10px"
           mb="20px"

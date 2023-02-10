@@ -5,7 +5,6 @@ import {
   Button,
   Image,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 
 import { useSelector } from "react-redux";
@@ -73,6 +72,7 @@ export const SidebarSuper = () => {
             ml={"3vw"}
             textColor={"#285430"}
             fontSize="md"
+            variant={"unstyled"}
             onClick={toDashboard}
           >
             Dashboard
@@ -80,9 +80,10 @@ export const SidebarSuper = () => {
           <Button
             bgColor={"#E5D9B6"}
             mt={"1vw"}
-            ml={"1vw"}
+            ml={"3vw"}
             textColor={"#285430"}
             fontSize="md"
+            variant={"unstyled"}
             onClick={toManagementBranch}
           >
             Management Branch
@@ -90,9 +91,10 @@ export const SidebarSuper = () => {
           <Button
             bgColor={"#E5D9B6"}
             mt={"1vw"}
-            ml={"1vw"}
+            ml={"3vw"}
             textColor={"#285430"}
             fontSize="md"
+            variant={"unstyled"}
             onClick={toSalesBranch}
           >
             Sales by Branch

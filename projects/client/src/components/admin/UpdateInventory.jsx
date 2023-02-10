@@ -58,14 +58,12 @@ export const UpdateInventory = ({ data }) => {
       });
       setTimeout(() => window.location.replace("/admin"), 900);
     } catch (err) {
-      console.log(err);
     }
   };
 
   return (
     <div>
       <Box
-        // ml="120px"
         color={useColorModeValue("#285430")}
         border="2px"
         borderRadius="2xl"
@@ -82,7 +80,6 @@ export const UpdateInventory = ({ data }) => {
             Branch
           </FormLabel>
           <Input
-            // ref={inputBranch}
             color={"#285430"}
             borderColor="#285430"
             ml="5px"
@@ -163,8 +160,6 @@ export const UpdateInventory = ({ data }) => {
           </Button>
         </Center>
       </Stack>
-      {/* </Box> */}
-      {/* </Box> */}
     </div>
   );
 };

@@ -1,7 +1,5 @@
-import { Grid, GridItem } from "@chakra-ui/layout";
+import { Grid, GridItem, Flex } from "@chakra-ui/layout";
 import React from "react";
-import { AddDiscount } from "../../components/admin/AddDiscount";
-import { AddPicWeb } from "../../components/admin/AddPicWeb";
 import { AddPrice } from "../../components/admin/AddPrice";
 import { DiscountList } from "../../components/admin/Discount";
 import { SidebarComp } from "../../components/admin/Sidebar";
@@ -24,11 +22,10 @@ export const Discount = () => {
         <GridItem>
           <SidebarComp />
         </GridItem>
-        <GridItem>
-          <AddPrice />
-          {/* <AddDiscount /> */}
+        <Flex>
           <DiscountList />
-        </GridItem>
+          <AddPrice />
+        </Flex>
       </Grid>
     </div>
   );

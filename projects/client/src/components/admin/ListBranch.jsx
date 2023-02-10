@@ -13,17 +13,14 @@ import Axios from "axios";
 
 export const ListBranch = () => {
   const [data, setData] = useState([]);
-  const [data2, setData2] = useState([]);
 
   const getData = async () => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/admin/findAll`
       );
-      console.log(res.data);
       setData(res.data);
     } catch (err) {
-      console.log(err);
     }
   };
 
