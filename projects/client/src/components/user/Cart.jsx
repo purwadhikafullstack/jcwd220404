@@ -254,6 +254,15 @@ export const CartComp = () => {
     }
   };
 
+  const onRefresh = () => {
+    try {
+
+      setTimeout(() => window.location.replace("/account"), 2000);
+    } catch (err) {
+
+    }
+  }
+
   return (
     <>
       <Box>
@@ -273,6 +282,7 @@ export const CartComp = () => {
                       ml={"10px"}
                       defaultChecked={item.status ? true : false}
                       onChange={() => onCheckout(item.id, item.status)}
+                      onClick={onRefresh}
                     >
                       <Grid
                         templateAreas={`"nav main""nav footer"`}

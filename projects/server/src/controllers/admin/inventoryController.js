@@ -348,6 +348,7 @@ module.exports = {
         include: [
           {
             model: product,
+            include: [{ model: price }],
           },
         ],
       });

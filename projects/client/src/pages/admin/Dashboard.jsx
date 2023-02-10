@@ -70,26 +70,8 @@ export const DashboardPage = () => {
 
   return (
     <div>
-      <Grid
-        templateAreas={`"header header"
-                  "nav main"
-                  "nav footer"`}
-        gridTemplateRows={"50px 1fr 30px"}
-        gridTemplateColumns={"150px 1fr"}
-        h="100vh"
-        gap="1"
-        color="#285430"
-        fontWeight="bold"
-        bgColor={"white"}
-      >
-        <GridItem>
-          <SidebarComp />
-        </GridItem>
-        <GridItem>
-          <DashboardComp />
-        </GridItem>
-      </Grid>
-      <ResponsiveContainer width="100%" height="100%">
+      <Box bgColor={"black"} mt={"100px"}>
+      <ResponsiveContainer width="50%" height="50%">
         <BarChart
           width={500}
           height={300}
@@ -104,12 +86,32 @@ export const DashboardPage = () => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="pv" fill="#8884d8" />
-          <Bar dataKey="uv" fill="#82ca9d" />
+          <Bar dataKey="pv" fill="black" />
+          <Bar dataKey="uv" fill="black" />
         </BarChart>
       </ResponsiveContainer>
+      </Box>
+      <Grid
+        templateAreas={`"header header"
+                  "nav main"
+                  "nav footer"`}
+        gridTemplateRows={"50px 1fr 30px"}
+        gridTemplateColumns={"150px 1fr"}
+        h="100vh"
+        gap="1"
+        color="#285430"
+        fontWeight="bold"
+        bgColor={"white"}
+      >
+        
+        <GridItem>
+          <SidebarComp />
+        </GridItem>
+        <GridItem>
+          <DashboardComp />
+        </GridItem>
+      
+      </Grid>
     </div>
   );
 };

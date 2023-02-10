@@ -5,11 +5,11 @@ const path = require("path");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     (acceptedFile = ["jpg", "jpeg", "png"]),
-    cb(
-      null,
-      // "./src/upload"
-      path.join(__dirname, "../upload")
-    );
+      cb(
+        null,
+        // "./src/upload"
+        path.join(__dirname, "../upload")
+      );
   },
 
   filename: (req, file, cb) => {
@@ -27,6 +27,7 @@ const storage = multer.diskStorage({
 
   fileFilter: (req, file, cb) => {
     const extension = file.mimetype.split("/")[1];
+    console.log(file)
     if (acceptedFile.includes(extension)) {
       cb(null, true);
     } else {
@@ -34,7 +35,7 @@ const storage = multer.diskStorage({
     }
     return multer({
       storage: diskStorage,
-      limits: { fileSize: 2 * 1024 * 1024 },
+      limits: { fileSize: 1024 * 1024 },
       fileFilter,
     });
   },

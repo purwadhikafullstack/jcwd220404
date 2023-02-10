@@ -1,4 +1,3 @@
-import { AddIcon } from "@chakra-ui/icons";
 import {
   Badge,
   Box,
@@ -18,32 +17,33 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { BiSearchAlt } from "react-icons/bi";
+import { FaCartArrowDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState } from "react";
 import Swal from "sweetalert2";
-
 import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/productSlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { FaCartArrowDown } from "react-icons/fa";
+import { syncInventory } from "../../redux/inventorySlice";
 
 export const ProductList = () => {
+  const [data2, setData2] = useState();
   const [state, setState] = useState();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(50);
   const [sort, setSort] = useState("ASC");
   const [order, setOrder] = useState("productName");
   const [searchProduct, setSearchProduct] = useState("");
   const [totalPage, setTotalPage] = useState(0);
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.userSlice.value);
-  const data = useSelector((state) => state.productSlice.value);
+  // const data = useSelector((state) => state.productSlice.value);
+  const data = useSelector((state) => state.inventorySlice.value);
 
   const getData = async () => {
     try {
@@ -57,17 +57,15 @@ export const ProductList = () => {
         }`
       );
       dispatch(syncData(res.data.result));
-      console.log(res.data.result)
+      console.log(res.data.result);
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
     getData();
-  }, [searchProduct, page, limit, sort]);
+  }, [searchProduct]);
 
   async function fetchSort(filter) {
     setSort(filter);
@@ -91,14 +89,14 @@ export const ProductList = () => {
     },
   });
 
-  const onAddCart = async (ProductId) => {
+  const onAddCart = async () => {
     try {
       if (!id) {
         return Swal.fire({
           icon: "error",
-
           text: "Login First",
           timer: 2000,
+          width: "370px",
           customClass: {
             container: "my-swal",
           },
@@ -108,8 +106,8 @@ export const ProductList = () => {
       console.log(err);
       Swal.fire({
         icon: "error",
-
         text: `Add Cart Failed`,
+        width: "370px",
         customClass: {
           container: "my-swal",
         },
@@ -117,21 +115,85 @@ export const ProductList = () => {
     }
   };
 
-  const onDiscount = async () => {
+  const [location, setLocation] = useState({
+    loaded: false,
+    coordinates: { lat: "", lng: "" },
+  });
+
+  const onSuccess = (location) => {
+    setLocation({
+      loaded: true,
+      coordinates: {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      },
+    });
+  };
+
+  const onError = (error) => {
+    setLocation({
+      loaded: true,
+      error: {
+        code: error.code,
+        message: error.message,
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (!"geolocation in navigator") {
+      onError({
+        code: 0,
+        message: "geolocation not supported",
+      });
+    }
+    navigator.geolocation.getCurrentPosition(onSuccess);
+  }, []);
+
+  const getInv = async () => {
     try {
-      const res = await Axios.patch(
-        `${process.env.REACT_APP_API_BASE_URL}/product/discItem`
+      const branch = {
+        lattitude: location.coordinates.latitude,
+        longitude: location.coordinates.longitude,
+      };
+      const result = await Axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/branch/byId`,
+        branch
       );
+      dispatch(syncData(result.data));
+      console.log(result.data);
+      setData2(result.data.id);
+      console.log(result.data.id);
     } catch (err) {
       console.log(err);
     }
   };
 
+  useEffect(() => {
+    getInv();
+  }, [location]);
+
+  const getProduct = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/byBranchId/${data2}`
+      );
+      dispatch(syncInventory(res.data));
+      console.log(res.data[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, [data2]);
+
   return (
     <div>
       <Center>
         <Stack>
-          <Flex flexWrap="wrap" w={[330, 330, 380]} justifyContent="center">
+          {/* <Flex flexWrap="wrap" w={[330, 330, 380]} justifyContent="center">
             <Center>
               <Flex>
                 <Box className="filter" mt={"30px"}>
@@ -180,9 +242,9 @@ export const ProductList = () => {
                 </Box>
               </Flex>
             </Center>
-          </Flex>
+          </Flex> */}
           <Box>
-            <Box display="flex" justifyContent="center" alignContent="center">
+            {/* <Box display="flex" justifyContent="center" alignContent="center">
               <Button
                 onClick={() => {
                   async function submit() {
@@ -233,7 +295,7 @@ export const ProductList = () => {
               >
                 Next
               </Button>
-            </Box>
+            </Box> */}
             <Center>
               <SimpleGrid
                 mt={"10px"}
@@ -258,7 +320,7 @@ export const ProductList = () => {
                               boxSize={"100px"}
                               src={
                                 `${process.env.REACT_APP_API_BASE_URL}/` +
-                                item.picture
+                                item.Product.picture
                               }
                             />
                             <Text
@@ -268,40 +330,43 @@ export const ProductList = () => {
                               size="md"
                               color={"#285430"}
                             >
-                              {item.productName}
+                              {item.Product.productName}
                             </Text>
                             <Box>
-                              {!item?.Price?.discPrice ? (
-                                <Text fontSize={"xs"}>
+                              {!item?.Product?.Price?.discPrice ? (
+                                <Text fontSize={"xs"} color={"#285430"}>
                                   {" "}
                                   {new Intl.NumberFormat("IND", {
                                     style: "currency",
                                     currency: "IDR",
-                                  }).format(item?.Price?.productPrice)}
+                                  }).format(item?.Product?.Price?.productPrice)}
                                 </Text>
                               ) : (
-                                <Text fontSize={"xs"} as="s">
+                                <Text fontSize={"xs"} color={"#285430"} as="s">
                                   {" "}
                                   {new Intl.NumberFormat("IND", {
                                     style: "currency",
                                     currency: "IDR",
-                                  }).format(item?.Price?.productPrice)}
+                                  }).format(item?.Product?.Price?.productPrice)}
                                 </Text>
                               )}
                             </Box>
                             <Box>
-                              {!item?.Price?.discPrice ? (
+                              {!item?.Product?.Price?.discPrice ? (
                                 ""
                               ) : (
-                                <Text fontSize={"xs"}>
+                                <Text fontSize={"xs"} color={"#285430"}>
                                   {" "}
                                   {new Intl.NumberFormat("IND", {
                                     style: "currency",
                                     currency: "IDR",
-                                  }).format(item?.Price?.discPrice)}
+                                  }).format(item?.Product?.Price?.discPrice)}
                                   <Badge>Promo</Badge>
                                 </Text>
                               )}
+                              <Text fontSize={"sm"} color={"#285430"}>
+                                Stock: {item.stockQty} pcs
+                              </Text>
                             </Box>
                           </CardBody>
                         </Center>
