@@ -431,4 +431,23 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+
+  findInvByBranch: async (req, res) => {
+    try {
+      const result = await inventory.findAll({
+        where: {
+          BranchId: req.params.BranchId,
+        },
+        include: [
+          {
+            model: product,
+          },
+        ],
+      });
+      res.status(200).send(result);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
 };

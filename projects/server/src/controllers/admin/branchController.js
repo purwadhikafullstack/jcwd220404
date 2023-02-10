@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const axios = require("axios");
 const db = require("../../models");
 const branch = db.Branch;
@@ -159,6 +159,33 @@ module.exports = {
       });
       return res.status(200).send(response);
     } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+
+  branchbyId: async (req, res) => {
+    try {
+      const { lattitude, longitude } = req.body;
+      const haversine = `(
+        6371 * acos(
+          cos(radians(${lattitude}))
+          * cos(radians(lattitude))
+          * cos(radians(longitude) - radians(${longitude}))
+          + sin(radians(${lattitude})) * sin(radians(lattitude))
+        )
+      )`;
+      const user = await branch.findAll({
+        attributes: [
+          "id",
+          [Sequelize.literal(haversine), "distance"],
+          "cityId",
+        ],
+        order: Sequelize.col("distance"),
+        limit: 1,
+      });
+      res.status(200).send(user[0]);
+    } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },
