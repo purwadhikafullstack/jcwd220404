@@ -30,8 +30,7 @@ export const AccountComp = () => {
       );
       setData(result.data);
       setData2(result.data.isVerified);
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {

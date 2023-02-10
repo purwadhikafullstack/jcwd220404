@@ -120,7 +120,6 @@ export const EnterComp = () => {
                     />
                     <Button
                       color={"black"}
-                      variant=""
                       onClick={() =>
                         setShowPassword((showPassword) => !showPassword)
                       }
@@ -163,7 +162,7 @@ export const EnterComp = () => {
               </Text>
               <Text
                 as={Link}
-                to="/register"
+                to="/registers"
                 textAlign={"center"}
                 color="#5F8D4E"
               >

@@ -43,7 +43,7 @@ import { syncData } from "./redux/branchSlice";
 import { InventorySuperPage } from "./pages/admin/InventorySuper";
 
 function App() {
-  const [data2, setData2] = useState() 
+  const [data2, setData2] = useState();
   const dispatch = useDispatch();
   const tokenUser = localStorage.getItem("tokenUser");
   const tokenSuper = localStorage.getItem("tokenSuper");
@@ -169,7 +169,6 @@ function App() {
     }
     navigator.geolocation.getCurrentPosition(onSuccess);
   }, []);
-  
 
   const getInv = async () => {
     try {
@@ -186,7 +185,7 @@ function App() {
       setData2(result.data.id);
       console.log(result.data.id);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
@@ -209,23 +208,6 @@ function App() {
   useEffect(() => {
     getProduct();
   }, []);
-
-  // const getBranch = async () => {
-  //   try {
-  //     const res = await Axios.get(
-  //       `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
-  //     );
-  //     // setBranch(res.data);
-  //     console.log(res.data)
-  //     setData4(res.data.id);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getBranch();
-  // }, [id]);
 
   return (
     <div className="App">
@@ -292,7 +274,10 @@ function App() {
           element={<BranchManagement />}
         ></Route>
         <Route path="/admin/sales" element={<Sales />}></Route>
-        <Route path="/admin/inventory-super" element={<InventorySuperPage />}></Route>
+        <Route
+          path="/admin/inventory-super"
+          element={<InventorySuperPage />}
+        ></Route>
       </Routes>
     </div>
   );
