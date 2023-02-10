@@ -41,6 +41,7 @@ import { Sales } from "./pages/admin/Sales";
 import { AddProductCategory } from "./pages/admin/AddProductCategory";
 import { syncInventory } from "./redux/inventorySlice";
 import { syncData } from "./redux/branchSlice";
+import { InventorySuperPage } from "./pages/admin/InventorySuper";
 
 function App() {
   const [data2, setData2] = useState() 
@@ -292,6 +293,7 @@ function App() {
           element={<BranchAdminMgt />}
         ></Route>
         <Route path="/admin/sales" element={<Sales />}></Route>
+        <Route path="/admin/inventory-super" element={<InventorySuperPage />}></Route>
       </Routes>
     </div>
   );

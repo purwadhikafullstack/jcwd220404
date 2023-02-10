@@ -528,7 +528,6 @@ module.exports = {
   paginationTransaction: async (req, res) => {
     try {
       const { page, limit, search_query, order, sort, AdminId } = req.query;
-      // const admin = AdminId || 0;
       const productlist_page = parseInt(page) || 0;
       const list_limit = parseInt(limit) || 5;
       const search = search_query || "";
@@ -570,12 +569,6 @@ module.exports = {
       });
       const totalPage = Math.ceil(totalRows / limit);
       const result = await transaction.findAll({
-        // include: [
-        //   {
-        //     model: cart,
-        //     attributes: ["id"],
-        //   },
-        // ],
         where: {
           [Op.and]: [
             {
@@ -595,16 +588,255 @@ module.exports = {
             },
           ],
         },
-        // include: [{ model: price }],
+
         offset: offset,
         limit: list_limit,
         order: [[orderby, direction]],
-        // include: [
-        //   {
-        //     model: cart,
-        //     attributes: ["id"],
-        //   },
-        // ],
+      });
+
+      res.status(200).send({
+        result: result,
+        page: productlist_page,
+        limit: list_limit,
+        totalRows: totalRows,
+        totalPage: totalPage,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send(error);
+    }
+  },
+
+  paginationTransDepok: async (req, res) => {
+    try {
+      const { page, limit, search_query, order, sort, BranchId } = req.query;
+      const productlist_page = parseInt(page) || 0;
+      const list_limit = parseInt(limit) || 5;
+      const search = search_query || "";
+      const offset = list_limit * productlist_page;
+      const orderby = order || "id_order";
+      const direction = sort || "ASC";
+      const findBranch = await branch.findOne({
+        where: {
+          id: 1,
+        },
+      });
+      console.log(findBranch);
+      const transactions = await transaction.findAll({
+        where: {
+          BranchId: findBranch?.dataValues?.id,
+        },
+      });
+      console.log(transactions);
+      const totalRows = await transaction.count({
+        where: {
+          [Op.and]: [
+            {
+              BranchId: findBranch?.dataValues?.id,
+              [Op.or]: [
+                {
+                  id_order: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+                {
+                  status: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      });
+      const totalPage = Math.ceil(totalRows / limit);
+      const result = await transaction.findAll({
+        where: {
+          [Op.and]: [
+            {
+              BranchId: findBranch?.dataValues?.id,
+              [Op.or]: [
+                {
+                  id_order: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+                {
+                  status: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+
+        offset: offset,
+        limit: list_limit,
+        order: [[orderby, direction]],
+      });
+
+      res.status(200).send({
+        result: result,
+        page: productlist_page,
+        limit: list_limit,
+        totalRows: totalRows,
+        totalPage: totalPage,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send(error);
+    }
+  },
+
+  paginationTransJaktim: async (req, res) => {
+    try {
+      const { page, limit, search_query, order, sort, BranchId } = req.query;
+      const productlist_page = parseInt(page) || 0;
+      const list_limit = parseInt(limit) || 5;
+      const search = search_query || "";
+      const offset = list_limit * productlist_page;
+      const orderby = order || "id_order";
+      const direction = sort || "ASC";
+      const findBranch = await branch.findOne({
+        where: {
+          id: 3,
+        },
+      });
+      console.log(findBranch);
+      const transactions = await transaction.findAll({
+        where: {
+          BranchId: findBranch?.dataValues?.id,
+        },
+      });
+      console.log(transactions);
+      const totalRows = await transaction.count({
+        where: {
+          [Op.and]: [
+            {
+              BranchId: findBranch?.dataValues?.id,
+              [Op.or]: [
+                {
+                  id_order: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+                {
+                  status: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      });
+      const totalPage = Math.ceil(totalRows / limit);
+      const result = await transaction.findAll({
+        where: {
+          [Op.and]: [
+            {
+              BranchId: findBranch?.dataValues?.id,
+              [Op.or]: [
+                {
+                  id_order: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+                {
+                  status: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+
+        offset: offset,
+        limit: list_limit,
+        order: [[orderby, direction]],
+      });
+
+      res.status(200).send({
+        result: result,
+        page: productlist_page,
+        limit: list_limit,
+        totalRows: totalRows,
+        totalPage: totalPage,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send(error);
+    }
+  },
+  paginationTransJaksel: async (req, res) => {
+    try {
+      const { page, limit, search_query, order, sort, BranchId } = req.query;
+      const productlist_page = parseInt(page) || 0;
+      const list_limit = parseInt(limit) || 5;
+      const search = search_query || "";
+      const offset = list_limit * productlist_page;
+      const orderby = order || "id_order";
+      const direction = sort || "ASC";
+      const findBranch = await branch.findOne({
+        where: {
+          id: 2,
+        },
+      });
+      console.log(findBranch);
+      const transactions = await transaction.findAll({
+        where: {
+          BranchId: findBranch?.dataValues?.id,
+        },
+      });
+      console.log(transactions);
+      const totalRows = await transaction.count({
+        where: {
+          [Op.and]: [
+            {
+              BranchId: findBranch?.dataValues?.id,
+              [Op.or]: [
+                {
+                  id_order: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+                {
+                  status: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      });
+      const totalPage = Math.ceil(totalRows / limit);
+      const result = await transaction.findAll({
+        where: {
+          [Op.and]: [
+            {
+              BranchId: findBranch?.dataValues?.id,
+              [Op.or]: [
+                {
+                  id_order: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+                {
+                  status: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+
+        offset: offset,
+        limit: list_limit,
+        order: [[orderby, direction]],
       });
 
       res.status(200).send({

@@ -24,6 +24,10 @@ export const SidebarSuper = () => {
     navigate("/admin/sales");
   };
 
+  const toInvBranch = () => {
+    navigate("/admin/inventory-super");
+  };
+
   return (
     <div>
       {" "}
@@ -89,6 +93,16 @@ export const SidebarSuper = () => {
             onClick={toSalesBranch}
           >
             Sales by Branch
+          </Button>
+          <Button
+            bgColor={"#E5D9B6"}
+            mt={"1vw"}
+            ml={"1vw"}
+            textColor={"#285430"}
+            fontSize="md"
+            onClick={toInvBranch}
+          >
+            Inventory by Branch
           </Button>
           <LogoutSuper />
         </Box>

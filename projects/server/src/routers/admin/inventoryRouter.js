@@ -8,12 +8,14 @@ router.patch("/total/:BranchId", inventoryController.totalInventory);
 router.get("/find/:BranchId", inventoryController.stockTaken);
 router.get("/findByBranch/:from/:to", inventoryController.findByBranch);
 router.get("/findAllByBranch/:BranchId", inventoryController.findAllByBranch);
-router.get("/pagProduct", inventoryController.paginationProduct);
 router.get("/list/total", inventoryController.totalProduct);
 router.get("/search", inventoryController.searchBy);
 router.get("/sort", inventoryController.sortBy);
 router.get("/pagInventory", inventoryController.paginationAdmin);
 router.get("/totalInv", inventoryController.totalInvAll);
 router.get("/byBranchId/:BranchId", inventoryController.findInvByBranch);
+router.get("/invDepok", inventoryController.findInvDepok);
+router.get("/invJaksel", inventoryController.findInvJaksel);
+router.get("/invJaktim", inventoryController.findInvJaktim);
 
 module.exports = router;
