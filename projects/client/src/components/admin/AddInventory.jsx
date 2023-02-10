@@ -55,9 +55,8 @@ export const InventoryAdminComp = () => {
   const [state2, setState2] = useState(0);
   const [searchCategory2, setSearchCategory2] = useState("");
   const [page2, setPage2] = useState(1);
-  const [totalPage2, setTotalPage2] = useState(0  );
-  // const [data, setData] = useState();
-  const data = useSelector((state) => state.inventorySlice.value)
+  const [totalPage2, setTotalPage2] = useState(0);
+  const data = useSelector((state) => state.inventorySlice.value);
   const [data2, setData2] = useState();
   const [data3, setData3] = useState([]);
   const [data4, setData4] = useState();
@@ -95,7 +94,7 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
-      console.log(res.data)
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -178,7 +177,7 @@ export const InventoryAdminComp = () => {
           process.env.REACT_APP_API_BASE_URL
         }/inventory/pagInventory?search_query=${searchCategory2}&page=${
           page2 - 1
-        }&limit=${limit2}&order=${order2 ? order2 :`id`}&sort=${
+        }&limit=${limit2}&order=${order2 ? order2 : `id`}&sort=${
           sort2 ? sort2 : "ASC"
         }&BranchId=${data4}`
       );

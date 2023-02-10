@@ -126,7 +126,7 @@ export const SalesComp = () => {
 
   useEffect(() => {
     getTransDepok();
-  }, [searchCategory2, page2, limit2, sort2]);
+  }, [searchCategory2, page2, limit2, sort2, data5]);
 
   async function fetchSort2(filter) {
     setSort2(filter);
@@ -158,10 +158,10 @@ export const SalesComp = () => {
 
   useEffect(() => {
     getTransJaksel();
-  }, [searchCategory3, page3, limit3, sort3]);
+  }, [searchCategory3, page3, limit3, sort3, data6]);
 
   async function fetchSort3(filter) {
-    setSort2(filter);
+    setSort3(filter);
   }
 
   useEffect(() => {
@@ -190,7 +190,7 @@ export const SalesComp = () => {
 
   useEffect(() => {
     getTransJaktim();
-  }, [searchCategory4, page4, limit4, sort4]);
+  }, [searchCategory4, page4, limit4, sort4, data7]);
 
   async function fetchSort4(filter) {
     setSort4(filter);
