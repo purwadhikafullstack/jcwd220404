@@ -23,8 +23,6 @@ export const SuperComp = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
 
-  const demoUrl = "https://codesandbox.io/s/simple-line-chart-kec3v";
-
   const getAll = async () => {
     try {
       const res = await Axios.get(
