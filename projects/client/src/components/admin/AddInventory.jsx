@@ -55,7 +55,6 @@ export const InventoryAdminComp = () => {
   const [searchCategory2, setSearchCategory2] = useState("");
   const [page2, setPage2] = useState(1);
   const [totalPage2, setTotalPage2] = useState(0);
-  // const [data, setData] = useState();
   const data = useSelector((state) => state.inventorySlice.value);
   const [data2, setData2] = useState();
   const [data3, setData3] = useState([]);

@@ -46,76 +46,6 @@ module.exports = {
     }
   },
 
-  paginationInventory: async (req, res) => {
-    try {
-      const { page, limit, search_query, order, sort } = req.query;
-      const inventorylist_page = parseInt(page) || 0;
-      const list_limit = parseInt(limit) || 5;
-      const search = search_query || "";
-      const offset = list_limit * inventorylist_page;
-      const orderby = order || "productName";
-      const direction = sort || "ASC";
-      const totalRows = await inventory.count({
-        where: {
-          [Op.or]: [
-            {
-              productName: {
-                [Op.like]: "%" + search + "%",
-              },
-            },
-            {
-              description: {
-                [Op.like]: "%" + search + "%",
-              },
-            },
-          ],
-        },
-      });
-      const totalPage = Math.ceil(totalRows / limit);
-      const result = await inventory.findAll({
-        // include: [
-        //   {
-        //     model: cart,
-        //     attributes: ["id"],
-        //   },
-        // ],
-        where: {
-          [Op.or]: [
-            {
-              productName: {
-                [Op.like]: "%" + search + "%",
-              },
-            },
-            {
-              description: {
-                [Op.like]: "%" + search + "%",
-              },
-            },
-          ],
-        },
-        offset: offset,
-        limit: list_limit,
-        order: [[orderby, direction]],
-        // include: [
-        //   {
-        //     model: cart,
-        //     attributes: ["id"],
-        //   },
-        // ],
-      });
-
-      res.status(200).send({
-        result: result,
-        page: inventorylist_page,
-        limit: list_limit,
-        totalRows: totalRows,
-        totalPage: totalPage,
-      });
-    } catch (error) {
-      res.status(400).send(error);
-    }
-  },
-
   paginationAdmin: async (req, res) => {
     try {
       const { page, limit, search_query, order, sort, BranchId } = req.query;
@@ -126,59 +56,36 @@ module.exports = {
       const orderby = order || "id";
       const direction = sort || "ASC";
       const totalRows = await inventory.count({
-        // include: [
-        //   {
-        //     model: product,
         where: {
           [Op.and]: [
             {
               BranchId,
-              // [Op.or]: [
-              // {
+
               id: {
                 [Op.like]: "%" + search + "%",
               },
             },
           ],
-          // },
-          // ],
         },
-        //   },
-        // ],
       });
       console.log(totalRows);
       const totalPage = Math.ceil(totalRows / limit);
       const result = await inventory.findAll({
-        // include: [
-        //   {
-        //     model: product,
         where: {
           [Op.and]: [
             {
               BranchId,
-              // where: {
-              // [Op.or]: [
-              // {
+
               id: {
                 [Op.like]: "%" + search + "%",
               },
-              // },
-              // ],
-              // },
             },
           ],
         },
-        //   },
-        // ],
+
         offset: offset,
         limit: list_limit,
         order: [[orderby, direction]],
-        // include: [
-        //   {
-        //     model: cart,
-        //     attributes: ["id"],
-        //   },
-        // ],
       });
       console.log(result);
       res.status(200).send({
@@ -486,6 +393,239 @@ module.exports = {
       res.status(200).send(invJaktim);
     } catch (err) {
       res.status(400).send(err);
+    }
+  },
+
+  paginationDepok: async (req, res) => {
+    try {
+      const { page, limit, search_query, order, sort, BranchId } = req.query;
+      const productlist_page = parseInt(page) || 0;
+      const list_limit = parseInt(limit) || 5;
+      const search = search_query || "";
+      const offset = list_limit * productlist_page;
+      const orderby = order || "id";
+      const direction = sort || "ASC";
+      const totalRows = await inventory.count({
+        // include: [
+        //   {
+        //     model: product,
+        where: {
+          [Op.and]: [
+            {
+              BranchId,
+              // [Op.or]: [
+              // {
+              id: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+          ],
+          // },
+          // ],
+        },
+        //   },
+        // ],
+      });
+      console.log(totalRows);
+      const totalPage = Math.ceil(totalRows / limit);
+      const result = await inventory.findAll({
+        // include: [
+        //   {
+        //     model: product,
+        where: {
+          [Op.and]: [
+            {
+              BranchId,
+              // where: {
+              // [Op.or]: [
+              // {
+              id: {
+                [Op.like]: "%" + search + "%",
+              },
+              // },
+              // ],
+              // },
+            },
+          ],
+        },
+        //   },
+        // ],
+        offset: offset,
+        limit: list_limit,
+        order: [[orderby, direction]],
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
+      });
+      console.log(result);
+      res.status(200).send({
+        result: result,
+        page: productlist_page,
+        limit: list_limit,
+        totalRows: totalRows,
+        totalPage: totalPage,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send(error);
+    }
+  },
+  paginationJaksel: async (req, res) => {
+    try {
+      const { page, limit, search_query, order, sort, BranchId } = req.query;
+      const productlist_page = parseInt(page) || 0;
+      const list_limit = parseInt(limit) || 5;
+      const search = search_query || "";
+      const offset = list_limit * productlist_page;
+      const orderby = order || "id";
+      const direction = sort || "ASC";
+      const totalRows = await inventory.count({
+        // include: [
+        //   {
+        //     model: product,
+        where: {
+          [Op.and]: [
+            {
+              BranchId,
+              // [Op.or]: [
+              // {
+              id: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+          ],
+          // },
+          // ],
+        },
+        //   },
+        // ],
+      });
+      console.log(totalRows);
+      const totalPage = Math.ceil(totalRows / limit);
+      const result = await inventory.findAll({
+        // include: [
+        //   {
+        //     model: product,
+        where: {
+          [Op.and]: [
+            {
+              BranchId,
+              // where: {
+              // [Op.or]: [
+              // {
+              id: {
+                [Op.like]: "%" + search + "%",
+              },
+              // },
+              // ],
+              // },
+            },
+          ],
+        },
+        //   },
+        // ],
+        offset: offset,
+        limit: list_limit,
+        order: [[orderby, direction]],
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
+      });
+      console.log(result);
+      res.status(200).send({
+        result: result,
+        page: productlist_page,
+        limit: list_limit,
+        totalRows: totalRows,
+        totalPage: totalPage,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send(error);
+    }
+  },
+
+  paginationJaktim: async (req, res) => {
+    try {
+      const { page, limit, search_query, order, sort, BranchId } = req.query;
+      const productlist_page = parseInt(page) || 0;
+      const list_limit = parseInt(limit) || 5;
+      const search = search_query || "";
+      const offset = list_limit * productlist_page;
+      const orderby = order || "id";
+      const direction = sort || "ASC";
+      const totalRows = await inventory.count({
+        // include: [
+        //   {
+        //     model: product,
+        where: {
+          [Op.and]: [
+            {
+              BranchId,
+              // [Op.or]: [
+              // {
+              id: {
+                [Op.like]: "%" + search + "%",
+              },
+            },
+          ],
+          // },
+          // ],
+        },
+        //   },
+        // ],
+      });
+      console.log(totalRows);
+      const totalPage = Math.ceil(totalRows / limit);
+      const result = await inventory.findAll({
+        // include: [
+        //   {
+        //     model: product,
+        where: {
+          [Op.and]: [
+            {
+              BranchId,
+              // where: {
+              // [Op.or]: [
+              // {
+              id: {
+                [Op.like]: "%" + search + "%",
+              },
+              // },
+              // ],
+              // },
+            },
+          ],
+        },
+        //   },
+        // ],
+        offset: offset,
+        limit: list_limit,
+        order: [[orderby, direction]],
+        // include: [
+        //   {
+        //     model: cart,
+        //     attributes: ["id"],
+        //   },
+        // ],
+      });
+      console.log(result);
+      res.status(200).send({
+        result: result,
+        page: productlist_page,
+        limit: list_limit,
+        totalRows: totalRows,
+        totalPage: totalPage,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send(error);
     }
   },
 };
