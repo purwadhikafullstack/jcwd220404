@@ -1,4 +1,13 @@
-import { Avatar, Box, Button, Center, Image, Text, Stack, Badge } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Center,
+  Image,
+  Text,
+  Stack,
+  Badge,
+} from "@chakra-ui/react";
 import Axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -132,7 +141,6 @@ export const SidebarComp = () => {
             variant="unstyled"
           >
             Discount
-            <Badge>Under Maintenance</Badge>
           </Button>
           <LogoutBranch />
         </Stack>
