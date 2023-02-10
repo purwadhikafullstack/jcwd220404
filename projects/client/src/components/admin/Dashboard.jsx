@@ -1,6 +1,7 @@
 import {
   Box,
   Flex,
+  Grid,
   SimpleGrid,
   Stat,
   StatLabel,
@@ -128,67 +129,65 @@ export const DashboardComp = () => {
     getData6();
   }, [id]);
 
- 
-
   return (
     <div>
-      <Box maxW="6xl" pl={20} mx={"auto"} pt={50}>
-        <SimpleGrid columns={{ base: 1, md: 5 }} spacing={{ base: 5, lg: 2 }}>
-          <StatsCard
-            title={"Waiting Payment"}
-            stat={data6?.length}
-            icon={<MdOutlinePayment size={"2.5em"} />}
-          />
-          <StatsCard
-            title={"Waiting Payment"}
-            stat={data?.length}
-            icon={<MdOutlinePayment size={"2.5em"} />}
-          />
-          <StatsCard
-            title={"Confirm Payment"}
-            stat={data2?.length}
-            icon={<MdOutlinePayments size={"2.5em"} />}
-          />
-          <StatsCard
-            title={"On Process"}
-            stat={data3?.length}
-            icon={<GoPackage size={"2.5em"} />}
-          />
-          <StatsCard
-            title={"Delivery"}
-            stat={data4?.length}
-            icon={<TbTruckDelivery size={"2.5em"} />}
-          />
-          <StatsCard
-            title={"Done"}
-            stat={data5?.length}
-            icon={<MdDoneOutline size={"2.5em"} />}
-          />
-        </SimpleGrid>
-
-        <ResponsiveContainer width="50%" height="50%">
-          <BarChart
-            width={5}
-            height={5}
-            data={data5}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            {/* <XAxis dataKey="Branch.branchName" />
+      <Box h={"1000px"}>
+        <Box maxW="6xl" pl={20} mx={"auto"} pt={50}>
+          <SimpleGrid columns={{ base: 1, md: 5 }} spacing={{ base: 5, lg: 2 }}>
+            <StatsCard
+              title={"Waiting Payment"}
+              stat={data6?.length}
+              icon={<MdOutlinePayment size={"2.5em"} />}
+            />
+            <StatsCard
+              title={"Waiting Payment"}
+              stat={data?.length}
+              icon={<MdOutlinePayment size={"2.5em"} />}
+            />
+            <StatsCard
+              title={"Confirm Payment"}
+              stat={data2?.length}
+              icon={<MdOutlinePayments size={"2.5em"} />}
+            />
+            <StatsCard
+              title={"On Process"}
+              stat={data3?.length}
+              icon={<GoPackage size={"2.5em"} />}
+            />
+            <StatsCard
+              title={"Delivery"}
+              stat={data4?.length}
+              icon={<TbTruckDelivery size={"2.5em"} />}
+            />
+            <StatsCard
+              title={"Done"}
+              stat={data5?.length}
+              icon={<MdDoneOutline size={"2.5em"} />}
+            />
+          </SimpleGrid>
+        </Box>
+        {/* <Box ml={"120px"} bgColor={"black"}>
+          <ResponsiveContainer width="50%" height="50%">
+            <BarChart
+              width={5}
+              height={5}
+              data={data5}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="Branch.branchName" />
               <YAxis />
               <Tooltip dataKey={"total_product"} />
               <Legend />
-              <Bar dataKey={"total_product"} fill="#8884d8" /> */}
-          </BarChart>
-        </ResponsiveContainer>
-      </Box>
-      <Box>
-        
+              <Bar dataKey={"totalQty"} fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </Box> */}
       </Box>
     </div>
   );

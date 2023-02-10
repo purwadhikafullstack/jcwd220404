@@ -205,7 +205,6 @@ module.exports = {
           AdminId: req.params.AdminId,
         },
       });
-      findBranch;
       const transactions = await transaction.findAll({
         where: {
           BranchId: findBranch?.dataValues?.id,
@@ -528,25 +527,43 @@ module.exports = {
 
   paginationTransaction: async (req, res) => {
     try {
-      const { page, limit, search_query, order, sort } = req.query;
+      const { page, limit, search_query, order, sort, AdminId } = req.query;
+      // const admin = AdminId || 0;
       const productlist_page = parseInt(page) || 0;
       const list_limit = parseInt(limit) || 5;
       const search = search_query || "";
       const offset = list_limit * productlist_page;
       const orderby = order || "id_order";
       const direction = sort || "ASC";
+      const findBranch = await branch.findOne({
+        where: {
+          AdminId,
+        },
+      });
+      console.log(findBranch);
+      const transactions = await transaction.findAll({
+        where: {
+          BranchId: findBranch?.dataValues?.id,
+        },
+      });
+      console.log(transactions);
       const totalRows = await transaction.count({
         where: {
-          [Op.or]: [
+          [Op.and]: [
             {
-              id_order: {
-                [Op.like]: "%" + search + "%",
-              },
-            },
-            {
-              status: {
-                [Op.like]: "%" + search + "%",
-              },
+              BranchId: findBranch?.dataValues?.id,
+              [Op.or]: [
+                {
+                  id_order: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+                {
+                  status: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+              ],
             },
           ],
         },
@@ -560,20 +577,25 @@ module.exports = {
         //   },
         // ],
         where: {
-          [Op.or]: [
+          [Op.and]: [
             {
-              id_order: {
-                [Op.like]: "%" + search + "%",
-              },
-            },
-            {
-              status: {
-                [Op.like]: "%" + search + "%",
-              },
+              BranchId: findBranch?.dataValues?.id,
+              [Op.or]: [
+                {
+                  id_order: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+                {
+                  status: {
+                    [Op.like]: "%" + search + "%",
+                  },
+                },
+              ],
             },
           ],
         },
-        include: [{ model: price }],
+        // include: [{ model: price }],
         offset: offset,
         limit: list_limit,
         order: [[orderby, direction]],
@@ -593,6 +615,7 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
+      console.log(error);
       res.status(400).send(error);
     }
   },

@@ -71,6 +71,7 @@ export const Category = () => {
     />
   );
   const [overlay, setOverlay] = useState(<OverlayOne />);
+  console.log(data2)
 
   const getData = async () => {
     try {
@@ -163,6 +164,8 @@ export const Category = () => {
           sort2 ? sort2 : "ASC"
         }`
       );
+      console.log(res.data)
+      console.log(res.data.result)
       dispatch(syncCategory(res.data.result));
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
