@@ -21,14 +21,27 @@ export const TransactionComp = () => {
     day: "numeric",
   });
 
+  let dateNow1 = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate() + 1
+  ).toLocaleString("en-EN", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   const getData = async () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/findById/${id}`
       );
       setData(result.data);
-      setData2(result.data[1]?.id);
-    } catch (err) {}
+      console.log(result.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -53,7 +66,11 @@ export const TransactionComp = () => {
                   <Text align={"left"} mt={"10px"}>
                     Order No. {item.id_order}
                   </Text>
-                  <Text align={"left"}>Delivered Date: {dateNow}</Text>
+                  {item.totalCharge % 10000 === 0 ? (
+                    <Text align={"left"}>Delivered Date: {dateNow}</Text>
+                  ) : (
+                    <Text align={"left"}>Delivered Date: {dateNow1}</Text>
+                  )}
                 </Box>
 
                 <HStack>
