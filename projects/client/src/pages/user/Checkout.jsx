@@ -28,21 +28,17 @@ export const Checkout = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${params.id}`
       );
       setData(result.data);
-      console.log(result.data);
+
       setData6(result.data.id);
       setData4(result.data);
-      console.log(result.data);
-      console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
 
       let totalOrder = selectedItem + selectedCharge;
       setData2(totalOrder);
-      console.log(totalOrder);
 
       const statusDone = result.data.status;
       setData5(statusDone);
-      console.log(statusDone);
     } catch (err) {
       console.log(err);
     }
@@ -51,22 +47,6 @@ export const Checkout = () => {
   useEffect(() => {
     getData();
   }, [data6]);
-
-  // const getCheckout = async () => {
-  //   try {
-  //     const res = await Axios.get(
-  //       `${process.env.REACT_APP_API_BASE_URL}/transaction/listProduct/${82}`
-  //     );
-  //     setData3(res.data);
-  //     console.log(res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getCheckout();
-  // }, [data6]);
 
   const toPayment = () => {
     window.location.replace(`/checkout/success/${params.id}`);
@@ -141,10 +121,10 @@ export const Checkout = () => {
                   Delivery Charge
                 </Text>
                 <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
-                {new Intl.NumberFormat("IND", {
-                      style: "currency",
-                      currency: "IDR",
-                    }).format(data4?.totalCharge)}
+                  {new Intl.NumberFormat("IND", {
+                    style: "currency",
+                    currency: "IDR",
+                  }).format(data4?.totalCharge)}
                 </Text>
               </Flex>
             </FormControl>
@@ -153,10 +133,10 @@ export const Checkout = () => {
                 Total
               </Text>
               <Text as={"b"} mt={"10px"} ml={"10px"} mr="10px" color="#285430">
-              {new Intl.NumberFormat("IND", {
-                      style: "currency",
-                      currency: "IDR",
-                    }).format(data2)}
+                {new Intl.NumberFormat("IND", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(data2)}
               </Text>
             </Flex>
             <Button

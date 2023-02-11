@@ -57,7 +57,6 @@ export const ProductList = () => {
         }`
       );
       dispatch(syncData(res.data.result));
-      console.log(res.data.result);
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
     } catch (err) {}
@@ -161,7 +160,6 @@ export const ProductList = () => {
         branch
       );
       dispatch(syncData(result.data));
-      console.log(result.data);
       setData2(result.data.id);
       console.log(result.data.id);
     } catch (err) {

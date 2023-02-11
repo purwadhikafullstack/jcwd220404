@@ -8,7 +8,6 @@ export const AddPicWeb = () => {
   const [image3, setImage3] = useState("");
 
   const handleChoose2 = (e) => {
-    console.log("e.target.files", e.target.files);
     setImage3(e.target.files[0]);
   };
 

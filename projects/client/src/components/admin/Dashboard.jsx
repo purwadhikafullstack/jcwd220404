@@ -1,12 +1,10 @@
 import {
   Box,
   Flex,
-  Grid,
   SimpleGrid,
   Stat,
   StatLabel,
   StatNumber,
-  Tooltip,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { MdOutlinePayment } from "react-icons/md";
@@ -34,9 +32,6 @@ export const DashboardComp = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
-  const [data7, setData7] = useState();
-  const [data8, setData8] = useState();
-  const [branch, setBranch] = useState();
   const { id } = useSelector((state) => state.adminSlice.value);
 
   const getData = async () => {

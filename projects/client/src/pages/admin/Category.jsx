@@ -21,8 +21,7 @@ export const CategoryAdminPage = () => {
           <SidebarComp />
         </GridItem>
         <GridItem>
-          <Category/>
-          {/* <AddCategory /> */}
+          <Category />
         </GridItem>
       </Grid>
     </div>

@@ -10,7 +10,6 @@ import {
   Center,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
   Text,
@@ -32,8 +31,6 @@ export const ChangeEmail = (data) => {
         `${process.env.REACT_APP_API_BASE_URL}/user/updateEmail/${id}`,
         user
       );
-      // setTimeout(() => navigate(`/verification/${result.data.token} `), 2000);
-      console.log(result);
       dispatch(logoutUser());
       localStorage.removeItem("tokenUser");
       navigate("/login-user");

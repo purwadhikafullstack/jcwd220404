@@ -24,8 +24,6 @@ export const CategoryDetail = (id) => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory/${params.id}`
       );
-      console.log(result.data[0]);
-
       dispatch(syncCategory(result.data[0]));
     } catch (err) {
       console.log(err);

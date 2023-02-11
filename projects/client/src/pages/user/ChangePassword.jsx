@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
   Text,
@@ -34,17 +33,10 @@ export const ChangePassword = (data) => {
       const res = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/user/updatePassword/${id}`,
         user
-        // {
-        //   password: document.getElementById("password").value,
-        // },
-
-        // { headers: { Authorization: `Bearer ${params.token}` } }
       );
-      console.log(res);
       Swal.fire({
         icon: "success",
         text: "Password has changed, please Login again",
-        // text: `${result.data}`,
       });
       dispatch(logoutUser());
       localStorage.removeItem("tokenUser");

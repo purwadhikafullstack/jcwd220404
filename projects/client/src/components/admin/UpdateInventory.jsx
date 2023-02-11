@@ -5,9 +5,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Select,
   Stack,
-  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
@@ -17,7 +15,6 @@ import Swal from "sweetalert2";
 
 export const UpdateInventory = ({ data }) => {
   const [branch, setBranch] = useState();
-  const [data2, setData2] = useState();
   const [data4, setData4] = useState();
   const inputProductName = useRef("");
   const inputQty = useRef(0);

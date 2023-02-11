@@ -19,7 +19,6 @@ export const ListAdmin = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/admin/findAll`
       );
-      console.log(res.data);
       setData(res.data);
     } catch (err) {
       console.log(err);

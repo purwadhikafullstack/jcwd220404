@@ -1,17 +1,13 @@
 import {
   Box,
   Center,
-  Container,
   Flex,
   Heading,
   Image,
   List,
   ListItem,
-  SimpleGrid,
   Stack,
-  StackDivider,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import Axios from "axios";
 import React from "react";
@@ -29,7 +25,6 @@ export const ProductDetail = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list/${params.id}`
       );
-      console.log(result.data);
       setData(result.data);
     } catch (err) {
       console.log(err);

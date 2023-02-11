@@ -13,7 +13,6 @@ import {
   Grid,
   GridItem,
   Tag,
-  HStack,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { LogoutUser } from "./Logout";

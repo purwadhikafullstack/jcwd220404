@@ -1,9 +1,7 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import { SidebarSuper } from "../../components/admin/SidebarSuper";
-import React, { PureComponent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -29,8 +27,6 @@ export const SuperComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/totalAll`
       );
       setData4(res.data.total);
-      console.log(res.data.total);
-      console.log(res.data.numberSalesTotal);
     } catch (err) {
       console.log(err);
     }
@@ -46,7 +42,6 @@ export const SuperComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/totalInv`
       );
       setData5(res.data.total);
-      console.log(res.data.total);
     } catch (err) {
       console.log(err);
     }

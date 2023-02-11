@@ -33,7 +33,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { UpdateInventory } from "./UpdateInventory";
 import { BsFilterLeft } from "react-icons/bs";
@@ -94,7 +93,6 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -181,9 +179,7 @@ export const InventoryAdminComp = () => {
           sort2 ? sort2 : "ASC"
         }&BranchId=${data4}`
       );
-      // setData(res.data)
       dispatch(syncInventory(res.data.result));
-      console.log(res.data.result);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {

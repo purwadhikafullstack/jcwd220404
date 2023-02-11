@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import {
-  Badge,
   Box,
   Button,
   Card,
@@ -38,7 +37,6 @@ export const CartComp = () => {
   const [data7, setData7] = useState(0);
   const [data8, setData8] = useState();
   const [data9, setData9] = useState();
-  const [data10, setData10] = useState();
   const data = useSelector((state) => state.cartSlice.value);
   const { id } = useSelector((state) => state.userSlice.value);
   const inputRef = useRef("");
@@ -184,7 +182,6 @@ export const CartComp = () => {
         }
       );
       setData4(res.data?.rajaongkir.results[0]?.costs);
-      console.log(res.data);
       const selectedCharge =
         res.data?.rajaongkir.results[0]?.costs[data7]?.cost[0]?.value;
 
@@ -256,12 +253,9 @@ export const CartComp = () => {
 
   const onRefresh = () => {
     try {
-
       setTimeout(() => window.location.replace("/account"), 2000);
-    } catch (err) {
-
-    }
-  }
+    } catch (err) {}
+  };
 
   return (
     <>

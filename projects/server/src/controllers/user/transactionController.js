@@ -508,14 +508,13 @@ module.exports = {
         group: ["BranchId"],
         include: [{ model: branch }],
       });
-      console.log(total);
       const salesTotal = total.map((item) => item.dataValues.total_order);
 
       let numberSalesTotal = [];
       length = salesTotal.length;
       for (let i = 0; i < length; i++)
         numberSalesTotal.push(parseInt(salesTotal[i]));
-      console.log(numberSalesTotal);
+
       res.status(200).send({
         total,
         numberSalesTotal,
@@ -539,13 +538,13 @@ module.exports = {
           AdminId,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
           BranchId: findBranch?.dataValues?.id,
         },
       });
-      console.log(transactions);
+
       const totalRows = await transaction.count({
         where: {
           [Op.and]: [
@@ -602,7 +601,6 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
-      console.log(error);
       res.status(400).send(error);
     }
   },
@@ -621,13 +619,13 @@ module.exports = {
           id: 1,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
           BranchId: findBranch?.dataValues?.id,
         },
       });
-      console.log(transactions);
+
       const totalRows = await transaction.count({
         where: {
           [Op.and]: [
@@ -684,7 +682,6 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
-      console.log(error);
       res.status(400).send(error);
     }
   },
@@ -703,13 +700,13 @@ module.exports = {
           id: 3,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
           BranchId: findBranch?.dataValues?.id,
         },
       });
-      console.log(transactions);
+
       const totalRows = await transaction.count({
         where: {
           [Op.and]: [
@@ -766,10 +763,10 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
-      console.log(error);
       res.status(400).send(error);
     }
   },
+
   paginationTransJaksel: async (req, res) => {
     try {
       const { page, limit, search_query, order, sort, BranchId } = req.query;
@@ -784,13 +781,13 @@ module.exports = {
           id: 2,
         },
       });
-      console.log(findBranch);
+
       const transactions = await transaction.findAll({
         where: {
           BranchId: findBranch?.dataValues?.id,
         },
       });
-      console.log(transactions);
+
       const totalRows = await transaction.count({
         where: {
           [Op.and]: [
@@ -847,7 +844,6 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
-      console.log(error);
       res.status(400).send(error);
     }
   },

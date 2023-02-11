@@ -69,7 +69,7 @@ module.exports = {
           ],
         },
       });
-      console.log(totalRows);
+
       const totalPage = Math.ceil(totalRows / limit);
       const result = await inventory.findAll({
         where: {
@@ -88,7 +88,7 @@ module.exports = {
         limit: list_limit,
         order: [[orderby, direction]],
       });
-      console.log(result);
+
       res.status(200).send({
         result: result,
         page: productlist_page,
@@ -97,7 +97,6 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
-      console.log(error);
       res.status(400).send(error);
     }
   },
@@ -203,14 +202,7 @@ module.exports = {
         raw: true,
       });
 
-      // const statusOK = stock.map(
-      //   (item) =>
-      //     item["Transaction.status"] === "On Process" || "On Delivery" || "Done"
-      // );
-      // console.log(statusOK);
-
       const qtyOne = total.map((item) => item.stockQty);
-
       const qtyTwo = stock.map((item) => item.total_qty);
 
       let numberQtyTwo = [];
@@ -291,7 +283,6 @@ module.exports = {
       const statusOK = stock.map(
         (item) => item["Transaction.status"] === "On Process"
       );
-      console.log(statusOK);
 
       const qtyOne = total.map((item) => item.stockQty);
 
@@ -321,18 +312,11 @@ module.exports = {
         group: ["BranchId"],
         include: [{ model: branch }],
       });
-      console.log(total);
-      const salesInv = total.map((item) => item.dataValues.total_product);
-      console.log(salesInv);
 
-      // let numberSalesTotal = [];
-      // length = salesTotal.length;
-      // for (let i = 0; i < length; i++)
-      //   numberSalesTotal.push(parseInt(salesTotal[i]));
-      // console.log(numberSalesTotal);
+      const salesInv = total.map((item) => item.dataValues.total_product);
+
       res.status(200).send({
         total,
-        // numberSalesTotal,
       });
     } catch (err) {
       res.status(400).send(err);
@@ -354,7 +338,6 @@ module.exports = {
       });
       res.status(200).send(result);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -428,7 +411,6 @@ module.exports = {
         //   },
         // ],
       });
-      console.log(totalRows);
       const totalPage = Math.ceil(totalRows / limit);
       const result = await inventory.findAll({
         // include: [
@@ -462,7 +444,6 @@ module.exports = {
         //   },
         // ],
       });
-      console.log(result);
       res.status(200).send({
         result: result,
         page: productlist_page,
@@ -471,10 +452,10 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
-      console.log(error);
       res.status(400).send(error);
     }
   },
+
   paginationJaksel: async (req, res) => {
     try {
       const { page, limit, search_query, order, sort, BranchId } = req.query;
@@ -505,7 +486,6 @@ module.exports = {
         //   },
         // ],
       });
-      console.log(totalRows);
       const totalPage = Math.ceil(totalRows / limit);
       const result = await inventory.findAll({
         // include: [
@@ -539,7 +519,6 @@ module.exports = {
         //   },
         // ],
       });
-      console.log(result);
       res.status(200).send({
         result: result,
         page: productlist_page,
@@ -548,7 +527,6 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
-      console.log(error);
       res.status(400).send(error);
     }
   },
@@ -583,7 +561,6 @@ module.exports = {
         //   },
         // ],
       });
-      console.log(totalRows);
       const totalPage = Math.ceil(totalRows / limit);
       const result = await inventory.findAll({
         // include: [
@@ -617,7 +594,6 @@ module.exports = {
         //   },
         // ],
       });
-      console.log(result);
       res.status(200).send({
         result: result,
         page: productlist_page,
@@ -626,7 +602,6 @@ module.exports = {
         totalPage: totalPage,
       });
     } catch (error) {
-      console.log(error);
       res.status(400).send(error);
     }
   },

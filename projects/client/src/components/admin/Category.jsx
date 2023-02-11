@@ -71,14 +71,12 @@ export const Category = () => {
     />
   );
   const [overlay, setOverlay] = useState(<OverlayOne />);
-  console.log(data2)
 
   const getData = async () => {
     try {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
-
       setProduct(res.data);
     } catch (err) {
       console.log(err);
@@ -164,8 +162,6 @@ export const Category = () => {
           sort2 ? sort2 : "ASC"
         }`
       );
-      console.log(res.data)
-      console.log(res.data.result)
       dispatch(syncCategory(res.data.result));
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);

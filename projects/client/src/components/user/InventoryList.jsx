@@ -35,7 +35,7 @@ export const InventoryList = () => {
   const [state4, setState4] = useState();
   const [state5, setState5] = useState();
   const dispatch = useDispatch();
-  const { id, cart } = useSelector((state) => state.userSlice.value);
+  const { id } = useSelector((state) => state.userSlice.value);
   const data = useSelector((state) => state.inventorySlice.value);
 
   const getData2 = async () => {
@@ -91,7 +91,6 @@ export const InventoryList = () => {
       getProduct();
       Swal.fire({
         icon: "success",
-        // title: "Good Job",
         text: `Add to Cart Success`,
         timer: 2000,
         customClass: {
@@ -102,7 +101,6 @@ export const InventoryList = () => {
       console.log(err);
       Swal.fire({
         icon: "error",
-        // title: "Oops...",
         text: `Add Cart Failed`,
         customClass: {
           container: "my-swal",
@@ -398,34 +396,6 @@ export const InventoryList = () => {
                         </Text>
                       </CardBody>
                       <CardFooter>
-                        {/* <Box> */}
-                        {/* {item.Carts.find((item2) => item2["UserNIM"] === NIM) ? (
-                    <Button
-                      disabled
-                      w="full"
-                      borderRadius="9px"
-                      size="sm"
-                      my="5px"
-                    >
-                      <Icon boxSize="4" as={IoCartOutline} mr="5px" x />
-                      Keranjang
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={() => onAddCart(item.id)}
-                      w="full"
-                      borderColor="pink.400"
-                      borderRadius="9px"
-                      borderWidth="2px"
-                      size="sm"
-                      my="5px"
-                      _hover={{ bg: "pink", color: "white" }}
-                    >
-                      <Icon boxSize="4" as={IoCartOutline} mr="5px" x />
-                      Keranjang
-                    </Button>
-                  )} */}
-
                         <Button
                           onClick={() =>
                             onAddCart(item.Product.id, item.Branch.id)
@@ -441,7 +411,6 @@ export const InventoryList = () => {
                           <Icon as={FaCartArrowDown} w="5" h="5" m="2" />
                           to Cart
                         </Button>
-                        {/* </Box> */}
                       </CardFooter>
                     </Card>
                   </div>

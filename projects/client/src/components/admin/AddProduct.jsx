@@ -20,7 +20,7 @@ export const AddProduct = () => {
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
   const [edit2, setEdit2] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState()
+  const [selectedCategory, setSelectedCategory] = useState();
   const inputProductName = useRef("");
   const inputDescription = useRef("");
   const inputCategory = useRef(0);
@@ -41,7 +41,6 @@ export const AddProduct = () => {
         text: "Success",
       });
       setTimeout(() => window.location.replace("/admin/product"), 2000);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -53,9 +52,7 @@ export const AddProduct = () => {
         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
       );
       setData2(res.data);
-      console.log(res.data)
       const categories = res.data.map((item) => item.categoryName);
-      console.log(categories)
       setData3(categories);
     } catch (err) {
       console.log(err);
@@ -76,10 +73,6 @@ export const AddProduct = () => {
     const { value } = target;
     selectedCategory(value);
   };
-
-  // useEffect(() => {
-  //   getBranch();
-  // }, [selectedBranch]);
 
   useEffect(() => {
     getCategory();
@@ -161,9 +154,7 @@ export const AddProduct = () => {
                 value={categoryOptions.value}
                 ref={inputCategory}
                 // onChange={categoryHandler}
-              >
-                
-              </Select>
+              ></Select>
             </FormControl>
             <FormControl>
               <FormLabel mt={"10px"} ml={"10px"} color={"#285430"}>

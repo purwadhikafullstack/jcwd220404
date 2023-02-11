@@ -56,7 +56,6 @@ export const ListProduct = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
-      console.log(res.data);
       setProduct(res.data);
     } catch (err) {
       console.log(err);
@@ -72,7 +71,6 @@ export const ListProduct = () => {
       const res = await Axios.delete(
         `${process.env.REACT_APP_API_BASE_URL}/product/remove/${id}`
       );
-      console.log(res);
       getData();
     } catch (err) {
       console.log(err);
@@ -80,15 +78,12 @@ export const ListProduct = () => {
   };
 
   const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
     setImage(e.target.files[0]);
   };
 
   const handleUpload = async (id) => {
     const data = new FormData();
-    console.log(data);
     data.append("file", image);
-    console.log(data.get("file"));
 
     const resultImage = await Axios.post(
       `${process.env.REACT_APP_API_BASE_URL}/product/single-uploaded/${id}`,
@@ -99,11 +94,8 @@ export const ListProduct = () => {
         },
       }
     );
-    console.log(resultImage.data);
     setProfile(resultImage.data.picture);
     setImage({ images: "" });
-    console.log(image);
-    console.log(profile);
     window.location.replace("/admin");
   };
 
@@ -119,7 +111,6 @@ export const ListProduct = () => {
         }`
       );
       dispatch(syncData(res.data.result));
-      console.log(res.data.result);
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
     } catch (err) {
@@ -304,7 +295,6 @@ export const ListProduct = () => {
                         <Button
                           onClick={() => {
                             setEdit(item);
-                            // console.log("test2")
                           }}
                         >
                           <EditIcon color={"#285430"} />

@@ -26,19 +26,14 @@ export const CancelButton = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${params.id}`
       );
       setData(result.data);
-      console.log(result.data);
       setData6(result.data.id);
-      console.log(result.data.id);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
 
       let totalOrder = selectedItem + selectedCharge;
       setData2(totalOrder);
-      console.log(totalOrder);
-
       const statusDone = result.data.status;
       setData5(statusDone);
-      console.log(statusDone);
     } catch (err) {
       console.log(err);
     }

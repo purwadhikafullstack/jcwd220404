@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import Axios from "axios";
-import Select from "react-select";
 import {
   Button,
   FormControl,
@@ -17,10 +16,7 @@ import {
 } from "@chakra-ui/react";
 
 export const AddDiscount = () => {
-  const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
-  const [edit2, setEdit2] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState();
   const inputProductName = useRef("");
   const inputDescription = useRef("");
   const inputCategory = useRef(0);
@@ -41,7 +37,6 @@ export const AddDiscount = () => {
         text: "Success",
       });
       setTimeout(() => window.location.replace("/admin/product"), 2000);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -52,7 +47,6 @@ export const AddDiscount = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
-      console.log(res.data)
       setData3(res.data);
     } catch (err) {
       console.log(err);
@@ -62,57 +56,6 @@ export const AddDiscount = () => {
   useEffect(() => {
     getProduct();
   }, []);
-
-  //   const getCategory = async () => {
-  //     try {
-  //       const res = await Axios.get(
-  //         `${process.env.REACT_APP_API_BASE_URL}/product/listCategory`
-  //       );
-  //       setData2(res.data);
-  //       console.log(res.data)
-  //       const categories = res.data.map((item) => item.categoryName);
-  //       console.log(categories)
-  //       setData3(categories);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   const renderCategory = () => {
-  //     return data2.map((val) => {
-  //       return (
-  //         <option value={val.id} key={val.id.toString()}>
-  //           {val.categoryName}
-  //         </option>
-  //       );
-  //     });
-  //   };
-
-  //   const categoryHandler = ({ target }) => {
-  //     const { value } = target;
-  //     selectedCategory(value);
-  //   };
-
-  // useEffect(() => {
-  //   getBranch();
-  // }, [selectedBranch]);
-
-  //   useEffect(() => {
-  //     getCategory();
-  //   }, [edit2, selectedCategory]);
-
-  //   const categoryOptions = [
-  //     { value: 1, label: "Sayuran" },
-  //     { value: 2, label: "Seafood" },
-  //     { value: 3, label: "Buah-Buahan" },
-  //     { value: 4, label: "Beli 1 Gratis 1" },
-  //     { value: 5, label: "Daging" },
-  //     { value: 6, label: "Protein" },
-  //     { value: 8, label: "Unggas" },
-  //     { value: 9, label: "Ibu dan Anak" },
-  //     { value: 10, label: "Makanan Jadi" },
-  //     { value: 11, label: "Paket Masak" },
-  //   ];
 
   return (
     <>
