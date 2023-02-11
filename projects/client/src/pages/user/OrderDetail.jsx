@@ -58,6 +58,17 @@ export const OrderDetail = () => {
     day: "numeric",
   });
 
+  let dateDeliv2 = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate() + 1
+  ).toLocaleString("en-EN", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   let dateTimeout = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
@@ -308,7 +319,13 @@ export const OrderDetail = () => {
                 </FormControl>
                 <FormControl pl="10px" color={"#285430"}>
                   <FormLabel pt={"10px"}>Delivery Date</FormLabel>
-                  <Text align={"left"}> {dateDeliv}</Text>
+                  <Box>
+                  {data3?.totalCharge % 10000 === 0 ? (
+                    <Text align={"left"}>Delivered Date: {dateDeliv}</Text>
+                  ) : (
+                    <Text align={"left"}>Delivered Date: {dateDeliv2}</Text>
+                  )}
+                </Box>
                 </FormControl>
               </Box>
               <FormControl>
