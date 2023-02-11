@@ -18,12 +18,6 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import {
-  CiBag1,
-  CiCreditCard1,
-  CiDeliveryTruck,
-  CiInboxIn,
-} from "react-icons/ci";
 import { useSelector } from "react-redux";
 import { CompleteButton } from "../../components/user/CompleteButton";
 import { CancelButton } from "../../components/user/CancelButton";
@@ -64,13 +58,37 @@ export const OrderDetail = () => {
     day: "numeric",
   });
 
+  let dateTimeout = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate(),
+    new Date().getHours(),
+    new Date().getMinutes() + 30
+  ).toLocaleString("en-EN", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+  // let dateOutput = document.getElementById("dateOutput");
+  // let MySQLDate = "2022-07-08 11:55:17";
+  // let date = MySQLDate.replace(/[-]/g, "/");
+  // date = Date.parse(date);
+  // let jsDate = new Date(date);
+  // dateOutput.innerHTML = jsDate;
+
   const getData = async () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/list/${params.id}`
       );
       setData(result.data);
+      console.log(result.data);
       setData6(result.data.id);
+      setData7(result.data.createdAt);
       const selectedItem = result.data.totalOrder;
       const selectedCharge = result.data.totalCharge;
 
@@ -173,14 +191,7 @@ export const OrderDetail = () => {
             mt="80px"
           >
             <Stack>
-              <Flex justify={"center"}>
-                <HStack mt={"10px"}>
-                  <CiCreditCard1 color="#285430"></CiCreditCard1>
-                  <CiBag1 color="#285430" />
-                  <CiDeliveryTruck color="#285430" />
-                  <CiInboxIn color="#285430" />
-                </HStack>
-              </Flex>
+              <Flex justify={"center"}></Flex>
               <Center>
                 <Box
                   w={"370px"}
@@ -191,7 +202,7 @@ export const OrderDetail = () => {
                   <Text pl={"10px"} color="#285430">
                     Please proceed Payment before
                   </Text>
-                  <Text>{dateNow}</Text>
+                  <Text>{dateTimeout}</Text>
                 </Box>
               </Center>
               <Box>
@@ -211,7 +222,7 @@ export const OrderDetail = () => {
                     </Flex>
                     <Flex justify={"space-between"}>
                       <Text>Transaction Date</Text>
-                      <Text>{dateNow} </Text>
+                      <Text>{data?.createdAt} </Text>
                     </Flex>
                     <Flex justify={"space-between"}>
                       <Text pl={"10px"} color="#285430">
@@ -242,7 +253,7 @@ export const OrderDetail = () => {
                         <Flex mb={"8px"} justify={"space-between"}>
                           <Grid
                             templateAreas={`"nav main""nav footer"`}
-                            gridTemplateRows={"50px 1fr 30px"}
+                            gridTemplateRows={"20px 1fr 30px"}
                             gridTemplateColumns={"70px 1fr"}
                             h="50px"
                             gap="1"
@@ -262,11 +273,14 @@ export const OrderDetail = () => {
                               {item.Product?.productName}
                             </GridItem>
                             <GridItem fontSize={"small"} pl="1" area={"footer"}>
-                              Rp{item.totalCheckout}
+                              {new Intl.NumberFormat("IND", {
+                                style: "currency",
+                                currency: "IDR",
+                              }).format(item.totalCheckout)}{" "}
                             </GridItem>
-                            <GridItem fontSize={"small"} pl="1" area={"footer"}>
-                              Rp{item.totalCheckout}
-                            </GridItem>
+                            {/* <GridItem fontSize={"small"} pl="1" area={"footer"}>
+                              Rp{item.totalCharge}
+                            </GridItem> */}
                           </Grid>
                           <Text>{item.totalWeight} g</Text>
                           <Text>{item.qty}x</Text>
@@ -297,29 +311,32 @@ export const OrderDetail = () => {
                   <Text align={"left"}> {dateDeliv}</Text>
                 </FormControl>
               </Box>
-              <Box>
-                <ButtonGroup fontSize={"10px"} size="10px">
-                  <form encType="multipart/form-data">
-                    <input
-                      type={"file"}
-                      accept="image/*"
-                      name="file"
-                      onChange={(e) => handleChoose(e)}
-                    ></input>
-                  </form>
-                  <Button
-                    bgColor={"#A4BE7B"}
-                    borderColor="#285430"
-                    border="1px"
-                    color="gray.800"
-                    onClick={() => handleUpload(data6)}
-                    w="50px"
-                    fontSize={"10px"}
-                  >
-                    Upload
-                  </Button>
-                </ButtonGroup>
-              </Box>
+              <FormControl>
+                <FormLabel>Upload Payment Proof</FormLabel>
+                <Box>
+                  <ButtonGroup fontSize={"10px"} size="10px">
+                    <form encType="multipart/form-data">
+                      <input
+                        type={"file"}
+                        accept="image/*"
+                        name="file"
+                        onChange={(e) => handleChoose(e)}
+                      ></input>
+                    </form>
+                    <Button
+                      bgColor={"#A4BE7B"}
+                      borderColor="#285430"
+                      border="1px"
+                      color="gray.800"
+                      onClick={() => handleUpload(data6)}
+                      w="50px"
+                      fontSize={"10px"}
+                    >
+                      Upload
+                    </Button>
+                  </ButtonGroup>
+                </Box>
+              </FormControl>
               <Box>{data5 === "Waiting Payment" ? <CancelButton /> : ""}</Box>
               <Box>{data5 === "On Delivery" ? <CompleteButton /> : ""}</Box>
               <Box>{data5 === "Done" || "Order Cancelled" ? "" : ""}</Box>

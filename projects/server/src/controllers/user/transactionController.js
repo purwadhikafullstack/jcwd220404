@@ -124,11 +124,18 @@ module.exports = {
 
   findById: async (req, res) => {
     try {
-      const transactions = await transaction.findOne({
-        where: {
-          id: req.params.id,
-        },
-      });
+      const dateCreate = moment().format("YYYY-MM-DD HH:mm:ss");
+      console.log(dateCreate);
+      const transactions = await transaction.findOne(
+        // {
+        // },
+        {
+          where: {
+            id: req.params.id,
+          },
+          createdAt: dateCreate,
+        }
+      );
       res.status(200).send(transactions);
     } catch (err) {
       res.status(400).send(err);
