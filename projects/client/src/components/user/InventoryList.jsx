@@ -24,7 +24,6 @@ import { cartSync } from "../../redux/cartSlice";
 import { addCart } from "../../redux/userSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Link } from "react-router-dom";
 import { FaCartArrowDown } from "react-icons/fa";
 
@@ -34,15 +33,20 @@ export const InventoryList = () => {
   const [state3, setState3] = useState();
   const [state4, setState4] = useState();
   const [state5, setState5] = useState();
+  const [state6, setState6] = useState();
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.userSlice.value);
   const data = useSelector((state) => state.inventorySlice.value);
+  console.log(data);
 
   const getData2 = async () => {
     try {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/address/findDefault/${id}`
       );
+      
+      console.log(result.data.defaultAdd["User.id"]);
+      setState6(result.data.defaultAdd["User.id"]);
       setState2(result.data.defaultAdd);
       setState3(result.data.defaultAdd["Branch.id"]);
     } catch (err) {
@@ -59,7 +63,10 @@ export const InventoryList = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findByBranch/${Number(
           state2["Branch.longitude"]
-        )}/${Number(state2.longitude)}`
+        )}/${Number(state2.longitude)}`,
+        // {
+        //   UserId: id,
+        // }
       );
       dispatch(syncInventory(res.data));
       setState5(res.data?.Product?.Price?.productPrice);
@@ -70,7 +77,7 @@ export const InventoryList = () => {
 
   useEffect(() => {
     getProduct();
-  }, [state2]);
+  }, [state2, id]);
 
   const onAddCart = async (ProductId, BranchId) => {
     try {
@@ -83,6 +90,7 @@ export const InventoryList = () => {
         }
       );
       setState(result.data);
+      console.log(result.data);
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/cart/findBy/${id}`
       );
@@ -222,7 +230,7 @@ export const InventoryList = () => {
                     </FormHelperText> */}
             </FormControl>
             <Center>
-              <FormControl w="" m={1}>
+              <FormControl m={1}>
                 {/* <Select
                         color={"#285430"}
                         borderColor="#285430"
@@ -234,7 +242,7 @@ export const InventoryList = () => {
                         <option value="DESC">Z-A</option>
                       </Select> */}
               </FormControl>
-              <FormControl w="" m={1}>
+              <FormControl m={1}>
                 {/* <Select
                         color={"#285430"}
                         borderColor="#285430"
@@ -396,21 +404,36 @@ export const InventoryList = () => {
                         </Text>
                       </CardBody>
                       <CardFooter>
-                        <Button
-                          onClick={() =>
-                            onAddCart(item.Product.id, item.Branch.id)
-                          }
-                          bgColor={"#A4BE7B"}
-                          borderColor="#285430"
-                          border="2px"
-                          fontSize="14px"
-                          color="gray.800"
-                          width={"180px"}
-                          justifyContent="center"
-                        >
-                          <Icon as={FaCartArrowDown} w="5" h="5" m="2" />
-                          to Cart
-                        </Button>
+                        {item.Branch.Product_Carts.find(
+                          (item2) => item2.UserId === id
+                        ) ? (
+                          <Button
+                            onClick={() =>
+                              onAddCart(item.Product.id, item.Branch.id)
+                            }
+                            bgColor={"#A4BE7B"}
+                            borderColor="#285430"
+                            border="2px"
+                            fontSize="14px"
+                            color="gray.800"
+                            width={"180px"}
+                            justifyContent="center"
+                          >
+                            <Icon as={FaCartArrowDown} w="5" h="5" m="2" />
+                            to Cart
+                          </Button>
+                        ) : (
+                          <Button
+                            disabled
+                            w="full"
+                            borderRadius="9px"
+                            size="sm"
+                            my="5px"
+                          >
+                            <Icon boxSize="4" as={FaCartArrowDown} mr="5px" x />
+                            to Cart
+                          </Button>
+                        )}
                       </CardFooter>
                     </Card>
                   </div>

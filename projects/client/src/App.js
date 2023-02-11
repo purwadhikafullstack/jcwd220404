@@ -44,7 +44,7 @@ import { syncData } from "./redux/branchSlice";
 import { InventorySuperPage } from "./pages/admin/InventorySuper";
 
 function App() {
-  const [data2, setData2] = useState() 
+  const [data2, setData2] = useState();
   const dispatch = useDispatch();
   const tokenUser = localStorage.getItem("tokenUser");
   const tokenSuper = localStorage.getItem("tokenSuper");
@@ -125,15 +125,15 @@ function App() {
   };
 
   useEffect(() => {
-    tokenUser ? keepLoginUser() : console.log("Check Database");
+    tokenUser ? keepLoginUser() : console.log("Logged in to OnlyFresh");
   }, []);
 
   useEffect(() => {
-    tokenSuper ? keepLoginSuper() : console.log("Check Database");
+    tokenSuper ? keepLoginSuper() : console.log("Logged in to Admin Page");
   }, []);
 
   useEffect(() => {
-    tokenBranch ? keepLoginBranch() : console.log("Check Database");
+    tokenBranch ? keepLoginBranch() : console.log("Logged in to Admin Page");
   }, []);
 
   const [location, setLocation] = useState({
@@ -170,7 +170,6 @@ function App() {
     }
     navigator.geolocation.getCurrentPosition(onSuccess);
   }, []);
-  
 
   const getInv = async () => {
     try {
@@ -183,11 +182,9 @@ function App() {
         branch
       );
       dispatch(syncData(result.data));
-      console.log(result.data);
       setData2(result.data.id);
-      console.log(result.data.id);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
@@ -201,7 +198,6 @@ function App() {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/byBranchId/${data2}`
       );
       dispatch(syncInventory(res.data));
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -210,23 +206,6 @@ function App() {
   useEffect(() => {
     getProduct();
   }, []);
-
-  // const getBranch = async () => {
-  //   try {
-  //     const res = await Axios.get(
-  //       `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
-  //     );
-  //     // setBranch(res.data);
-  //     console.log(res.data)
-  //     setData4(res.data.id);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getBranch();
-  // }, [id]);
 
   return (
     <div className="App">
@@ -293,7 +272,10 @@ function App() {
           element={<BranchAdminMgt />}
         ></Route>
         <Route path="/admin/sales" element={<Sales />}></Route>
-        <Route path="/admin/inventory-super" element={<InventorySuperPage />}></Route>
+        <Route
+          path="/admin/inventory-super"
+          element={<InventorySuperPage />}
+        ></Route>
       </Routes>
     </div>
   );

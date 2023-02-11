@@ -15,82 +15,8 @@ import {
 } from "recharts";
 
 export const DashboardPage = () => {
-  const [data7, setData7] = useState();
-  const [data8, setData8] = useState();
-  const [branch, setBranch] = useState();
-  const { id } = useSelector((state) => state.adminSlice.value);
-
-  const getBranch = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
-      );
-      setBranch(res.data);
-
-      setData7(res.data.id);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getBranch();
-  }, [id]);
-
-  const findStock = async () => {
-    try {
-      const stock = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/inventory/find/${data7}`
-      );
-      
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    findStock();
-  }, [data7]);
-
-  const getInv = async () => {
-    try {
-      const res = await Axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data7}`
-      );
-      setData8(res.data);
-      
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getInv();
-  }, [data7]);
-
   return (
     <div>
-      <Box bgColor={"black"} mt={"100px"}>
-        <ResponsiveContainer width="50%" height="50%">
-          <BarChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Bar dataKey="pv" fill="black" />
-            <Bar dataKey="uv" fill="black" />
-          </BarChart>
-        </ResponsiveContainer>
-      </Box>
       <Grid
         templateAreas={`"header header"
                   "nav main"
