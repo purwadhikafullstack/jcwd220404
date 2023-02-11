@@ -12,7 +12,7 @@ import Axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { LogoutBranch } from "./LogoutBranch";
 

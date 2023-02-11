@@ -34,7 +34,6 @@ export const ChangePassword = (data) => {
         `${process.env.REACT_APP_API_BASE_URL}/user/updatePassword/${id}`,
         user
       );
-      console.log(res);
       Swal.fire({
         icon: "success",
         text: "Password Has Changed, Please Login Again",

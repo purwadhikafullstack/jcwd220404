@@ -33,7 +33,7 @@ export const InventoryList = () => {
   const [state4, setState4] = useState();
   const [state5, setState5] = useState();
   const dispatch = useDispatch();
-  const { id, cart } = useSelector((state) => state.userSlice.value);
+  const { id } = useSelector((state) => state.userSlice.value);
   const data = useSelector((state) => state.inventorySlice.value);
 
   const getData2 = async () => {

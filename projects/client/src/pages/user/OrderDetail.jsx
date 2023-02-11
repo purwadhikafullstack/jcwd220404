@@ -79,7 +79,9 @@ export const OrderDetail = () => {
 
       const statusDone = result.data.status;
       setData5(statusDone);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -91,9 +93,10 @@ export const OrderDetail = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listProduct/${data6}`
       );
-
       setData3(res.data);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

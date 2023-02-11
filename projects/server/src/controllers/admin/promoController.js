@@ -19,14 +19,6 @@ module.exports = {
     }
   },
 
-  createVoucherOrder: async (req, res) => {
-    try {
-      const {} = req.body;
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  },
-
   findDiscount: async (req, res) => {
     try {
       const result = await discount.findOne({});
@@ -46,8 +38,6 @@ module.exports = {
       const data = await price.update(
         {
           discPrice: productPrice - result.nominal,
-          // totalCheckout: qty * response["Product.Price.productPrice"],
-          // totalWeight: qty * response["Product.weight"],
         },
         {
           where: { id: req.params.id },

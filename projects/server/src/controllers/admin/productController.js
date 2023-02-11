@@ -203,7 +203,7 @@ module.exports = {
   uploadFile: async (req, res) => {
     try {
       let fileUploaded = req.file;
-      console.log("controller", fileUploaded);
+
       await product.update(
         {
           picture: `upload/${fileUploaded.filename}`,
@@ -526,7 +526,6 @@ module.exports = {
       const list = await discount.findAll({});
       res.status(200).send(list);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

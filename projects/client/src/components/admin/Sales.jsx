@@ -22,10 +22,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { transSync } from "../../redux/transactionSlice";
 
 export const SalesComp = () => {
-  // const [data, setData] = useState();
-  const [data2, setData2] = useState();
-  const [data3, setData3] = useState();
-  const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
   const [data7, setData7] = useState();
@@ -61,7 +57,6 @@ export const SalesComp = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/salesDepok`
       );
-      console.log(result.data[0]?.BranchId);
       setData5(result.data[0]?.BranchId);
     } catch (err) {
       console.log(err);
@@ -116,7 +111,6 @@ export const SalesComp = () => {
         }&BranchId=${data5}`
       );
       dispatch(transSync(res.data.result));
-      console.log(res.data.result);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {
@@ -148,7 +142,6 @@ export const SalesComp = () => {
         }&BranchId=${data6}`
       );
       dispatch(transSync(res.data.result));
-      console.log(res.data.result);
       setTotalPage3(Math.ceil(res.data.totalRows / res.data.limit));
       setState3(res.data);
     } catch (err) {
@@ -180,7 +173,6 @@ export const SalesComp = () => {
         }&BranchId=${data7}`
       );
       dispatch(transSync(res.data.result));
-      console.log(res.data.result);
       setTotalPage4(Math.ceil(res.data.totalRows / res.data.limit));
       setState4(res.data);
     } catch (err) {

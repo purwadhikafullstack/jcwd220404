@@ -93,8 +93,9 @@ export const InventoryAdminComp = () => {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data4}`
       );
       setData2(res.data);
-      console.log(res.data);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -174,9 +175,7 @@ export const InventoryAdminComp = () => {
           sort2 ? sort2 : "ASC"
         }&BranchId=${data4}`
       );
-      // setData(res.data)
       dispatch(syncInventory(res.data.result));
-      console.log(res.data.result);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {

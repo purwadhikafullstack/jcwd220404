@@ -21,7 +21,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { syncInventory } from "../../redux/inventorySlice";
 
 export const InventorySuper = () => {
-  const [data2, setData2] = useState();
   const [data3, setData3] = useState();
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
@@ -60,7 +59,6 @@ export const InventorySuper = () => {
         `${process.env.REACT_APP_API_BASE_URL}/inventory/invDepok`
       );
       setData5(result.data[0]?.BranchId);
-      console.log(result.data[0]?.BranchId);
     } catch (err) {
       console.log(err);
     }
@@ -114,8 +112,7 @@ export const InventorySuper = () => {
         }&BranchId=${data5}`
       );
       dispatch(syncInventory(res.data.result));
-      console.log(res.data.result);
-      getData()
+      getData();
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {
@@ -147,7 +144,6 @@ export const InventorySuper = () => {
         }&BranchId=${data6}`
       );
       dispatch(syncInventory(res.data.result));
-      console.log(res.data.result);
       setTotalPage3(Math.ceil(res.data.totalRows / res.data.limit));
       setState3(res.data);
     } catch (err) {
@@ -179,7 +175,6 @@ export const InventorySuper = () => {
         }&BranchId=${data7}`
       );
       dispatch(syncInventory(res.data.result));
-      console.log(res.data.result);
       setTotalPage4(Math.ceil(res.data.totalRows / res.data.limit));
       setState4(res.data);
     } catch (err) {
@@ -368,7 +363,7 @@ export const InventorySuper = () => {
                     setPage3(page3 === 1 ? 1 : page3 - 1);
                   }
                   submit();
-                  var pageNow = page3- 1;
+                  var pageNow = page3 - 1;
                   pageNow = pageNow <= 0 ? 1 : pageNow;
                   document.getElementById("pagingInput").value =
                     parseInt(pageNow);

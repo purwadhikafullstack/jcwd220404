@@ -51,7 +51,7 @@ module.exports = {
         },
         raw: true,
       });
-      if (!branchCity) throw `Area not supported yet`
+      if (!branchCity) throw `Area not supported yet`;
 
       const provinceName = provinceAndCity.data.rajaongkir.results.province;
       const cityName = provinceAndCity.data.rajaongkir.results.city_name;
@@ -88,7 +88,6 @@ module.exports = {
         data: response,
       });
     } catch (err) {
-      console.log(err)
       res.status(400).send(err);
     }
   },

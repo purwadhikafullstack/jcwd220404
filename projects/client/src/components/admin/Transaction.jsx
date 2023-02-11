@@ -20,22 +20,19 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { BsFillCheckSquareFill } from "react-icons/bs";
-import { FaWindowClose } from "react-icons/fa";
 
 import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { BsFilterLeft } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { BsFillCheckSquareFill, BsFilterLeft } from "react-icons/bs";
+import { FaWindowClose } from "react-icons/fa";
 import { BiReset, BiSearchAlt } from "react-icons/bi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { transSync } from "../../redux/transactionSlice";
 
 export const TransactionComp = () => {
-  // const [data, setData] = useState();
   const [data2, setData2] = useState();
   const [data3, setData3] = useState();
   const [data4, setData4] = useState();
@@ -43,8 +40,6 @@ export const TransactionComp = () => {
   const [data6, setData6] = useState();
   const [data7, setData7] = useState();
   const [data8, setData8] = useState();
-  const [data9, setData9] = useState();
-  const [admin, setAdmin] = useState();
   const [limit2, setLimit2] = useState(5);
   const [sort2, setSort2] = useState("ASC");
   const [order2, setOrder2] = useState("status");
@@ -62,7 +57,6 @@ export const TransactionComp = () => {
       const result = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/listAll/${id}`
       );
-      console.log(result.data);
       setData7(result.data);
     } catch (err) {
       console.log(err);
@@ -224,9 +218,7 @@ export const TransactionComp = () => {
           sort2 ? sort2 : "ASC"
         }&AdminId=${id}`
       );
-      // setData9(res.data.result)
       dispatch(transSync(res.data.result));
-      console.log(res.data.result);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {

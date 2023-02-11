@@ -26,7 +26,6 @@ export const Discount = () => {
         </GridItem>
         <GridItem>
           <AddPrice />
-          {/* <AddDiscount /> */}
           <DiscountList />
         </GridItem>
       </Grid>

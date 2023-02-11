@@ -39,7 +39,6 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { syncData } from "../../redux/productSlice";
-import { syncCategory } from "../../redux/categorySlice";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -76,7 +75,6 @@ export const Product = () => {
       const res = await Axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/product/list`
       );
-      console.log(res.data);
       setProduct(res.data);
     } catch (err) {
       console.log(err);
@@ -100,7 +98,6 @@ export const Product = () => {
   };
 
   const handleChoose = (e) => {
-    console.log("e.target.files", e.target.files);
     setImage(e.target.files[0]);
   };
 

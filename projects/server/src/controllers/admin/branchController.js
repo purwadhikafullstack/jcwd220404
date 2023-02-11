@@ -184,7 +184,6 @@ module.exports = {
       });
       res.status(200).send(user[0]);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

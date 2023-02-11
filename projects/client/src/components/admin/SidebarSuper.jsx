@@ -1,16 +1,7 @@
 import React from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Image,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-
+import { Avatar, Box, Button, Image, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { LogoutSuper } from "./LogoutSuper";
 
 export const SidebarSuper = () => {

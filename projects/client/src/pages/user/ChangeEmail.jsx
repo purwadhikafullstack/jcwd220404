@@ -31,7 +31,6 @@ export const ChangeEmail = (data) => {
         `${process.env.REACT_APP_API_BASE_URL}/user/updateEmail/${id}`,
         user
       );
-      console.log(result);
       dispatch(logoutUser());
       localStorage.removeItem("tokenUser");
       navigate("/login-user");

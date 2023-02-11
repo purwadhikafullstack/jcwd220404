@@ -65,7 +65,6 @@ export const UpdateAddressPage = () => {
         `${process.env.REACT_APP_API_BASE_URL}/address/updateAddress/${params.id}`,
         updateAddress
       );
-      console.log(result);
       Swal.fire({
         icon: "success",
         text: "Success",

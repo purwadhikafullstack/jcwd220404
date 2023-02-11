@@ -1,56 +1,22 @@
 import {
-  Box,
   Button,
-  Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Icon,
-  Image,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Select,
-  Stat,
-  StatLabel,
-  StatNumber,
-  Tab,
   Table,
   TableContainer,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
-  useColorModeValue,
 } from "@chakra-ui/react";
-import {
-  MdOutlineCancel,
-  MdOutlinePayment,
-  MdOutlinePayments,
-  MdDoneOutline,
-} from "react-icons/md";
 import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { BsFillCheckSquareFill, BsFilterLeft } from "react-icons/bs";
-import { FaWindowClose } from "react-icons/fa";
-import { GoPackage } from "react-icons/go";
-import { TbTruckDelivery } from "react-icons/tb";
-import { BiReset, BiSearchAlt } from "react-icons/bi";
+import { BsFillCheckSquareFill } from "react-icons/bs";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { transSync } from "../../redux/transactionSlice";
 
 export const DiscountList = () => {
-  const [data, setData] = useState();
   const [data2, setData2] = useState();
   const [data3, setData3] = useState();
   const [data4, setData4] = useState();
@@ -67,8 +33,6 @@ export const DiscountList = () => {
   const [page2, setPage2] = useState();
   const [totalPage2, setTotalPage2] = useState();
   const { id } = useSelector((state) => state.adminSlice.value);
-  const dispatch = useDispatch();
-  // const data = useSelector((state) => state.transactionSlice.value)
 
   const getData7 = async () => {
     try {
@@ -180,7 +144,6 @@ export const DiscountList = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setOrder/${id}`
       );
-
       getData3();
     } catch (err) {
       console.log(err);
@@ -192,7 +155,6 @@ export const DiscountList = () => {
       const result = await Axios.patch(
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setDelivery/${id}`
       );
-
       getData4();
     } catch (err) {
       console.log(err);
@@ -237,7 +199,6 @@ export const DiscountList = () => {
         }`
       );
       // dispatch(transSync(res.data.result));
-      console.log(res.data);
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {

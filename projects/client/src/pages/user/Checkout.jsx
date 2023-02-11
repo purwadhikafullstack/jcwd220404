@@ -117,10 +117,10 @@ export const Checkout = () => {
                   Delivery Charge
                 </Text>
                 <Text mt={"10px"} ml={"10px"} mr="10px" textColor="#285430">
-                {new Intl.NumberFormat("IND", {
-                      style: "currency",
-                      currency: "IDR",
-                    }).format(data4?.totalCharge)}
+                  {new Intl.NumberFormat("IND", {
+                    style: "currency",
+                    currency: "IDR",
+                  }).format(data4?.totalCharge)}
                 </Text>
               </Flex>
             </FormControl>
@@ -129,10 +129,10 @@ export const Checkout = () => {
                 Total
               </Text>
               <Text as={"b"} mt={"10px"} ml={"10px"} mr="10px" color="#285430">
-              {new Intl.NumberFormat("IND", {
-                      style: "currency",
-                      currency: "IDR",
-                    }).format(data2)}
+                {new Intl.NumberFormat("IND", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(data2)}
               </Text>
             </Flex>
             <Button

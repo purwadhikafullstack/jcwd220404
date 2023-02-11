@@ -32,7 +32,6 @@ export const CancelButton = () => {
 
       let totalOrder = selectedItem + selectedCharge;
       setData2(totalOrder);
-
       const statusDone = result.data.status;
       setData5(statusDone);
     } catch (err) {

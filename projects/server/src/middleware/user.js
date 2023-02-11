@@ -12,7 +12,6 @@ module.exports = {
       req.user = verifiedUser;
       next();
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   },

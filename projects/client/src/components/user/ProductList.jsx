@@ -57,7 +57,6 @@ export const ProductList = () => {
         }`
       );
       dispatch(syncData(res.data.result));
-      console.log(res.data.result);
       setTotalPage(Math.ceil(res.data.totalRows / res.data.limit));
       setState(res.data);
     } catch (err) {}
@@ -161,7 +160,6 @@ export const ProductList = () => {
         branch
       );
       dispatch(syncData(result.data));
-      console.log(result.data);
       setData2(result.data.id);
       console.log(result.data.id);
     } catch (err) {
@@ -193,7 +191,7 @@ export const ProductList = () => {
     <div>
       <Center>
         <Stack>
-          <Flex flexWrap="wrap" w={[330, 330, 380]} justifyContent="center">
+          {/* <Flex flexWrap="wrap" w={[330, 330, 380]} justifyContent="center">
             <Center>
               <Flex>
                 <Box className="filter" mt={"30px"}>
@@ -242,9 +240,9 @@ export const ProductList = () => {
                 </Box>
               </Flex>
             </Center>
-          </Flex>
+          </Flex> */}
           <Box>
-            <Box display="flex" justifyContent="center" alignContent="center">
+            {/* <Box display="flex" justifyContent="center" alignContent="center">
               <Button
                 onClick={() => {
                   async function submit() {
@@ -295,7 +293,7 @@ export const ProductList = () => {
               >
                 Next
               </Button>
-            </Box>
+            </Box> */}
             <Center>
               <SimpleGrid
                 mt={"10px"}
@@ -364,6 +362,9 @@ export const ProductList = () => {
                                   <Badge>Promo</Badge>
                                 </Text>
                               )}
+                              <Text fontSize={"sm"} color={"#285430"}>
+                                Stock: {item.stockQty} pcs
+                              </Text>
                             </Box>
                           </CardBody>
                         </Center>
