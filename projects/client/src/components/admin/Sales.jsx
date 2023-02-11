@@ -111,6 +111,7 @@ export const SalesComp = () => {
         }&BranchId=${data5}`
       );
       dispatch(transSync(res.data.result));
+      getData()
       setTotalPage2(Math.ceil(res.data.totalRows / res.data.limit));
       setState2(res.data);
     } catch (err) {
@@ -142,6 +143,7 @@ export const SalesComp = () => {
         }&BranchId=${data6}`
       );
       dispatch(transSync(res.data.result));
+      getData2()
       setTotalPage3(Math.ceil(res.data.totalRows / res.data.limit));
       setState3(res.data);
     } catch (err) {
@@ -173,6 +175,7 @@ export const SalesComp = () => {
         }&BranchId=${data7}`
       );
       dispatch(transSync(res.data.result));
+      getData3()
       setTotalPage4(Math.ceil(res.data.totalRows / res.data.limit));
       setState4(res.data);
     } catch (err) {

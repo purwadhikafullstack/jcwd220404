@@ -247,7 +247,7 @@ export const CartComp = () => {
         <Stack spacing={"10px"}>
           <FormControl ml={"10px"} mr={"10px"}>
             <FormLabel textColor="#285430">Products</FormLabel>
-            <Card w="370px" bgColor={"white"}>
+            <Card variant={"unstyled"} w="370px">
               {data?.map((item) => {
                 return (
                   <Flex
@@ -255,6 +255,7 @@ export const CartComp = () => {
                     borderColor="#285430"
                     borderRadius={"md"}
                     mt={"5px"}
+                    h="100px"
                   >
                     <Checkbox
                       ml={"10px"}
