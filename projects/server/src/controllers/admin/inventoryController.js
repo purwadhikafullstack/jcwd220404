@@ -4,6 +4,8 @@ const inventory = db.Inventory;
 const product = db.Product;
 const price = db.Price;
 const branch = db.Branch;
+const category = db.Category;
+const productCart = db.Product_Cart;
 const transactionDetail = db.Transaction_Detail;
 const transaction = db.Transaction;
 
@@ -26,14 +28,31 @@ module.exports = {
 
   findByBranch: async (req, res) => {
     try {
+      // const { UserId } = req.body;
       const inventories = await inventory.findAll({
         include: [
           {
             model: product,
-            include: [{ model: price }],
+            include: [
+              { model: price },
+              // {
+              //   model: productCart,
+              // where: {
+              //   UserId,
+              // },
+              // },
+            ],
           },
           {
             model: branch,
+            include: [
+              {
+                model: productCart,
+                // where: {
+                //   UserId: req.body
+                // },
+              },
+            ],
             where: {
               longitude: { [Op.between]: [req.params.from, req.params.to] },
             },
@@ -42,6 +61,7 @@ module.exports = {
       });
       res.status(200).send(inventories);
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },

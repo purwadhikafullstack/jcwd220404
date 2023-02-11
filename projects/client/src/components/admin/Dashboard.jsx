@@ -23,6 +23,7 @@ import {
   ResponsiveContainer,
   XAxis,
   YAxis,
+  Tooltip,
 } from "recharts";
 
 export const DashboardComp = () => {
@@ -32,6 +33,9 @@ export const DashboardComp = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
+  const [data7, setData7] = useState();
+  const [data8, setData8] = useState();
+  const [branch, setBranch] = useState();
   const { id } = useSelector((state) => state.adminSlice.value);
 
   const getData = async () => {
@@ -123,6 +127,55 @@ export const DashboardComp = () => {
   useEffect(() => {
     getData6();
   }, [id]);
+
+  const getBranch = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/branch/adminByBranch/${id}`
+      );
+      setBranch(res.data);
+      console.log(res.data);
+      setData7(res.data.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getBranch();
+  }, [id]);
+
+  const findStock = async () => {
+    try {
+      const stock = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/find/${data7}`
+      );
+      console.log(stock.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    findStock();
+  }, [data7]);
+
+  const getInv = async () => {
+    try {
+      const res = await Axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/findAllByBranch/${data7}`
+      );
+      setData8(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getInv();
+  }, [data7]);
+
   return (
     <div>
       <Box h={"1000px"}>
@@ -159,6 +212,28 @@ export const DashboardComp = () => {
               icon={<MdDoneOutline size={"2.5em"} />}
             />
           </SimpleGrid>
+        </Box>
+        <Box ml={"200px"}>
+          {/* <ResponsiveContainer width="50%" height="50%"> */}
+          <BarChart
+            width={500}
+            height={300}
+            data={data8}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="ProductId" />
+            <YAxis />
+            <Tooltip dataKey={"ProductId"} />
+            <Legend dataKey={"ProductId"} />
+            <Bar dataKey="totalQty" fill="#8884d8" />
+          </BarChart>
+          {/* </ResponsiveContainer> */}
         </Box>
         {/* <Box ml={"120px"} bgColor={"black"}>
           <ResponsiveContainer width="50%" height="50%">

@@ -1,4 +1,4 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import { SidebarSuper } from "../../components/admin/SidebarSuper";
 import React, { useEffect, useState } from "react";
 import {
@@ -114,57 +114,59 @@ export const SuperComp = () => {
           <SidebarSuper />
         </GridItem>
       </Grid>
-      <ResponsiveContainer width="50%" height="50%">
-        <BarChart
-          width={5}
-          height={5}
-          data={data4}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="Branch.branchName" />
-          <YAxis />
-          <Tooltip
-            dataKey={new Intl.NumberFormat("IND", {
-              style: "currency",
-              currency: "IDR",
-            }).format("total_order")}
-          />
-          <Legend
-            dataKey={new Intl.NumberFormat("IND", {
-              style: "currency",
-              currency: "IDR",
-            }).format("total_order")}
-          />
-          <Bar dataKey={"total_order"} fill="#8884d8" />
-        </BarChart>
-      </ResponsiveContainer>
+      <Flex>
+        <Box ml={"300px"}>
+          <BarChart
+            width={500}
+            height={300}
+            data={data4}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="Branch.branchName" />
+            <YAxis />
+            <Tooltip
+              dataKey={new Intl.NumberFormat("IND", {
+                style: "currency",
+                currency: "IDR",
+              }).format("total_order")}
+            />
+            <Legend
+              dataKey={new Intl.NumberFormat("IND", {
+                style: "currency",
+                currency: "IDR",
+              }).format("total_order")}
+            />
+            <Bar dataKey={"total_order"} fill="#8884d8" />
+          </BarChart>
+        </Box>
 
-      <ResponsiveContainer width="50%" height="50%">
-        <BarChart
-          width={5}
-          height={5}
-          data={data5}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="Branch.branchName" />
-          <YAxis />
-          <Tooltip dataKey={"total_product"} />
-          <Legend />
-          <Bar dataKey={"total_product"} fill="#8884d8" />
-        </BarChart>
-      </ResponsiveContainer>
+        <Box ml={"100px"}>
+          <BarChart
+            width={500}
+            height={300}
+            data={data5}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="Branch.branchName" />
+            <YAxis />
+            <Tooltip dataKey={"total_product"} />
+            <Legend />
+            <Bar dataKey={"total_product"} fill="#8884d8" />
+          </BarChart>
+        </Box>
+      </Flex>
     </>
   );
 };
