@@ -34,8 +34,7 @@ export const CancelButton = () => {
       setData2(totalOrder);
       const statusDone = result.data.status;
       setData5(statusDone);
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -48,21 +47,23 @@ export const CancelButton = () => {
         `${process.env.REACT_APP_API_BASE_URL}/transaction/setCancelled/${params.id}`
       );
       navigate("/transaction");
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   return (
     <div>
-      <Button  display={"flex"}
-       mt={"30px"}
-       ml="10px"
+      <Button
+        display={"flex"}
+        mt={"30px"}
+        ml="10px"
         bgColor={"#FF0000"}
         textColor="gray.800"
         width={"370px"}
         justifyContent={"center"}
         borderColor="#285430"
-        border="2px" onClick={onToggle}>
+        border="2px"
+        onClick={onToggle}
+      >
         Cancel Order
       </Button>
       <Popover
