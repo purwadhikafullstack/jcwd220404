@@ -31,6 +31,7 @@ export const OrderDetail = () => {
   const [data4, setData4] = useState();
   const [data5, setData5] = useState();
   const [data6, setData6] = useState();
+  const [data7, setData7] = useState();
   const { id } = useSelector((state) => state.userSlice.value);
   const params = useParams();
   const [profile, setProfile] = useState("upload");
