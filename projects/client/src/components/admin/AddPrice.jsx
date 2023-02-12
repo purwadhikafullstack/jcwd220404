@@ -92,7 +92,7 @@ export const AddPrice = () => {
             fontSize="18px"
           >
             <Text justifyContent="center" fontWeight="bold" color="#285430">
-              Add Product
+              Add Price
             </Text>
           </Box>
           <Stack spacing={"10px"}>
@@ -166,7 +166,7 @@ export const AddPrice = () => {
                 justifyContent="center"
                 onClick={onCreate}
               >
-                Add Price
+                Confirm
               </Button>
             </Center>
           </Stack>

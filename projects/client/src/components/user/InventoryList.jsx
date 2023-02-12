@@ -37,7 +37,8 @@ export const InventoryList = () => {
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.userSlice.value);
   const data = useSelector((state) => state.inventorySlice.value);
-  console.log(data);
+  const data2 = useSelector((state) => state.userSlice.value)
+  console.log(data)
 
   const getData2 = async () => {
     try {
@@ -149,7 +150,7 @@ export const InventoryList = () => {
 
   return (
     <div>
-      <Box>
+      <Box mb={"50px"}>
         {/* <Center>
         <Flex
           flexWrap="wrap"
@@ -405,8 +406,19 @@ export const InventoryList = () => {
                       </CardBody>
                       <CardFooter>
                         {item.Branch.Product_Carts.find(
-                          (item2) => item2.UserId === id
+                          (item2) => item2.UserId !== id
                         ) ? (
+                          <Button
+                            disabled
+                            w="full"
+                            borderRadius="9px"
+                            size="sm"
+                            my="5px"
+                          >
+                            <Icon boxSize="4" as={FaCartArrowDown} mr="5px" x />
+                            to Cart
+                          </Button>
+                        ) : (
                           <Button
                             onClick={() =>
                               onAddCart(item.Product.id, item.Branch.id)
@@ -420,17 +432,6 @@ export const InventoryList = () => {
                             justifyContent="center"
                           >
                             <Icon as={FaCartArrowDown} w="5" h="5" m="2" />
-                            to Cart
-                          </Button>
-                        ) : (
-                          <Button
-                            disabled
-                            w="full"
-                            borderRadius="9px"
-                            size="sm"
-                            my="5px"
-                          >
-                            <Icon boxSize="4" as={FaCartArrowDown} mr="5px" x />
                             to Cart
                           </Button>
                         )}

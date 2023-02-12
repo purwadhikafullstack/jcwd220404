@@ -13,7 +13,6 @@ import {
   FormLabel,
   Grid,
   GridItem,
-  HStack,
   Image,
   Stack,
   Text,
@@ -84,13 +83,6 @@ export const OrderDetail = () => {
     hour: "numeric",
     minute: "numeric",
   });
-
-  // let dateOutput = document.getElementById("dateOutput");
-  // let MySQLDate = "2022-07-08 11:55:17";
-  // let date = MySQLDate.replace(/[-]/g, "/");
-  // date = Date.parse(date);
-  // let jsDate = new Date(date);
-  // dateOutput.innerHTML = jsDate;
 
   const getData = async () => {
     try {
@@ -223,7 +215,22 @@ export const OrderDetail = () => {
                   <Text pl={"10px"} color="#285430">
                     Please proceed Payment before
                   </Text>
-                  <Text>{dateTimeout}</Text>
+                  <Text>
+                    {
+                      <Text>
+                        {new Date(
+                          new Date(data?.createdAt).getTime() + 30 * 60000
+                        ).toLocaleString("en", {
+                          weekday: "long",
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                        })}{" "}
+                      </Text>
+                    }
+                  </Text>
                 </Box>
               </Center>
               <Box>
@@ -248,7 +255,14 @@ export const OrderDetail = () => {
                     </Flex>
                     <Flex justify={"space-between"}>
                       <Text>Transaction Date</Text>
-                      <Text>{data?.createdAt} </Text>
+                      <Text>
+                        {new Date(data?.createdAt).toLocaleString("en", {
+                          weekday: "long",
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}{" "}
+                      </Text>
                     </Flex>
                     <Flex justify={"space-between"}>
                       <Text pl={"10px"} color="#285430">
@@ -365,12 +379,32 @@ export const OrderDetail = () => {
                 <FormControl pl="10px" color={"#285430"}>
                   <FormLabel pt={"10px"}>Delivery Date</FormLabel>
                   <Box>
-                  {data3?.totalCharge % 10000 === 0 ? (
-                    <Text align={"left"}>Delivered Date: {dateDeliv}</Text>
-                  ) : (
-                    <Text align={"left"}>Delivered Date: {dateDeliv2}</Text>
-                  )}
-                </Box>
+                    {data3?.totalCharge % 10000 === 0 ? (
+                      <Text align={"left"}>
+                        {" "}
+                        {new Date(
+                          new Date(data?.createdAt).getTime() + 3600 * 60000 
+                        ).toLocaleString("en", {
+                          weekday: "long",
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}{" "}
+                      </Text>
+                    ) : (
+                      <Text align={"left"}>
+                        {" "}
+                        {new Date(
+                          new Date(data?.createdAt).getTime() + 2400 * 60000 
+                        ).toLocaleString("en", {
+                          weekday: "long",
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}{" "}
+                      </Text>
+                    )}
+                  </Box>
                 </FormControl>
               </Box>
               <FormControl>

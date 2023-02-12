@@ -213,7 +213,7 @@ export const DashboardComp = () => {
             />
           </SimpleGrid>
         </Box>
-        <Box ml={"200px"}>
+        <Box ml={"200px"} mt="100px">
           {/* <ResponsiveContainer width="50%" height="50%"> */}
           <BarChart
             width={500}
@@ -227,14 +227,15 @@ export const DashboardComp = () => {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="ProductId" />
+            <XAxis dataKey="ProductId" fontStyle={"italic"} />
             <YAxis />
-            <Tooltip dataKey={"ProductId"} />
-            <Legend dataKey={"ProductId"} />
+            <Tooltip dataKey={"Product.productName"} />
+            {/* <Legend dataKey={"Total Qty"} /> */}
             <Bar dataKey="totalQty" fill="#8884d8" />
           </BarChart>
           {/* </ResponsiveContainer> */}
         </Box>
+        <Box fontStyle={"italic"}></Box>
         {/* <Box ml={"120px"} bgColor={"black"}>
           <ResponsiveContainer width="50%" height="50%">
             <BarChart

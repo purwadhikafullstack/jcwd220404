@@ -140,7 +140,7 @@ export const SidebarComp = () => {
             onClick={toDiscount}
             variant="unstyled"
           >
-            Discount
+            Price & Discount
           </Button>
           <LogoutBranch />
         </Stack>
