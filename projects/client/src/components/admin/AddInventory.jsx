@@ -33,7 +33,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon, RepeatIcon } from "@chakra-ui/icons";
 import { UpdateInventory } from "./UpdateInventory";
 import { BsFilterLeft } from "react-icons/bs";
 import { BiReset, BiSearchAlt } from "react-icons/bi";
@@ -199,6 +199,18 @@ export const InventoryAdminComp = () => {
     fetchSort2();
   }, []);
 
+  const refreshInv = async () => {
+    try {
+      const res = await Axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/inventory/total/${data4}`
+      );
+      getData();
+      window.location.replace("/admin/inventory")
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <Flex mt={"80px"} ml={"150px"}>
@@ -315,6 +327,7 @@ export const InventoryAdminComp = () => {
               </Flex>
             </Box>
           </Box>
+
           <TableContainer mt={"50px"} w="45vw" bgColor={"white"}>
             <Table variant="simple" colorScheme="#285430">
               <Thead alignContent={"center"}>
@@ -324,6 +337,7 @@ export const InventoryAdminComp = () => {
                   <Th color={"#285430"}>Quantity</Th>
                   <Th color={"#285430"}>Final Stock</Th>
                   <Th color={"#285430"}>Actions</Th>
+                  <RepeatIcon onClick={refreshInv} />
                 </Tr>
               </Thead>
               <Tbody>

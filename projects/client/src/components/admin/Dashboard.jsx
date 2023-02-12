@@ -213,7 +213,7 @@ export const DashboardComp = () => {
             />
           </SimpleGrid>
         </Box>
-        <Box ml={"200px"}>
+        <Box ml={"200px"} mt="100px">
           {/* <ResponsiveContainer width="50%" height="50%"> */}
           <BarChart
             width={500}
@@ -227,14 +227,15 @@ export const DashboardComp = () => {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="ProductId" />
+            <XAxis dataKey="ProductId" fontStyle={"italic"} />
             <YAxis />
-            <Tooltip dataKey={"ProductId"} />
-            <Legend dataKey={"ProductId"} />
+            <Tooltip dataKey={"Product.productName"} />
+            {/* <Legend dataKey={"Total Qty"} /> */}
             <Bar dataKey="totalQty" fill="#8884d8" />
           </BarChart>
           {/* </ResponsiveContainer> */}
         </Box>
+        <Box fontStyle={"italic"}></Box>
         {/* <Box ml={"120px"} bgColor={"black"}>
           <ResponsiveContainer width="50%" height="50%">
             <BarChart
@@ -296,48 +297,3 @@ function StatsCard(props) {
     </div>
   );
 }
-
-const data9 = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];

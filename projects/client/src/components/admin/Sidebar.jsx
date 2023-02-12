@@ -156,7 +156,7 @@ export const SidebarComp = () => {
             fontSize="md"
             onClick={toDiscount}
           >
-            Discount
+            Price & Discount
           </Button>
           <LogoutBranch />
         </Box>

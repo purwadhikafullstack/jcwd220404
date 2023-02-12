@@ -86,9 +86,29 @@ export const TransactionComp = () => {
                     Order No. {item.id_order}
                   </Text>
                   {item.totalCharge % 10000 === 0 ? (
-                    <Text align={"left"}>Delivered Date: {dateNow}</Text>
-                  ) : (
-                    <Text align={"left"}>Delivered Date: {dateNow1}</Text>
+                    <Text align={"left"}>Delivery Date
+                    {" "}
+                    {new Date(
+                      new Date(item?.createdAt).getTime() + 3600 * 60000 
+                    ).toLocaleString("en", {
+                      weekday: "long",
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}{" "}
+                  </Text>
+                ) : (
+                  <Text align={"left"}>Delivery Date
+                    {" "}
+                    {new Date(
+                      new Date(item?.createdAt).getTime() + 2400 * 60000 
+                    ).toLocaleString("en", {
+                      weekday: "long",
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}{" "}
+                  </Text>
                   )}
                 </Box>
 

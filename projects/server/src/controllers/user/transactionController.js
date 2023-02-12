@@ -46,7 +46,7 @@ module.exports = {
       });
 
       const afterSend = moment()
-        .add(30, "seconds")
+        .add(30, "minutes")
         .format("YYYY-MM-DD HH:mm:ss");
 
       schedule.scheduleJob(

@@ -34,7 +34,7 @@ export const CartPage = () => {
             pb={"80px"}
             className="body"
             bgColor="white"
-            h={"90vh"}
+            h={"100vh"}
             w={"390px"}
           >
             {tokenLocalStorage ? <CartComp /> : <OrderNowComp />}
